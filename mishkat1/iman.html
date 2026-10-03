@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>مشکوٰۃ حدیث کارڈ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+<style>
+:root {
+  --paper: #FDFCFB; --surface: #FFFFFF; --ink: #1F1A1B; --muted: #6E6566; --rule: #E9E3E2;
+  --matn: #A3211A; --matn-tint: #FBEDEB; --teacher: #17624C; --teacher-tint: #E3F2EC;
+  --book: #2B4B7E; --book-tint: #E8EEF8; --note: #545A68; --note-tint: #EDEEF2;
+  --ai: #8A5A00; --ai-tint: #FBF0DA; --focus: #2B4B7E;
+  --shadow: 0 1px 2px rgba(31,26,27,.05), 0 4px 16px rgba(31,26,27,.05);
+  --urdu: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Urdu Typesetting", "Noto Naskh Arabic", serif;
+  --ui: "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+  --arabic: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+    --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+    --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+    --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+  --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+  --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+  --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--ui); font-size: 15px; padding-inline: 16px; padding-block: 0 110px; }
+.wrap { max-width: 760px; margin: 0 auto; }
+[lang="ar"] { font-family: var(--arabic); }
+button, input, label.btn, a.btn { font: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+
+header.top { padding-block: 26px 10px; display: grid; gap: 6px; }
+.eyebrow { color: var(--muted); font-size: 13px; }
+.homelink { justify-self: start; color: var(--book); font-size: 13px; font-weight: 600; text-decoration: none; }
+.homelink:hover { text-decoration: underline; }
+h1 { margin: 0; font-family: var(--arabic); font-weight: 700; color: var(--matn); font-size: clamp(34px, 7vw, 46px); line-height: 1.3; }
+.bab { font-family: var(--arabic); color: var(--ink); font-size: 18px; line-height: 1.8; margin: 0; }
+.meta { color: var(--muted); font-size: 13.5px; line-height: 1.9; margin: 0; }
+.meta b { color: var(--ink); font-weight: 600; }
+
+/* recordings box */
+section.recs { margin-block: 12px 4px; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 12px 14px; display: grid; gap: 10px; }
+section.recs.nudge { border-color: var(--teacher); background: var(--teacher-tint); }
+.recs-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.recs-head h2 { margin: 0; font-size: 16px; font-weight: 700; }
+.recs-head .hint { color: var(--muted); font-size: 12.5px; line-height: 1.8; flex: 1 1 240px; }
+.rec { display: grid; gap: 6px; padding-block: 8px; border-top: 1px solid var(--rule); }
+.rec:first-of-type { border-top: 0; }
+.rec-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.rec-top b { font-size: 14.5px; }
+.rec-top .sub { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.rec-top .state { font-size: 12px; font-weight: 600; border-radius: 5px; padding: 0 7px; }
+.state.on { color: var(--teacher); background: var(--teacher-tint); }
+.state.saved { color: var(--book); background: var(--book-tint); }
+.state.warn { color: var(--ai); background: var(--ai-tint); }
+.rec-file { color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer; text-decoration: none;
+  padding: 6px 13px; border-radius: 999px; border: 1px solid var(--teacher);
+  background: var(--teacher); color: var(--surface); font-weight: 600; font-size: 13.5px; line-height: 1.6;
+}
+.btn.ghost { background: transparent; color: var(--teacher); }
+.btn.quiet { background: transparent; color: var(--book); border-color: var(--rule); }
+.btn svg { width: 12px; height: 12px; fill: currentColor; flex: none; }
+.recs-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; border-top: 1px dashed var(--rule); padding-top: 10px; font-size: 13px; color: var(--muted); }
+.recs-foot label.chk { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.linkbtn { cursor: pointer; background: none; border: 0; color: var(--book); font-weight: 600; font-size: 13px; padding: 4px 0; }
+.vis { position: absolute; inline-size: 1px; block-size: 1px; opacity: 0; pointer-events: none; }
+
+/* page bar */
+nav.pages {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper);
+  margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--rule);
+  display: flex; gap: 6px; align-items: center; overflow-x: auto; scrollbar-width: none;
+}
+nav.pages::-webkit-scrollbar { display: none; }
+nav.pages button {
+  flex: none; cursor: pointer; border: 1px solid var(--rule); background: var(--surface); color: var(--ink);
+  border-radius: 999px; padding: 5px 13px; font-size: 14px; font-variant-numeric: tabular-nums;
+}
+nav.pages button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+nav.pages form { flex: none; display: flex; gap: 4px; margin-inline-start: auto; }
+nav.pages input {
+  inline-size: 86px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink);
+  border-radius: 999px; padding: 5px 12px; font-size: 14px; font-variant-numeric: tabular-nums; direction: ltr; text-align: center;
+}
+.pagemsg { margin: 10px 0 0; color: var(--ai); background: var(--ai-tint); border-radius: 8px; padding: 6px 12px; font-size: 13.5px; line-height: 1.9; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; padding-block: 14px 4px; color: var(--muted); font-size: 12.5px; align-items: center; }
+.lg { display: inline-flex; align-items: center; gap: 6px; }
+.badge { font-size: 12px; font-weight: 600; color: var(--ai); background: var(--ai-tint); border-radius: 999px; padding: 1px 9px; }
+.ref { margin: -4px 0 0; color: var(--book); font-size: 13px; line-height: 1.9; }
+.toolbar { display: flex; justify-content: flex-end; padding-top: 6px; }
+
+main { display: grid; gap: 18px; padding-block: 12px; }
+article.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; box-shadow: var(--shadow); padding: 18px 18px 14px; display: grid; gap: 12px; }
+.card-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.pg { font-size: 12.5px; font-weight: 600; color: var(--matn); background: var(--matn-tint); border-radius: 6px; padding: 2px 8px; font-variant-numeric: tabular-nums; }
+.num { color: var(--muted); font-size: 12.5px; }
+.les { color: var(--muted); font-size: 12.5px; }
+.play {
+  margin-inline-start: auto; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid var(--teacher); color: var(--teacher); background: transparent;
+  border-radius: 999px; padding: 3px 11px; font-size: 13px; font-variant-numeric: tabular-nums; direction: ltr;
+}
+.play svg { width: 10px; height: 10px; fill: currentColor; }
+.norec-chip { margin-inline-start: auto; color: var(--ai); background: var(--ai-tint); border-radius: 999px; padding: 2px 10px; font-size: 12.5px; font-weight: 600; }
+.label { margin: 0; font-family: var(--arabic); color: var(--book); font-size: 15px; line-height: 1.7; }
+h2.title { margin: 0; font-size: 19px; font-weight: 700; line-height: 1.7; text-wrap: balance; }
+.start { margin: 0; font-family: var(--arabic); font-size: 21px; line-height: 1.9; color: var(--matn); border-inline-start: 3px solid var(--matn); padding-inline-start: 12px; }
+.start-note { margin: -6px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.8; }
+.norec { margin: 0; background: var(--ai-tint); color: var(--ink); border-radius: 8px; padding: 6px 12px; font-size: 13.5px; line-height: 1.9; }
+.norec b { color: var(--ai); }
+.sec { display: grid; gap: 6px; }
+.sec h3 { margin: 0; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.sec ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.sec li { font-family: var(--urdu); font-size: 16px; line-height: 2.35; }
+.sec.tamheed li { font-size: 16.5px; }
+.sec.masala li { font-weight: 600; }
+.srcs { display: inline-flex; flex-wrap: wrap; gap: 4px; vertical-align: middle; margin-inline-start: 4px; }
+.chip { font-family: var(--ui); font-size: 11.5px; line-height: 1.6; border-radius: 5px; padding: 0 6px; white-space: nowrap; font-variant-numeric: tabular-nums; border: 0; font-weight: 600; }
+.chip.u { background: var(--teacher-tint); color: var(--teacher); cursor: pointer; }
+.chip.k { background: var(--book-tint); color: var(--book); }
+.chip.s { background: var(--note-tint); color: var(--note); }
+.chip.a { background: var(--ai-tint); color: var(--ai); }
+details.more { border-top: 1px dashed var(--rule); padding-top: 8px; }
+details.more > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; color: var(--book); font-weight: 600; font-size: 13.5px; padding-block: 2px; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::before { content: "+"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+details.more[open] > summary::before { content: "−"; }
+details.more > summary .hint { color: var(--muted); font-weight: 400; font-size: 12.5px; }
+details.more > .inner { display: grid; gap: 12px; padding-top: 10px; }
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 14px; }
+.word { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; padding-block: 4px; border-bottom: 1px solid var(--rule); }
+.word .ar { font-family: var(--arabic); font-size: 19px; color: var(--matn); }
+.word .ur { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; flex: 1 1 auto; }
+.word .chip { font-size: 10.5px; }
+
+section.block { margin-block-start: 26px; display: grid; gap: 10px; }
+section.block h2 { margin: 0; font-size: 18px; }
+section.block p.lead { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.9; }
+.list { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+.list li { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: start; padding-block: 10px; border-bottom: 1px solid var(--rule); }
+.list .ar { font-family: var(--arabic); color: var(--matn); font-size: 18px; line-height: 1.8; }
+.list .ur { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; grid-column: 2; }
+.list .gp { font-size: 12.5px; font-weight: 600; color: var(--ai); background: var(--ai-tint); border-radius: 6px; padding: 2px 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.list .gt { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; }
+
+footer { margin-block-start: 28px; color: var(--muted); font-size: 13px; line-height: 2; border-top: 1px solid var(--rule); padding-block-start: 14px; }
+footer p { margin: 0 0 6px; }
+
+/* sheet */
+.backdrop { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.35); display: flex; align-items: flex-end; justify-content: center; }
+.sheet { background: var(--surface); color: var(--ink); inline-size: 100%; max-inline-size: 560px; border-radius: 16px 16px 0 0; padding: 18px 18px calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 12px; box-shadow: 0 -8px 30px rgba(0,0,0,.2); }
+.sheet h3 { margin: 0; font-size: 17px; line-height: 1.7; }
+.sheet p { margin: 0; font-size: 13.5px; line-height: 1.95; color: var(--muted); }
+.sheet p b { color: var(--ink); }
+.sheet .btns { gap: 8px; }
+.sheet .close { justify-self: start; }
+
+/* player */
+.player { position: fixed; inset-inline: 0; bottom: 0; z-index: 10; background: var(--surface); border-top: 1px solid var(--rule); padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px)); display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; justify-content: center; }
+.player audio { flex: 1 1 280px; max-width: 520px; height: 36px; }
+.speeds { display: flex; gap: 4px; direction: ltr; }
+.speeds button { cursor: pointer; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 6px; padding: 3px 8px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.speeds button[aria-pressed="true"] { background: var(--teacher); color: var(--surface); border-color: var(--teacher); }
+.now { font-size: 12.5px; color: var(--muted); }
+.flash { animation: flash 1.2s ease-out; }
+@keyframes flash { from { box-shadow: 0 0 0 3px var(--teacher); } to { box-shadow: var(--shadow); } }
+@media (prefers-reduced-motion: reduce) { .flash { animation: none; } }
+@media (max-width: 460px) {
+  article.card { padding: 14px 14px 10px; }
+  .start { font-size: 19px; }
+  .sec li { font-size: 15.5px; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap" dir="rtl" lang="ur">
+  <header class="top">
+    <a class="homelink" id="homeLink" href="../" hidden>→ تمام کارڈ</a>
+    <div class="eyebrow" id="eyebrow"></div>
+    <h1 lang="ar" id="kitab"></h1>
+    <p class="bab" lang="ar" id="bab"></p>
+    <p class="meta" id="meta"></p>
+  </header>
+
+  <section class="recs" id="recs" aria-labelledby="recsTitle">
+    <div class="recs-head">
+      <h2 id="recsTitle">ریکارڈنگز</h2>
+      <span class="hint" id="recsHint"></span>
+    </div>
+    <div id="recList"></div>
+    <div class="recs-foot">
+      <label class="btn ghost" for="pickMany"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 3h4l1 1.5h5V10H1z"/></svg>کئی فائلیں ایک ساتھ چنیں</label>
+      <input type="file" id="pickMany" class="vis" multiple accept="audio/*,video/*,.m4a,.mp3,.mp4,.opus,.ogg,.aac">
+      <label class="chk"><input type="checkbox" id="remember"> اس فون/لیپ ٹاپ پر یاد رکھیں</label>
+      <button type="button" class="linkbtn" id="forget" hidden>محفوظ فائلیں ہٹائیں</button>
+      <span id="saveMsg"></span>
+    </div>
+    <input type="file" id="pickOne" class="vis" aria-label="ریکارڈنگ فائل" accept="audio/*,video/*,.m4a,.mp3,.mp4,.opus,.ogg,.aac">
+  </section>
+
+  <nav class="pages" id="pages" aria-label="صفحات"></nav>
+  <p class="pagemsg" id="pagemsg" hidden></p>
+
+  <div class="legend" aria-label="ماخذ کی علامتیں">
+    <span class="lg" data-t="u"><span class="chip u">استاد · وقت</span><span>ریکارڈنگ</span></span>
+    <span class="lg" data-t="k"><span class="chip k">کتاب ص</span><span>متن</span></span>
+    <span class="lg" data-t="s"><span class="chip s">شرح</span><span>حاشیے میں منقول شرح یا بین السطور</span></span>
+    <span class="lg" data-t="a"><span class="chip a">AI · تصدیق طلب</span><span>خود جانچیں</span></span>
+  </div>
+  <div class="toolbar"><button type="button" class="linkbtn" id="toggleAll" aria-pressed="false">سب کارڈز کی تفصیل کھولیں</button></div>
+
+  <main id="cards"></main>
+
+  <section class="block" id="gaps" data-page="gaps">
+    <h2>جن حصوں کی ریکارڈنگ نہیں</h2>
+    <ul class="list" id="gapList"></ul>
+  </section>
+
+  <section class="block" id="next" data-page="next">
+    <h2>اگلا سبق: حصے اور وقت</h2>
+    <p class="lead" id="nextLead"></p>
+    <ul class="list" id="nextList"></ul>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<div class="backdrop" id="backdrop" dir="rtl" lang="ur" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" id="sheet"></div>
+</div>
+
+<div class="player" id="player" dir="rtl" lang="ur" hidden>
+  <audio id="audio" controls preload="metadata"></audio>
+  <div class="speeds" id="speeds" role="group" aria-label="رفتار">
+    <button type="button" data-rate="1" aria-pressed="true">1×</button>
+    <button type="button" data-rate="1.25" aria-pressed="false">1.25×</button>
+    <button type="button" data-rate="1.5" aria-pressed="false">1.5×</button>
+  </div>
+  <span class="now" id="now"></span>
+</div>
+
+<script>
+const DATA = {"book": {"book": "مشکوٰۃ المصابیح جلد اول", "kind": "حدیث کارڈ", "kitab": "كتاب الإيمان", "bab": "الفصل الأول", "edition": "نمونہ: 16 مارچ 2025 کا سبق", "unit": "حدیثیں", "unitOne": "حدیث"}, "lessons": {"2025-03-16": {"file": "2025-03-16 المشكاة المصابيح اكتاب الايمان.mp4", "minutes": 43.5, "id": "1gna9FGjRXyTsepleHkx2PMPwEv329ctU", "size_mb": 41.6, "label": "16 مارچ 2025"}}, "cards": [{"group": "الفصل الأول", "lesson": "2025-03-16", "ts": "0:00:15", "label": "", "title": "وفدِ عبد القیس: چار باتوں کا حکم، چار برتنوں سے منع", "start": "إن وفد عبد القيس لما أتوا النبي ﷺ قال: من القوم؟ أو من الوفد؟", "ref": "حضرت ابن عباسؓ · متفق علیہ، الفاظ بخاری کے", "badges": ["امتحان میں آ جاتی ہے"], "pages": [], "pas": [{"x": "قبیلہ عبد القیس کا ایک شخص منقذ بحرین کے شہر جواثا سے مدینہ تجارت کو آتا تھا۔ ہجرت کے بعد آیا تو آپ ﷺ بازار میں اس سے ملے اور اس کے قبیلے کے بڑوں کا نام لے کر حال پوچھا؛ وہ متاثر ہو کر مسلمان ہو گیا۔", "s": [{"t": "u", "v": "0:21:27"}]}, {"x": "واپسی پر آپ ﷺ نے قبیلے کے سردار کے نام خط دیا۔ گھر میں اسے نماز پڑھتے دیکھ کر بیوی نے اپنے والد (سردار) کو بتایا؛ سردار نے خط پڑھا اور سارا قبیلہ مسلمان ہو گیا، پھر یہ وفد آیا۔", "s": [{"t": "u", "v": "0:22:27"}]}, {"x": "سردار منذر بن عائذ تھے، لقب «اشج»۔ باقی لوگ جلدی سے مجلس میں پہنچ گئے، اشج نے پہلے سواریاں باندھیں، سامان رکھا، غسل کر کے کپڑے بدلے اور پھر حاضر ہوئے؛ آپ ﷺ نے فرمایا تم میں حلم اور وقار ہے جو اللہ کو پسند ہے۔", "s": [{"t": "u", "v": "0:23:48"}]}, {"x": "وفد میں 14 افراد تھے (بعض نے 40 لکھے ہیں)؛ بعض روایات کے مطابق یہ وفد دو بار آیا۔", "s": [{"t": "u", "v": "0:25:03"}]}], "tashrih": [{"x": "«من القوم؟ أو من الوفد؟» میں «أو» راوی کی احتیاط ہے کہ لفظ ٹھیک یاد نہ تھا؛ دونوں کا مطلب ایک ہے۔", "s": [{"t": "u", "v": "0:08:17"}]}, {"x": "ربیعہ اور مضر عرب کے دو بڑے قبیلے ہیں جن کا آپس میں مقابلہ رہتا تھا۔", "s": [{"t": "u", "v": "0:08:42"}]}, {"x": "«مرحبا… غير خزايا ولا ندامى» مہمان کے لیے خوش آمدید کے کلمات ہیں، جیسے پشتو میں «پخیر راغلے»۔", "s": [{"t": "u", "v": "0:09:14"}]}, {"x": "حرمت کے چار مہینے: ذو القعدہ، ذو الحجہ، محرم (لگاتار) اور رجب۔ ان میں عرب لڑائی روک دیتے تھے، اس لیے وفد انہی مہینوں میں آ سکتا تھا۔", "s": [{"t": "u", "v": "0:10:04"}]}, {"x": "«هذا الحي من كفار مضر» حالانکہ وہ قبیلہ سامنے نہیں تھا: «هذا» کے لیے سامنے موجود ہونا ضروری نہیں، ذہن میں حاضر یا بالکل واضح چیز کے لیے بھی آتا ہے۔ استاد نے اسی سے قبر کے سوال «ما تقول في هذا الرجل» کے لفظ «هذا» سے کیے گئے استدلال کا جواب دیا۔", "s": [{"t": "u", "v": "0:11:58"}]}, {"x": "راوی نے وہ ساری بات نقل نہیں کی جو آپ ﷺ نے وفد کو سمجھائی؛ یہاں صرف «قولِ فصل» کی چار باتیں ہیں۔", "s": [{"t": "u", "v": "0:14:04"}]}, {"x": "چار باتیں: شہادتین، نماز، زکوٰۃ، رمضان کے روزے۔ مالِ غنیمت کا خمس تتمہ ہے، چار میں شامل نہیں؛ مضر سے لڑائی کا ذکر آیا تھا اس لیے بتایا۔", "s": [{"t": "u", "v": "0:15:03"}]}, {"x": "حج کا ذکر اس لیے نہیں کہ وفد حج فرض ہونے سے چند مہینے پہلے آیا تھا (ایک توجیہ یہ بھی کہ حج سب پر فرض نہیں ہوتا)۔", "s": [{"t": "u", "v": "0:16:23"}, {"t": "u", "v": "0:20:51"}]}, {"x": "یہ چار برتن جاہلیت میں شراب بنانے کے لیے استعمال ہوتے تھے۔ شراب حرام ہوئی تو سدِّ ذریعہ کے طور پر برتن بھی منع ہوئے؛ حرمت پختہ ہو گئی تو آپ ﷺ نے برتنوں کی اجازت دے دی۔", "s": [{"t": "u", "v": "0:19:16"}, {"t": "u", "v": "0:20:29"}]}, {"x": "سدِّ ذریعہ: جو کام خود ناجائز نہ ہو مگر ناجائز کا ذریعہ بنے، اسے بھی روک دیا جاتا ہے؛ جیسے زنا حرام ہے تو غیر محرم کو دیکھنا بھی منع۔", "s": [{"t": "u", "v": "0:19:39"}]}], "rawi": [{"x": "حضرت عباسؓ کے بیٹے اور نبی ﷺ کے چچا زاد؛ بڑے مفسر، تفسیر میں ان کی بات بہت معتبر۔ وصالِ نبوی کے وقت عمر 13 یا 15 سال۔", "s": [{"t": "u", "v": "0:01:03"}, {"t": "u", "v": "0:06:36"}]}, {"x": "علم کی دو وجہیں: خالہ حضرت میمونہؓ کے گھر رات ٹھہرے اور تہجد کے لیے پانی بھر کر رکھا تو دعا ملی «اللهم علمه الكتاب»؛ اور وصال کے بعد صحابہ کے دروازوں پر بیٹھ کر علم حاصل کیا۔", "s": [{"t": "u", "v": "0:02:00"}, {"t": "u", "v": "0:03:14"}]}, {"x": "حضرت عمرؓ کی شوریٰ میں شامل تھے؛ سورۃ النصر کی تفسیر یہ بتائی کہ اس میں حضور ﷺ کے وصال کی خبر ہے۔", "s": [{"t": "u", "v": "0:04:57"}]}, {"x": "آخر عمر طائف میں رہے، 68ھ میں تقریباً 71 سال کی عمر میں وہیں وفات پائی؛ وہاں مسجد ابن عباس ہے۔", "s": [{"t": "u", "v": "0:06:30"}]}], "ikhtilaf": [], "imtihan": [{"x": "استاد: «یہ حدیث بڑی مشہور ہے… بعض دفعہ امتحان میں بھی آ جاتی ہے، ذرا اچھی طرح اس کو سمجھ لیں۔»", "s": [{"t": "u", "v": "0:13:17"}]}], "lughat": [{"ar": "وفد", "ur": "جماعت (جو کسی قوم کی طرف سے آئے)", "s": [{"t": "u", "v": "0:07:48"}]}, {"ar": "أشج", "ur": "جس کے سر میں زخم کا نشان ہو", "s": [{"t": "u", "v": "0:08:00"}]}, {"ar": "خزايا · ندامى", "ur": "رسوا · پریشان، شرمندہ", "s": [{"t": "u", "v": "0:09:03"}]}, {"ar": "أمر فصل", "ur": "دو ٹوک بات؛ فصل بمعنی فاصل، حق و باطل میں فرق کرنے والی", "s": [{"t": "u", "v": "0:13:29"}]}, {"ar": "من وراءنا", "ur": "جو ہمارے پیچھے ہیں (اپنی قوم)", "s": [{"t": "u", "v": "0:13:47"}]}, {"ar": "المغنم · الخمس", "ur": "مالِ غنیمت · پانچواں حصہ", "s": [{"t": "u", "v": "0:16:49"}]}, {"ar": "الحنتم", "ur": "گھڑا", "s": [{"t": "u", "v": "0:17:40"}]}, {"ar": "الدباء", "ur": "کدو (اندر سے کھوکھلا کر کے برتن)", "s": [{"t": "u", "v": "0:18:04"}]}, {"ar": "النقير", "ur": "لکڑی کے تنے کو کھود کر بنایا گیا برتن", "s": [{"t": "u", "v": "0:18:24"}]}, {"ar": "المزفت", "ur": "تارکول لگا ہوا برتن", "s": [{"t": "u", "v": "0:18:37"}]}]}, {"group": "الفصل الأول", "lesson": "2025-03-16", "ts": "0:25:27", "label": "", "title": "بیعت: شرک، چوری، زنا، قتلِ اولاد اور بہتان سے بچنے کا عہد", "start": "قال رسول الله ﷺ وحوله عصابة من أصحابه: بايعوني على أن لا تشركوا بالله شيئا", "ref": "حضرت عبادہ بن صامتؓ · متفق علیہ", "badges": [], "pages": [], "pas": [], "tashrih": [{"x": "«وحوله» میں واو حالیہ ہے: آپ ﷺ نے یہ اس حال میں فرمایا کہ صحابہ کی ایک جماعت ارد گرد تھی۔", "s": [{"t": "u", "v": "0:27:16"}]}, {"x": "بیعت ایک معاہدہ ہے۔ عہدِ نبوی اور بعد میں اس کی صورتیں: بیعت علی الاسلام، بیعت علی الجہاد یا علی الموت (جیسے حدیبیہ)، بیعت علی الطاعہ (خلفاء کے ہاتھ پر، جیسے حضرت ابوبکرؓ)، اور بیعتِ اصلاح یا توبہ (صوفیہ میں)۔", "s": [{"t": "u", "v": "0:27:35"}]}, {"x": "صحابہ پہلے سے مسلمان تھے؛ یہ بیعت نیک کاموں پر قائم رہنے کا عہد تھی۔ استاد کے مطابق اصل چیز اصلاحی تعلق ہے، بیعت اس کی شرط نہیں۔", "s": [{"t": "u", "v": "0:29:02"}, {"t": "u", "v": "0:32:49"}]}, {"x": "بیعت کے الفاظ مخاطب کے حال کے مطابق ہوتے ہیں: جاہلیت میں شرک، چوری، زنا اور اولاد کا قتل عام تھے، اس لیے انہی کا ذکر ہوا۔", "s": [{"t": "u", "v": "0:35:32"}]}, {"x": "«ببهتان تفترونه بين أيديكم وأرجلكم»: اپنے پاس سے گھڑ کر کسی پر الزام لگانا؛ بعض نے اسے زنا کے جھوٹے الزام پر محمول کیا، مگر لفظ عام ہے۔", "s": [{"t": "u", "v": "0:37:09"}]}, {"x": "«فعوقب به في الدنيا فهو كفارة له» کی سزا کے دو مطلب: اللہ کی طرف سے آنے والی تکلیف یا بیماری، یا حد کا جاری ہونا (چوری پر ہاتھ کٹنا، زنا پر کوڑے یا رجم، قتل کا قصاص، بہتان پر حدِ قذف)۔", "s": [{"t": "u", "v": "0:40:55"}, {"t": "u", "v": "0:41:51"}]}, {"x": "جس پر اللہ نے دنیا میں پردہ ڈال دیا، اس کا معاملہ اللہ کے سپرد: چاہے معاف کرے، چاہے سزا دے۔", "s": [{"t": "u", "v": "0:40:26"}]}], "rawi": [{"x": "انصاری صحابی، قبیلہ خزرج سے؛ تمام غزوات میں شریک، خوبصورت اور دراز قد۔ حمص کے حاکم بنائے گئے اور وہیں وفات پائی (ایک قول مکہ مکرمہ کا ہے)۔", "s": [{"t": "u", "v": "0:26:01"}]}], "ikhtilaf": [{"x": "«فأجره على الله» میں «على» لزوم کے لیے آتا ہے۔ معتزلہ: عبادت کا اجر دینا اللہ پر لازم ہے۔ اہل سنت: اللہ پر کچھ لازم نہیں، یہ اس کا فضل ہے کہ اپنے ذمے لے لیا؛ جیسے «وكان حقا علينا نصر المؤمنين»۔", "s": [{"t": "u", "v": "0:38:04"}]}, {"x": "حدود زواجر ہیں یا سواتر؟ احناف: زواجر، یعنی ان کا مقصد معاشرے کو فساد سے پاک کرنا ہے؛ گناہ توبہ سے معاف ہوتا ہے، اور قرآن نے «إلا الذين تابوا» سے توبہ کا استثناء کیا۔", "s": [{"t": "u", "v": "0:42:37"}, {"t": "u", "v": "0:44:12"}]}, {"x": "دوسری رائے (شوافع): حدود گناہ کا کفارہ (سواتر) ہیں، اسی حدیث کے «فهو كفارة له» سے۔ استاد کی ریکارڈنگ اس سے پہلے ختم ہو جاتی ہے۔", "s": [{"t": "a", "v": ""}]}], "imtihan": [], "lughat": [{"ar": "عصابة", "ur": "جماعت؛ «عصب» یعنی مضبوطی (پٹھے کو بھی عصب کہتے ہیں) سے، مضبوط جماعت", "s": [{"t": "u", "v": "0:26:58"}]}, {"ar": "بايعوني", "ur": "مجھ سے بیعت کرو", "s": [{"t": "u", "v": "0:27:32"}]}, {"ar": "بهتان", "ur": "جھوٹا الزام", "s": [{"t": "u", "v": "0:36:02"}]}, {"ar": "تفترونه", "ur": "جسے تم گھڑتے ہو", "s": [{"t": "u", "v": "0:36:05"}]}, {"ar": "معروف", "ur": "نیک کام", "s": [{"t": "u", "v": "0:36:11"}]}, {"ar": "وفى", "ur": "(عہد) پورا کیا", "s": [{"t": "u", "v": "0:37:48"}]}, {"ar": "ستره الله", "ur": "اللہ نے پردہ ڈال دیا", "s": [{"t": "u", "v": "0:40:26"}]}, {"ar": "زواجر · سواتر", "ur": "زجر یعنی ڈانٹ کر روکنا · ستر یعنی گناہ کو چھپا کر مٹا دینا", "s": [{"t": "u", "v": "0:42:58"}]}]}], "gaps": [], "next": null, "sections": [["pas", "پس منظر"], ["tashrih", "استاد کی تشریح"], ["rawi", "راوی"], ["ikhtilaf", "اختلاف"], ["imtihan", "امتحان"]], "quick": ["pas", "tashrih"], "footer": ["یہ نمونہ ہے: 16 مارچ 2025 کے سبق کی دو حدیثیں۔ کارڈ میں وہی باتیں ہیں جو حدیث کے متن کے علاوہ استاد نے بتائیں، اور وہ الفاظ جن کے معنی انہوں نے بیان کیے؛ حدیث کا پورا ترجمہ نہیں۔", "اس سبق کے اوقات ابھی Whisper سے درست نہیں ہوئے؛ آخر کی طرف ایک منٹ تک کا فرق ہو سکتا ہے۔ درستی کے بعد یہ خود ٹھیک ہو جائیں گے۔", "پیلی علامت والی سطر استاد کی نہیں، خود جانچیں۔ پس منظر صرف وہاں ہے جہاں استاد نے بیان کیا۔"], "home": "../"};
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const secs = (ts) => ts.split(":").map(Number).reduce((a, n) => a * 60 + n, 0);
+const B = DATA.book, LES = DATA.lessons;
+const PHONE = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Mac/.test(navigator.platform || ""));
+const ICON = {
+  play: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0v10l9-5z"/></svg>',
+  down: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M5 1h2v5h2.5L6 9.5 2.5 6H5zM1 10.5h10V12H1z"/></svg>',
+  open: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M7 1h4v4H9.6V3.4L5.5 7.5l-1-1 4.1-4.1H7zM1 2h4v1.4H2.4v6.2h6.2V7H10v4H1z"/></svg>',
+  file: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1h5l3 3v7H2zM6.5 2v2.5H9"/></svg>',
+};
+
+// ---------- header
+$("eyebrow").textContent = `${B.book} · ${B.kind || "تمہیدی کارڈ"}`;
+if (DATA.home) { $("homeLink").href = DATA.home; $("homeLink").hidden = false; }
+$("kitab").textContent = B.kitab;
+$("bab").textContent = B.bab;
+const PAGED = DATA.cards.some((c) => c.pages && c.pages.length);
+const keysOf = (c) => PAGED ? (c.pages || []).map(String) : [c.group || "سب"];
+const allPages = PAGED ? [...new Set(DATA.cards.flatMap((c) => c.pages || []))].sort((a, b) => a - b) : [];
+const groups = PAGED ? allPages.map(String) : [...new Set(DATA.cards.map((c) => c.group || "سب"))];
+const GAPS = DATA.gaps || [];
+const usedLessons = [...new Set([...DATA.cards.map((c) => c.lesson), DATA.next && DATA.next.lesson].filter(Boolean))].sort();
+$("meta").innerHTML = PAGED
+  ? `صفحات <b class="ltr">${allPages[0]}–${allPages[allPages.length - 1]}</b> کے <b>${DATA.cards.length}</b> کارڈ · ${esc(B.edition)}`
+  : `<b>${DATA.cards.length}</b> ${esc(B.unit || "کارڈ")} · ${esc(B.edition)}`;
+
+// ---------- drive links
+const driveView = (l, ts) => LES[l].id ? `https://drive.google.com/file/d/${LES[l].id}/view${ts ? `?t=${secs(ts)}` : ""}` : "";
+const driveDown = (l) => LES[l].id ? `https://drive.google.com/uc?export=download&id=${LES[l].id}` : "";
+const driveSearch = (l) => `https://drive.google.com/drive/search?q=${encodeURIComponent(LES[l].file.replace(/\.[^.]+$/, ""))}`;
+
+// ---------- file matching
+const norm = (s) => String(s).normalize("NFC").replace(/\.[A-Za-z0-9]{2,5}$/, "")
+  .replace(/[ً-ٰٟـ]/g, "").replace(/[يى]/g, "ی").replace(/ك/g, "ک")
+  .replace(/[ةۃهۀە]/g, "ہ").replace(/[أإآٱ]/g, "ا").replace(/[\s_\-–—().]+/g, "").toLowerCase();
+function matchLesson(name) {
+  const n = norm(name);
+  for (const k of Object.keys(LES)) if (norm(LES[k].file) === n) return k;
+  const d = (name.match(/\d{4}-\d{2}-\d{2}/) || [])[0];
+  if (d) { const ks = Object.keys(LES).filter((k) => LES[k].file.startsWith(d)); if (ks.length === 1) return ks[0]; }
+  return null;
+}
+
+// ---------- storage (best effort; page works without it)
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+const IDB_OK = (() => { try { return !!window.indexedDB; } catch (e) { return false; } })();
+function idb() {
+  return new Promise((res, rej) => {
+    try {
+      const r = indexedDB.open("hidaya4-audio", 1);
+      r.onupgradeneeded = () => r.result.createObjectStore("files");
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => rej(r.error);
+    } catch (e) { rej(e); }
+  });
+}
+async function idbDo(mode, fn) {
+  const db = await idb();
+  return new Promise((res, rej) => {
+    const tx = db.transaction("files", mode);
+    const out = fn(tx.objectStore("files"));
+    tx.oncomplete = () => res(out && "result" in out ? out.result : undefined);
+    tx.onerror = () => rej(tx.error);
+    tx.onabort = () => rej(tx.error);
+  });
+}
+const MAX_SAVE = 300 * 1024 * 1024;
+
+// ---------- state
+const urls = {};            // lesson -> object URL
+const names = {};           // lesson -> picked file name
+const files = {};           // lesson -> File (kept so it can be saved later)
+const saved = new Set();    // lessons stored in IndexedDB
+let current = null, pendingTs = null, pendingLesson = null;
+// light copies of the recordings published with this page (same site, so the page may play them)
+const hasWeb = (l) => !!(LES[l] && LES[l].web && LES[l].web.length);
+const blobUrls = {}, triedBlob = {};
+let curPart = null, lastOffset = 0, pendingSeek = null;
+function webPart(l, sec) {
+  let p = LES[l].web[0];
+  for (const x of LES[l].web) if (x.start <= sec + 0.5) p = x;
+  return p;
+}
+
+// ---------- recordings box
+const anyWeb = Object.keys(LES).some(hasWeb);
+$("recsHint").textContent = anyWeb
+  ? "کسی بھی سبز وقت پر ٹیپ کریں: آواز اسی صفحے پر وہیں سے چلے گی۔ ہر سبق کی ہلکی کاپی ہے (45 منٹ ≈ 8 MB)، اور صرف وہی سبق آتا ہے جسے آپ چلائیں۔ انٹرنیٹ کمزور ہو تو اصل فائل Drive سے ڈاؤن لوڈ کر کے «فائل چنیں» سے کھولیں۔"
+  : PHONE
+  ? "فون پر Drive کا لنک وقت پر نہیں جاتا۔ ایک بار «ڈاؤن لوڈ» کریں، پھر «فائل چنیں»؛ اس کے بعد ہر سبز وقت وہیں سے چلے گا۔ فائل کہیں اپلوڈ نہیں ہوتی۔"
+  : "لیپ ٹاپ پر «Drive میں کھولیں» سیدھا اسی وقت پر کھلتا ہے۔ یا فائل ڈاؤن لوڈ کر کے یہاں چن لیں، پھر ہر سبز وقت اسی صفحے پر چلے گا۔";
+function stateOf(l) {
+  if (urls[l]) {
+    const warn = names[l] && matchLesson(names[l]) !== l;
+    return warn ? `<span class="state warn">کھلی: ${esc(names[l])} (نام مختلف ہے)</span>` : `<span class="state on">کھلی ہوئی</span>`;
+  }
+  if (saved.has(l)) return `<span class="state saved">اس آلے پر محفوظ</span>`;
+  if (hasWeb(l)) return `<span class="state on">اسی صفحے پر سن سکتے ہیں</span>`;
+  return "";
+}
+function renderRecs() {
+  $("recList").innerHTML = usedLessons.map((l) => {
+    const L = LES[l];
+    const size = L.size_mb ? ` · ${Math.round(L.size_mb)} MB` : "";
+    const down = L.id ? `<a class="btn" href="${driveDown(l)}" target="_blank" rel="noopener">${ICON.down}ڈاؤن لوڈ</a>` : "";
+    const view = L.id ? `<a class="btn quiet" href="${driveView(l)}" target="_blank" rel="noopener">${ICON.open}Drive میں کھولیں</a>`
+                      : `<a class="btn quiet" href="${driveSearch(l)}" target="_blank" rel="noopener">${ICON.open}Drive میں تلاش کریں</a>`;
+    const pick = `<button type="button" class="btn ghost" data-pick="${l}">${ICON.file}${urls[l] || saved.has(l) ? "دوسری فائل چنیں" : "فائل چنیں"}</button>`;
+    const here = hasWeb(l) ? `<button type="button" class="btn" data-ts="0:00:00" data-l="${l}">${ICON.play}یہیں سنیں</button>` : "";
+    return `<div class="rec" id="rec-${l}"><div class="rec-top"><b>${esc(L.label)}</b><span class="sub">${L.minutes} منٹ${size}</span>${stateOf(l)}</div>
+      <div class="rec-file ltr">${esc(L.file)}</div><div class="btns">${here}${down}${view}${pick}</div></div>`;
+  }).join("");
+}
+
+// ---------- cards
+function chip(s, lesson) {
+  if (s.t === "u") return `<button type="button" class="chip u" data-ts="${s.v}" data-l="${s.l || lesson || ""}" title="یہاں سے سنیں">استاد ${s.v}</button>`;
+  if (s.t === "k") return `<span class="chip k">کتاب ص ${esc(s.v)}</span>`;
+  if (s.t === "s") return `<span class="chip s">شرح: ${esc(s.v)}</span>`;
+  return `<span class="chip a">AI · تصدیق طلب</span>`;
+}
+const chips = (arr, l) => `<span class="srcs">${arr.map((s) => chip(s, l)).join("")}</span>`;
+const pagesLabel = (ps) => ps.length === 1 ? `ص ${ps[0]}` : `ص ${ps[0]}–${ps[ps.length - 1]}`;
+const QUICK = DATA.quick || ["tamheed", "masala"];
+
+$("cards").innerHTML = DATA.cards.map((c, i) => {
+  const l = c.lesson;
+  const sec = ([key, label]) => {
+    const items = c[key] || [];
+    if (!items.length) return "";
+    return `<div class="sec ${key}"><h3>${label}</h3><ul>${items.map((it) => `<li>${esc(it.x)} ${chips(it.s, l)}</li>`).join("")}</ul></div>`;
+  };
+  const quick = DATA.sections.filter(([k]) => QUICK.includes(k)).map(sec).join("");
+  const examSecs = DATA.sections.filter(([k]) => !QUICK.includes(k) && (c[k] || []).length);
+  const n = examSecs.reduce((a, [k]) => a + c[k].length, 0);
+  const exam = n ? `<details class="more"><summary>${examSecs.map(([, lb]) => lb).join("، ")} <span class="hint">${n} نکات · امتحان کی تیاری کے لیے</span></summary><div class="inner">${examSecs.map(sec).join("")}</div></details>` : "";
+  const words = c.lughat.length ? `<div class="sec lughat"><h3>مشکل الفاظ</h3><div class="words">${c.lughat.map((w) =>
+    `<div class="word"><span class="ar" lang="ar">${esc(w.ar)}</span><span class="ur">${esc(w.ur)}</span>${chips(w.s, l)}</div>`).join("")}</div></div>` : "";
+  const head = l && c.ts
+    ? `<span class="les">${esc(LES[l].label)}</span><button type="button" class="play" data-ts="${c.ts}" data-l="${l}" aria-label="${esc(LES[l].label)}، ${c.ts} سے سنیں">${ICON.play}${c.ts}</button>`
+    : `<span class="norec-chip">ریکارڈنگ نہیں</span>`;
+  const badges = (c.badges || []).map((b) => `<span class="badge">${esc(b)}</span>`).join("");
+  return `<article class="card" id="card${i + 1}" data-keys="${esc(keysOf(c).join("|"))}">
+    <div class="card-head"><span class="pg">${PAGED ? pagesLabel(c.pages) : esc(c.group || "")}</span><span class="num">${esc(B.unitOne || "کارڈ")} ${i + 1}</span>${badges}${head}</div>
+    ${c.label ? `<p class="label" lang="ar">(${esc(c.label)})</p>` : ""}
+    <h2 class="title">${esc(c.title)}</h2>
+    <p class="start" lang="ar">«${esc(c.start)}»</p>
+    ${c.ref ? `<p class="ref">${esc(c.ref)}</p>` : ""}
+    ${c.start_note ? `<p class="start-note">${esc(c.start_note)}</p>` : ""}
+    ${c.norec ? `<p class="norec"><b>توجہ:</b> ${esc(c.norec)}</p>` : ""}
+    ${quick}${words}${exam}
+  </article>`;
+}).join("");
+
+$("gapList").innerHTML = GAPS.map((g) => `<li><span class="gp ltr">${PAGED ? "ص " : ""}${esc(g.pages)}</span><span class="gt">${esc(g.text)}</span></li>`).join("");
+if (!GAPS.length) $("gaps").hidden = true;
+if (DATA.next) {
+  const N = DATA.next, NL = LES[N.lesson];
+  $("nextLead").innerHTML = `${esc(NL.label)} (${NL.minutes} منٹ) · ${esc(N.pages_hint)}۔ ان کے کارڈ صفحات کی تصدیق کے بعد بنیں گے؛ تب تک وقت پر ٹیپ کر کے سنیں۔`;
+  $("nextList").innerHTML = N.items.map((n) =>
+    `<li><button type="button" class="play" data-ts="${n.ts}" data-l="${N.lesson}" aria-label="${n.ts} سے سنیں">${ICON.play}${n.ts}</button>
+     <span class="ar" lang="ar">«${esc(n.ar)}»</span><span class="ur">${esc(n.ur)}</span></li>`).join("");
+} else { $("next").hidden = true; }
+$("foot").innerHTML = (DATA.footer || []).map((p) => `<p>${esc(p)}</p>`).join("");
+// show only the source marks this page uses
+const usedT = new Set();
+DATA.cards.forEach((c) => {
+  DATA.sections.forEach(([k]) => (c[k] || []).forEach((it) => it.s.forEach((x) => usedT.add(x.t))));
+  (c.lughat || []).forEach((w) => w.s.forEach((x) => usedT.add(x.t)));
+});
+document.querySelectorAll(".legend .lg").forEach((el) => { el.hidden = !usedT.has(el.dataset.t); });
+
+// ---------- page bar
+function renderPages() {
+  const btns = [["all", "سب"], ...groups.map((g) => [g, g])];
+  if (GAPS.length) btns.push(["gaps", "کمی"]);
+  if (DATA.next) btns.push(["next", "اگلا سبق"]);
+  $("pages").innerHTML = btns.map(([k, lb]) => `<button type="button" data-f="${esc(k)}" aria-pressed="false">${esc(lb)}</button>`).join("") +
+    (PAGED ? `<form id="jump" role="search"><input id="jumpIn" inputmode="numeric" pattern="[0-9]*" placeholder="صفحہ" aria-label="صفحہ نمبر"><button type="submit">جائیں</button></form>` : "");
+}
+renderPages();
+function applyFilter(f, fromJump) {
+  document.querySelectorAll("#pages button[data-f]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.f === f)));
+  let shown = 0;
+  document.querySelectorAll("article.card").forEach((a) => {
+    const on = f === "all" || a.dataset.keys.split("|").includes(f);
+    a.hidden = !on; if (on) shown++;
+  });
+  $("gaps").hidden = !GAPS.length || !(f === "all" || f === "gaps");
+  $("next").hidden = !DATA.next || !(f === "all" || f === "next");
+  const msg = $("pagemsg");
+  if (PAGED && /^\d+$/.test(f) && !shown) {
+    msg.hidden = false;
+    msg.textContent = `صفحہ ${f} کے کارڈ ابھی نہیں بنے۔ اس فائل میں صفحات ${allPages[0]}–${allPages[allPages.length - 1]} ہیں۔`;
+  } else msg.hidden = true;
+  store.set("h4-filter", f);
+  if (fromJump || f !== "all") window.scrollTo({ top: $("pages").offsetTop - 2, behavior: "smooth" });
+}
+$("pages").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-f]");
+  if (b) applyFilter(b.dataset.f);
+});
+$("pages").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const v = ($("jumpIn").value || "").replace(/[۰-۹٠-٩]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d) >= 0 ? "۰۱۲۳۴۵۶۷۸۹".indexOf(d) : "٠١٢٣٤٥٦٧٨٩".indexOf(d)).trim();
+  if (/^\d+$/.test(v)) applyFilter(String(+v), true);
+});
+let startF = "all";
+const hsh = location.hash.replace("#", "");
+if (/^p\d+$/.test(hsh)) startF = hsh.slice(1);
+else if (hsh === "next" || hsh === "gaps") startF = hsh;
+else startF = store.get("h4-filter", "all");
+if (startF !== "all" && !/^\d+$/.test(startF) && !groups.includes(startF) && startF !== "gaps" && startF !== "next") startF = "all";
+applyFilter(startF);
+if (startF === "all") window.scrollTo(0, 0);
+
+$("toggleAll").addEventListener("click", (e) => {
+  const open = e.currentTarget.getAttribute("aria-pressed") !== "true";
+  document.querySelectorAll("details.more").forEach((d) => { d.open = open; });
+  e.currentTarget.setAttribute("aria-pressed", String(open));
+  e.currentTarget.textContent = open ? "سب کارڈز کی تفصیل بند کریں" : "سب کارڈز کی تفصیل کھولیں";
+});
+
+// ---------- audio
+const audio = $("audio");
+function useFile(l, file) {
+  if (urls[l]) URL.revokeObjectURL(urls[l]);
+  urls[l] = URL.createObjectURL(file);
+  names[l] = file.name;
+  files[l] = file;
+  if (current === l) { audio.dataset.src = urls[l]; audio.src = urls[l]; }
+  if ($("remember").checked) saveFile(l, file);
+}
+async function saveFile(l, file) {
+  if (!IDB_OK) return;
+  if (file.size > MAX_SAVE) { $("saveMsg").textContent = `${file.name}: بہت بڑی فائل، محفوظ نہیں کی۔`; return; }
+  try {
+    await idbDo("readwrite", (s) => s.put(file, l));
+    saved.add(l); $("saveMsg").textContent = ""; $("forget").hidden = false; renderRecs();
+  } catch (e) { $("saveMsg").textContent = "اس براؤزر نے فائل محفوظ نہیں کرنے دی؛ اگلی بار دوبارہ چننی ہو گی۔"; }
+}
+async function loadSaved(l) {
+  try {
+    const f = await idbDo("readonly", (s) => s.get(l));
+    if (f) { urls[l] = URL.createObjectURL(f); names[l] = f.name || LES[l].file; return true; }
+  } catch (e) {}
+  return false;
+}
+async function playAt(l, ts) {
+  if (!l || !LES[l]) return;
+  const sec = secs(ts);
+  if (!urls[l] && !hasWeb(l) && saved.has(l)) await loadSaved(l);
+  let src, offset = sec;
+  if (urls[l]) { src = urls[l]; curPart = null; }
+  else if (hasWeb(l)) { const p = webPart(l, sec); src = blobUrls[p.src] || p.src; offset = sec - p.start; curPart = p; }
+  else { openSheet(l, ts); return; }
+  current = l; lastOffset = Math.max(0, offset);
+  $("player").hidden = false;
+  if (audio.dataset.src !== src) {
+    audio.dataset.src = src; audio.src = src; pendingSeek = lastOffset;
+  } else if (audio.readyState >= 1) {
+    if (curPart && !blobUrls[curPart.src] && !canSeekTo(lastOffset)) { pendingSeek = lastOffset; useBlob(); return; }
+    try { audio.currentTime = lastOffset; } catch (e) {}
+  } else pendingSeek = lastOffset;
+  audio.play().catch(() => {});
+  const dv = !PHONE && driveView(l, ts);
+  $("now").innerHTML = `${esc(LES[l].label)} · <span class="ltr">${ts}</span>` + (dv ? ` · <a href="${dv}" target="_blank" rel="noopener">Drive میں</a>` : "");
+  renderRecs();
+}
+function canSeekTo(o) {
+  const r = audio.seekable;
+  return o < 1 || (r && r.length && r.end(r.length - 1) >= o - 1);
+}
+audio.addEventListener("loadedmetadata", () => {
+  if (pendingSeek === null) return;
+  const o = pendingSeek;
+  if (curPart && !blobUrls[curPart.src] && !canSeekTo(o)) { useBlob(); return; }   // the site won't let the player jump
+  pendingSeek = null;
+  try { audio.currentTime = o; } catch (e) {}
+  audio.play().catch(() => {});
+});
+// When streaming can't jump to the time (or can't play at all), fetch the light copy whole and play it from memory.
+audio.addEventListener("error", () => useBlob());
+async function useBlob() {
+  const p = curPart;
+  if (!p || blobUrls[p.src] || triedBlob[p.src]) return;
+  triedBlob[p.src] = true;
+  const label = $("now").innerHTML;
+  $("now").textContent = "آواز لوڈ ہو رہی ہے…";
+  try {
+    const r = await fetch(p.src);
+    if (!r.ok) throw new Error(r.status);
+    blobUrls[p.src] = URL.createObjectURL(await r.blob());
+    if (curPart !== p) return;
+    audio.dataset.src = blobUrls[p.src]; audio.src = blobUrls[p.src]; pendingSeek = lastOffset;
+    audio.play().catch(() => {});
+    $("now").innerHTML = label;
+  } catch (e) {
+    $("now").textContent = "یہ آواز نہیں چل سکی؛ «Drive میں کھولیں» یا «ڈاؤن لوڈ» آزمائیں۔";
+  }
+}
+function openSheet(l, ts) {
+  const L = LES[l];
+  pendingLesson = l; pendingTs = ts;
+  const size = L.size_mb ? ` (${Math.round(L.size_mb)} MB)` : "";
+  const dl = L.id ? `<a class="btn" href="${driveDown(l)}" target="_blank" rel="noopener">${ICON.down}ڈاؤن لوڈ${size}</a>` : "";
+  const view = L.id
+    ? `<a class="btn quiet" href="${driveView(l, ts)}" target="_blank" rel="noopener">${ICON.open}Drive میں ${ts} پر کھولیں</a>`
+    : `<a class="btn quiet" href="${driveSearch(l)}" target="_blank" rel="noopener">${ICON.open}Drive میں تلاش کریں</a>`;
+  const how = PHONE
+    ? (L.id ? "فون پر Drive شروع سے کھلتا ہے۔ بہتر یہ ہے کہ ایک بار ڈاؤن لوڈ کر لیں، پھر «فائل چنیں» سے یہی فائل چنیں؛ آواز سیدھی اسی وقت سے چلے گی۔"
+            : "Drive میں یہ فائل تلاش کر کے فون میں ڈاؤن لوڈ کریں، پھر «فائل چنیں» سے یہی فائل چنیں؛ آواز سیدھی اسی وقت سے چلے گی۔")
+    : (L.id ? "Drive والا بٹن ویڈیو اسی وقت پر کھولتا ہے۔ یا ڈاؤن لوڈ شدہ فائل چن لیں تو یہیں چلے گی۔"
+            : "Drive میں یہ فائل تلاش کریں، یا ڈاؤن لوڈ شدہ فائل یہاں چن لیں۔");
+  $("sheet").innerHTML = `
+    <h3>یہ حصہ ${esc(L.label)} کی ریکارڈنگ میں <span class="ltr">${ts}</span> پر ہے</h3>
+    <p class="ltr" style="text-align:right">${esc(L.file)}</p>
+    <p>${how}</p>
+    <div class="btns"><button type="button" class="btn ghost" data-pick="${l}">${ICON.file}فائل چنیں</button>${dl}${view}</div>
+    <button type="button" class="linkbtn close" id="sheetClose">بند کریں</button>`;
+  $("backdrop").hidden = false;
+  $("sheet").querySelector("[data-pick]").focus();
+}
+function closeSheet() { $("backdrop").hidden = true; }
+$("backdrop").addEventListener("click", (e) => { if (e.target === $("backdrop") || e.target.id === "sheetClose") closeSheet(); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("backdrop").hidden) closeSheet(); });
+
+document.addEventListener("click", (e) => {
+  const p = e.target.closest("[data-pick]");
+  if (p) { pendingLesson = p.dataset.pick; if (!e.target.closest("#sheet")) pendingTs = null; $("pickOne").value = ""; $("pickOne").click(); return; }
+  const b = e.target.closest("[data-ts]");
+  if (!b) return;
+  playAt(b.dataset.l, b.dataset.ts);
+  const card = b.closest("article.card");
+  if (card) { card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash"); }
+});
+$("pickOne").addEventListener("change", (e) => {
+  const f = e.target.files && e.target.files[0];
+  if (!f || !pendingLesson) return;
+  const l = pendingLesson;
+  useFile(l, f);
+  closeSheet();
+  renderRecs();
+  if (pendingTs) { const ts = pendingTs; pendingTs = null; playAt(l, ts); }
+});
+$("pickMany").addEventListener("change", (e) => {
+  const files = [...(e.target.files || [])];
+  const miss = [];
+  files.forEach((f) => { const l = matchLesson(f.name); if (l) useFile(l, f); else miss.push(f.name); });
+  renderRecs();
+  $("saveMsg").textContent = miss.length ? `یہ فائلیں اس صفحے کے کسی سبق سے نہیں ملیں: ${miss.join("، ")}` : "";
+  e.target.value = "";
+});
+$("speeds").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-rate]");
+  if (!b) return;
+  audio.playbackRate = +b.dataset.rate;
+  document.querySelectorAll("#speeds button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+});
+audio.addEventListener("loadedmetadata", () => {
+  const on = document.querySelector("#speeds button[aria-pressed='true']");
+  if (on) audio.playbackRate = +on.dataset.rate;
+});
+
+// ---------- remember toggle + saved files
+$("remember").checked = store.get("h4-remember", "1") === "1" && IDB_OK;
+$("remember").disabled = !IDB_OK;
+$("remember").addEventListener("change", (e) => {
+  store.set("h4-remember", e.target.checked ? "1" : "0");
+  if (e.target.checked) Object.keys(files).forEach((l) => saveFile(l, files[l]));
+});
+$("forget").addEventListener("click", async () => {
+  try { await idbDo("readwrite", (s) => s.clear()); } catch (e) {}
+  saved.clear(); $("forget").hidden = true; $("saveMsg").textContent = "محفوظ فائلیں ہٹا دی گئیں۔"; renderRecs();
+});
+(async () => {
+  renderRecs();
+  if (!IDB_OK) return;
+  try {
+    const keys = await idbDo("readonly", (s) => s.getAllKeys());
+    (keys || []).forEach((k) => { if (LES[k]) saved.add(k); });
+    if (saved.size) { $("forget").hidden = false; renderRecs(); }
+  } catch (e) {}
+})();
+</script>
+
+</body>
+</html>
