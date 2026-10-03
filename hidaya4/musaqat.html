@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>كتاب المساقاة · ہدایہ جلد رابع</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+<style>
+/* One kitab of a book. Two views on one page:
+   فہرست (contents, styled like the book's own contents page: title … page) and a unit view (one bab/fasl,
+   its cards, page chips). Recordings live in a bottom sheet behind the header button. */
+:root {
+  --paper: #FDFCFB; --surface: #FFFFFF; --ink: #1F1A1B; --muted: #6E6566; --rule: #E9E3E2;
+  --matn: #A3211A; --matn-tint: #FBEDEB; --teacher: #17624C; --teacher-tint: #E3F2EC;
+  --book: #2B4B7E; --book-tint: #E8EEF8; --note: #545A68; --note-tint: #EDEEF2;
+  --ai: #8A5A00; --ai-tint: #FBF0DA; --focus: #2B4B7E;
+  --shadow: 0 1px 2px rgba(31,26,27,.05), 0 4px 16px rgba(31,26,27,.05);
+  --urdu: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Urdu Typesetting", "Noto Naskh Arabic", serif;
+  --ui: "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+  --arabic: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+    --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+    --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+    --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+  --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+  --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+  --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--ui); font-size: 15px; padding-inline: 16px; padding-block: 0 110px; }
+.wrap { max-width: 760px; margin: 0 auto; }
+[lang="ar"] { font-family: var(--arabic); }
+button, input, a.btn { font: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* header */
+header.top { padding-block: 14px 8px; display: grid; gap: 4px; }
+.topbar { display: flex; align-items: center; gap: 10px; min-height: 40px; }
+.homelink { color: var(--book); font-size: 13.5px; font-weight: 600; text-decoration: none; padding-block: 6px; }
+.homelink:hover { text-decoration: underline; }
+.recbtn { margin-inline-start: auto; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--rule);
+  background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 14px; font-size: 13.5px; font-weight: 600; }
+.recbtn svg { width: 15px; height: 15px; fill: none; stroke: var(--teacher); stroke-width: 1.7; stroke-linecap: round; }
+.recbtn:hover { border-color: var(--teacher); }
+h1 { margin: 6px 0 0; font-family: var(--arabic); font-weight: 700; color: var(--matn); font-size: clamp(36px, 8vw, 50px); line-height: 1.25; }
+.meta { color: var(--muted); font-size: 13.5px; line-height: 1.9; margin: 0; }
+.meta b { color: var(--ink); font-weight: 600; }
+
+/* contents (فہرست) */
+.tochead { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-block: 14px 4px; }
+.tochead h2 { margin: 0; font-size: 15px; font-weight: 700; color: var(--muted); }
+form.jump { display: flex; gap: 4px; margin-inline-start: auto; }
+form.jump input { inline-size: 92px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px;
+  padding: 5px 12px; font-size: 14px; font-variant-numeric: tabular-nums; direction: ltr; text-align: center; }
+form.jump button { cursor: pointer; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 999px; padding: 5px 13px; font-size: 13.5px; }
+.msg { margin: 8px 0 0; color: var(--ink); background: var(--ai-tint); border-radius: 8px; padding: 7px 12px; font-size: 13.5px; line-height: 1.9; }
+.msg a { color: var(--book); font-weight: 600; }
+ol.toc { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.toc li { border-bottom: 1px solid var(--rule); padding-block: 10px 9px; display: grid; gap: 4px; }
+.toc li.lv3 { padding-inline-start: 22px; }
+.toc a.row { display: flex; align-items: baseline; gap: 8px; text-decoration: none; color: inherit; }
+.toc .tt { font-family: var(--arabic); line-height: 1.6; }
+.toc li.lv1 .tt { font-size: 23px; color: var(--matn); font-weight: 700; }
+.toc li.lv2 .tt { font-size: 20px; font-weight: 700; }
+.toc li.lv3 .tt { font-size: 18.5px; }
+.toc .dots { flex: 1 1 24px; min-inline-size: 24px; border-bottom: 2px dotted var(--rule); transform: translateY(-5px); }
+.toc .pp { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.toc a.row:hover .tt, .toc a.row:focus-visible .tt { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.toc .sub { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.toc .sub .n { margin-inline-end: 4px; }
+.toc .sub .none { color: var(--ai); }
+a.pchip { text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 0 9px;
+  font-size: 12.5px; line-height: 1.9; font-variant-numeric: tabular-nums; }
+a.pchip:hover { border-color: var(--ink); }
+
+/* unit view */
+.ubar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); margin-inline: -16px; padding: 8px 16px 8px;
+  border-bottom: 1px solid var(--rule); display: grid; gap: 6px; }
+.ubar-top { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.back { flex: none; cursor: pointer; text-decoration: none; color: var(--book); font-size: 13.5px; font-weight: 600; border: 1px solid var(--rule); border-radius: 999px; padding: 3px 12px; background: var(--surface); }
+.utitle { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--arabic); font-size: 19px; font-weight: 700; line-height: 1.6; }
+.pbar { display: flex; gap: 6px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+.pbar::-webkit-scrollbar { display: none; }
+.pbar a { flex: none; text-decoration: none; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 3px 13px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.pbar a[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.ubar form.jump input { inline-size: 70px; padding: 3px 8px; }
+.ubar form.jump button { padding: 3px 10px; }
+.ubar form.jump { flex: none; }
+body.unit h1 { font-size: 26px; margin-top: 0; }
+body.unit header .meta { display: none; }
+.uhead { padding-block: 16px 0; display: grid; gap: 2px; }
+.uhead .parent { margin: 0; font-family: var(--arabic); color: var(--muted); font-size: 16px; }
+.uhead h2 { margin: 0; font-family: var(--arabic); color: var(--matn); font-size: clamp(26px, 6vw, 32px); line-height: 1.5; }
+.uhead p.meta { margin: 0; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; padding-block: 12px 0; color: var(--muted); font-size: 12.5px; align-items: center; }
+.lg { display: inline-flex; align-items: center; gap: 6px; }
+.linkbtn { cursor: pointer; background: none; border: 0; color: var(--book); font-weight: 600; font-size: 13px; padding: 4px 0; margin-inline-start: auto; }
+
+main { display: grid; gap: 18px; padding-block: 14px; }
+article.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; box-shadow: var(--shadow); padding: 18px 18px 14px; display: grid; gap: 12px; }
+.card-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.pg { font-size: 12.5px; font-weight: 600; color: var(--matn); background: var(--matn-tint); border-radius: 6px; padding: 2px 8px; font-variant-numeric: tabular-nums; }
+.v7 { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.cnum { color: var(--muted); font-size: 12.5px; }
+.badge { font-size: 12px; font-weight: 600; color: var(--book); background: var(--book-tint); border-radius: 999px; padding: 1px 9px; }
+.les { color: var(--muted); font-size: 12.5px; margin-inline-start: auto; }
+.play { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--teacher); color: var(--teacher); background: transparent;
+  border-radius: 999px; padding: 3px 11px; font-size: 13px; font-variant-numeric: tabular-nums; direction: ltr; }
+.play svg { width: 10px; height: 10px; fill: currentColor; }
+.norec-chip { margin-inline-start: auto; color: var(--ai); background: var(--ai-tint); border-radius: 999px; padding: 2px 10px; font-size: 12.5px; font-weight: 600; }
+.label { margin: 0; font-family: var(--arabic); color: var(--book); font-size: 15px; line-height: 1.7; }
+h3.title { margin: 0; font-size: 19px; font-weight: 700; line-height: 1.7; text-wrap: balance; }
+.start { margin: 0; font-family: var(--arabic); font-size: 21px; line-height: 1.9; color: var(--matn); border-inline-start: 3px solid var(--matn); padding-inline-start: 12px; }
+.ref { margin: -4px 0 0; color: var(--book); font-size: 13px; line-height: 1.9; }
+.start-note { margin: -6px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.8; }
+.norec { margin: 0; background: var(--ai-tint); color: var(--ink); border-radius: 8px; padding: 6px 12px; font-size: 13.5px; line-height: 1.9; }
+.norec b { color: var(--ai); }
+.sec { display: grid; gap: 6px; }
+.sec h4 { margin: 0; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.sec ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.sec li { font-family: var(--urdu); font-size: 16px; line-height: 2.35; }
+.sec.tamheed li { font-size: 16.5px; }
+.sec.masala li { font-weight: 600; }
+.srcs { display: inline-flex; flex-wrap: wrap; gap: 4px; vertical-align: middle; margin-inline-start: 4px; }
+.chip { font-family: var(--ui); font-size: 11.5px; line-height: 1.6; border-radius: 5px; padding: 0 6px; white-space: nowrap; font-variant-numeric: tabular-nums; border: 0; font-weight: 600; }
+.chip.u { background: var(--teacher-tint); color: var(--teacher); cursor: pointer; }
+.chip.k { background: var(--book-tint); color: var(--book); }
+.chip.s { background: var(--note-tint); color: var(--note); }
+.chip.a { background: var(--ai-tint); color: var(--ai); }
+details.more { border-top: 1px dashed var(--rule); padding-top: 8px; }
+details.more > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; color: var(--book); font-weight: 600; font-size: 13.5px; padding-block: 2px; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::before { content: "+"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+details.more[open] > summary::before { content: "−"; }
+details.more > summary .hint { color: var(--muted); font-weight: 400; font-size: 12.5px; }
+details.more > .inner { display: grid; gap: 12px; padding-top: 10px; }
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 14px; }
+.word { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; padding-block: 4px; border-bottom: 1px solid var(--rule); }
+.word .ar { font-family: var(--arabic); font-size: 19px; color: var(--matn); }
+.word .ur { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; flex: 1 1 auto; }
+.word .chip { font-size: 10.5px; }
+
+section.gaps { display: grid; gap: 8px; margin-block-start: 6px; border: 1px dashed var(--rule); border-radius: 12px; padding: 12px 14px; }
+section.gaps h3 { margin: 0; font-size: 14.5px; }
+section.gaps p.lead { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.9; }
+.glist { margin: 0; padding: 0; list-style: none; display: grid; }
+.glist li { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: start; padding-block: 8px; border-top: 1px solid var(--rule); }
+.glist .gp { font-size: 12px; font-weight: 600; color: var(--ai); background: var(--ai-tint); border-radius: 6px; padding: 1px 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.glist .gt { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; }
+.glist .gv { grid-column: 2; color: var(--muted); font-size: 12px; }
+
+nav.unav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-block-start: 18px; }
+nav.unav a { display: grid; gap: 2px; text-decoration: none; color: inherit; border: 1px solid var(--rule); border-radius: 12px; padding: 10px 14px; background: var(--surface); }
+nav.unav a:hover { border-color: var(--ink); }
+nav.unav .k { color: var(--muted); font-size: 12px; }
+nav.unav .t { font-family: var(--arabic); font-size: 17px; line-height: 1.6; }
+nav.unav a.next { text-align: left; grid-column: 2; }
+
+footer { margin-block-start: 28px; color: var(--muted); font-size: 13px; line-height: 2; border-top: 1px solid var(--rule); padding-block-start: 14px; }
+footer p { margin: 0 0 6px; }
+
+/* sheet */
+.backdrop { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.38); display: flex; align-items: flex-end; justify-content: center; }
+.sheet { background: var(--surface); color: var(--ink); inline-size: 100%; max-inline-size: 600px; max-block-size: 88vh; overflow-y: auto; border-radius: 16px 16px 0 0;
+  padding: 16px 18px calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 12px; box-shadow: 0 -8px 30px rgba(0,0,0,.2); }
+.sheet-head { display: flex; align-items: center; gap: 10px; }
+.sheet h3 { margin: 0; font-size: 17px; line-height: 1.7; }
+.sheet .x { margin-inline-start: auto; cursor: pointer; border: 1px solid var(--rule); background: transparent; color: var(--ink); border-radius: 999px; inline-size: 34px; block-size: 34px; font-size: 18px; line-height: 1; }
+.sheet p { margin: 0; font-size: 13.5px; line-height: 1.95; color: var(--muted); }
+.sheet p b { color: var(--ink); }
+.rec { display: grid; gap: 6px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.rec-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.rec-top b { font-size: 14.5px; }
+.rec-top .sub { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.state { font-size: 12px; font-weight: 600; border-radius: 5px; padding: 0 7px; }
+.state.on { color: var(--teacher); background: var(--teacher-tint); }
+.state.saved { color: var(--book); background: var(--book-tint); }
+.state.warn { color: var(--ai); background: var(--ai-tint); }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; text-decoration: none; padding: 6px 13px; border-radius: 999px; border: 1px solid var(--teacher);
+  background: var(--teacher); color: var(--surface); font-weight: 600; font-size: 13.5px; line-height: 1.6; }
+.btn.ghost { background: transparent; color: var(--teacher); }
+.btn.quiet { background: transparent; color: var(--book); border-color: var(--rule); }
+.btn svg { width: 12px; height: 12px; fill: currentColor; flex: none; }
+.sheet-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; border-top: 1px dashed var(--rule); padding-top: 10px; font-size: 13px; color: var(--muted); }
+.sheet-foot label.chk { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.vis { position: absolute; inline-size: 1px; block-size: 1px; opacity: 0; pointer-events: none; }
+
+/* player */
+.player { position: fixed; inset-inline: 0; bottom: 0; z-index: 10; background: var(--surface); border-top: 1px solid var(--rule); padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; justify-content: center; }
+.player audio { flex: 1 1 280px; max-width: 520px; height: 36px; }
+.speeds { display: flex; gap: 4px; direction: ltr; }
+.speeds button, .pclose { cursor: pointer; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 6px; padding: 3px 8px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.speeds button[aria-pressed="true"] { background: var(--teacher); color: var(--surface); border-color: var(--teacher); }
+.now { font-size: 12.5px; color: var(--muted); }
+.flash { animation: flash 1.2s ease-out; }
+@keyframes flash { from { box-shadow: 0 0 0 3px var(--teacher); } to { box-shadow: var(--shadow); } }
+@media (prefers-reduced-motion: reduce) { .flash { animation: none; } }
+@media (max-width: 460px) {
+  article.card { padding: 14px 14px 10px; }
+  .start { font-size: 19px; }
+  .sec li { font-size: 15.5px; }
+  .toc li.lv3 { padding-inline-start: 14px; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap" dir="rtl" lang="ur">
+  <header class="top">
+    <div class="topbar">
+      <a class="homelink" id="homeLink" href="./" hidden></a>
+      <button type="button" class="recbtn" id="recBtn" aria-haspopup="dialog">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 10V8a5.5 5.5 0 0 1 11 0v2"/><path d="M2.5 10h2v4h-2zM11.5 10h2v4h-2z"/></svg><span>ریکارڈنگز</span>
+      </button>
+    </div>
+    <h1 lang="ar" id="kitab"></h1>
+    <p class="meta" id="meta"></p>
+  </header>
+
+  <section id="tocView">
+    <div class="tochead">
+      <h2>فہرست</h2>
+      <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ نمبر" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form>
+    </div>
+    <p class="msg" id="tocMsg" hidden></p>
+    <ol class="toc" id="toc"></ol>
+  </section>
+
+  <section id="unitView" hidden>
+    <div class="ubar">
+      <div class="ubar-top"><a class="back" href="#">فہرست</a><span class="utitle" lang="ar" id="ubarTitle"></span>
+        <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form></div>
+      <nav class="pbar" id="pbar" aria-label="صفحات"></nav>
+    </div>
+    <div class="uhead">
+      <p class="parent" lang="ar" id="uParent"></p>
+      <h2 lang="ar" id="uTitle"></h2>
+      <p class="meta" id="uMeta"></p>
+    </div>
+    <p class="msg" id="uMsg" hidden></p>
+    <div class="legend" id="legend" aria-label="ماخذ کی علامتیں">
+      <span class="lg" data-t="u"><span class="chip u">استاد</span><span>ریکارڈنگ کا وقت</span></span>
+      <span class="lg" data-t="k"><span class="chip k">کتاب ص</span><span>متن</span></span>
+      <span class="lg" data-t="s"><span class="chip s">شرح</span><span>حاشیہ یا بین السطور</span></span>
+      <span class="lg" data-t="a"><span class="chip a">AI</span><span>خود جانچیں</span></span>
+      <button type="button" class="linkbtn" id="toggleAll" aria-pressed="false">سب تفصیل کھولیں</button>
+    </div>
+    <main id="cards"></main>
+    <section class="gaps" id="gaps" hidden>
+      <h3 id="gapsTitle"></h3>
+      <p class="lead" id="gapsLead"></p>
+      <ul class="glist" id="gapList"></ul>
+    </section>
+    <nav class="unav" id="unav" aria-label="پچھلا اور اگلا حصہ"></nav>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<input type="file" id="pickOne" class="vis" aria-label="ریکارڈنگ فائل" accept="audio/*,video/*,.m4a,.mp3,.mp4,.opus,.ogg,.aac">
+<input type="file" id="pickMany" class="vis" aria-label="کئی ریکارڈنگ فائلیں" multiple accept="audio/*,video/*,.m4a,.mp3,.mp4,.opus,.ogg,.aac">
+
+<div class="backdrop" id="backdrop" dir="rtl" lang="ur" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" id="sheet"></div>
+</div>
+
+<div class="player" id="player" dir="rtl" lang="ur" hidden>
+  <audio id="audio" controls preload="metadata"></audio>
+  <div class="speeds" id="speeds" role="group" aria-label="رفتار">
+    <button type="button" data-rate="1" aria-pressed="true">1×</button>
+    <button type="button" data-rate="1.25" aria-pressed="false">1.25×</button>
+    <button type="button" data-rate="1.5" aria-pressed="false">1.5×</button>
+  </div>
+  <span class="now" id="now"></span>
+  <button type="button" class="pclose" id="pclose" aria-label="آواز بند کریں">✕</button>
+</div>
+
+<script>
+const DATA = {"book": {"book": "ہدایہ جلد رابع", "kitab": "كتاب المساقاة", "from": 1652, "to": 1656, "unit": "کارڈ", "unitOne": "کارڈ"}, "home": "./", "homeLabel": "ہدایہ جلد رابع", "store": "h4", "lessons": {"2025-07-19": {"file": "2025-07-19 الهدايه الرابع كتاب المساقاة.mp4", "minutes": 41.4, "id": "1tHticI2JYmFpJ6dUeRvS0_Qqginw4ZDH", "size_mb": 39.5, "label": "19 جولائی 2025"}}, "units": [{"key": "u0", "level": 1, "title": "كتاب المساقاة", "page": 1652, "page_to": 1656}], "cards": [{"unit": "u0", "pages": [1652, 1653], "lesson": "2025-07-19", "ts": "0:00:15", "label": null, "title": "کتاب المساقاۃ: باغ پھل کے حصے پر دینا جائز ہے یا نہیں؟", "start": "قال أبو حنيفة رحمه الله: المساقاة بجزء من الثمر باطلة", "start_note": "ص 117 «كتاب المساقاة» کے عنوان سے کھلتا ہے (استاد کے نسخے میں ص 1700)۔ مزارعت کا آخری حصہ (ص 115–116) اس سبق میں نہیں۔", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 117–118", "tamheed": [{"x": "مساقاۃ کو «معاملہ» بھی کہتے ہیں۔ مزارعت اور مساقاۃ میں بہت سی چیزیں مشترک ہیں، کچھ میں فرق ہے۔", "s": [{"t": "u", "v": "0:01:13"}, {"t": "u", "v": "0:01:19"}]}, {"x": "مثلاً کسی کا باغ ہے، وہ دوسرے کو دیتا ہے کہ پورا سیزن اس کا خیال رکھو: پانی دو، یوریا وغیرہ دو، شاخیں کاٹو، قلم لگاؤ، حفاظت کرو۔", "s": [{"t": "u", "v": "0:01:23"}, {"t": "u", "v": "0:01:31"}, {"t": "u", "v": "0:01:39"}]}, {"x": "جب پھل اتارنے کا وقت آئے گا تو ہم اسے تقسیم کر لیں گے، مثلاً آدھا آدھا۔", "s": [{"t": "u", "v": "0:01:47"}]}], "masala": [{"x": "امام ابو حنیفہ: پھل کے ایک حصے کے بدلے مساقاۃ باطل ہے، جیسے ان کے ہاں مزارعت ناجائز ہے۔", "s": [{"t": "u", "v": "0:01:55"}, {"t": "u", "v": "0:02:19"}, {"t": "k", "v": "1652–1653", "v7": 117}]}, {"x": "صاحبین: جائز ہے، جیسے مزارعت جائز ہے، دو شرطوں سے: مدت معلوم ہو، اور پھل کا حصہ مشاع ہو (فکس نہ ہو)۔", "s": [{"t": "u", "v": "0:02:25"}, {"t": "u", "v": "0:02:28"}, {"t": "u", "v": "0:02:33"}, {"t": "k", "v": "1652–1653", "v7": 117}]}, {"x": "باقی شرطیں اور مسائل مزارعت ہی کی طرح ہیں؛ مزارعت میں فکس حصے کی جو صورتیں ناجائز تھیں وہ یہاں بھی ناجائز ہیں۔", "s": [{"t": "u", "v": "0:02:38"}, {"t": "u", "v": "0:02:45"}, {"t": "k", "v": "1652–1653", "v7": 117}]}], "dalil": [{"x": "امام صاحب: باقاعدہ اجارہ ہونا چاہیے، کہ باغ کا خیال رکھو اور آخر میں اتنے من آم یا اتنے روپے ملیں گے، تاکہ اجرت معلوم ہو۔ مشاع حصہ اجرت ہو تو اس میں جہالت ہے۔", "s": [{"t": "u", "v": "0:01:59"}, {"t": "u", "v": "0:02:12"}]}, {"x": "حاشیہ: امام زفر بھی یہی کہتے ہیں؛ یہ پیداوار کے حصے کے بدلے اجرت پر لینا ہے، اور وہ مجہول یا معدوم ہے۔", "s": [{"t": "s", "v": "البناية ١٠/٦١٣"}]}, {"x": "امام شافعی کی دلیل: اصل مضاربت ہے، اور مساقاۃ مضاربت سے زیادہ ملتی ہے، کیونکہ اس میں شرکت بڑھوتری میں ہے، اصل میں نہیں۔", "s": [{"t": "u", "v": "0:03:41"}, {"t": "u", "v": "0:04:03"}, {"t": "k", "v": "1652–1653", "v7": 117}]}, {"x": "دس لاکھ مضاربت پر دیے، سال کے آخر میں گیارہ ہو گئے تو ایک لاکھ تقسیم ہوگا، دس لاکھ میرے رہیں گے۔ اسی طرح باغ کے درخت میرے ہی رہتے ہیں، شرکت صرف میوے میں ہے۔", "s": [{"t": "u", "v": "0:04:16"}, {"t": "u", "v": "0:04:25"}, {"t": "u", "v": "0:04:34"}]}, {"x": "مزارعت میں ایسا نہیں: دس من بیج سے پچاس من ہوئے تو پورے پچاس بٹیں گے (پچیس پچیس)۔ بیج والا پہلے اپنے دس من نکالنے کی شرط لگائے تو فاسد، کیونکہ ہو سکتا ہے دس ہی من نکلیں۔", "s": [{"t": "u", "v": "0:04:46"}, {"t": "u", "v": "0:04:58"}, {"t": "u", "v": "0:05:01"}, {"t": "u", "v": "0:05:08"}, {"t": "k", "v": "1652–1653", "v7": 117}]}, {"x": "اس لیے مساقاۃ کو اصل اور مزارعت کو اس کے تابع رکھا۔ جیسے پانی کی باری اکیلے بیچنا (قدیم فقہاء کے ہاں) ناجائز، زمین کے ساتھ جائز: زمین پچاس لاکھ کی ہے، سیرابی کی پہلی باری بھی ساتھ بیچی تو پچپن لاکھ۔", "s": [{"t": "u", "v": "0:05:26"}, {"t": "u", "v": "0:05:38"}, {"t": "u", "v": "0:06:03"}, {"t": "k", "v": "1653", "v7": 118}]}, {"x": "اور جیسے گاڑی یا پنکھا اکیلا وقف نہیں ہو سکتا، مگر مسجد کی زمین کے ساتھ اس کے پنکھے اور لائٹس وقف کیں تو جائز۔", "s": [{"t": "u", "v": "0:06:13"}, {"t": "k", "v": "1653", "v7": 118}, {"t": "s", "v": "البناية ١٠/٦١٦"}]}], "ikhtilaf": [{"x": "امام شافعی: مساقاۃ جائز، مزارعت ناجائز؛ البتہ مساقاۃ کے ضمن میں مزارعت جائز ہے۔", "s": [{"t": "u", "v": "0:02:59"}, {"t": "u", "v": "0:03:05"}, {"t": "k", "v": "1652–1653", "v7": 117}]}, {"x": "ضمن کی مثال: پچاس جریب زمین میں آموں کا باغ ہے؛ باغ کا خیال بھی رکھو اور درختوں کے بیچ کی خالی زمین میں فصل بھی بوؤ؛ فصل بھی آدھی آدھی، میوہ بھی۔ یہاں اصل مساقاۃ ہے، مزارعت اس کے ضمن میں۔", "s": [{"t": "u", "v": "0:03:12"}, {"t": "u", "v": "0:03:19"}, {"t": "u", "v": "0:03:32"}]}, {"x": "حاشیہ: شرط یہ ہے کہ وہ خالی زمین درختوں ہی کے پانی سے سیراب ہو؛ اس کا پانی الگ ہو تو جائز نہیں۔", "s": [{"t": "s", "v": "البناية ١٠/٦١٤"}]}], "faida": [{"x": "مساقاۃ «سقی» (پانی دینا) سے مفاعلہ ہے: درختوں میں پیداوار کے کچھ حصے کے بدلے معاملہ۔", "s": [{"t": "k", "v": "1652–1653", "v7": 117}, {"t": "s", "v": "الكفاية ٨/٣٩٩"}]}, {"x": "مساقاۃ کی شرطیں (فتاویٰ قاضی خان سے): عامل کا حصہ بیان ہو (صرف اسی کا بیان کیا تو استحساناً جائز)، پیداوار میں شرکت ہو، درخت عامل کے حوالے ہوں (تخلیہ)، اور وقت بیان ہو۔", "s": [{"t": "s", "v": "الكفاية ٨/٣٩٩"}]}], "lughat": [{"ar": "المساقاة", "ur": "سقی (پانی دینا) سے مفاعلہ: باغ پیداوار کے حصے پر دینا", "s": [{"t": "s", "v": "الكفاية ٨/٣٩٩"}]}, {"ar": "المعاملة في الأشجار", "ur": "درختوں میں معاملہ (مساقاۃ کا دوسرا نام)", "s": [{"t": "u", "v": "0:01:19"}]}, {"ar": "مشاعاً", "ur": "غیر متعین حصہ (آدھا، تہائی)، فکس نہیں", "s": [{"t": "u", "v": "0:02:33"}]}, {"ar": "تبعاً", "ur": "ضمن میں، کسی اور چیز کے ساتھ", "s": [{"t": "u", "v": "0:03:05"}]}, {"ar": "شركة في الزيادة دون الأصل", "ur": "بڑھوتری میں شرکت، اصل مال میں نہیں", "s": [{"t": "u", "v": "0:04:10"}]}, {"ar": "رفعه من رأس الخارج", "ur": "پیداوار میں سے پہلے بیج نکال لینا", "s": [{"t": "u", "v": "0:05:01"}]}, {"ar": "الشِّرب", "ur": "پانی کی باری (سیرابی کا حق)", "s": [{"t": "u", "v": "0:05:33"}]}, {"ar": "المنقول", "ur": "منتقل ہو سکنے والی چیزیں (پنکھے، لائٹس)", "s": [{"t": "u", "v": "0:06:13"}]}]}, {"unit": "u0", "pages": [1653, 1654], "lesson": "2025-07-19", "ts": "0:06:35", "label": null, "title": "مساقاۃ کی دو شرطیں: مدت (استحساناً ضروری نہیں) اور مشاع حصہ", "start": "وشرط المدة قياس فيها؛ لأنها إجارة معنىً كما في المزارعة", "start_note": "استاد کے نسخے میں ص 1700 کا آخر؛ «وإدراك البذر» ص 1701 کی پہلی سطر کے آخر میں۔", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 118–119", "tamheed": [{"x": "مزارعت میں وقت کا بہت فرق ہوتا ہے: گندم کوئی اکتوبر میں بوتا ہے، کوئی نومبر یا دسمبر میں، بلکہ اگست میں بھی؛ کٹائی فروری میں بھی، مارچ میں بھی؛ کہیں سارا سال ہوتی ہے۔", "s": [{"t": "u", "v": "0:07:23"}, {"t": "u", "v": "0:07:29"}]}, {"x": "میوے ایسے نہیں: آم سال میں ایک ہی دفعہ آتے ہیں؛ فروری میں پھول، مارچ میں پھل، جولائی میں پکنا۔ ایک علاقے میں سب کے باغ ایک ہی سیزن میں پکتے ہیں۔", "s": [{"t": "u", "v": "0:08:01"}, {"t": "u", "v": "0:08:08"}, {"t": "u", "v": "0:08:17"}]}], "masala": [{"x": "قیاس کا تقاضا: مزارعت کی طرح مساقاۃ میں بھی مدت معلوم ہونا ضروری ہے۔", "s": [{"t": "u", "v": "0:06:50"}, {"t": "k", "v": "1653", "v7": 118}]}, {"x": "استحسان: مدت ذکر نہ کی تب بھی جائز؛ عقد پہلے پھل پر ہوگا، یعنی ایک ہی سیزن کے لیے؛ اس کے بعد معاملہ ختم، نیا کرنا پڑے گا۔", "s": [{"t": "u", "v": "0:07:05"}, {"t": "u", "v": "0:08:47"}, {"t": "u", "v": "0:08:59"}, {"t": "k", "v": "1653", "v7": 118}]}, {"x": "سبزیوں (رطبہ) کے پودے بیج آنے تک دیے کہ بیج آئے تو آدھا آدھا: بیج کا وقت معلوم ہے، اس لیے یہ پھلوں کی طرح ہے، مدت بتانا ضروری نہیں۔", "s": [{"t": "u", "v": "0:10:52"}, {"t": "u", "v": "0:11:02"}, {"t": "k", "v": "1653", "v7": 118}]}, {"x": "فصل (زرع) میں یہ نہیں ہو سکتا: اس میں بہت جہالت ہے، مدت بتانی ہوگی۔", "s": [{"t": "u", "v": "0:11:17"}, {"t": "k", "v": "1653", "v7": 118}]}, {"x": "نیا لگا پودا جس نے جڑ پکڑ لی مگر ابھی پھل کی عمر کو نہیں پہنچا: مدت بتائے بغیر جائز نہیں۔", "s": [{"t": "k", "v": "1653", "v7": 118}, {"t": "k", "v": "1653–1654", "v7": 119}, {"t": "s", "v": "الكفاية ٨/٤٠٠"}]}, {"x": "کھجور کے درخت (یا سبزی کے پودے) اس شرط پر دیے کہ جب تک پھل آتا رہے: فاسد، کیونکہ کھجور تو بیس سے چالیس سال پھل دیتی ہے؛ اس کی کوئی معلوم انتہا نہیں۔", "s": [{"t": "u", "v": "0:11:30"}, {"t": "u", "v": "0:11:45"}, {"t": "k", "v": "1653–1654", "v7": 119}]}, {"x": "بینگن کے پودے «جب تک فصل آتی رہے» کی شرط پر: کتاب میں ناجائز۔ استاد: استحساناً، عرف میں اس کا وقت معلوم ہو (بینگن، لوکی، ٹینڈے جون سے دسمبر کے آخر تک) تو جائز؛ کھجور میں نہیں۔", "s": [{"t": "u", "v": "0:12:06"}, {"t": "u", "v": "0:12:22"}, {"t": "k", "v": "1653–1654", "v7": 119}]}, {"x": "دوسری شرط: حصہ مشاع ہو (آدھا، تہائی)۔ «پچاس من مجھے، باقی تمہارا» یا «دائیں طرف کے پچاس درختوں کا پھل میرا، بائیں کا تمہارا» ناجائز۔", "s": [{"t": "u", "v": "0:13:31"}, {"t": "u", "v": "0:13:38"}, {"t": "k", "v": "1653–1654", "v7": 119}]}], "dalil": [{"x": "قیاس اس لیے کہ مساقاۃ معنی کے لحاظ سے اجارہ ہے، جیسے مزارعت؛ وہاں مدت نہ بتائیں تو عقد فاسد ہوتا ہے۔", "s": [{"t": "k", "v": "1653", "v7": 118}, {"t": "s", "v": "البناية ١٠/٦١٦"}]}, {"x": "استحسان اس لیے کہ پھل پکنے کا وقت معلوم ہے اور اس میں کم ہی فرق ہوتا ہے؛ جو یقینی ہے (پہلا پھل) وہی عقد میں داخل ہوگا۔", "s": [{"t": "u", "v": "0:08:17"}, {"t": "u", "v": "0:09:05"}, {"t": "k", "v": "1653", "v7": 118}]}, {"x": "فصل کا شروع بہت مختلف ہوتا ہے (کوئی خزاں میں بوتا ہے، کوئی بہار یا گرمی میں)، تو ختم بھی مختلف؛ اس لیے مدت مجہول ہے۔", "s": [{"t": "u", "v": "0:07:42"}, {"t": "k", "v": "1653", "v7": 118}, {"t": "s", "v": "الكفاية ٨/٤٠١"}]}, {"x": "نئے پودے میں پھل آنے کا وقت زمین کی قوت اور کمزوری سے بہت زیادہ مختلف ہوتا ہے، اس لیے سال بتانے ہوں گے۔", "s": [{"t": "k", "v": "1653–1654", "v7": 119}, {"t": "s", "v": "الكفاية ٨/٤٠٠"}]}, {"x": "سبزی کی جڑیں جتنی دیر زمین میں رہیں بڑھتی رہتی ہیں، اس لیے مدت مجہول؛ پھل کی بات اور ہے کہ پک جائے تو پھر نہیں بڑھتا۔", "s": [{"t": "k", "v": "1653–1654", "v7": 119}, {"t": "s", "v": "الكفاية ٨/٤٠١"}]}, {"x": "مشاع کی شرط اس لیے کہ معین حصہ شرکت کو ختم کر دیتا ہے، جیسے مزارعت میں گزرا۔", "s": [{"t": "k", "v": "1653–1654", "v7": 119}, {"t": "s", "v": "البناية ١٠/٦١٩"}]}], "ikhtilaf": [], "faida": [{"x": "مدت ذکر نہ ہو تو اسی سال کا پہلا پھل؛ اس سال پھل ہی نہ آیا تو معاملہ ختم۔", "s": [{"t": "s", "v": "الكفاية ٨/٣٩٩"}]}, {"x": "بیج تک والی صورت میں شرط یہ ہے کہ وہ بیج خود مطلوب ہو؛ سبزی کے پودے اپنے مالک ہی کے رہیں گے۔", "s": [{"t": "s", "v": "العناية ٨/٣٩٩–٤٠٠"}]}, {"x": "حاشیہ: سبزی کی کٹائی (جذاذ) کا وقت معلوم ہو اور مطلق دے تو جائز، معاملہ پہلی کٹائی پر ہوگا؛ معلوم نہ ہو تو ناجائز، چاہے «جڑیں ختم ہونے تک» کہے یا مطلق۔ کھجور مطلق دی تو جائز (پہلے پھل پر)، «جڑیں ختم ہونے تک» کہا تو ناجائز۔", "s": [{"t": "s", "v": "الكفاية ٨/٤٠٠–٤٠١"}]}, {"x": "استاد: مدت کی یہ استحسانی رعایت مساقاۃ میں ہے، مزارعت میں نہیں۔", "s": [{"t": "u", "v": "0:13:02"}, {"t": "u", "v": "0:13:11"}]}], "lughat": [{"ar": "أول ثمر يخرج", "ur": "پہلا پھل جو نکلے (ایک سیزن)", "s": [{"t": "u", "v": "0:08:47"}, {"t": "k", "v": "1653", "v7": 118}]}, {"ar": "قلّما يتفاوت", "ur": "اس میں کم ہی فرق ہوتا ہے", "s": [{"t": "u", "v": "0:08:17"}]}, {"ar": "الرطبة", "ur": "سبزیاں اور بیلیں: کھیرا، تربوز، خربوزہ", "s": [{"t": "u", "v": "0:09:30"}, {"t": "u", "v": "0:09:40"}]}, {"ar": "إدراك البذر", "ur": "بیج کا تیار ہو جانا", "s": [{"t": "u", "v": "0:10:52"}]}, {"ar": "خريفاً وصيفاً", "ur": "خزاں میں بھی اور گرمی میں بھی", "s": [{"t": "a", "v": ""}]}, {"ar": "غرساً قد عَلِق", "ur": "پودا جو اگ کر جڑ پکڑ چکا ہو", "s": [{"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "يقطع الشركة", "ur": "شرکت کو ختم کر دیتا ہے", "s": [{"t": "a", "v": ""}]}]}, {"unit": "u0", "pages": [1654], "lesson": "2025-07-19", "ts": "0:14:09", "label": null, "title": "ایسی مدت مقرر کی جس میں پھل نہ آ سکے؛ اور پھل آفت سے نہ آیا تو؟", "start": "وإن سُمِّيَا في المعاملة وقتاً يعلم أنه لا يخرج الثمرُ فيها", "start_note": "استاد نے پہلے مثال سمجھائی، متن 0:17:32 پر پڑھا۔", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 119–120", "tamheed": [{"x": "میں نے کسی کو کھجور کے پودے دیے کہ پانچ سال ان کا خیال رکھو، پانچ سال بعد پھل آئے گا تو آدھا آدھا کریں گے۔", "s": [{"t": "u", "v": "0:14:20"}]}, {"x": "سوال یہ ہے کہ پانچ سال کے اندر پھل آنے کا امکان ہے یا نہیں؟", "s": [{"t": "u", "v": "0:14:29"}]}], "masala": [{"x": "ایسی مدت مقرر کی جس میں معلوم ہے کہ پھل نہیں آئے گا: معاملہ فاسد۔", "s": [{"t": "u", "v": "0:14:37"}, {"t": "u", "v": "0:17:41"}, {"t": "k", "v": "1654", "v7": 119}]}, {"x": "ایسی مدت جس میں پھل آ بھی سکتا ہے اور دیر بھی ہو سکتی ہے (بارشیں اچھی ہوئیں تو آ جائے گا، ورنہ نہیں): جائز۔", "s": [{"t": "u", "v": "0:14:56"}, {"t": "u", "v": "0:15:03"}, {"t": "k", "v": "1654", "v7": 119}]}, {"x": "پھر مقررہ وقت میں پھل آ گیا تو طے شدہ شرط کے مطابق آدھا آدھا۔", "s": [{"t": "u", "v": "0:15:09"}, {"t": "u", "v": "0:17:56"}, {"t": "k", "v": "1654", "v7": 119}]}, {"x": "پھل دیر سے آیا (مدت میں نہ آیا) تو پتا چلا کہ عقد شروع سے فاسد تھا: باغبان کو پانچ سال کام کی اجرتِ مثل ملے گی، اور درخت اور آگے کا سارا پھل مالک کا۔", "s": [{"t": "u", "v": "0:15:28"}, {"t": "u", "v": "0:15:39"}, {"t": "u", "v": "0:18:01"}, {"t": "k", "v": "1654", "v7": 119}]}, {"x": "عقد صحیح تھا، مگر ژالہ باری سے ایک کھجور بھی نہ لگی یا سب خراب ہو گئیں: باغبان کو اجرتِ مثل نہیں؛ کسی کا دوسرے پر کچھ نہیں۔", "s": [{"t": "u", "v": "0:16:06"}, {"t": "u", "v": "0:16:22"}, {"t": "k", "v": "1654", "v7": 120}]}], "dalil": [{"x": "پہلی صورت میں مقصود، یعنی پیداوار میں شرکت، فوت ہے؛ پانچ سال بعد بھی پودے ہی رہیں گے، کھجور نہیں آئے گی۔", "s": [{"t": "u", "v": "0:14:37"}, {"t": "k", "v": "1654", "v7": 119}]}, {"x": "دوسری صورت میں مقصود کا فوت ہونا یقینی نہیں، اس لیے عقد صحیح ہے۔", "s": [{"t": "k", "v": "1654", "v7": 119}]}, {"x": "پھل دیر سے آیا تو مدت مقرر کرنے میں غلطی ظاہر ہو گئی؛ یہ ایسا ہے جیسے شروع ہی میں معلوم ہوتا، اور فاسد عقد میں باغبان کو اجرتِ مثل ملتی ہے۔", "s": [{"t": "u", "v": "0:15:34"}, {"t": "u", "v": "0:17:08"}, {"t": "k", "v": "1654", "v7": 119}, {"t": "k", "v": "1654", "v7": 120}]}, {"x": "آفت والی صورت میں مدت کی غلطی ظاہر نہیں ہوئی، عقد صحیح رہا؛ باغبان کا حصہ پیداوار میں تھا، نقصان دونوں کا ہوا: مالک کو بھی کچھ نہ ملا، اسے بھی نہیں۔", "s": [{"t": "u", "v": "0:16:31"}, {"t": "k", "v": "1654", "v7": 120}, {"t": "s", "v": "البناية ١٠/٦٢٠"}]}], "ikhtilaf": [], "faida": [{"x": "استاد: «یہ بہت باریک فرق ہے، یہ ذہن میں رکھیں»: عقد فاسد ہو تو اجرتِ مثل؛ عقد صحیح ہو اور پھل نہ نکلے تو کچھ نہیں۔", "s": [{"t": "u", "v": "0:17:08"}, {"t": "u", "v": "0:17:30"}]}, {"x": "«وإن سميا…» امام محمد کی «الأصل» کا مسئلہ ہے، قدوری کے مسئلے پر تفریع۔", "s": [{"t": "s", "v": "البناية ١٠/٦٢٠"}]}], "lughat": [{"ar": "سمّيا في المعاملة وقتاً", "ur": "دونوں نے مساقاۃ میں وقت مقرر کیا", "s": [{"t": "u", "v": "0:17:34"}]}, {"ar": "لا يخرج الثمر فيها", "ur": "اس میں پھل نہیں نکلے گا", "s": [{"t": "u", "v": "0:17:41"}]}, {"ar": "قد يبلغ الثمر فيها وقد يتأخر عنها", "ur": "کبھی اس مدت میں پھل آ جاتا ہے، کبھی دیر ہو جاتی ہے", "s": [{"t": "u", "v": "0:17:46"}]}, {"ar": "على الشركة", "ur": "شرکت کے مطابق تقسیم", "s": [{"t": "u", "v": "0:17:56"}]}, {"ar": "أجر المثل", "ur": "اجرتِ مثل (ایسے کام کی عام اجرت)", "s": [{"t": "u", "v": "0:18:01"}]}, {"ar": "تبيّن الخطأ في المدة المسماة", "ur": "مقررہ مدت میں غلطی ظاہر ہو گئی", "s": [{"t": "u", "v": "0:15:34"}]}, {"ar": "آفة", "ur": "آفت، جیسے ژالہ باری", "s": [{"t": "u", "v": "0:16:06"}]}]}, {"unit": "u0", "pages": [1654], "lesson": "2025-07-19", "ts": "0:18:07", "label": null, "title": "مساقاۃ کن چیزوں میں جائز ہے؟ کھجور، درخت، انگور، سبزیاں، بینگن", "start": "وتجوز المساقاة في النخل والشجر والكرم والرطاب، وأصول الباذنجان", "start_note": "استاد نے پہلے تمہید اور اختلاف سمجھایا، متن 0:21:04 پر پڑھا۔", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 120", "tamheed": [{"x": "مساقاۃ ہر قسم کی چیز میں جائز ہے: کھجور دے دوں کہ اس کا پھل تقسیم کریں گے؛ یا زمین دوں کہ اس میں سفیدے کے درخت لگاؤ، لکڑی پوری ہو تو بیچیں گے، آدھی تمہاری آدھی میری۔", "s": [{"t": "u", "v": "0:18:07"}, {"t": "u", "v": "0:18:19"}, {"t": "u", "v": "0:18:27"}]}, {"x": "پودے دو طرح کے ہیں: کچھ درخت کی طرح مستقل رہتے ہیں، جیسے انگور (میوہ دے کر خشک، اگلے سال پھر ہرا)؛ کچھ ختم ہو جاتے ہیں، جیسے کھیرا اور بینگن۔ دونوں میں جائز ہے۔", "s": [{"t": "u", "v": "0:18:43"}, {"t": "u", "v": "0:18:54"}, {"t": "u", "v": "0:19:05"}, {"t": "u", "v": "0:19:12"}]}], "masala": [{"x": "مساقاۃ کھجور، (غیر میوہ دار) درختوں، انگور، سبزیوں اور بینگن کے پودوں، سب میں جائز ہے۔", "s": [{"t": "u", "v": "0:21:04"}, {"t": "u", "v": "0:21:30"}, {"t": "k", "v": "1654", "v7": 120}]}], "dalil": [{"x": "امام شافعی: اصل میں یہ ناجائز ہونا چاہیے تھا؛ اجازت حدیثِ خیبر سے ملی، اور خیبر میں حضور ﷺ نے یہود سے صرف کھجور اور انگور میں مساقاۃ کی تھی۔", "s": [{"t": "u", "v": "0:19:41"}, {"t": "u", "v": "0:19:50"}, {"t": "k", "v": "1654", "v7": 120}]}, {"x": "احناف کی پہلی دلیل: جواز حاجت کی وجہ سے ہے، اور حاجت سب میں ہے۔", "s": [{"t": "u", "v": "0:19:59"}, {"t": "k", "v": "1654", "v7": 120}]}, {"x": "دوسری: اہلِ خیبر سب چیزوں میں (درختوں اور سبزیوں میں بھی) مساقاۃ کرتے تھے، بعد میں بھی یہی تعامل رہا؛ تو حدیث ان دو کو خاص نہیں کرتی۔", "s": [{"t": "u", "v": "0:20:04"}, {"t": "u", "v": "0:20:15"}, {"t": "k", "v": "1654", "v7": 120}]}, {"x": "تیسری: مان بھی لیں کہ صرف ان دو میں تھی، تو نصوص میں اصل یہ ہے کہ وہ علت والی ہوں؛ علت نکال کر قیاس سے حکم باقی چیزوں تک متعدی کریں گے۔", "s": [{"t": "u", "v": "0:20:15"}, {"t": "u", "v": "0:20:41"}, {"t": "u", "v": "0:20:49"}, {"t": "k", "v": "1654", "v7": 120}]}, {"x": "«سيّما على أصله»: امام شافعی تو علتِ قاصرہ سے بھی تعلیل مانتے ہیں، اس لیے ان کے ہاں تعلیل کا دائرہ اور وسیع ہے۔", "s": [{"t": "k", "v": "1654", "v7": 120}, {"t": "s", "v": "البناية ١٠/٦٢٢"}]}], "ikhtilaf": [{"x": "امام شافعی (قولِ جدید): صرف انگور اور کھجور میں جائز۔", "s": [{"t": "u", "v": "0:19:35"}, {"t": "u", "v": "0:19:50"}, {"t": "k", "v": "1654", "v7": 120}]}], "faida": [{"x": "حدیثِ خیبر: نبی ﷺ نے اہلِ خیبر سے ان کی زمین کی پیداوار، پھل یا فصل، کے آدھے پر معاملہ کیا (بخاری، رقم ٢٣٢٨)۔", "s": [{"t": "s", "v": "نصب الراية ٤/١٨١"}]}], "lughat": [{"ar": "النخل", "ur": "کھجور (کے درخت)", "s": [{"t": "u", "v": "0:21:12"}, {"t": "u", "v": "0:21:17"}]}, {"ar": "الشجر", "ur": "ایسے درخت جو میوہ دار نہ ہوں", "s": [{"t": "u", "v": "0:21:22"}]}, {"ar": "الكرم", "ur": "انگور", "s": [{"t": "u", "v": "0:21:26"}]}, {"ar": "الرطاب", "ur": "سبزیاں", "s": [{"t": "u", "v": "0:21:28"}]}, {"ar": "أصول الباذنجان", "ur": "بینگن کے پودے", "s": [{"t": "u", "v": "0:21:30"}]}, {"ar": "الأثر", "ur": "حدیث (یہاں حدیثِ خیبر)", "s": [{"t": "u", "v": "0:19:35"}]}, {"ar": "عمّت", "ur": "(حاجت) عام ہے، سب میں ہے", "s": [{"t": "u", "v": "0:19:59"}]}, {"ar": "معلولة", "ur": "علت والی، جس کی علت نکال کر قیاس ہو سکے", "s": [{"t": "u", "v": "0:20:15"}]}]}, {"unit": "u0", "pages": [1654, 1655], "lesson": "2025-07-19", "ts": "0:21:34", "label": null, "title": "مساقاۃ لازم عقد ہے: بغیر عذر نہ مالک نکال سکتا ہے، نہ باغبان چھوڑ سکتا ہے", "start": "وليس لصاحب الكرم أن يُخرج العامل من غير عذر", "start_note": "", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 120–121", "tamheed": [{"x": "مزارعت میں عقد دونوں پر لازم تھا، مگر بیج ڈالنے سے پہلے بیج والا انکار کر سکتا تھا۔ زمین میری ہے، طے ہوا کہ بیج کاشتکار ڈالے گا؛ بارشیں نہیں ہوئیں تو وہ کہتا ہے میں بیج نہیں ڈالتا؛ میں اسے مجبور نہیں کر سکتا، کیونکہ بیج ڈالنے میں اس کے نقصان کا احتمال ہے۔", "s": [{"t": "u", "v": "0:21:48"}, {"t": "u", "v": "0:22:05"}, {"t": "u", "v": "0:22:16"}]}, {"x": "مساقاۃ میں کسی کا نقصان نہیں: درخت میرے ہیں، کام اس نے کرنا ہے۔", "s": [{"t": "u", "v": "0:22:38"}, {"t": "u", "v": "0:22:41"}]}], "masala": [{"x": "مساقاۃ دونوں پر لازم عقد ہے۔", "s": [{"t": "u", "v": "0:21:39"}, {"t": "u", "v": "0:21:41"}]}, {"x": "باغ کا مالک بغیر عذر باغبان کو نکال نہیں سکتا، اور باغبان بغیر عذر کام نہیں چھوڑ سکتا۔", "s": [{"t": "u", "v": "0:22:41"}, {"t": "u", "v": "0:23:11"}, {"t": "u", "v": "0:23:20"}, {"t": "k", "v": "1654", "v7": 120}]}], "dalil": [{"x": "مالک پر عقد پورا کرنے میں کوئی ضرر نہیں۔", "s": [{"t": "k", "v": "1654", "v7": 120}]}, {"x": "مزارعت میں بیج والے کا معاملہ الگ ہے: بیج زمین میں ڈالنا اپنا مال ضائع کرنا ہے، اس لیے وہ انکار کر سکتا ہے۔ یہاں عقد باقی رکھنے میں کسی کا مال ضائع نہیں ہوتا، اس لیے عقد دونوں طرف سے لازم ہے اور عذر کے بغیر کوئی اکیلا فسخ نہیں کر سکتا، جیسے باقی اجارے۔", "s": [{"t": "u", "v": "0:23:20"}, {"t": "k", "v": "1654–1655", "v7": 121}, {"t": "s", "v": "الكفاية ٨/٤٠٢"}]}], "ikhtilaf": [], "faida": [{"x": "باغبان کا عذر، مثلاً ایسی بیماری کہ کام نہ کر سکے؛ یہ نہیں کہا جائے گا کہ مزدور رکھ لے، کیونکہ اس نے یہ نقصان قبول نہیں کیا تھا۔", "s": [{"t": "s", "v": "البناية ١٠/٦٢٣"}]}], "lughat": [{"ar": "صاحب الكرم", "ur": "انگور (کے باغ) والا، باغ کا مالک", "s": [{"t": "u", "v": "0:23:05"}]}, {"ar": "يُخرج العامل", "ur": "باغبان کو نکال دے", "s": [{"t": "u", "v": "0:23:11"}]}, {"ar": "من غير عذر", "ur": "بغیر عذر کے", "s": [{"t": "u", "v": "0:23:11"}]}, {"ar": "يترك العمل", "ur": "کام چھوڑ دے", "s": [{"t": "u", "v": "0:23:20"}]}, {"ar": "الوفاء بالعقد", "ur": "عقد پورا کرنا", "s": [{"t": "a", "v": ""}]}, {"ar": "بالإضافة إلى صاحب البذر", "ur": "بیج والے کی نسبت سے", "s": [{"t": "a", "v": ""}]}]}, {"unit": "u0", "pages": [1655], "lesson": "2025-07-19", "ts": "0:23:27", "label": null, "title": "پھل پک چکا ہو تو مساقاۃ نہیں؛ مساقاۃ فاسد ہو تو اجرتِ مثل", "start": "فإن دفع نخلاً فيه تمر مساقاة، والتمر يزيد بالعمل: جاز", "start_note": "استاد «ثمر» پڑھتے ہیں۔", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 121", "tamheed": [{"x": "مساقاۃ تبھی ہو سکتی ہے جب پھل نہ آیا ہو، یا آیا ہو مگر اس میں کام کی ضرورت ہو۔", "s": [{"t": "u", "v": "0:23:31"}, {"t": "u", "v": "0:23:37"}]}, {"x": "آموں کا باغ جولائی میں پکتا ہے، کٹائی کبھی یکم جولائی کو، کبھی دس کو۔ یکم جولائی کو کسی سے کہا: بیس دن باغ کا خیال رکھو، پھر آدھا آدھا کریں گے (یا ایک حصہ تمہارا، تین میرے)۔", "s": [{"t": "u", "v": "0:23:41"}, {"t": "u", "v": "0:23:48"}, {"t": "u", "v": "0:23:56"}, {"t": "u", "v": "0:24:00"}]}, {"x": "دیکھا جائے گا کہ ابھی آموں کے بڑھنے یا پکنے کا امکان ہے یا نہیں۔", "s": [{"t": "u", "v": "0:24:06"}]}], "masala": [{"x": "کھجور کے ایسے درخت مساقاۃ پر دیے جن پر پھل ہے اور کام سے پھل بڑھ سکتا ہے: جائز۔", "s": [{"t": "u", "v": "0:24:13"}, {"t": "u", "v": "0:25:10"}, {"t": "u", "v": "0:25:22"}, {"t": "k", "v": "1655", "v7": 121}]}, {"x": "پھل اپنی انتہا کو پہنچ چکا، نہ پک رہا ہے نہ بڑھ رہا ہے: جائز نہیں۔", "s": [{"t": "u", "v": "0:24:19"}, {"t": "u", "v": "0:25:28"}, {"t": "k", "v": "1655", "v7": 121}]}, {"x": "فصل کا بھی یہی حکم: کچی فصل دی کہ پکنے تک خیال رکھو تو جائز؛ پکی ہوئی، کٹائی کے قابل فصل دی تو ناجائز۔", "s": [{"t": "u", "v": "0:24:27"}, {"t": "u", "v": "0:24:34"}, {"t": "k", "v": "1655", "v7": 121}]}, {"x": "مساقاۃ فاسد ہو جائے تو باغبان کو اجرتِ مثل ملے گی۔", "s": [{"t": "u", "v": "0:25:43"}, {"t": "u", "v": "0:25:47"}, {"t": "k", "v": "1655", "v7": 121}]}], "dalil": [{"x": "باغبان اپنے کام کی وجہ سے حق دار بنتا ہے؛ پکنے کے بعد کام کا کوئی اثر نہیں۔ اجازت دیں تو بغیر کام کے آدھے پھل کا حق دینا ہوگا، اور شریعت میں اس کی کوئی مثال نہیں۔", "s": [{"t": "u", "v": "0:24:34"}, {"t": "k", "v": "1655", "v7": 121}]}, {"x": "حاشیہ: مساقاۃ حدیث (اثر) سے اسی صورت میں جائز ہوئی جہاں کام کی اجرت پیداوار کا حصہ ہو۔", "s": [{"t": "s", "v": "العناية ٨/٤٠٢"}]}, {"x": "فاسد مساقاۃ فاسد اجارے کے معنی میں ہے؛ جیسے فاسد مزارعت میں کاشتکار کو اور فاسد اجارے میں اجیر کو اجرتِ مثل ملتی ہے۔", "s": [{"t": "u", "v": "0:25:49"}, {"t": "u", "v": "0:25:57"}, {"t": "k", "v": "1655", "v7": 121}]}], "ikhtilaf": [], "faida": [], "lughat": [{"ar": "نخلاً فيه تمر", "ur": "کھجور کے درخت جن پر پھل لگا ہو", "s": [{"t": "u", "v": "0:25:10"}]}, {"ar": "يزيد بالعمل", "ur": "کام سے بڑھتا ہے", "s": [{"t": "u", "v": "0:25:22"}]}, {"ar": "قد انتهت", "ur": "(پھل) اپنی انتہا کو پہنچ گیا", "s": [{"t": "u", "v": "0:25:28"}]}, {"ar": "بقل", "ur": "کچی سبز فصل", "s": [{"t": "u", "v": "0:24:34"}]}, {"ar": "استحصد وأدرك", "ur": "کٹائی کے قابل ہو گئی اور پک گئی", "s": [{"t": "u", "v": "0:24:34"}]}, {"ar": "التناهي", "ur": "انتہا کو پہنچنا", "s": [{"t": "a", "v": ""}]}, {"ar": "أجر مثله", "ur": "اس جیسے کام کی عام اجرت", "s": [{"t": "u", "v": "0:25:47"}]}]}, {"unit": "u0", "pages": [1655], "lesson": "2025-07-19", "ts": "0:26:06", "label": null, "title": "مساقاۃ کب ختم ہوتی ہے؟ (1) باغ کا مالک فوت ہو جائے", "start": "وتبطل المساقاة بالموت؛ لأنها في معنى الإجارة", "start_note": "", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 121–122", "tamheed": [{"x": "مساقاۃ تین چیزوں سے ختم ہوتی ہے: دونوں میں سے کوئی مر جائے، مدت ختم ہو جائے، یا کوئی عذر کی وجہ سے فسخ کر دے۔", "s": [{"t": "u", "v": "0:26:16"}, {"t": "u", "v": "0:26:21"}]}, {"x": "مزارعت میں بھی یہی تھا: زمین کا مالک مر گیا تو کاشتکار فصل کو آخر تک پہنچا سکتا تھا؛ وہ خود چھوڑ دے تو مالک کے ورثاء کو تین اختیار تھے۔", "s": [{"t": "u", "v": "0:26:32"}]}], "masala": [{"x": "باغ کا مالک مر گیا اور پھل ابھی کچا ہے: باغبان پکنے تک پہلے کی طرح کام کر سکتا ہے، ورثاء انکار نہیں کر سکتے (استحساناً)۔", "s": [{"t": "u", "v": "0:27:38"}, {"t": "u", "v": "0:27:42"}, {"t": "k", "v": "1655", "v7": 121}]}, {"x": "باغبان کہے میں مزید کام نہیں کرتا، مجھے ابھی میرا حصہ دو، تو مالک کے ورثاء کو تین اختیار ہیں:", "s": [{"t": "u", "v": "0:27:51"}, {"t": "u", "v": "0:28:41"}, {"t": "k", "v": "1655", "v7": 122}]}, {"x": "(1) کچا پھل طے شدہ شرط کے مطابق بانٹ لیں؛ (2) اسے اس کے حصے کی قیمت دے دیں؛ (3) پکنے تک خود خرچہ کریں، پھر وہ خرچہ اس کے حصے کے پھل سے وصول کر کے باقی اسے دے دیں۔", "s": [{"t": "u", "v": "0:28:50"}, {"t": "u", "v": "0:28:56"}, {"t": "u", "v": "0:29:04"}, {"t": "u", "v": "0:29:11"}, {"t": "k", "v": "1655", "v7": 122}]}], "dalil": [{"x": "موت سے مساقاۃ اس لیے ختم ہوتی ہے کہ یہ اجارہ کے معنی میں ہے، اور اجارہ عاقد کی موت سے ختم ہو جاتا ہے؛ عقد باقی رہے تو وہ منفعت، جو اب وارث کی ملکیت ہے، غیر عاقد کے ذمے لازم ہو جائے گی۔", "s": [{"t": "k", "v": "1655", "v7": 121}, {"t": "s", "v": "العناية ٨/٤٠٢"}]}, {"x": "باغبان کو کام جاری رکھنے کا حق اس لیے کہ ابھی ختم کرنے میں اس کا نقصان ہے، اور ورثاء کا کوئی نقصان نہیں؛ اس سے نقصان ہٹانے کے لیے عقد باقی رکھا گیا۔", "s": [{"t": "u", "v": "0:27:51"}, {"t": "k", "v": "1655", "v7": 122}]}, {"x": "قیاس کا تقاضا یہ تھا کہ عقد ختم ہو اور کچا پھل ورثاء اور باغبان میں آدھا آدھا بٹ جائے؛ مذکورہ حکم استحسان ہے۔", "s": [{"t": "s", "v": "العناية ٨/٤٠٢"}]}, {"x": "باغبان نے خود نقصان قبول کیا تو اسے ورثاء کو نقصان پہنچانے کا حق نہیں، اس لیے اختیار ان کا ہے۔ اس کی نظیر مزارعت میں گزری۔", "s": [{"t": "u", "v": "0:27:29"}, {"t": "k", "v": "1655", "v7": 122}, {"t": "s", "v": "البناية ١٠/٦٢٦"}]}], "ikhtilaf": [], "faida": [], "lughat": [{"ar": "ربّ الأرض", "ur": "زمین یا باغ کا مالک", "s": [{"t": "u", "v": "0:28:27"}]}, {"ar": "بُسر", "ur": "کچی کھجور، کچا میوہ", "s": [{"t": "u", "v": "0:28:31"}]}, {"ar": "يقوم عليه", "ur": "اس کا خیال رکھے، دیکھ بھال کرے", "s": [{"t": "u", "v": "0:28:35"}]}, {"ar": "إلى أن يُدرك الثمر", "ur": "یہاں تک کہ پھل پک جائے", "s": [{"t": "u", "v": "0:28:39"}]}, {"ar": "التزم العامل الضرر", "ur": "باغبان نے اپنا نقصان قبول کر لیا", "s": [{"t": "u", "v": "0:28:41"}]}, {"ar": "على الشرط", "ur": "طے شدہ شرط کے مطابق (مثلاً آدھا آدھا)", "s": [{"t": "u", "v": "0:28:54"}]}, {"ar": "ينفقوا", "ur": "خرچہ کریں", "s": [{"t": "u", "v": "0:29:04"}]}, {"ar": "فيرجعوا بذلك في حصة العامل", "ur": "وہ خرچہ باغبان کے حصے سے وصول کریں", "s": [{"t": "u", "v": "0:29:11"}]}]}, {"unit": "u0", "pages": [1655, 1656], "lesson": "2025-07-19", "ts": "0:29:24", "label": null, "title": "باغبان فوت ہو جائے، یا دونوں؛ اور «خیار وراثت میں نہیں جاتا» کا جواب", "start": "ولو مات العامل: فلورثته أن يقوموا عليه وإن كره رب الأرض", "start_note": "", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 122–123", "tamheed": [{"x": "باغبان مر گیا تو اس کے ورثاء کہہ سکتے ہیں: ہم باغ کا خیال رکھیں گے، پکے گا تو ہمارے والد کا حصہ ہمیں دیں۔ مالک نہیں کہہ سکتا کہ میری طرف سے معاملہ ختم۔", "s": [{"t": "u", "v": "0:29:39"}, {"t": "u", "v": "0:29:45"}]}], "masala": [{"x": "باغبان مر گیا: اس کے ورثاء کام جاری رکھ سکتے ہیں، اگرچہ مالک راضی نہ ہو۔", "s": [{"t": "u", "v": "0:30:58"}, {"t": "u", "v": "0:31:02"}, {"t": "k", "v": "1655", "v7": 122}]}, {"x": "وہ کچا ہی کاٹنا چاہیں تو مالک کو وہی تین اختیار ہوں گے۔", "s": [{"t": "u", "v": "0:30:10"}, {"t": "u", "v": "0:31:06"}, {"t": "u", "v": "0:31:13"}, {"t": "k", "v": "1655", "v7": 122}]}, {"x": "دونوں مر گئے: اختیار باغبان کے ورثاء کو ہے کہ جاری رکھیں یا کاٹیں۔", "s": [{"t": "u", "v": "0:30:24"}, {"t": "u", "v": "0:30:39"}, {"t": "u", "v": "0:31:26"}, {"t": "k", "v": "1655", "v7": 122}]}, {"x": "باغبان کے ورثاء انکار کر دیں تو مالک کے ورثاء کو تین اختیار: کچا کاٹ کر بانٹیں، اس کا حصہ خرید لیں (قیمت دیں)، یا خرچہ کریں۔", "s": [{"t": "u", "v": "0:31:31"}, {"t": "u", "v": "0:31:35"}, {"t": "k", "v": "1655–1656", "v7": 123}]}], "dalil": [{"x": "باغبان کے ورثاء کو حق اس لیے کہ اس میں دونوں طرف کی رعایت ہے؛ اور دونوں کی موت پر وہ باغبان کی جگہ کھڑے ہیں۔", "s": [{"t": "u", "v": "0:29:45"}, {"t": "k", "v": "1655", "v7": 122}]}], "ikhtilaf": [], "faida": [{"x": "اعتراض: احناف کے ہاں خیار میں وراثت جاری نہیں ہوتی؛ باپ نے بیع میں اپنے لیے خیارِ شرط رکھا اور مر گیا تو بیٹے کو نہیں ملتا۔ تو باغبان کے ورثاء کو اختیار کیسے؟", "s": [{"t": "u", "v": "0:31:35"}, {"t": "s", "v": "البناية ١٠/٦٢٦"}]}, {"x": "جواب: یہاں خیار میراث میں نہیں جا رہا، ایک مالی حق جا رہا ہے: پکنے تک پھل درختوں پر رکھنے کا حق، جو عقد ختم ہونے کے باوجود باغبان کا تھا؛ اور حق میں میراث جاری ہوتی ہے۔", "s": [{"t": "u", "v": "0:31:35"}, {"t": "k", "v": "1655", "v7": 122}, {"t": "k", "v": "1655–1656", "v7": 123}]}], "lughat": [{"ar": "ورثته", "ur": "اس کے ورثاء", "s": [{"t": "u", "v": "0:30:58"}]}, {"ar": "وإن كره رب الأرض", "ur": "اگرچہ زمین کا مالک راضی نہ ہو", "s": [{"t": "u", "v": "0:31:02"}]}, {"ar": "يَصرِموه بسراً", "ur": "کچا ہی کاٹ لیں", "s": [{"t": "u", "v": "0:31:06"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "الخيارات الثلاثة", "ur": "تینوں اختیارات", "s": [{"t": "u", "v": "0:31:13"}]}, {"ar": "ماتا جميعاً", "ur": "دونوں مر گئے", "s": [{"t": "u", "v": "0:31:17"}]}, {"ar": "أبى", "ur": "انکار کیا", "s": [{"t": "u", "v": "0:31:31"}]}, {"ar": "خلافة في حق مالي", "ur": "مالی حق میں جانشینی", "s": [{"t": "u", "v": "0:31:35"}]}, {"ar": "النظر من الجانبين", "ur": "دونوں طرف کی رعایت", "s": [{"t": "a", "v": ""}]}]}, {"unit": "u0", "pages": [1656], "lesson": "2025-07-19", "ts": "0:31:35", "label": null, "title": "مدت ختم ہو گئی اور پھل کچا ہے؛ اور عذر سے فسخ", "start": "وإذا انقضت مدة المعاملة، والخارجُ بُسر أخضر، فهذا والأول سواء", "start_note": "وضاحت 0:31:35 والی لمبی سطر میں ہے؛ متن 0:35:27 پر پڑھا۔ عذر والا متن (ص 124) پڑھا نہیں، صرف سمجھایا (0:35:47)۔", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 123–124", "tamheed": [{"x": "میں نے کسی کو کھجور کے درخت دیے کہ اگلے سال جون تک معاملہ ہے؛ جون آ گیا اور کھجوریں ابھی کچی ہیں۔", "s": [{"t": "u", "v": "0:31:35"}]}], "masala": [{"x": "یہ موت والی صورت کی طرح ہے: باغبان چاہے تو پکنے تک کام کرے؛ وہ ابھی کاٹنا چاہے تو مالک اسے اس کا حصہ دے، یا اس سے خرید لے، یا خود خرچہ کرے۔", "s": [{"t": "u", "v": "0:31:35"}, {"t": "u", "v": "0:35:43"}, {"t": "k", "v": "1656", "v7": 123}]}, {"x": "مگر بغیر اجرت: باغبان درختوں کا کرایہ نہیں دے گا، اور خیال رکھنے کی اجرت بھی نہیں مانگ سکتا؛ سارا کام باغبان ہی پر ہے۔", "s": [{"t": "u", "v": "0:31:35"}, {"t": "u", "v": "0:35:47"}, {"t": "k", "v": "1656", "v7": 123}]}, {"x": "تیسری چیز: مساقاۃ عذروں سے فسخ ہو جاتی ہے، انہی عذروں سے جن سے اجارہ فسخ ہوتا ہے۔", "s": [{"t": "u", "v": "0:35:47"}, {"t": "u", "v": "0:36:42"}, {"t": "k", "v": "1656", "v7": 124}]}, {"x": "عذر کی مثالیں: باغبان چور ہو اور اندیشہ ہو کہ کھجوریں، شاخیں یا پھل چرا لے گا؛ یا اتنا بیمار ہو جائے کہ خود کام نہ کر سکے۔", "s": [{"t": "u", "v": "0:35:47"}, {"t": "k", "v": "1656", "v7": 124}]}], "dalil": [{"x": "مزارعت میں فرق: وہاں مدت ختم ہو اور گندم کچی ہو تو کاشتکار باقی مدت (مثلاً ایک مہینہ) کا اپنے حصے کا زمین کا کرایہ دیتا ہے، اور ہر ایک اپنے حصے پر خرچ کرتا ہے۔ زمین کا کرایہ پانچ ہزار اور اس کی اجرت تین ہزار ہو تو تین ہزار کا مقاصہ ہو کر دو ہزار وہ مالک کو دے گا۔", "s": [{"t": "u", "v": "0:31:35"}, {"t": "k", "v": "1656", "v7": 123}]}, {"x": "وجہ: زمین کرائے پر لی جا سکتی ہے، درخت کرائے پر نہیں لیے جاتے؛ شریعت میں اس کی مثال نہیں۔ کرایہ نہیں تو اجرت بھی نہیں، اور کام پہلے کی طرح پورا باغبان پر۔", "s": [{"t": "u", "v": "0:31:35"}, {"t": "k", "v": "1656", "v7": 123}, {"t": "s", "v": "الكفاية ٨/٤٠٣"}]}, {"x": "چور کا عذر اس لیے کہ مالک پر ایسا ضرر آتا ہے جو اس نے قبول نہیں کیا؛ بیماری اس لیے کہ اسے مزدور رکھنے پر مجبور کرنا اس پر زائد ضرر ہے۔", "s": [{"t": "u", "v": "0:35:47"}, {"t": "k", "v": "1656", "v7": 124}]}], "ikhtilaf": [], "faida": [{"x": "مثال: کسی نے درختوں پر لگے پھل خریدے، پھر پکنے تک درخت کرائے پر لیے تو کرایہ واجب نہیں ہوتا؛ جبکہ زمین میں کھیتی خرید کر زمین معلوم مدت کے لیے کرائے پر لینا جائز ہے۔", "s": [{"t": "s", "v": "الكفاية ٨/٤٠٢"}]}, {"x": "باغبان خود کام چھوڑنا چاہے تو کیا یہ عذر ہے؟ دو روایتیں ہیں۔ ایک کی تاویل: عقد میں اپنے ہاتھ سے کام کی شرط تھی تو عذر ہے؛ اپنے اور مزدوروں سے کام کی بات تھی تو کسی اور کو لگائے، عذر نہیں۔", "s": [{"t": "k", "v": "1656", "v7": 124}, {"t": "s", "v": "العناية ٨/٤٠٣"}]}], "lughat": [{"ar": "انقضت مدة المعاملة", "ur": "مساقاۃ کی مدت ختم ہو گئی", "s": [{"t": "u", "v": "0:35:29"}]}, {"ar": "بسر أخضر", "ur": "کچی، سبز کھجور (پکی نہیں)", "s": [{"t": "u", "v": "0:35:31"}, {"t": "u", "v": "0:35:39"}]}, {"ar": "فهذا والأول سواء", "ur": "یہ اور (موت والی) پہلی صورت برابر ہیں", "s": [{"t": "u", "v": "0:35:43"}]}, {"ar": "بغير أجر", "ur": "بغیر اجرت کے", "s": [{"t": "u", "v": "0:35:47"}]}, {"ar": "تُفسخ بالأعذار", "ur": "عذروں سے فسخ ہو جاتی ہے", "s": [{"t": "u", "v": "0:36:42"}]}, {"ar": "السَّعَف", "ur": "کھجور کی شاخیں", "s": [{"t": "u", "v": "0:35:47"}]}, {"ar": "يُضعفه عن العمل", "ur": "اسے کام سے عاجز کر دے", "s": [{"t": "u", "v": "0:35:47"}]}]}, {"unit": "u0", "pages": [1656, 1657], "lesson": "2025-07-19", "ts": "0:36:42", "label": null, "title": "خالی زمین درخت لگانے کو دی کہ زمین اور درخت آدھے آدھے: ناجائز", "start": "ومن دفع أرضاً بيضاء إلى رجل سنين معلومة، يَغْرِس فيها شجراً", "start_note": "وضاحت 0:36:42 اور 0:37:46 پر؛ متن 0:40:18 پر پڑھا۔ یہ کتاب المساقاۃ کا آخری مسئلہ ہے (ص 125 پر ختم)۔", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 124–125", "tamheed": [{"x": "میں کسی کو خالی زمین دوں کہ دس سال تک اس میں کھجور کے پودے لگاؤ؛ دس سال بعد پودے بھی آدھے آدھے، زمین بھی آدھی آدھی۔ زمین کی قیمت مثلاً دس لاکھ، درختوں کی بھی دس لاکھ۔", "s": [{"t": "u", "v": "0:36:42"}]}, {"x": "صرف درخت آدھے آدھے کہتا تو جائز تھا، وہ پیچھے گزر گیا؛ زمین بھی شریک کی تو ناجائز۔", "s": [{"t": "u", "v": "0:36:42"}, {"t": "u", "v": "0:37:46"}]}], "masala": [{"x": "زمین اور درخت دونوں آدھے آدھے ہونے کی شرط: جائز نہیں۔", "s": [{"t": "u", "v": "0:37:46"}, {"t": "u", "v": "0:40:33"}, {"t": "k", "v": "1656", "v7": 124}]}, {"x": "سارے درخت اور سارا پھل زمین کے مالک کا۔", "s": [{"t": "u", "v": "0:37:46"}, {"t": "u", "v": "0:40:37"}, {"t": "k", "v": "1656", "v7": 124}]}, {"x": "پودے لگانے والے کو پودوں کی قیمت اور اپنے کام کی اجرتِ مثل، دونوں الگ الگ ملیں گی؛ قیمت میں اجرت شامل نہیں۔", "s": [{"t": "u", "v": "0:37:46"}, {"t": "u", "v": "0:40:48"}, {"t": "u", "v": "0:40:50"}, {"t": "k", "v": "1656", "v7": 124}, {"t": "k", "v": "1656–1657", "v7": 125}]}, {"x": "استاد: قیمت لگاتے دن کی ہوگی: پودا لگاتے وقت پانچ ہزار کا تھا اور اب پچاس ہزار کا ہے تو پانچ ہزار ملیں گے۔", "s": [{"t": "u", "v": "0:37:46"}]}], "dalil": [{"x": "شرکت اس چیز میں ہوتی ہے جو بعد میں اس کے کام سے پیدا ہو، یعنی پھل یا درخت؛ زمین پہلے سے موجود تھی، اس کے کام سے حاصل نہیں ہوئی، اس لیے اس میں شرکت کی شرط درست نہیں۔", "s": [{"t": "u", "v": "0:37:46"}, {"t": "k", "v": "1656", "v7": 124}]}, {"x": "یہ «قفیز الطحان» کے معنی میں ہے: کام کرنے والے کو اسی چیز کے ایک حصے کے بدلے اجرت پر لینا جو اس کے کام سے بنے، یعنی آدھا باغ؛ اس لیے اجارہ فاسد۔", "s": [{"t": "k", "v": "1656", "v7": 124}]}, {"x": "پودے زمین کے ساتھ ایسے جڑ گئے کہ الگ کر کے واپس نہیں دیے جا سکتے، اس لیے قیمت دی جائے گی۔ اکھاڑ کر دینا درخت دینا نہیں، لکڑی دینا ہے۔", "s": [{"t": "u", "v": "0:37:46"}, {"t": "k", "v": "1656–1657", "v7": 125}, {"t": "s", "v": "العناية ٨/٤٠٤"}]}, {"x": "اجرت قیمت میں شامل نہیں، کیونکہ پودوں کی اپنی قیمت ہے۔ جیسے رنگریز اپنے رنگ سے کپڑا رنگے اس شرط پر کہ آدھا رنگا کپڑا اس کا: اجارہ فاسد ہو تو مالک رنگ سے بڑھی قیمت بھی دے اور کام کی اجرت بھی۔", "s": [{"t": "k", "v": "1656–1657", "v7": 125}, {"t": "s", "v": "العناية ٨/٤٠٤"}]}], "ikhtilaf": [], "faida": [{"x": "دوسری تخریج («كفاية المنتهي» میں): یہ زمین کے آدھے کے بدلے آدھے پودے خریدنا ہے اور پودے مجہول ہیں، اس لیے ناجائز؛ ہدایہ والی تخریج زیادہ صحیح ہے۔", "s": [{"t": "k", "v": "1656–1657", "v7": 125}, {"t": "s", "v": "الكفاية"}]}, {"x": "استاد کا بتایا ہوا طریقہ: سو پودے ہوں تو زمین کا آدھا حصہ پچاس پودوں کے بدلے بیچ دے؛ پھر زمین بھی آدھی آدھی اور کھجوریں بھی آدھی آدھی۔", "s": [{"t": "u", "v": "0:37:46"}]}, {"x": "یہ امام محمد کی «الأصل» کا مسئلہ ہے، قدوری کے مسئلے پر تفریع۔", "s": [{"t": "s", "v": "البناية ١٠/٦٢٩"}]}], "lughat": [{"ar": "أرضاً بيضاء", "ur": "خالی زمین، جس میں درخت نہ ہوں", "s": [{"t": "u", "v": "0:40:19"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "سنين معلومة", "ur": "معلوم سالوں کے لیے (مثلاً دس سال)", "s": [{"t": "u", "v": "0:40:24"}]}, {"ar": "يغرس فيها شجراً", "ur": "اس میں درخت (پودے) لگائے", "s": [{"t": "u", "v": "0:40:28"}]}, {"ar": "الغارس", "ur": "پودے لگانے والا", "s": [{"t": "u", "v": "0:40:44"}]}, {"ar": "قيمة غرسه", "ur": "اس کے پودوں کی قیمت", "s": [{"t": "u", "v": "0:40:48"}]}, {"ar": "أجر مثله فيما عمل", "ur": "اس نے جو کام کیا اس کی اجرتِ مثل", "s": [{"t": "u", "v": "0:40:50"}]}, {"ar": "قفيز الطحان", "ur": "پیسنے والے کی اجرت اسی آٹے میں سے ایک پیمانہ (ممنوع)", "s": [{"t": "a", "v": ""}]}, {"ar": "تعذّر ردّ الغراس", "ur": "پودے واپس کرنا ممکن نہ رہا", "s": [{"t": "u", "v": "0:37:46"}]}]}], "gaps": [{"unit": "u0", "pages": "1653–1654", "page_list": [1653, 1654], "v7": "بشریٰ ج٧ ص 118–119", "text": "«وبخلاف ما إذا دفع إليه غرساً قد علق ولم يبلغ الثمر معاملةً حيث لا يجوز إلا ببيان المدة…»: استاد نے نہ پڑھا نہ الگ سمجھایا؛ ان کی پانچ سال والی مثال (کارڈ 3) اسی پر مبنی ہے۔ کارڈ 2 میں یہ حکم متن اور حاشیے سے لکھا ہے۔"}, {"unit": "u0", "pages": "1656", "page_list": [1656], "v7": "بشریٰ ج٧ ص 124", "text": "«ولو أراد العامل ترك ذلك العمل هل يكون عذراً؟ فيه روايتان…»: استاد نے نہ پڑھا نہ سمجھایا؛ کارڈ 9 میں متن اور العناية سے لکھا ہے۔"}, {"unit": "u0", "pages": "1656–1657", "page_list": [1656, 1657], "v7": "بشریٰ ج٧ ص 124–125", "text": "«لأنه في معنى قفيز الطحان…» اور «وفي تخريجها طريق آخر بيناه في كفاية المنتهي، وهذا أصحها»: استاد نے نہیں پڑھا (ان کی آخری پڑھی عبارت «وأجر مثله فيما عمل» ہے)؛ کارڈ 10 میں متن اور حاشیے سے لکھا ہے۔"}], "kitabs": [{"title": "كتاب الشفعة", "from": 1597, "to": 1625, "href": "shufa.html"}, {"title": "كتاب القسمة", "from": 1626, "to": 1643, "href": "qisma.html"}, {"title": "كتاب المزارعة", "from": 1644, "to": 1651, "href": "muzaraa.html"}, {"title": "كتاب المساقاة", "from": 1652, "to": 1656, "href": "musaqat.html"}, {"title": "كتاب الذبائح", "from": 1657, "to": 1671, "href": null}, {"title": "كتاب الأضحية", "from": 1672, "to": 1683, "href": null}, {"title": "كتاب الكراهية", "from": 1684, "to": 1723, "href": null}, {"title": "كتاب إحياء الموات", "from": 1724, "to": 1741, "href": null}, {"title": "كتاب الأشربة", "from": 1742, "to": 1755, "href": null}, {"title": "كتاب الصيد", "from": 1756, "to": 1772, "href": null}, {"title": "كتاب الرهن", "from": 1773, "to": 1822, "href": null}, {"title": "كتاب الجنايات", "from": 1823, "to": 1855, "href": null}, {"title": "كتاب الديات", "from": 1856, "to": 1929, "href": null}, {"title": "كتاب المعاقل", "from": 1930, "to": 1938, "href": null}, {"title": "كتاب الوصايا", "from": 1939, "to": 1996, "href": null}, {"title": "كتاب الخنثى", "from": 1997, "to": 2000, "href": null}, {"title": "مسائل شتى", "from": 2001, "to": 2004, "href": null}], "sections": [["tamheed", "تمہید"], ["masala", "مسئلہ"], ["dalil", "دلیل"], ["ikhtilaf", "اختلاف"], ["faida", "فائدہ"]], "quick": ["tamheed", "masala"], "footer": ["صفحہ نمبر ساتھیوں والے نسخے (مسلسل صفحات) کے ہیں۔ ص 1609–1611 کتاب سے ملا کر لکھے گئے ہیں؛ باقی بشریٰ کے آٹھ جلدی نسخے (جلد ٧) سے حساب لگا کر، اس لیے کہیں ایک صفحہ آگے پیچھے ہو سکتا ہے۔ اصل جگہ کارڈ کی پہلی عربی سطر سے پہچانیں؛ بشریٰ کا صفحہ ہر کارڈ پر ساتھ لکھا ہے۔", "ٹرانسکرپٹ ریکارڈنگ سے Gemini نے بنایا اور اس کے وقت آواز سے ملا کر درست کیے گئے۔ کارڈ اسی ٹرانسکرپٹ، کتاب کے متن اور حاشیے سے بنے ہیں؛ ہر سطر کے آخر میں اس کا ماخذ ہے۔", "پیلی (AI) علامت والی سطریں خود جانچیں۔ امتحان میں مسئلہ، اختلاف اور دلیل سبز، نیلی یا سرمئی علامت والی سطروں سے لکھیں۔", "استاد کلاس میں اپنے نسخے کے صفحے بولتے ہیں (مثلاً كتاب المساقاة 1700)؛ وہ اس نسخے سے مختلف ہیں۔"]};
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const secs = (ts) => ts.split(":").map(Number).reduce((a, n) => a * 60 + n, 0);
+const B = DATA.book, LES = DATA.lessons, UNITS = DATA.units || [], CARDS = DATA.cards, GAPS = DATA.gaps || [];
+const PAGED = CARDS.some((c) => c.pages && c.pages.length);
+const ONE = B.unitOne || "کارڈ";
+const audio = $("audio");
+const OPUS_OK = (() => { try { return audio.canPlayType('audio/ogg; codecs="opus"') !== ""; } catch (e) { return false; } })();
+const ICON = {
+  play: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0v10l9-5z"/></svg>',
+  down: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M5 1h2v5h2.5L6 9.5 2.5 6H5zM1 10.5h10V12H1z"/></svg>',
+  file: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1h5l3 3v7H2zM6.5 2v2.5H9"/></svg>',
+};
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+const KEY = DATA.store || "cards";
+const toLatin = (v) => String(v).replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).trim();
+const LRI = "\u2066", PDI = "\u2069";
+const range = (a, b) => (a === b ? `${a}` : `${LRI}${a}–${b}${PDI}`);
+const iso = (s) => String(s ?? "").replace(/(\d+)\s*[–-]\s*(\d+)/g, `${LRI}$1–$2${PDI}`);
+const sizeMB = (x) => `${LRI}${x >= 10 ? Math.round(x) : Math.round(x * 10) / 10} MB${PDI}`;
+const pagesLabel = (ps) => `ص ${range(ps[0], ps[ps.length - 1])}`;
+
+// ---------- header
+document.title = `${B.kitab} · ${B.book}`;
+if (DATA.home) { $("homeLink").href = DATA.home; $("homeLink").textContent = `→ ${DATA.homeLabel || B.book}`; $("homeLink").hidden = false; }
+$("kitab").textContent = B.kitab;
+const usedLessons = [...new Set(CARDS.map((c) => c.lesson).filter(Boolean))].sort();
+$("meta").innerHTML = (PAGED && B.from ? `صفحات <b class="ltr num">${range(B.from, B.to)}</b>، ` : "") +
+  `<b>${CARDS.length}</b> ${esc(B.unit || "کارڈ")}، <b>${usedLessons.length}</b> اسباق کی ریکارڈنگ سے`;
+
+// ---------- units
+const unitByKey = Object.fromEntries(UNITS.map((u) => [u.key, u]));
+const cardsOf = (k) => CARDS.filter((c) => c.unit === k);
+const pagesOf = (k) => [...new Set(cardsOf(k).flatMap((c) => c.pages || []))].sort((a, b) => a - b);
+const gapsOf = (k) => GAPS.filter((g) => g.unit === k);
+const parentOf = (u) => {
+  const i = UNITS.indexOf(u);
+  for (let j = i - 1; j >= 0; j--) if (UNITS[j].level < u.level) return UNITS[j];
+  return null;
+};
+
+$("toc").innerHTML = UNITS.map((u) => {
+  const n = cardsOf(u.key).length, ps = pagesOf(u.key);
+  const pr = PAGED && u.page ? `<span class="pp">${range(u.page, u.page_to || u.page)}</span>` : "";
+  const sub = n
+    ? `<span class="n">${n} ${esc(ONE)}</span>` + (PAGED ? ps.map((p) => `<a class="pchip" href="#${u.key}-${p}" aria-label="صفحہ ${p}">${p}</a>`).join("") : "")
+    : `<span class="none">${gapsOf(u.key).length ? "ریکارڈنگ نہیں ملی" : "ابھی کارڈ نہیں"}</span>`;
+  return `<li class="lv${u.level}" id="toc-${u.key}"><a class="row" href="#${u.key}"><span class="tt" lang="ar">${esc(u.title)}</span><span class="dots"></span>${pr}</a>
+    <div class="sub">${sub}</div></li>`;
+}).join("");
+if (!PAGED) document.querySelectorAll("form.jump").forEach((f) => { f.hidden = true; });
+
+// ---------- cards (rendered once; views show and hide them)
+function chip(s, lesson) {
+  if (s.t === "u") return `<button type="button" class="chip u" data-ts="${s.v}" data-l="${s.l || lesson || ""}" title="یہاں سے سنیں">استاد ${s.v}</button>`;
+  if (s.t === "k") return `<span class="chip k"${s.v7 ? ` title="بشریٰ ج٧ ص ${s.v7}"` : ""}>کتاب ص ${iso(esc(s.v))}</span>`;
+  if (s.t === "s") return `<span class="chip s">شرح: ${esc(s.v)}</span>`;
+  return `<span class="chip a">AI · تصدیق طلب</span>`;
+}
+const chips = (arr, l) => `<span class="srcs">${arr.map((s) => chip(s, l)).join("")}</span>`;
+const QUICK = DATA.quick || ["tamheed", "masala"];
+$("cards").innerHTML = CARDS.map((c, i) => {
+  const l = c.lesson;
+  const sec = ([key, label]) => {
+    const items = c[key] || [];
+    if (!items.length) return "";
+    return `<div class="sec ${key}"><h4>${label}</h4><ul>${items.map((it) => `<li>${esc(it.x)} ${chips(it.s, l)}</li>`).join("")}</ul></div>`;
+  };
+  const quick = DATA.sections.filter(([k]) => QUICK.includes(k)).map(sec).join("");
+  const examSecs = DATA.sections.filter(([k]) => !QUICK.includes(k) && (c[k] || []).length);
+  const n = examSecs.reduce((a, [k]) => a + c[k].length, 0);
+  const exam = n ? `<details class="more"><summary>${examSecs.map(([, lb]) => lb).join("، ")} <span class="hint">${n} نکات، امتحان کی تیاری کے لیے</span></summary><div class="inner">${examSecs.map(sec).join("")}</div></details>` : "";
+  const words = (c.lughat || []).length ? `<div class="sec lughat"><h4>مشکل الفاظ</h4><div class="words">${c.lughat.map((w) =>
+    `<div class="word"><span class="ar" lang="ar">${esc(w.ar)}</span><span class="ur">${esc(w.ur)}</span>${chips(w.s, l)}</div>`).join("")}</div></div>` : "";
+  const head = l && c.ts
+    ? `<span class="les">${esc(LES[l].label)}</span><button type="button" class="play" data-ts="${c.ts}" data-l="${l}" aria-label="${esc(LES[l].label)}، ${c.ts} سے سنیں">${ICON.play}${c.ts}</button>`
+    : `<span class="norec-chip">ریکارڈنگ نہیں</span>`;
+  const badges = (c.badges || []).map((b) => `<span class="badge">${esc(b)}</span>`).join("");
+  const pg = PAGED && c.pages && c.pages.length ? `<span class="pg">${pagesLabel(c.pages)}</span>` : (c.group ? `<span class="pg">${esc(c.group)}</span>` : "");
+  return `<article class="card" id="c${i + 1}" data-unit="${esc(c.unit || "")}" data-pages="${(c.pages || []).join("|")}" hidden>
+    <div class="card-head">${pg}${c.v7 ? `<span class="v7">${iso(esc(c.v7))}</span>` : ""}<span class="cnum">${esc(ONE)} ${i + 1}</span>${badges}${head}</div>
+    ${c.label ? `<p class="label" lang="ar">(${esc(c.label)})</p>` : ""}
+    <h3 class="title">${esc(c.title)}</h3>
+    <p class="start" lang="ar">«${esc(c.start)}»</p>
+    ${c.ref ? `<p class="ref">${esc(c.ref)}</p>` : ""}
+    ${c.start_note ? `<p class="start-note">${esc(c.start_note)}</p>` : ""}
+    ${c.norec ? `<p class="norec"><b>توجہ:</b> ${esc(c.norec)}</p>` : ""}
+    ${quick}${words}${exam}
+  </article>`;
+}).join("");
+const ARTS = [...document.querySelectorAll("article.card")];
+const usedT = new Set();
+CARDS.forEach((c) => {
+  DATA.sections.forEach(([k]) => (c[k] || []).forEach((it) => it.s.forEach((x) => usedT.add(x.t))));
+  (c.lughat || []).forEach((w) => w.s.forEach((x) => usedT.add(x.t)));
+});
+document.querySelectorAll(".legend .lg").forEach((el) => { el.hidden = !usedT.has(el.dataset.t); });
+$("foot").innerHTML = (DATA.footer || []).map((p) => `<p>${esc(p)}</p>`).join("");
+
+// ---------- views
+function showToc(msg) {
+  $("tocView").hidden = false; $("unitView").hidden = true; document.body.classList.remove("unit");
+  $("tocMsg").hidden = !msg; if (msg) $("tocMsg").innerHTML = msg;
+  document.title = `${B.kitab} · ${B.book}`;
+  const last = store.get(`${KEY}-unit`, "");
+  const row = last && $(`toc-${last}`);
+  if (row && !msg) row.scrollIntoView({ block: "center" }); else window.scrollTo(0, 0);
+}
+function showUnit(key, page, msg) {
+  const u = unitByKey[key];
+  $("tocView").hidden = true; $("unitView").hidden = false; document.body.classList.add("unit");
+  const par = u.level > 1 ? parentOf(u) : null;
+  $("ubarTitle").textContent = u.title;
+  $("uParent").textContent = par ? par.title : "";
+  $("uParent").hidden = !par;
+  $("uTitle").textContent = u.title;
+  const ps = pagesOf(key), n = cardsOf(key).length;
+  $("uMeta").innerHTML = (PAGED && u.page ? `ص <span class="ltr num">${range(u.page, u.page_to || u.page)}</span>، ` : "") + (n ? `${n} ${esc(ONE)}` : "ابھی کارڈ نہیں");
+  $("pbar").innerHTML = (ps.length > 1 || page ? [`<a href="#${key}" aria-current="${!page}">سب</a>`, ...ps.map((p) =>
+    `<a href="#${key}-${p}" aria-current="${page === p}">${p}</a>`)].join("") : "");
+  $("pbar").hidden = !$("pbar").innerHTML;
+  let shown = 0;
+  ARTS.forEach((a) => {
+    const on = a.dataset.unit === key && (!page || a.dataset.pages.split("|").includes(String(page)));
+    a.hidden = !on; if (on) shown++;
+  });
+  if (page && !shown && !msg) msg = `صفحہ ${page} کا کوئی ${esc(ONE)} ابھی نہیں بنا۔`;
+  $("uMsg").hidden = !msg; if (msg) $("uMsg").innerHTML = msg;
+  const gs = gapsOf(key).filter((g) => !page || (g.page_list || []).includes(page));
+  $("gaps").hidden = !gs.length;
+  $("gapsTitle").textContent = n ? "اس حصے کی وہ عبارت جو استاد نے نہیں سمجھائی" : "اس حصے کی ریکارڈنگ نہیں ملی";
+  $("gapsLead").textContent = n ? "یہ باتیں کارڈوں میں متن اور حاشیے سے لکھی گئی ہیں؛ ریکارڈنگ میں ان کی وضاحت نہیں۔"
+    : "کسی ساتھی کے پاس اس حصے کی ریکارڈنگ ہو تو بھیج دیں، اس کے کارڈ بھی بن جائیں گے۔";
+  $("gapList").innerHTML = gs.map((g) => `<li><span class="gp">${PAGED && g.pages ? "ص " + iso(esc(g.pages)) : ""}</span><span class="gt">${esc(g.text)}</span>${g.v7 ? `<span class="gv">${iso(esc(g.v7))}</span>` : ""}</li>`).join("");
+  const i = UNITS.indexOf(u), prev = UNITS[i - 1], next = UNITS[i + 1];
+  $("unav").innerHTML = (prev ? `<a class="prev" href="#${prev.key}"><span class="k">پچھلا حصہ</span><span class="t" lang="ar">${esc(prev.title)}</span></a>` : "") +
+    (next ? `<a class="next" href="#${next.key}"><span class="k">اگلا حصہ</span><span class="t" lang="ar">${esc(next.title)}</span></a>` : "");
+  document.title = `${u.title} · ${B.kitab}`;
+  store.set(`${KEY}-unit`, key);
+  window.scrollTo(0, 0);
+}
+function findPage(p) {
+  const withCards = UNITS.find((u) => pagesOf(u.key).includes(p));
+  if (withCards) return { unit: withCards.key, page: p };
+  const inRange = [...UNITS].reverse().find((u) => u.page && u.page <= p && p <= (u.page_to || u.page));
+  if (inRange) return { unit: inRange.key, page: p };
+  return null;
+}
+function outsideMsg(p) {
+  const k = (DATA.kitabs || []).find((x) => x.from <= p && p <= x.to);
+  if (!k) return `صفحہ ${p} اس کتاب میں نہیں۔`;
+  if (k.href) return `صفحہ ${p} <a href="${k.href}#p${p}">${esc(k.title)}</a> میں ہے۔`;
+  return `صفحہ ${p} «${esc(k.title)}» میں ہے؛ اس کے کارڈ ابھی نہیں بنے۔`;
+}
+function route() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  let m;
+  if ((m = h.match(/^p(\d+)$/))) {
+    const p = +m[1], f = findPage(p);
+    if (f) { history.replaceState(null, "", `#${f.unit}-${p}`); return showUnit(f.unit, p); }
+    return showToc(outsideMsg(p));
+  }
+  if ((m = h.match(/^(u\d+)(?:-(\d+))?$/)) && unitByKey[m[1]]) return showUnit(m[1], m[2] ? +m[2] : null);
+  if (!h && UNITS.length === 1) return showUnit(UNITS[0].key, null);   // nothing to choose from
+  showToc();
+}
+window.addEventListener("hashchange", route);
+document.addEventListener("submit", (e) => {
+  const f = e.target.closest("form[data-jump]");
+  if (!f) return;
+  e.preventDefault();
+  const v = toLatin(f.querySelector("input").value || "");
+  if (!/^\d+$/.test(v)) return;
+  const p = +v, hit = findPage(p);
+  if (hit) location.hash = `${hit.unit}-${p}`;
+  else showToc(outsideMsg(p));
+});
+$("toggleAll").addEventListener("click", (e) => {
+  const open = e.currentTarget.getAttribute("aria-pressed") !== "true";
+  document.querySelectorAll("details.more").forEach((d) => { d.open = open; });
+  e.currentTarget.setAttribute("aria-pressed", String(open));
+  e.currentTarget.textContent = open ? "سب تفصیل بند کریں" : "سب تفصیل کھولیں";
+});
+route();
+
+// ---------- recordings: light copies on this site, or the reader's own file
+const driveDown = (l) => LES[l].id ? `https://drive.google.com/uc?export=download&id=${LES[l].id}` : "";
+const hasWeb = (l) => !!(LES[l] && LES[l].web && LES[l].web.length);
+const webOk = (l) => hasWeb(l) && (OPUS_OK || !/\.ogg$/i.test(LES[l].web[0].src));
+const norm = (s) => String(s).normalize("NFC").replace(/\.[A-Za-z0-9]{2,5}$/, "")
+  .replace(/[ً-ٰٟـ]/g, "").replace(/[يى]/g, "ی").replace(/ك/g, "ک")
+  .replace(/[ةۃهۀە]/g, "ہ").replace(/[أإآٱ]/g, "ا").replace(/[\s_\-–—().]+/g, "").toLowerCase();
+function matchLesson(name) {
+  const n = norm(name);
+  for (const k of Object.keys(LES)) if (norm(LES[k].file) === n) return k;
+  const d = (name.match(/\d{4}-\d{2}-\d{2}/) || [])[0];
+  if (d) { const ks = Object.keys(LES).filter((k) => LES[k].file.startsWith(d)); if (ks.length === 1) return ks[0]; }
+  return null;
+}
+const IDB_OK = (() => { try { return !!window.indexedDB; } catch (e) { return false; } })();
+function idb() {
+  return new Promise((res, rej) => {
+    try {
+      const r = indexedDB.open(`${KEY}-audio`, 1);
+      r.onupgradeneeded = () => r.result.createObjectStore("files");
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => rej(r.error);
+    } catch (e) { rej(e); }
+  });
+}
+async function idbDo(mode, fn) {
+  const db = await idb();
+  return new Promise((res, rej) => {
+    const tx = db.transaction("files", mode);
+    const out = fn(tx.objectStore("files"));
+    tx.oncomplete = () => res(out && "result" in out ? out.result : undefined);
+    tx.onerror = () => rej(tx.error);
+    tx.onabort = () => rej(tx.error);
+  });
+}
+const MAX_SAVE = 300 * 1024 * 1024;
+const urls = {}, names = {}, files = {}, saved = new Set();
+let current = null, pendingTs = null, pendingLesson = null, sheetMode = null, saveMsg = "";
+const blobUrls = {}, triedBlob = {};
+let curPart = null, lastOffset = 0, pendingSeek = null;
+function webPart(l, sec) {
+  let p = LES[l].web[0];
+  for (const x of LES[l].web) if (x.start <= sec + 0.5) p = x;
+  return p;
+}
+function stateOf(l) {
+  if (urls[l]) {
+    const warn = names[l] && matchLesson(names[l]) !== l;
+    return warn ? `<span class="state warn">کھلی: ${esc(names[l])} (نام مختلف ہے)</span>` : `<span class="state on">آپ کی فائل کھلی ہے</span>`;
+  }
+  if (saved.has(l)) return `<span class="state saved">اس فون پر محفوظ</span>`;
+  if (webOk(l)) return `<span class="state on">یہیں چلتی ہے</span>`;
+  return "";
+}
+function recRow(l) {
+  const L = LES[l], btns = [];
+  if (webOk(l) || urls[l] || saved.has(l)) btns.push(`<button type="button" class="btn" data-ts="0:00:00" data-l="${l}">${ICON.play}شروع سے سنیں</button>`);
+  if (hasWeb(l)) L.web.forEach((p, i) => btns.push(`<a class="btn ghost" href="${esc(p.src)}" download>${ICON.down}ہلکی فائل${L.web.length > 1 ? ` (حصہ ${i + 1})` : ""}${p.mb ? ` ${sizeMB(p.mb)}` : ""}</a>`));
+  if (L.id) btns.push(`<a class="btn quiet" href="${driveDown(l)}" target="_blank" rel="noopener">${ICON.down}اصل فائل${L.size_mb ? ` ${sizeMB(L.size_mb)}` : ""}</a>`);
+  btns.push(`<button type="button" class="btn quiet" data-pick="${l}">${ICON.file}${urls[l] || saved.has(l) ? "دوسری فائل چنیں" : "اپنی فائل چنیں"}</button>`);
+  const mins = L.minutes ? `${Math.round(L.minutes)} منٹ` : "";
+  return `<div class="rec" id="rec-${l}"><div class="rec-top"><b>${esc(L.label)}</b><span class="sub">${mins}</span>${stateOf(l)}</div>
+    <div class="btns">${btns.join("")}</div></div>`;
+}
+function sheetAll() {
+  sheetMode = "all";
+  const anyWeb = usedLessons.some(hasWeb);
+  const hint = anyWeb && !OPUS_OK
+    ? "یہ براؤزر یہاں کی ہلکی فائلیں (Opus) نہیں چلاتا؛ آئی فون پر iOS 18.4 یا نیا ورژن چاہیے۔ اصل فائل ڈاؤن لوڈ کر کے «اپنی فائل چنیں» دبائیں، پھر ہر سبز وقت وہیں سے چلے گا۔"
+    : "کسی سبز وقت پر ٹیپ کریں تو استاد کی آواز اسی صفحے پر وہیں سے چلتی ہے۔ ہلکی فائل ایک بار ڈاؤن لوڈ کر کے «اپنی فائل چنیں» سے کھولیں تو انٹرنیٹ کے بغیر بھی چلے گی۔";
+  const missing = usedLessons.filter((l) => !hasWeb(l)).length;
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">ریکارڈنگز</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${hint}${missing ? ` ${missing} اسباق کی ہلکی فائل ابھی نہیں لگی؛ ان کے لیے اصل فائل ڈاؤن لوڈ کریں۔` : ""}</p>
+    <div>${usedLessons.map(recRow).join("")}</div>
+    <div class="sheet-foot">
+      <label class="btn ghost" for="pickMany">${ICON.file}کئی فائلیں ایک ساتھ چنیں</label>
+      <label class="chk"><input type="checkbox" id="remember" ${store.get(`${KEY}-remember`, "1") === "1" && IDB_OK ? "checked" : ""} ${IDB_OK ? "" : "disabled"}> چنی ہوئی فائلیں اس فون پر یاد رکھیں</label>
+      ${saved.size ? `<button type="button" class="linkbtn" id="forget">محفوظ فائلیں ہٹائیں</button>` : ""}
+      <span>${esc(saveMsg)}</span>
+    </div>`;
+  $("backdrop").hidden = false;
+}
+function sheetOne(l, ts) {
+  sheetMode = "one";
+  const L = LES[l];
+  pendingLesson = l; pendingTs = ts;
+  const why = hasWeb(l) && !OPUS_OK
+    ? "یہ براؤزر یہاں کی ہلکی فائل (Opus) نہیں چلاتا؛ آئی فون پر iOS 18.4 یا نیا ورژن چاہیے۔"
+    : "اس سبق کی ہلکی فائل ابھی اس صفحے پر نہیں لگی۔";
+  const dl = L.id ? `<a class="btn quiet" href="${driveDown(l)}" target="_blank" rel="noopener">${ICON.down}اصل فائل ڈاؤن لوڈ${L.size_mb ? ` (${sizeMB(L.size_mb)})` : ""}</a>` : "";
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">یہ حصہ ${esc(L.label)} کی ریکارڈنگ میں <span class="ltr">${ts}</span> پر ہے</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${why} ریکارڈنگ فون میں ہو تو «اپنی فائل چنیں» دبا کر وہی فائل چنیں؛ آواز سیدھی ${ts} سے چلے گی۔ فائل کہیں اپلوڈ نہیں ہوتی۔</p>
+    <p class="ltr" style="text-align:right">${esc(L.file)}</p>
+    <div class="btns"><button type="button" class="btn" data-pick="${l}">${ICON.file}اپنی فائل چنیں</button>${dl}</div>
+    <button type="button" class="linkbtn" data-allrecs style="margin-inline-start:0">سب ریکارڈنگز</button>`;
+  $("backdrop").hidden = false;
+  $("sheet").querySelector("[data-pick]").focus();
+}
+function closeSheet() { $("backdrop").hidden = true; sheetMode = null; }
+function refreshSheet() { if (sheetMode === "all") sheetAll(); }
+$("recBtn").addEventListener("click", sheetAll);
+$("backdrop").addEventListener("click", (e) => {
+  if (e.target === $("backdrop") || e.target.closest("[data-close]")) closeSheet();
+  else if (e.target.closest("[data-allrecs]")) sheetAll();
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("backdrop").hidden) closeSheet(); });
+
+function useFile(l, file) {
+  if (urls[l]) URL.revokeObjectURL(urls[l]);
+  urls[l] = URL.createObjectURL(file); names[l] = file.name; files[l] = file;
+  if (current === l) { audio.dataset.src = urls[l]; audio.src = urls[l]; }
+  if (store.get(`${KEY}-remember`, "1") === "1") saveFile(l, file);
+}
+async function saveFile(l, file) {
+  if (!IDB_OK) return;
+  if (file.size > MAX_SAVE) { saveMsg = `${file.name}: بہت بڑی فائل، محفوظ نہیں کی۔`; refreshSheet(); return; }
+  try { await idbDo("readwrite", (s) => s.put(file, l)); saved.add(l); saveMsg = ""; }
+  catch (e) { saveMsg = "اس براؤزر نے فائل محفوظ نہیں کرنے دی؛ اگلی بار دوبارہ چننی ہو گی۔"; }
+  refreshSheet();
+}
+async function loadSaved(l) {
+  try {
+    const f = await idbDo("readonly", (s) => s.get(l));
+    if (f) { urls[l] = URL.createObjectURL(f); names[l] = f.name || LES[l].file; return true; }
+  } catch (e) {}
+  return false;
+}
+async function playAt(l, ts) {
+  if (!l || !LES[l]) return;
+  const sec = secs(ts);
+  if (!urls[l] && saved.has(l)) await loadSaved(l);
+  let src, offset = sec;
+  if (urls[l]) { src = urls[l]; curPart = null; }
+  else if (webOk(l)) { const p = webPart(l, sec); src = blobUrls[p.src] || p.src; offset = sec - p.start; curPart = p; }
+  else { sheetOne(l, ts); return; }
+  closeSheet();
+  current = l; lastOffset = Math.max(0, offset);
+  $("player").hidden = false;
+  if (audio.dataset.src !== src) { audio.dataset.src = src; audio.src = src; pendingSeek = lastOffset; }
+  else if (audio.readyState >= 1) {
+    if (curPart && !blobUrls[curPart.src] && !canSeekTo(lastOffset)) { pendingSeek = lastOffset; useBlob(); return; }
+    try { audio.currentTime = lastOffset; } catch (e) {}
+  } else pendingSeek = lastOffset;
+  audio.play().catch(() => {});
+  $("now").innerHTML = `${esc(LES[l].label)} · <span class="ltr">${ts}</span>`;
+}
+function canSeekTo(o) { const r = audio.seekable; return o < 1 || (r && r.length && r.end(r.length - 1) >= o - 1); }
+audio.addEventListener("loadedmetadata", () => {
+  const on = document.querySelector("#speeds button[aria-pressed='true']");
+  if (on) audio.playbackRate = +on.dataset.rate;
+  if (pendingSeek === null) return;
+  const o = pendingSeek;
+  if (curPart && !blobUrls[curPart.src] && !canSeekTo(o)) { useBlob(); return; }
+  pendingSeek = null;
+  try { audio.currentTime = o; } catch (e) {}
+  audio.play().catch(() => {});
+});
+audio.addEventListener("error", () => useBlob());
+async function useBlob() {   // the server can't jump to the time (or the stream failed): fetch the light copy whole
+  const p = curPart;
+  if (!p || blobUrls[p.src] || triedBlob[p.src]) return;
+  triedBlob[p.src] = true;
+  const label = $("now").innerHTML;
+  $("now").textContent = "آواز لوڈ ہو رہی ہے…";
+  try {
+    const r = await fetch(p.src);
+    if (!r.ok) throw new Error(r.status);
+    blobUrls[p.src] = URL.createObjectURL(await r.blob());
+    if (curPart !== p) return;
+    audio.dataset.src = blobUrls[p.src]; audio.src = blobUrls[p.src]; pendingSeek = lastOffset;
+    audio.play().catch(() => {});
+    $("now").innerHTML = label;
+  } catch (e) { $("now").textContent = "یہ آواز نہیں چل سکی۔ «ریکارڈنگز» میں اصل فائل ڈاؤن لوڈ کر کے «اپنی فائل چنیں»۔"; }
+}
+$("pclose").addEventListener("click", () => { audio.pause(); $("player").hidden = true; });
+
+document.addEventListener("click", (e) => {
+  const p = e.target.closest("[data-pick]");
+  if (p) { pendingLesson = p.dataset.pick; if (sheetMode !== "one") pendingTs = null; $("pickOne").value = ""; $("pickOne").click(); return; }
+  if (e.target.closest("#forget")) {
+    idbDo("readwrite", (s) => s.clear()).catch(() => {}).then(() => { saved.clear(); saveMsg = "محفوظ فائلیں ہٹا دی گئیں۔"; refreshSheet(); });
+    return;
+  }
+  const b = e.target.closest("[data-ts]");
+  if (!b) return;
+  playAt(b.dataset.l, b.dataset.ts);
+  const card = b.closest("article.card");
+  if (card) { card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash"); }
+});
+document.addEventListener("change", (e) => {
+  if (e.target.id === "remember") {
+    store.set(`${KEY}-remember`, e.target.checked ? "1" : "0");
+    if (e.target.checked) Object.keys(files).forEach((l) => saveFile(l, files[l]));
+  }
+});
+$("pickOne").addEventListener("change", (e) => {
+  const f = e.target.files && e.target.files[0];
+  if (!f || !pendingLesson) return;
+  const l = pendingLesson, ts = pendingTs;
+  useFile(l, f);
+  pendingTs = null;
+  if (ts) playAt(l, ts); else refreshSheet();
+});
+$("pickMany").addEventListener("change", (e) => {
+  const miss = [];
+  [...(e.target.files || [])].forEach((f) => { const l = matchLesson(f.name); if (l) useFile(l, f); else miss.push(f.name); });
+  saveMsg = miss.length ? `یہ فائلیں اس صفحے کے کسی سبق سے نہیں ملیں: ${miss.join("، ")}` : "";
+  e.target.value = "";
+  refreshSheet();
+});
+$("speeds").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-rate]");
+  if (!b) return;
+  audio.playbackRate = +b.dataset.rate;
+  document.querySelectorAll("#speeds button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+});
+(async () => {
+  if (!IDB_OK) return;
+  try {
+    const keys = await idbDo("readonly", (s) => s.getAllKeys());
+    (keys || []).forEach((k) => { if (LES[k]) saved.add(k); });
+  } catch (e) {}
+})();
+</script>
+
+</body>
+</html>
