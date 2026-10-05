@@ -1,0 +1,377 @@
+<title>ہدایہ کے تمہیدی کارڈ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+<style>
+:root {
+  --paper: #FDFCFB;
+  --surface: #FFFFFF;
+  --ink: #1F1A1B;
+  --muted: #6E6566;
+  --rule: #E9E3E2;
+  --matn: #A3211A;
+  --matn-tint: #FBEDEB;
+  --teacher: #17624C;
+  --teacher-tint: #E3F2EC;
+  --book: #2B4B7E;
+  --book-tint: #E8EEF8;
+  --note: #545A68;
+  --note-tint: #EDEEF2;
+  --ai: #8A5A00;
+  --ai-tint: #FBF0DA;
+  --focus: #2B4B7E;
+  --shadow: 0 1px 2px rgba(31, 26, 27, .05), 0 4px 16px rgba(31, 26, 27, .05);
+  --urdu: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Urdu Typesetting", "Noto Naskh Arabic", serif;
+  --ui: "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+  --arabic: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+    --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+    --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+    --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+  --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+  --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+  --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 15px;
+  padding-inline: 16px;
+  padding-block: 0 96px;
+}
+.wrap { max-width: 760px; margin: 0 auto; }
+[lang="ar"] { font-family: var(--arabic); }
+button, label.btn { font: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+
+header.top { padding-block: 28px 16px; display: grid; gap: 6px; }
+.eyebrow { color: var(--muted); font-size: 13px; letter-spacing: .02em; }
+h1 {
+  margin: 0; font-family: var(--arabic); font-weight: 700; color: var(--matn);
+  font-size: clamp(34px, 7vw, 46px); line-height: 1.3; text-wrap: balance;
+}
+.meta { color: var(--muted); font-size: 13.5px; line-height: 1.9; }
+.meta b { color: var(--ink); font-weight: 600; }
+
+.loader {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+  padding: 12px 14px; margin-block: 8px 4px;
+  border: 1px dashed var(--rule); border-radius: 10px; background: var(--surface);
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+  padding: 7px 14px; border-radius: 999px; border: 1px solid var(--teacher);
+  background: var(--teacher); color: var(--surface); font-weight: 600; font-size: 14px;
+}
+.loader p { margin: 0; flex: 1 1 260px; color: var(--muted); font-size: 13px; line-height: 1.9; }
+.loader .loaded { color: var(--teacher); font-weight: 600; }
+.loader.nudge { border-color: var(--teacher); background: var(--teacher-tint); }
+#audiofile { position: absolute; inline-size: 1px; block-size: 1px; opacity: 0; pointer-events: none; }
+
+nav.pages {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--paper); padding-block: 10px; margin-inline: -16px; padding-inline: 16px;
+  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+  border-bottom: 1px solid var(--rule);
+}
+nav.pages::-webkit-scrollbar { display: none; }
+nav.pages button {
+  flex: none; cursor: pointer; border: 1px solid var(--rule); background: var(--surface); color: var(--ink);
+  border-radius: 999px; padding: 5px 13px; font-size: 14px; font-variant-numeric: tabular-nums;
+}
+nav.pages button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 12px; padding-block: 14px 4px; color: var(--muted); font-size: 12.5px; align-items: center; }
+
+main { display: grid; gap: 18px; padding-block: 14px; }
+article.card {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 12px;
+  box-shadow: var(--shadow); padding: 18px 18px 14px; display: grid; gap: 12px;
+}
+.card-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.pg {
+  font-size: 12.5px; font-weight: 600; color: var(--matn); background: var(--matn-tint);
+  border-radius: 6px; padding: 2px 8px; font-variant-numeric: tabular-nums;
+}
+.num { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.play {
+  margin-inline-start: auto; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid var(--teacher); color: var(--teacher); background: transparent;
+  border-radius: 999px; padding: 3px 11px; font-size: 13px; font-variant-numeric: tabular-nums; direction: ltr;
+}
+.play svg { width: 10px; height: 10px; fill: currentColor; }
+h2 { margin: 0; font-size: 19px; font-weight: 700; line-height: 1.7; text-wrap: balance; }
+.start {
+  margin: 0; font-family: var(--arabic); font-size: 21px; line-height: 1.9; color: var(--matn);
+  border-inline-start: 3px solid var(--matn); padding-inline-start: 12px;
+}
+.sec { display: grid; gap: 6px; }
+.sec h3 { margin: 0; font-size: 12.5px; font-weight: 700; color: var(--muted); letter-spacing: .03em; }
+.sec ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.sec li { font-family: var(--urdu); font-size: 16px; line-height: 2.35; }
+.sec.tamheed li { font-size: 16.5px; }
+.sec.masala li { font-weight: 600; }
+.sec li .srcs { display: inline-flex; flex-wrap: wrap; gap: 4px; vertical-align: middle; margin-inline-start: 4px; }
+.chip {
+  font-family: var(--ui); font-size: 11.5px; line-height: 1.6; border-radius: 5px; padding: 0 6px;
+  white-space: nowrap; font-variant-numeric: tabular-nums; border: 0; font-weight: 600;
+}
+.chip.u { background: var(--teacher-tint); color: var(--teacher); cursor: pointer; }
+.chip.k { background: var(--book-tint); color: var(--book); }
+.chip.h { background: var(--note-tint); color: var(--note); }
+.chip.a { background: var(--ai-tint); color: var(--ai); }
+details.more { border-top: 1px dashed var(--rule); padding-top: 8px; }
+details.more > summary {
+  cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px;
+  color: var(--book); font-weight: 600; font-size: 13.5px; padding-block: 2px;
+}
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::before { content: "+"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+details.more[open] > summary::before { content: "−"; }
+details.more > summary .hint { color: var(--muted); font-weight: 400; font-size: 12.5px; }
+details.more > summary .flag { color: var(--ai); background: var(--ai-tint); border-radius: 5px; padding: 0 6px; font-size: 12px; }
+details.more > .inner { display: grid; gap: 12px; padding-top: 10px; }
+.stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-block: 10px 2px;
+}
+.stat { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; display: grid; gap: 2px; }
+.stat b { font-size: 20px; font-variant-numeric: tabular-nums; }
+.stat span { color: var(--muted); font-size: 12.5px; line-height: 1.7; }
+.stat.win b { color: var(--teacher); }
+.toolbar { display: flex; justify-content: flex-end; padding-top: 10px; }
+.linkbtn { cursor: pointer; background: none; border: 0; color: var(--book); font-weight: 600; font-size: 13.5px; padding: 4px 0; }
+.sec.ikhtilaf li.ask { background: var(--ai-tint); border-radius: 8px; padding: 2px 10px; }
+
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 14px; }
+.word { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; padding-block: 4px; border-bottom: 1px solid var(--rule); }
+.word .ar { font-family: var(--arabic); font-size: 19px; color: var(--matn); }
+.word .ur { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; flex: 1 1 auto; }
+.word .chip { font-size: 10.5px; }
+
+section.next { margin-block-start: 26px; display: grid; gap: 10px; }
+section.next h2 { font-size: 18px; }
+section.next p.lead { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.9; }
+.next-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+.next-list li {
+  display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: start;
+  padding-block: 10px; border-bottom: 1px solid var(--rule);
+}
+.next-list .ar { font-family: var(--arabic); color: var(--matn); font-size: 18px; line-height: 1.8; }
+.next-list .ur { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; grid-column: 2; }
+
+footer { margin-block-start: 28px; color: var(--muted); font-size: 13px; line-height: 2; border-top: 1px solid var(--rule); padding-block-start: 14px; }
+footer p { margin: 0 0 6px; }
+
+.player {
+  position: fixed; inset-inline: 0; bottom: 0; z-index: 10;
+  background: var(--surface); border-top: 1px solid var(--rule);
+  padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; justify-content: center;
+}
+.player audio { flex: 1 1 280px; max-width: 520px; height: 36px; }
+.speeds { display: flex; gap: 4px; direction: ltr; }
+.speeds button {
+  cursor: pointer; border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+  border-radius: 6px; padding: 3px 8px; font-size: 12.5px; font-variant-numeric: tabular-nums;
+}
+.speeds button[aria-pressed="true"] { background: var(--teacher); color: var(--surface); border-color: var(--teacher); }
+.now { font-size: 12.5px; color: var(--muted); }
+.flash { animation: flash 1.2s ease-out; }
+@keyframes flash { from { box-shadow: 0 0 0 3px var(--teacher); } to { box-shadow: var(--shadow); } }
+@media (prefers-reduced-motion: reduce) { .flash { animation: none; } }
+@media (max-width: 460px) {
+  article.card { padding: 14px 14px 10px; }
+  .start { font-size: 19px; }
+  .sec li { font-size: 15.5px; }
+}
+</style>
+
+<div class="wrap" dir="rtl" lang="ur">
+  <header class="top">
+    <div class="eyebrow" id="eyebrow"></div>
+    <h1 lang="ar" id="kitab"></h1>
+    <div class="meta" id="meta"></div>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <div class="loader" id="loader">
+    <label class="btn" for="audiofile">
+      <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1.5v9l8-4.5z" fill="currentColor"/></svg>
+      ریکارڈنگ کھولیں
+    </label>
+    <input type="file" id="audiofile" accept="audio/*,video/mp4,.m4a,.mp3,.mp4,.opus,.ogg">
+    <p id="loaderText">اپنے فون یا لیپ ٹاپ سے <b dir="ltr">fiqh july11.m4a</b> منتخب کریں۔ پھر ہر سبز وقت پر ٹیپ کرنے سے استاد کی آواز وہیں سے شروع ہو گی۔ فائل کہیں اپلوڈ نہیں ہوتی۔</p>
+  </div>
+
+  <nav class="pages" id="pages" aria-label="صفحات"></nav>
+
+  <div class="legend" aria-label="ماخذ کی علامتیں">
+    <span class="chip u">استاد · وقت</span><span>ریکارڈنگ</span>
+    <span class="chip k">کتاب ص</span><span>متن</span>
+    <span class="chip h">حاشیہ ص</span><span>کتاب کا حاشیہ</span>
+    <span class="chip a">AI · تصدیق طلب</span><span>خود جانچیں</span>
+  </div>
+
+  <div class="toolbar"><button type="button" class="linkbtn" id="toggleAll" aria-pressed="false">سب کارڈز کی تفصیل کھولیں</button></div>
+  <main id="cards"></main>
+
+  <section class="next" id="next" data-page="next">
+    <h2>اسی سبق کے اگلے حصے</h2>
+    <p class="lead">یہ حصے صفحہ 258 کے بعد کے ہیں، جن کی تصاویر ابھی نہیں آئیں۔ وقت پر ٹیپ کر کے سنیں؛ صفحات بھیجیں گے تو ان کے بھی کارڈ بن جائیں گے۔</p>
+    <ul class="next-list" id="nextList"></ul>
+  </section>
+
+  <footer>
+    <p>ٹرانسکرپٹ آپ کی ریکارڈنگ سے Gemini نے بنایا؛ کارڈ اسی ٹرانسکرپٹ، کتاب کے متن اور حاشیے سے بنے ہیں۔ ہر سطر کے آخر میں اس کا ماخذ درج ہے۔</p>
+    <p>پیلی علامت والی سطریں اور لغات خود جانچیں؛ مسئلہ، اختلاف اور دلیل صرف سبز، نیلی یا سرمئی علامت پر لکھیں۔</p>
+  </footer>
+</div>
+
+<div class="player" id="player" hidden>
+  <audio id="audio" controls preload="metadata"></audio>
+  <div class="speeds" id="speeds" role="group" aria-label="رفتار">
+    <button type="button" data-rate="1" aria-pressed="true">1×</button>
+    <button type="button" data-rate="1.25" aria-pressed="false">1.25×</button>
+    <button type="button" data-rate="1.5" aria-pressed="false">1.5×</button>
+  </div>
+  <span class="now" id="now"></span>
+</div>
+
+<script>
+const DATA = __DATA__;
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const secs = (ts) => ts.split(":").map(Number).reduce((a, n) => a * 60 + n, 0);
+const L = DATA.lesson;
+
+$("eyebrow").textContent = `${L.book} · ${L.edition}`;
+$("kitab").textContent = L.kitab.replace("کتاب", "كتاب");
+$("meta").innerHTML = `صفحات <b>${L.pages[0]}–${L.pages[L.pages.length - 1]}</b> کے <b>${DATA.cards.length}</b> کارڈ · سبق <b dir="ltr">${esc(L.file)}</b> (${L.minutes} منٹ)`;
+
+const wc = (t) => (String(t).match(/\S+/g) || []).length;
+const tWords = DATA.cards.reduce((a, c) => a + (c.tamheed || []).reduce((b, it) => b + wc(it.x), 0), 0);
+const spanSec = secs(L.span[1]) - secs(L.span[0]);
+const mm = (s) => Math.round(s / 60);
+$("stats").innerHTML = `
+  <div class="stat win"><b>${Math.round(tWords / 160)}–${Math.round(tWords / 110)} منٹ</b><span>ساری تمہید پڑھنے میں (اندازاً)</span></div>
+  <div class="stat"><b>${mm(spanSec / 1.5)} منٹ</b><span>یہی حصہ 1.5x پر سننے میں (${mm(spanSec)} منٹ 1x پر)</span></div>
+  <div class="stat"><b>${tWords.toLocaleString("en")}</b><span>تمہید کے الفاظ، ${DATA.cards.length} کارڈز میں</span></div>`;
+function chip(s) {
+  if (s.t === "u") return `<button type="button" class="chip u" data-ts="${s.v}" title="یہاں سے سنیں">استاد ${s.v}</button>`;
+  if (s.t === "k") return `<span class="chip k">کتاب ص ${s.v}</span>`;
+  if (s.t === "h") return `<span class="chip h">حاشیہ ص ${s.v}</span>`;
+  return `<span class="chip a">AI · تصدیق طلب</span>`;
+}
+const chips = (arr) => `<span class="srcs">${arr.map(chip).join("")}</span>`;
+const pagesLabel = (ps) => ps.length === 1 ? `ص ${ps[0]}` : `ص ${ps[0]}–${ps[ps.length - 1]}`;
+
+$("cards").innerHTML = DATA.cards.map((c, i) => {
+  const sec = ([key, label]) => {
+    const items = c[key] || [];
+    if (!items.length) return "";
+    return `<div class="sec ${key}"><h3>${label}</h3><ul>${items.map((it) =>
+      `<li${it.x.startsWith("استاد سے پوچھیں") ? ' class="ask"' : ""}>${esc(it.x)} ${chips(it.s)}</li>`).join("")}</ul></div>`;
+  };
+  const QUICK = ["tamheed", "masala"];
+  const quick = DATA.sections.filter(([k]) => QUICK.includes(k)).map(sec).join("");
+  const examSecs = DATA.sections.filter(([k]) => !QUICK.includes(k) && (c[k] || []).length);
+  const n = examSecs.reduce((a, [k]) => a + c[k].length, 0);
+  const asks = examSecs.some(([k]) => c[k].some((it) => it.x.startsWith("استاد سے پوچھیں")));
+  const exam = n ? `<details class="more"><summary>${examSecs.map(([, l]) => l).join("، ")} <span class="hint">${n} نکات · امتحان کی تیاری کے لیے</span>${asks ? '<span class="flag">استاد سے پوچھنے کی بات</span>' : ""}</summary><div class="inner">${examSecs.map(sec).join("")}</div></details>` : "";
+  const words = `<div class="sec lughat"><h3>مشکل الفاظ</h3><div class="words">${c.lughat.map((w) =>
+    `<div class="word"><span class="ar" lang="ar">${esc(w.ar)}</span><span class="ur">${esc(w.ur)}</span>${chips(w.s)}</div>`).join("")}</div></div>`;
+  return `<article class="card" id="card${i + 1}" data-pages="${c.pages.join(" ")}">
+    <div class="card-head"><span class="pg">${pagesLabel(c.pages)}</span><span class="num">کارڈ ${i + 1}</span>
+      <button type="button" class="play" data-ts="${c.ts}" aria-label="${c.ts} سے سنیں"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0v10l9-5z"/></svg>${c.ts}</button></div>
+    <h2>${esc(c.title)}</h2>
+    <p class="start" lang="ar">«${esc(c.start)}»</p>
+    ${quick}${words}${exam}
+  </article>`;
+}).join("");
+
+$("nextList").innerHTML = DATA.next.map((n) =>
+  `<li><button type="button" class="play" data-ts="${n.ts}" aria-label="${n.ts} سے سنیں"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0v10l9-5z"/></svg>${n.ts}</button>
+   <span class="ar" lang="ar">«${esc(n.ar)}»</span><span class="ur">${esc(n.ur)}</span></li>`).join("");
+
+// ---- page filter
+const filters = [["all", "سب"], ...L.pages.map((p) => [String(p), String(p)]), ["next", "اگلے حصے"]];
+$("pages").innerHTML = filters.map(([k, label]) => `<button type="button" data-f="${k}" aria-pressed="false">${label}</button>`).join("");
+function applyFilter(f) {
+  document.querySelectorAll("#pages button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.f === f)));
+  document.querySelectorAll("article.card").forEach((a) => { a.hidden = !(f === "all" || a.dataset.pages.split(" ").includes(f)); });
+  $("next").hidden = !(f === "all" || f === "next");
+  try { localStorage.setItem("sarf-filter", f); } catch (e) {}
+}
+$("pages").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-f]");
+  if (!b) return;
+  applyFilter(b.dataset.f);
+  if (b.dataset.f !== "all") window.scrollTo({ top: $("pages").offsetTop - 4, behavior: "smooth" });
+});
+let start = "all";
+const h = location.hash.replace("#", "");
+if (/^p\d{3}$/.test(h) && L.pages.includes(+h.slice(1))) start = h.slice(1);
+else if (h === "next") start = "next";
+else { try { start = localStorage.getItem("sarf-filter") || "all"; } catch (e) {} }
+if (!filters.some(([k]) => k === start)) start = "all";
+applyFilter(start);
+
+// ---- open / close all exam details
+$("toggleAll").addEventListener("click", (e) => {
+  const open = e.currentTarget.getAttribute("aria-pressed") !== "true";
+  document.querySelectorAll("details.more").forEach((d) => { d.open = open; });
+  e.currentTarget.setAttribute("aria-pressed", String(open));
+  e.currentTarget.textContent = open ? "سب کارڈز کی تفصیل بند کریں" : "سب کارڈز کی تفصیل کھولیں";
+});
+
+// ---- audio
+const audio = $("audio");
+let loaded = false;
+$("audiofile").addEventListener("change", (e) => {
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
+  if (audio.src) URL.revokeObjectURL(audio.src);
+  audio.src = URL.createObjectURL(f);
+  loaded = true;
+  $("player").hidden = false;
+  $("loader").classList.remove("nudge");
+  $("loaderText").innerHTML = `<span class="loaded">کھل گئی:</span> <b dir="ltr">${esc(f.name)}</b>۔ کسی بھی سبز وقت پر ٹیپ کریں۔`;
+});
+function playAt(ts) {
+  if (!loaded) {
+    const box = $("loader");
+    box.classList.add("nudge");
+    $("loaderText").innerHTML = `پہلے «ریکارڈنگ کھولیں» سے <b dir="ltr">${esc(L.file)}</b> منتخب کریں، پھر <b dir="ltr">${ts}</b> پر دوبارہ ٹیپ کریں۔`;
+    box.scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+  audio.currentTime = secs(ts);
+  audio.play().catch(() => {});
+  $("now").textContent = `${ts} سے`;
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-ts]");
+  if (!b) return;
+  playAt(b.dataset.ts);
+  const card = b.closest("article.card");
+  if (card) { card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash"); }
+});
+$("speeds").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-rate]");
+  if (!b) return;
+  audio.playbackRate = +b.dataset.rate;
+  document.querySelectorAll("#speeds button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+});
+</script>

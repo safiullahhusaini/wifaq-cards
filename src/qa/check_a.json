@@ -1,0 +1,80 @@
+{
+ "h4_2025-05-11.py": {
+  "lesson": "2025-05-11",
+  "checked": 281,
+  "misses": [],
+  "tx_lines": 441
+ },
+ "h4_2025-05-17.py": {
+  "lesson": "2025-05-17",
+  "checked": 207,
+  "misses": [],
+  "tx_lines": 560
+ },
+ "h4_2025-06-01.py": {
+  "lesson": "2025-06-01",
+  "checked": 277,
+  "misses": [],
+  "tx_lines": 531
+ },
+ "h4_2025-06-14.py": {
+  "lesson": "2025-06-14",
+  "checked": 352,
+  "misses": [],
+  "tx_lines": 517
+ },
+ "h4_2025-06-15.py": {
+  "lesson": "2025-06-15",
+  "checked": 147,
+  "misses": [],
+  "tx_lines": 45
+ },
+ "h4_2025-06-21.py": {
+  "lesson": "2025-06-21",
+  "checked": 226,
+  "misses": [],
+  "tx_lines": 382
+ },
+ "h4_2025-06-22.py": {
+  "lesson": "2025-06-22",
+  "checked": 207,
+  "misses": [],
+  "tx_lines": 150
+ },
+ "h4_2025-06-28.py": {
+  "lesson": "2025-06-28",
+  "checked": 176,
+  "misses": [],
+  "tx_lines": 353
+ },
+ "h4_2025-07-05.py": {
+  "lesson": "2025-07-05",
+  "checked": 120,
+  "misses": [],
+  "tx_lines": 267
+ },
+ "h4_2025-07-07.py": {
+  "lesson": "2025-07-07",
+  "checked": 183,
+  "misses": [],
+  "tx_lines": 49
+ },
+ "h4_2025-07-12.py": {
+  "lesson": "2025-07-12",
+  "checked": 242,
+  "misses": [],
+  "tx_lines": 209
+ },
+ "h4_2025-07-13.py": {
+  "lesson": "2025-07-13",
+  "checked": 121,
+  "misses": [],
+  "tx_lines": 155
+ },
+ "h4_2025-07-19.py": {
+  "lesson": "2025-07-19",
+  "checked": 255,
+  "misses": [],
+  "tx_lines": 366
+ }
+}

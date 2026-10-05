@@ -1,1 +1,7 @@
 .notes/
+.cache/
+__pycache__/
+src/cards/mishkat1_cards.html
+src/cards/mishkat1_iman_sample.md
+src/cards/hidaya4_cards.html
+src/cards/hidaya4_shufa_*.md
