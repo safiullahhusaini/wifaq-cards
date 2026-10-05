@@ -52,9 +52,16 @@ def _dur(path):
     return float(r.stdout.strip() or 0)
 
 
+# Recordings whose file name has no day: the date in recordings.csv is our estimate, and the page says so.
+# 2025-07-20 = "2025-07- … كتاب الذبائح", the kitab's first lesson: it falls between 07-19 (المساقاة) and 07-26,
+# and 07-26 opens where it ends (the four veins). The user agreed to use this estimate on 5 Oct 2026.
+ESTIMATED_DATES = {"2025-07-20"}
+
+
 def label_of(date):
     y, m, d = map(int, date.split("-"))
-    return f"{d} {MONTHS[m - 1]} {y}" if d != 1 else f"یکم {MONTHS[m - 1]} {y}"
+    s = f"{d} {MONTHS[m - 1]} {y}" if d != 1 else f"یکم {MONTHS[m - 1]} {y}"
+    return s + " (اندازاً)" if date in ESTIMATED_DATES else s
 
 
 def recordings():
