@@ -27,7 +27,7 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
 | Bushra vol 7 OCR (Hidaya 4, first half) | Drive folder `15KT9EQxSPcCWGKwCvJ73ElIVCL8rSl2U`, files `pAAAA-BBBB.md` = PDF pages AAAA–BBBB, printed page = PDF page − 1; each page has `[متن]`, `[بین السطور]`, `[حاشیہ]`. **Ignore the "PDF n" numbers inside multi-page files (some are wrong); number pages by position in the file.** Vol 8 (second half of Hidaya 4): not located yet, search Drive for "Al Hidayah Vol-8" |
 | Drive folder *Wifaq 1448* | `1pmHpS9MU1wabfYU7AJtPmmwM0xvuJcsk` (transcripts, inventory, `recording_ids.csv`, `web_audio`, `web_audio_opus`) |
 | Light AAC copies (old) | `web_audio` `14mMfY9cqP7eNUwHQYSHIy9F-1PUGsJo0`; Hidaya 4 subfolder `1weO8JSyTF9V39_TLJWWmWqmAuuNe-QBH`. Superseded by Opus |
-| Opus copies (new) | `Wifaq 1448/web_audio_opus/ہدایہ جلد رابع/` + `index.csv` (book, file, part, start_sec, lesson_seconds, size_mb, web_file). Written by Colab cell 7, which the user started on 5 Oct |
+| Opus copies (new) | `Wifaq 1448/web_audio_opus` `1xo6VUnMds6-b_kAENCdK2SUkEpmGBhX8`; Hidaya 4 subfolder `1nC5cNr3GW1tI35ImzciZPTkUFJYUayeZ`; `index.csv` (book, file, part, start_sec, lesson_seconds, size_mb, web_file) is written when the run ends. Made by Colab cell 7 (running since 6:48 pm, 5 Oct; about 35 s per lesson, parts 2.5–4.4 MB) |
 | Recordings vault | `سابعہ`, owner imrandn@gmail.com, `1wuN7GpeuAjGSHAwzZzK87DPzC1nQggwf` (shared with the user; linked into My Drive as a shortcut) |
 | Project docs | `claude/hidaya4-contents.md` (colleagues' contents page), `claude/cards/*` (old pilot markdown) |
 | Old claude.ai artifacts | "ہدایہ رابع کارڈ" and "مشکوٰۃ حدیث کارڈ": superseded by the GitHub site, don't update them |
@@ -108,7 +108,7 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
   2. Save as `hidaya4/audio/<date>.ogg`, or `<date>-1.ogg`, `<date>-2.ogg`.
   3. Add each part's `start_sec` from `index.csv` to `hidaya4/audio/parts.json`.
   4. Rebuild.
-- **Waiting for cell 7** (the user started it on 5 Oct; when last checked, no `web_audio_opus` folder had appeared in Drive yet, so check its output first): 05-11, 05-17, 06-01, 06-15, 06-21, 06-22, 07-07, 07-12, 07-19.
+- **Waiting for cell 7** (running since 6:48 pm, 5 Oct, in date order; the first Jinayat files were in Drive by 6:53 pm, so all 85 should be done in about an hour). Needed for the live cards: 05-11, 05-17, 06-01, 06-15, 06-21, 06-22, 07-07, 07-12, 07-19. If `index.csv` is missing, the run stopped early: check the cell output and run it again (it skips finished lessons).
 - **Storage:** a GitHub Pages site should stay under 1 GB. All 85 Hidaya 4 lessons ≈ 400 MB. Other books' audio will need a second repo that the user creates and adds to the Claude app. Don't commit the AAC copies.
 
 ## 8. Missing items and backlog (in priority order)
