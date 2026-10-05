@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>كتاب الذبائح · ہدایہ جلد رابع</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+<style>
+/* One kitab of a book. Two views on one page:
+   فہرست (contents, styled like the book's own contents page: title … page) and a unit view (one bab/fasl,
+   its cards, page chips). Recordings live in a bottom sheet behind the header button. */
+:root {
+  --paper: #FDFCFB; --surface: #FFFFFF; --ink: #1F1A1B; --muted: #6E6566; --rule: #E9E3E2;
+  --matn: #A3211A; --matn-tint: #FBEDEB; --teacher: #17624C; --teacher-tint: #E3F2EC;
+  --book: #2B4B7E; --book-tint: #E8EEF8; --note: #545A68; --note-tint: #EDEEF2;
+  --ai: #8A5A00; --ai-tint: #FBF0DA; --focus: #2B4B7E;
+  --shadow: 0 1px 2px rgba(31,26,27,.05), 0 4px 16px rgba(31,26,27,.05);
+  --urdu: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Urdu Typesetting", "Noto Naskh Arabic", serif;
+  --ui: "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+  --arabic: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+    --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+    --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+    --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+  --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+  --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+  --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--ui); font-size: 15px; padding-inline: 16px; padding-block: 0 110px; }
+.wrap { max-width: 760px; margin: 0 auto; }
+[lang="ar"] { font-family: var(--arabic); }
+button, input, a.btn { font: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* header */
+header.top { padding-block: 14px 8px; display: grid; gap: 4px; }
+.topbar { display: flex; align-items: center; gap: 10px; min-height: 40px; }
+.homelink { color: var(--book); font-size: 13.5px; font-weight: 600; text-decoration: none; padding-block: 6px; }
+.homelink:hover { text-decoration: underline; }
+.recbtn { margin-inline-start: auto; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--rule);
+  background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 14px; font-size: 13.5px; font-weight: 600; }
+.recbtn svg { width: 15px; height: 15px; fill: none; stroke: var(--teacher); stroke-width: 1.7; stroke-linecap: round; }
+.recbtn:hover { border-color: var(--teacher); }
+h1 { margin: 6px 0 0; font-family: var(--arabic); font-weight: 700; color: var(--matn); font-size: clamp(36px, 8vw, 50px); line-height: 1.25; }
+.meta { color: var(--muted); font-size: 13.5px; line-height: 1.9; margin: 0; }
+.meta b { color: var(--ink); font-weight: 600; }
+
+/* contents (فہرست) */
+.tochead { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-block: 14px 4px; }
+.tochead h2 { margin: 0; font-size: 15px; font-weight: 700; color: var(--muted); }
+form.jump { display: flex; gap: 4px; margin-inline-start: auto; }
+form.jump input { inline-size: 92px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px;
+  padding: 5px 12px; font-size: 14px; font-variant-numeric: tabular-nums; direction: ltr; text-align: center; }
+form.jump button { cursor: pointer; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 999px; padding: 5px 13px; font-size: 13.5px; }
+.msg { margin: 8px 0 0; color: var(--ink); background: var(--ai-tint); border-radius: 8px; padding: 7px 12px; font-size: 13.5px; line-height: 1.9; }
+.msg a { color: var(--book); font-weight: 600; }
+ol.toc { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.toc li { border-bottom: 1px solid var(--rule); padding-block: 10px 9px; display: grid; gap: 4px; }
+.toc li.lv3 { padding-inline-start: 22px; }
+.toc a.row { display: flex; align-items: baseline; gap: 8px; text-decoration: none; color: inherit; }
+.toc .tt { font-family: var(--arabic); line-height: 1.6; }
+.toc li.lv1 .tt { font-size: 23px; color: var(--matn); font-weight: 700; }
+.toc li.lv2 .tt { font-size: 20px; font-weight: 700; }
+.toc li.lv3 .tt { font-size: 18.5px; }
+.toc .dots { flex: 1 1 24px; min-inline-size: 24px; border-bottom: 2px dotted var(--rule); transform: translateY(-5px); }
+.toc .pp { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.toc a.row:hover .tt, .toc a.row:focus-visible .tt { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.toc .sub { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.toc .sub .n { margin-inline-end: 4px; }
+.toc .sub .none { color: var(--ai); }
+a.pchip { text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 0 9px;
+  font-size: 12.5px; line-height: 1.9; font-variant-numeric: tabular-nums; }
+a.pchip:hover { border-color: var(--ink); }
+
+/* unit view */
+.ubar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); margin-inline: -16px; padding: 8px 16px 8px;
+  border-bottom: 1px solid var(--rule); display: grid; gap: 6px; }
+.ubar-top { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.back { flex: none; cursor: pointer; text-decoration: none; color: var(--book); font-size: 13.5px; font-weight: 600; border: 1px solid var(--rule); border-radius: 999px; padding: 3px 12px; background: var(--surface); }
+.utitle { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--arabic); font-size: 19px; font-weight: 700; line-height: 1.6; }
+.pbar { display: flex; gap: 6px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+.pbar::-webkit-scrollbar { display: none; }
+.pbar a { flex: none; text-decoration: none; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 3px 13px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.pbar a[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.ubar form.jump input { inline-size: 70px; padding: 3px 8px; }
+.ubar form.jump button { padding: 3px 10px; }
+.ubar form.jump { flex: none; }
+body.unit h1 { font-size: 26px; margin-top: 0; }
+body.unit header .meta { display: none; }
+.uhead { padding-block: 16px 0; display: grid; gap: 2px; }
+.uhead .parent { margin: 0; font-family: var(--arabic); color: var(--muted); font-size: 16px; }
+.uhead h2 { margin: 0; font-family: var(--arabic); color: var(--matn); font-size: clamp(26px, 6vw, 32px); line-height: 1.5; }
+.uhead p.meta { margin: 0; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; padding-block: 12px 0; color: var(--muted); font-size: 12.5px; align-items: center; }
+.lg { display: inline-flex; align-items: center; gap: 6px; }
+.linkbtn { cursor: pointer; background: none; border: 0; color: var(--book); font-weight: 600; font-size: 13px; padding: 4px 0; margin-inline-start: auto; }
+
+main { display: grid; gap: 18px; padding-block: 14px; }
+article.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; box-shadow: var(--shadow); padding: 18px 18px 14px; display: grid; gap: 12px; }
+.card-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.pg { font-size: 12.5px; font-weight: 600; color: var(--matn); background: var(--matn-tint); border-radius: 6px; padding: 2px 8px; font-variant-numeric: tabular-nums; }
+.v7 { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.cnum { color: var(--muted); font-size: 12.5px; }
+.badge { font-size: 12px; font-weight: 600; color: var(--book); background: var(--book-tint); border-radius: 999px; padding: 1px 9px; }
+.les { color: var(--muted); font-size: 12.5px; margin-inline-start: auto; }
+.play { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--teacher); color: var(--teacher); background: transparent;
+  border-radius: 999px; padding: 3px 11px; font-size: 13px; font-variant-numeric: tabular-nums; direction: ltr; }
+.play svg { width: 10px; height: 10px; fill: currentColor; }
+.norec-chip { margin-inline-start: auto; color: var(--ai); background: var(--ai-tint); border-radius: 999px; padding: 2px 10px; font-size: 12.5px; font-weight: 600; }
+.label { margin: 0; font-family: var(--arabic); color: var(--book); font-size: 15px; line-height: 1.7; }
+h3.title { margin: 0; font-size: 19px; font-weight: 700; line-height: 1.7; text-wrap: balance; }
+.start { margin: 0; font-family: var(--arabic); font-size: 21px; line-height: 1.9; color: var(--matn); border-inline-start: 3px solid var(--matn); padding-inline-start: 12px; }
+.ref { margin: -4px 0 0; color: var(--book); font-size: 13px; line-height: 1.9; }
+.start-note { margin: -6px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.8; }
+.norec { margin: 0; background: var(--ai-tint); color: var(--ink); border-radius: 8px; padding: 6px 12px; font-size: 13.5px; line-height: 1.9; }
+.norec b { color: var(--ai); }
+.sec { display: grid; gap: 6px; }
+.sec h4 { margin: 0; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.sec ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.sec li { font-family: var(--urdu); font-size: 16px; line-height: 2.35; }
+.sec.tamheed li { font-size: 16.5px; }
+.sec.masala li { font-weight: 600; }
+.srcs { display: inline-flex; flex-wrap: wrap; gap: 4px; vertical-align: middle; margin-inline-start: 4px; }
+.chip { font-family: var(--ui); font-size: 11.5px; line-height: 1.6; border-radius: 5px; padding: 0 6px; white-space: nowrap; font-variant-numeric: tabular-nums; border: 0; font-weight: 600; }
+.chip.u { background: var(--teacher-tint); color: var(--teacher); cursor: pointer; }
+.chip.k { background: var(--book-tint); color: var(--book); }
+.chip.s { background: var(--note-tint); color: var(--note); }
+.chip.a { background: var(--ai-tint); color: var(--ai); }
+details.more { border-top: 1px dashed var(--rule); padding-top: 8px; }
+details.more > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; color: var(--book); font-weight: 600; font-size: 13.5px; padding-block: 2px; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::before { content: "+"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+details.more[open] > summary::before { content: "−"; }
+details.more > summary .hint { color: var(--muted); font-weight: 400; font-size: 12.5px; }
+details.more > .inner { display: grid; gap: 12px; padding-top: 10px; }
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 14px; }
+.word { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; padding-block: 4px; border-bottom: 1px solid var(--rule); }
+.word .ar { font-family: var(--arabic); font-size: 19px; color: var(--matn); }
+.word .ur { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; flex: 1 1 auto; }
+.word .chip { font-size: 10.5px; }
+
+section.gaps { display: grid; gap: 8px; margin-block-start: 6px; border: 1px dashed var(--rule); border-radius: 12px; padding: 12px 14px; }
+section.gaps h3 { margin: 0; font-size: 14.5px; }
+section.gaps p.lead { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.9; }
+.glist { margin: 0; padding: 0; list-style: none; display: grid; }
+.glist li { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: start; padding-block: 8px; border-top: 1px solid var(--rule); }
+.glist .gp { font-size: 12px; font-weight: 600; color: var(--ai); background: var(--ai-tint); border-radius: 6px; padding: 1px 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.glist .gt { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; }
+.glist .gv { grid-column: 2; color: var(--muted); font-size: 12px; }
+
+nav.unav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-block-start: 18px; }
+nav.unav a { display: grid; gap: 2px; text-decoration: none; color: inherit; border: 1px solid var(--rule); border-radius: 12px; padding: 10px 14px; background: var(--surface); }
+nav.unav a:hover { border-color: var(--ink); }
+nav.unav .k { color: var(--muted); font-size: 12px; }
+nav.unav .t { font-family: var(--arabic); font-size: 17px; line-height: 1.6; }
+nav.unav a.next { text-align: left; grid-column: 2; }
+
+footer { margin-block-start: 28px; color: var(--muted); font-size: 13px; line-height: 2; border-top: 1px solid var(--rule); padding-block-start: 14px; }
+footer p { margin: 0 0 6px; }
+
+/* sheet */
+.backdrop { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.38); display: flex; align-items: flex-end; justify-content: center; }
+.sheet { background: var(--surface); color: var(--ink); inline-size: 100%; max-inline-size: 600px; max-block-size: 88vh; overflow-y: auto; border-radius: 16px 16px 0 0;
+  padding: 16px 18px calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 12px; box-shadow: 0 -8px 30px rgba(0,0,0,.2); }
+.sheet-head { display: flex; align-items: center; gap: 10px; }
+.sheet h3 { margin: 0; font-size: 17px; line-height: 1.7; }
+.sheet .x { margin-inline-start: auto; cursor: pointer; border: 1px solid var(--rule); background: transparent; color: var(--ink); border-radius: 999px; inline-size: 34px; block-size: 34px; font-size: 18px; line-height: 1; }
+.sheet p { margin: 0; font-size: 13.5px; line-height: 1.95; color: var(--muted); }
+.sheet p b { color: var(--ink); }
+.rec { display: grid; gap: 6px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.rec-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.rec-top b { font-size: 14.5px; }
+.rec-top .sub { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.state { font-size: 12px; font-weight: 600; border-radius: 5px; padding: 0 7px; }
+.state.on { color: var(--teacher); background: var(--teacher-tint); }
+.state.saved { color: var(--book); background: var(--book-tint); }
+.state.warn { color: var(--ai); background: var(--ai-tint); }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; text-decoration: none; padding: 6px 13px; border-radius: 999px; border: 1px solid var(--teacher);
+  background: var(--teacher); color: var(--surface); font-weight: 600; font-size: 13.5px; line-height: 1.6; }
+.btn.ghost { background: transparent; color: var(--teacher); }
+.btn.quiet { background: transparent; color: var(--book); border-color: var(--rule); }
+.btn svg { width: 12px; height: 12px; fill: currentColor; flex: none; }
+.sheet-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; border-top: 1px dashed var(--rule); padding-top: 10px; font-size: 13px; color: var(--muted); }
+.sheet-foot label.chk { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.vis { position: absolute; inline-size: 1px; block-size: 1px; opacity: 0; pointer-events: none; }
+
+/* player */
+.player { position: fixed; inset-inline: 0; bottom: 0; z-index: 10; background: var(--surface); border-top: 1px solid var(--rule); padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; justify-content: center; }
+.player audio { flex: 1 1 280px; max-width: 520px; height: 36px; }
+.speeds { display: flex; gap: 4px; direction: ltr; }
+.speeds button, .pclose { cursor: pointer; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 6px; padding: 3px 8px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.speeds button[aria-pressed="true"] { background: var(--teacher); color: var(--surface); border-color: var(--teacher); }
+.now { font-size: 12.5px; color: var(--muted); }
+.flash { animation: flash 1.2s ease-out; }
+@keyframes flash { from { box-shadow: 0 0 0 3px var(--teacher); } to { box-shadow: var(--shadow); } }
+@media (prefers-reduced-motion: reduce) { .flash { animation: none; } }
+@media (max-width: 460px) {
+  article.card { padding: 14px 14px 10px; }
+  .start { font-size: 19px; }
+  .sec li { font-size: 15.5px; }
+  .toc li.lv3 { padding-inline-start: 14px; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap" dir="rtl" lang="ur">
+  <header class="top">
+    <div class="topbar">
+      <a class="homelink" id="homeLink" href="./" hidden></a>
+      <button type="button" class="recbtn" id="recBtn" aria-haspopup="dialog">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 10V8a5.5 5.5 0 0 1 11 0v2"/><path d="M2.5 10h2v4h-2zM11.5 10h2v4h-2z"/></svg><span>ریکارڈنگز</span>
+      </button>
+    </div>
+    <h1 lang="ar" id="kitab"></h1>
+    <p class="meta" id="meta"></p>
+  </header>
+
+  <section id="tocView">
+    <div class="tochead">
+      <h2>فہرست</h2>
+      <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ نمبر" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form>
+    </div>
+    <p class="msg" id="tocMsg" hidden></p>
+    <ol class="toc" id="toc"></ol>
+  </section>
+
+  <section id="unitView" hidden>
+    <div class="ubar">
+      <div class="ubar-top"><a class="back" href="#">فہرست</a><span class="utitle" lang="ar" id="ubarTitle"></span>
+        <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form></div>
+      <nav class="pbar" id="pbar" aria-label="صفحات"></nav>
+    </div>
+    <div class="uhead">
+      <p class="parent" lang="ar" id="uParent"></p>
+      <h2 lang="ar" id="uTitle"></h2>
+      <p class="meta" id="uMeta"></p>
+    </div>
+    <p class="msg" id="uMsg" hidden></p>
+    <div class="legend" id="legend" aria-label="ماخذ کی علامتیں">
+      <span class="lg" data-t="u"><span class="chip u">استاد</span><span>ریکارڈنگ کا وقت</span></span>
+      <span class="lg" data-t="k"><span class="chip k">کتاب ص</span><span>متن</span></span>
+      <span class="lg" data-t="s"><span class="chip s">شرح</span><span>حاشیہ یا بین السطور</span></span>
+      <span class="lg" data-t="a"><span class="chip a">AI</span><span>خود جانچیں</span></span>
+      <button type="button" class="linkbtn" id="toggleAll" aria-pressed="false">سب تفصیل کھولیں</button>
+    </div>
+    <main id="cards"></main>
+    <section class="gaps" id="gaps" hidden>
+      <h3 id="gapsTitle"></h3>
+      <p class="lead" id="gapsLead"></p>
+      <ul class="glist" id="gapList"></ul>
+    </section>
+    <nav class="unav" id="unav" aria-label="پچھلا اور اگلا حصہ"></nav>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<input type="file" id="pickOne" class="vis" aria-label="ریکارڈنگ فائل" accept="audio/*,video/*,.m4a,.mp3,.mp4,.opus,.ogg,.aac">
+<input type="file" id="pickMany" class="vis" aria-label="کئی ریکارڈنگ فائلیں" multiple accept="audio/*,video/*,.m4a,.mp3,.mp4,.opus,.ogg,.aac">
+
+<div class="backdrop" id="backdrop" dir="rtl" lang="ur" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" id="sheet"></div>
+</div>
+
+<div class="player" id="player" dir="rtl" lang="ur" hidden>
+  <audio id="audio" controls preload="metadata"></audio>
+  <div class="speeds" id="speeds" role="group" aria-label="رفتار">
+    <button type="button" data-rate="1" aria-pressed="true">1×</button>
+    <button type="button" data-rate="1.25" aria-pressed="false">1.25×</button>
+    <button type="button" data-rate="1.5" aria-pressed="false">1.5×</button>
+  </div>
+  <span class="now" id="now"></span>
+  <button type="button" class="pclose" id="pclose" aria-label="آواز بند کریں">✕</button>
+</div>
+
+<script>
+const DATA = {"book": {"book": "ہدایہ جلد رابع", "kitab": "كتاب الذبائح", "from": 1657, "to": 1671, "unit": "کارڈ", "unitOne": "کارڈ"}, "home": "./", "homeLabel": "ہدایہ جلد رابع", "store": "h4", "lessons": {"2025-07-27": {"file": "2025-07-27 الهدايه الرابع كتاب الذبائح.mp4", "minutes": 40.1, "id": "16iikjE6j2TeaGOlVhciPn7i61p4_fZIG", "size_mb": 38.3, "label": "27 جولائی 2025", "web": [{"src": "audio/2025-07-27-1.ogg", "start": 0.0, "mb": 2.5}, {"src": "audio/2025-07-27-2.ogg", "start": 1204.26, "mb": 2.5}], "web_mb": 4.9}}, "units": [{"key": "u0", "level": 1, "title": "كتاب الذبائح", "page": 1657, "page_to": 1665}, {"key": "u1", "level": 3, "title": "فصل فيما يحل أكله وما لا يحل", "page": 1666, "page_to": 1671}], "cards": [{"unit": "u1", "pages": [1666, 1667], "lesson": "2025-07-27", "ts": "0:00:08", "label": null, "title": "فصل فيما يحل أكله: کچلی والے درندے، چنگل والے شکاری پرندے اور حشرات", "start": "قال: ولا يجوز أكلُ ذي ناب من السباع، ولا ذي مِخْلَب من الطيور", "start_note": "ص 145 «فصل فيما يحل أكله وما لا يحل» کے عنوان سے کھلتا ہے (استاد کے نسخے میں ص 1720)۔ 0:01:04–0:01:44 استاد کا مائیک بند تھا؛ 0:01:44 پر انہوں نے بات دہرا دی۔", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 145–146", "tamheed": [{"x": "یہ فصل ان جانوروں کے بارے میں ہے جن کا کھانا جائز ہے اور جن کا ناجائز۔", "s": [{"t": "u", "v": "0:00:09"}]}, {"x": "پہلا اصول: جو درندے ہیں، چاہے چوپائے ہوں چاہے پرندے، ان کا کھانا جائز نہیں؛ جیسے شیر، چیتا، ریچھ۔", "s": [{"t": "u", "v": "0:00:17"}, {"t": "u", "v": "0:00:25"}, {"t": "u", "v": "0:00:31"}]}, {"x": "کبوتر کے بھی چونچ (اور چنگل) ہوتے ہیں، اس لیے یہاں مراد صرف وہ چنگل والے پرندے ہیں جو شکاری ہیں، جیسے باز اور عقاب۔", "s": [{"t": "u", "v": "0:01:44"}, {"t": "u", "v": "0:02:13"}, {"t": "s", "v": "الكفاية ٨/٤١٨"}]}], "masala": [{"x": "کچلی (نوکیلے دانت) والا درندہ اور چنگل والا شکاری پرندہ، دونوں کا کھانا جائز نہیں۔", "s": [{"t": "u", "v": "0:00:37"}, {"t": "u", "v": "0:00:44"}, {"t": "k", "v": "1666–1667", "v7": 145}]}, {"x": "حدیث میں «من السباع» دونوں قسموں کے بعد آیا ہے، اس لیے دونوں سے متعلق ہے: مراد شکاری پرندے اور شکاری چوپائے ہیں، ہر وہ جانور نہیں جس کے چنگل یا کچلی ہو۔", "s": [{"t": "u", "v": "0:02:50"}, {"t": "k", "v": "1666–1667", "v7": 145}]}, {"x": "بجو (ضبع) اور لومڑی بھی درندوں میں داخل ہیں، اس لیے حرام؛ بلی بھی شکاری ہے۔", "s": [{"t": "u", "v": "0:02:50"}, {"t": "u", "v": "0:03:19"}, {"t": "u", "v": "0:03:27"}, {"t": "k", "v": "1667", "v7": 146}]}, {"x": "ہاتھی کچلی والا ہے، اس لیے مکروہ (یعنی حرام)۔", "s": [{"t": "u", "v": "0:03:55"}, {"t": "u", "v": "0:04:00"}, {"t": "k", "v": "1667", "v7": 146}]}, {"x": "جنگلی چوہا (یربوع) اور نیولا (ابن عرس) حرام ہیں۔ متن: یہ «السباع الهوامّ» میں سے ہیں؛ استاد: یہ حشرات میں سے ہیں۔", "s": [{"t": "k", "v": "1667", "v7": 146}, {"t": "u", "v": "0:05:03"}]}, {"x": "گدھ (رخم) اور بغاث بھی مکروہ ہیں، کیونکہ یہ مردار کھاتے ہیں۔", "s": [{"t": "u", "v": "0:05:52"}, {"t": "k", "v": "1667", "v7": 146}]}], "dalil": [{"x": "حدیث: آپ ﷺ نے ہر کچلی والے درندے اور ہر چنگل والے پرندے کے کھانے سے منع فرمایا (مسلم، ابن عباس رضی اللہ عنہما)۔", "s": [{"t": "u", "v": "0:02:44"}, {"t": "k", "v": "1666–1667", "v7": 145}, {"t": "s", "v": "نصب الراية ٤/١٩٢"}]}, {"x": "حرمت کی حکمت انسان کی عزت ہے: ان جانوروں کی طبیعت میں ظلم، جبر اور چیرنا پھاڑنا ہے؛ کھانے سے یہ برے اوصاف انسان میں نہ آ جائیں۔", "s": [{"t": "u", "v": "0:02:22"}, {"t": "k", "v": "1667", "v7": 146}]}, {"x": "درندہ (سبع) وہ ہے جو جھپٹے، چھینے، زخمی کرے، قتل کرے اور عادتاً حملہ آور ہو۔ نوکیلے دانت ہوں مگر شکاری نہ ہو تو حلال ہے۔", "s": [{"t": "u", "v": "0:02:50"}, {"t": "k", "v": "1667", "v7": 146}]}, {"x": "نجاست کھانے نہ کھانے کو نہیں دیکھا جاتا، صرف شکاری ہونے کو دیکھا جاتا ہے۔", "s": [{"t": "u", "v": "0:02:22"}]}], "ikhtilaf": [{"x": "امام شافعی: بجو اور لومڑی حلال۔ احناف: حرام۔ یہ حدیث ان کے خلاف حجت ہے، کیونکہ عام ہے اور اس میں کوئی استثنا نہیں۔", "s": [{"t": "u", "v": "0:03:27"}, {"t": "k", "v": "1667", "v7": 146}]}, {"x": "حاشیہ: جس روایت میں بجو کے کھانے کی اجازت ہے، وہ ابتدائے اسلام پر محمول ہے۔", "s": [{"t": "s", "v": "البناية ١٠/٦٩٩"}]}], "faida": [{"x": "استاد: جس چیز کی ممانعت صراحتاً حدیث میں ہو اس کے لیے امام محمد «حرام» کہتے ہیں، صراحت نہ ہو تو «مکروہ»۔ کتاب میں بھی یہاں «مکروہ» سے مراد حرام ہے، مکروہِ تحریمی یا تنزیہی نہیں۔", "s": [{"t": "u", "v": "0:04:16"}, {"t": "u", "v": "0:04:29"}]}, {"x": "حرمت کا سبب یا ایذا ہے (کچلی یا چنگل سے)، یا خباثت: کبھی پیدائشی، جیسے حشرات میں، کبھی عارضی، جیسے نجاست کھانے والے جانور (جلّالہ) میں۔", "s": [{"t": "s", "v": "الكفاية ٨/٤١٨"}]}, {"x": "کچلی والے درندے: شیر، بھیڑیا، نمر اور فہد (چیتے کی قسمیں)، لومڑی، بجو، کتا، جنگلی اور پالتو بلی۔ چنگل والے پرندے: شکرا، باز، گدھ (نسر)، عقاب، شاہین۔", "s": [{"t": "s", "v": "الكفاية ٨/٤١٨"}]}, {"x": "اختطاف (جھپٹنا) پرندوں کا کام ہے جو ہوا سے پنجے سے اچکتے ہیں؛ انتہاب (نوچنا) چوپایوں کا جو زمین سے کچلی سے نوچتے ہیں۔", "s": [{"t": "s", "v": "العناية (المبسوط)"}]}], "lughat": [{"ar": "ذو ناب", "ur": "نوک دار دانتوں (کچلی) والا، جس سے شکار پکڑتا اور کاٹتا ہے", "s": [{"t": "u", "v": "0:00:37"}, {"t": "s", "v": "الكفاية ٨/٤١٨"}]}, {"ar": "ذو مِخْلَب", "ur": "چنگل (پنجے) والا شکاری پرندہ", "s": [{"t": "u", "v": "0:00:53"}, {"t": "s", "v": "الكفاية"}]}, {"ar": "السَّبُع", "ur": "درندہ: جھپٹنے، چھیننے، زخمی اور قتل کرنے والا", "s": [{"t": "u", "v": "0:02:50"}, {"t": "k", "v": "1667", "v7": 146}]}, {"ar": "الهوامّ", "ur": "زمین کے جانوروں (دواب الأرض) میں سے", "s": [{"t": "s", "v": "البناية ١٠/٦٩٩"}]}, {"ar": "اليَرْبوع", "ur": "جنگلی چوہا (موشِ دشت)", "s": [{"t": "u", "v": "0:05:41"}]}, {"ar": "ابن عِرْس", "ur": "نیولا", "s": [{"t": "u", "v": "0:05:03"}]}, {"ar": "الرَّخَم", "ur": "گدھ", "s": [{"t": "u", "v": "0:05:52"}]}, {"ar": "الجِيَف", "ur": "مردار", "s": [{"t": "u", "v": "0:05:52"}]}]}, {"unit": "u1", "pages": [1667], "lesson": "2025-07-27", "ts": "0:06:04", "label": null, "title": "کوّے کی قسمیں: کھیتی کا کوّا، ابقع، غداف اور عقعق", "start": "قال: ولا بأس بغُراب الزرع؛ لأنه يأكل الحبّ ولا يأكل الجيف", "start_note": "", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 146–147", "tamheed": [{"x": "کوّا شکاری پرندہ نہیں، اس لیے اس میں یہ دیکھا جائے گا کہ وہ مردار کھاتا ہے یا پاک کھانا۔", "s": [{"t": "u", "v": "0:06:04"}, {"t": "u", "v": "0:06:16"}]}, {"x": "مرغی کو دیکھیں: دانے بھی کھاتی ہے اور مردار بھی، لیکن اس سے حرام نہیں ہوتی۔", "s": [{"t": "u", "v": "0:07:46"}, {"t": "u", "v": "0:07:48"}]}], "masala": [{"x": "کھیتی کا کوّا (غراب الزرع) جو صرف دانے کھاتا ہے: حلال۔", "s": [{"t": "u", "v": "0:06:16"}, {"t": "u", "v": "0:08:32"}, {"t": "k", "v": "1667", "v7": 146}]}, {"x": "ابقع، جو صرف مردار کھاتا ہے: نہیں کھایا جائے گا۔", "s": [{"t": "u", "v": "0:06:39"}, {"t": "u", "v": "0:08:32"}, {"t": "k", "v": "1667", "v7": 146}]}, {"x": "اسی طرح غداف بھی حلال نہیں۔", "s": [{"t": "u", "v": "0:07:04"}, {"t": "u", "v": "0:08:32"}, {"t": "k", "v": "1667", "v7": 146}]}, {"x": "عقعق (جو دانے بھی کھاتا ہے، مردار بھی): امام ابو حنیفہ کے ہاں اس کے کھانے میں حرج نہیں۔", "s": [{"t": "u", "v": "0:07:48"}, {"t": "k", "v": "1667", "v7": 147}]}], "dalil": [{"x": "کھیتی کا کوّا دانے کھاتا ہے، مردار نہیں کھاتا، اور شکاری پرندوں میں سے نہیں۔", "s": [{"t": "u", "v": "0:06:16"}, {"t": "k", "v": "1667", "v7": 146}]}, {"x": "امام ابو حنیفہ: عقعق ملا جلا کھاتا ہے، اس لیے مرغی کی طرح ہے۔", "s": [{"t": "u", "v": "0:07:48"}, {"t": "k", "v": "1667", "v7": 147}]}, {"x": "امام ابو یوسف نے امام صاحب سے عقعق کا پوچھا، فرمایا: کوئی حرج نہیں۔ عرض کیا: یہ مردار کھاتا ہے۔ فرمایا: ساتھ دوسری چیز بھی ملاتا ہے۔ یعنی جو ملا کر کھائے وہ مرغی کی دلالت سے مکروہ نہیں۔", "s": [{"t": "s", "v": "البناية ١٠/٧٠١"}]}], "ikhtilaf": [{"x": "امام ابو یوسف: عقعق مکروہ ہے، کیونکہ اس کی زیادہ تر خوراک مردار ہے؛ مرغی دانے زیادہ کھاتی ہے۔", "s": [{"t": "u", "v": "0:07:48"}, {"t": "k", "v": "1667", "v7": 147}]}], "faida": [{"x": "کوّے تین قسم کے ہیں: صرف دانے چگنے والا (مکروہ نہیں)، صرف مردار کھانے والا (ابقع، مکروہ)، اور کبھی دانے کبھی مردار کھانے والا (امام ابو حنیفہ کے ہاں مکروہ نہیں، امام ابو یوسف کے ہاں مکروہ)۔", "s": [{"t": "s", "v": "العناية ٨/٤١٩"}]}, {"x": "فاختہ، دُبسی اور خطاف (ابابیل) کھائے جاتے ہیں۔ چمگادڑ کے بارے میں دونوں باتیں منقول ہیں: کھایا جاتا ہے، اور نہیں کھایا جاتا کیونکہ اس کے دانت (ناب) ہیں۔", "s": [{"t": "s", "v": "النهاية"}]}], "lughat": [{"ar": "غراب الزرع", "ur": "کھیتی کا کوّا، جو دانے کھاتا ہے", "s": [{"t": "u", "v": "0:06:16"}, {"t": "u", "v": "0:08:32"}]}, {"ar": "الأبقع", "ur": "کالا کوّا جس کے گلے کے نیچے سفیدی ہو؛ مردار کھاتا ہے", "s": [{"t": "u", "v": "0:06:39"}]}, {"ar": "الغُداف", "ur": "پورا کالا کوّا", "s": [{"t": "u", "v": "0:07:04"}]}, {"ar": "العَقْعَق", "ur": "کالا سفید پرندہ (کوّے کی قسم) جو دانے بھی کھاتا ہے، مردار بھی", "s": [{"t": "u", "v": "0:07:27"}, {"t": "s", "v": "البناية"}]}, {"ar": "يَخْلِط", "ur": "ملا جلا کھاتا ہے (دانے بھی، مردار بھی)", "s": [{"t": "u", "v": "0:07:36"}]}, {"ar": "الدجاجة", "ur": "مرغی", "s": [{"t": "u", "v": "0:07:48"}]}, {"ar": "غالب أكله الجيف", "ur": "اس کی زیادہ تر خوراک مردار ہے", "s": [{"t": "u", "v": "0:07:48"}]}]}, {"unit": "u1", "pages": [1667, 1668], "lesson": "2025-07-27", "ts": "0:09:16", "label": null, "title": "بجو، گوہ، کچھوا، بھڑ اور سب کیڑے مکوڑے", "start": "قال: ويُكره أكلُ الضَّبُع والضَّبِّ والسُّلَحْفَاةِ والزُّنْبُور والحشراتِ كلّها", "start_note": "", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 147", "tamheed": [{"x": "اب مزید کچھ جانوروں کا ذکر ہے: بجو، گوہ، کچھوا، بھڑ اور سارے کیڑے مکوڑے۔", "s": [{"t": "u", "v": "0:09:21"}, {"t": "u", "v": "0:09:49"}]}, {"x": "گوہ لمبا سا ہوتا ہے، لمبی دم والا، چھپکلی جیسا مگر بہت بڑا؛ لوگ اس کا شکار کرتے ہیں۔", "s": [{"t": "u", "v": "0:09:21"}]}], "masala": [{"x": "بجو، گوہ، کچھوا، بھڑ اور سارے کیڑے مکوڑے: ان سب کا کھانا ناجائز ہے۔", "s": [{"t": "u", "v": "0:09:49"}, {"t": "u", "v": "0:11:04"}, {"t": "k", "v": "1667–1668", "v7": 147}]}], "dalil": [{"x": "بجو اس لیے کہ وہ درندوں (کچلی والوں) میں سے ہے، جیسا پیچھے گزرا۔", "s": [{"t": "u", "v": "0:10:05"}, {"t": "k", "v": "1667–1668", "v7": 147}]}, {"x": "گوہ: حضرت عائشہ رضی اللہ عنہا نے آپ ﷺ سے اس کے کھانے کا پوچھا تو آپ نے منع فرمایا۔ اور یہ حشرات و خبائث میں سے ہے، سلیم فطرت اس سے گھن کھاتی ہے۔", "s": [{"t": "u", "v": "0:10:05"}, {"t": "k", "v": "1667–1668", "v7": 147}]}, {"x": "بھڑ تکلیف دینے والے (موذی) جانوروں میں سے ہے۔", "s": [{"t": "u", "v": "0:10:50"}, {"t": "k", "v": "1667–1668", "v7": 147}]}, {"x": "کچھوا خبیث حشرات میں سے ہے؛ اسی لیے احرام والا اسے مار دے تو اس پر کچھ واجب نہیں۔", "s": [{"t": "u", "v": "0:10:27"}, {"t": "k", "v": "1667–1668", "v7": 147}]}, {"x": "سارے حشرات گوہ پر قیاس کر کے مکروہ ہیں، کیونکہ گوہ بھی انہی میں سے ہے۔", "s": [{"t": "k", "v": "1667–1668", "v7": 147}]}], "ikhtilaf": [{"x": "گوہ: امام شافعی کے ہاں جائز، احناف کے ہاں ناجائز۔ استاد: اس بارے میں احادیث میں بھی اختلاف ہے۔ حضرت عائشہ والی حدیث امام شافعی کے خلاف حجت ہے۔", "s": [{"t": "u", "v": "0:10:05"}, {"t": "k", "v": "1667–1668", "v7": 147}]}], "faida": [{"x": "گوہ کی ممانعت کی حدیث ابو داود میں عبد الرحمن بن شبل رضی اللہ عنہ سے ہے؛ حافظ ابن حجر نے اس کی سند کو حسن کہا ہے۔ (حضرت عائشہ والے الفاظ کو نصب الراية میں «غریب» کہا ہے۔)", "s": [{"t": "s", "v": "إعلاء السنن ١٧/١٦٠"}, {"t": "s", "v": "نصب الراية ٤/١٩٥"}]}, {"x": "بھڑ زہریلے جانوروں میں سے ہے۔", "s": [{"t": "s", "v": "البناية"}]}], "lughat": [{"ar": "الضَّبُع", "ur": "بجو", "s": [{"t": "u", "v": "0:09:21"}]}, {"ar": "الضَّبّ", "ur": "گوہ", "s": [{"t": "u", "v": "0:09:21"}]}, {"ar": "السُّلَحْفاة", "ur": "کچھوا", "s": [{"t": "u", "v": "0:09:49"}]}, {"ar": "الزُّنْبور", "ur": "بھڑ", "s": [{"t": "u", "v": "0:09:49"}]}, {"ar": "الحشرات", "ur": "کیڑے مکوڑے (زمین کے چھوٹے جانور)", "s": [{"t": "u", "v": "0:11:04"}, {"t": "s", "v": "البناية"}]}, {"ar": "المؤذيات", "ur": "تکلیف دینے والے (موذی) جانور", "s": [{"t": "u", "v": "0:10:50"}]}, {"ar": "المُحْرِم", "ur": "احرام والا", "s": [{"t": "u", "v": "0:10:27"}]}]}, {"unit": "u1", "pages": [1668, 1669], "lesson": "2025-07-27", "ts": "0:11:09", "label": null, "title": "پالتو گدھا، خچر، گھوڑا اور خرگوش", "start": "قال: ولا يجوز أكلُ الحُمُرِ الأهليّة والبِغال", "start_note": "عبارت ص 147 کی آخری سطر سے شروع ہوتی ہے؛ دلیل والی حدیثیں ص 148 پر ہیں۔", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 147–149", "tamheed": [{"x": "ابتدائے اسلام میں (گدھے کے گوشت کی) اجازت تھی؛ غزوۂ خیبر میں آپ ﷺ نے جن چیزوں کو حرام کیا ان میں متعہ اور پالتو گدھے بھی ہیں۔", "s": [{"t": "u", "v": "0:11:37"}]}, {"x": "انسان کا گوشت کھانا جائز نہیں، مگر اس کی وجہ نجاست نہیں بلکہ اس کی تکریم ہے؛ گھوڑے کا معاملہ بھی امام صاحب کے ہاں ایسا ہی ہے۔", "s": [{"t": "u", "v": "0:12:55"}]}], "masala": [{"x": "پالتو گدھے اور خچر کا کھانا جائز نہیں۔", "s": [{"t": "u", "v": "0:11:10"}, {"t": "k", "v": "1668", "v7": 147}]}, {"x": "جنگلی گدھے (حمارِ وحشی) کا کھانا جائز ہے؛ اسی لیے «الأهلية» کی قید ہے۔", "s": [{"t": "u", "v": "0:11:37"}, {"t": "s", "v": "البناية ١٠/٧٠٥"}]}, {"x": "گھوڑے کا گوشت امام ابو حنیفہ کے ہاں مکروہ ہے؛ امام مالک کا بھی یہی قول ہے۔", "s": [{"t": "u", "v": "0:12:20"}, {"t": "u", "v": "0:12:34"}, {"t": "k", "v": "1668–1669", "v7": 148}]}, {"x": "امام صاحب کے ہاں یہ کراہت تحریمی ہے یا تنزیہی؟ دو قول ہیں؛ زیادہ صحیح یہ کہ تحریمی ہے۔", "s": [{"t": "u", "v": "0:12:20"}, {"t": "k", "v": "1669", "v7": 149}]}, {"x": "گھوڑی کا دودھ: متن میں «کہا گیا ہے» کہ اس میں حرج نہیں؛ استاد کے مطابق امام صاحب کے ہاں بھی جائز ہے۔", "s": [{"t": "k", "v": "1669", "v7": 149}, {"t": "u", "v": "0:15:31"}]}, {"x": "خرگوش (ارنب) کا کھانا بالکل جائز ہے۔", "s": [{"t": "u", "v": "0:15:57"}, {"t": "k", "v": "1669", "v7": 149}]}], "dalil": [{"x": "گدھا اور خچر: حضرت خالد بن ولید رضی اللہ عنہ کی حدیث کہ آپ ﷺ نے گھوڑے، خچر اور گدھے کے گوشت سے منع فرمایا؛ اور حضرت علی رضی اللہ عنہ کی حدیث کہ خیبر کے دن آپ نے متعہ ختم کیا اور پالتو گدھوں کا گوشت حرام کیا۔", "s": [{"t": "u", "v": "0:11:37"}, {"t": "u", "v": "0:14:51"}, {"t": "k", "v": "1668–1669", "v7": 148}]}, {"x": "امام صاحب کی پہلی دلیل: قرآن میں «وَالْخَيْلَ وَالْبِغَالَ وَالْحَمِيرَ لِتَرْكَبُوهَا وَزِينَةً» احسان جتانے کے طور پر ہے۔ کھانا سب سے بڑی نعمت ہے؛ حکیم بڑی نعمت چھوڑ کر چھوٹی کا احسان نہیں جتاتا۔ کھانا جائز ہوتا تو سواری سے پہلے کھانے کا ذکر ہوتا۔", "s": [{"t": "u", "v": "0:13:24"}, {"t": "k", "v": "1668–1669", "v7": 148}]}, {"x": "یہ استدلال حضرت ابن عباس رضی اللہ عنہما سے منقول ہے۔", "s": [{"t": "s", "v": "الكفاية ٨/٤٢١"}]}, {"x": "دوسری دلیل: گھوڑا دشمن کو ڈرانے کا آلہ ہے، اس کی تکریم میں اسے مکروہ رکھا؛ اسی لیے غنیمت میں اس کا حصہ لگتا ہے: پیدل کو ایک حصہ، گھوڑ سوار کو دگنا۔", "s": [{"t": "u", "v": "0:14:05"}, {"t": "k", "v": "1668–1669", "v7": 148}, {"t": "s", "v": "البناية ١٠/٧١٢"}]}, {"x": "تیسری دلیل: کھانے کی اجازت ہو تو لوگ اسے پالنا چھوڑ دیں گے اور جہاد کے آلات کم ہو جائیں گے۔", "s": [{"t": "u", "v": "0:14:39"}, {"t": "k", "v": "1668–1669", "v7": 148}]}, {"x": "صاحبین کی حدیث (حضرت جابر) کا جواب: یہ حضرت خالد کی حدیث کے معارض ہے، اور ترجیح حرام کرنے والی کو ہوتی ہے۔", "s": [{"t": "u", "v": "0:14:51"}, {"t": "k", "v": "1669", "v7": 149}]}, {"x": "دودھ اس لیے جائز کہ پینے سے جہاد کا آلہ کم نہیں ہوتا؛ اور گھوڑا نجس نہیں، ممانعت صرف تکریم کی وجہ سے ہے۔", "s": [{"t": "u", "v": "0:15:31"}, {"t": "k", "v": "1669", "v7": 149}]}, {"x": "خرگوش: آپ ﷺ کو بھنا ہوا ہدیہ کیا گیا، آپ نے اس میں سے کھایا اور صحابہ کو کھانے کا حکم دیا۔ اور یہ نہ درندہ ہے نہ مردار خور، اس لیے ہرن کی طرح ہے۔", "s": [{"t": "u", "v": "0:15:57"}, {"t": "k", "v": "1669", "v7": 149}]}], "ikhtilaf": [{"x": "امام ابو یوسف، امام محمد اور امام شافعی: گھوڑا کھانے میں حرج نہیں؛ حضرت جابر رضی اللہ عنہ کی حدیث کہ خیبر کے دن آپ ﷺ نے پالتو گدھوں کا گوشت منع کیا اور گھوڑے کی اجازت دی۔", "s": [{"t": "u", "v": "0:12:34"}, {"t": "k", "v": "1668–1669", "v7": 148}]}, {"x": "استاد: فتویٰ باقی فقہاء (صاحبین) کے قول پر ہے، گھوڑا کھانا حلال ہے، خاص طور پر آج کل جب جہاد میں اس طرح استعمال نہیں ہوتا؛ البتہ اس کی تکریم بہرحال ہے۔", "s": [{"t": "u", "v": "0:15:13"}]}], "faida": [{"x": "گدھا اور خچر نجس ہونے کی وجہ سے حرام ہیں؛ گھوڑا امام صاحب کے ہاں نجاست نہیں، تکریم کی وجہ سے۔", "s": [{"t": "u", "v": "0:12:55"}]}, {"x": "«مکروہ» سے تحریم مراد ہونے کی دلیل: امام ابو یوسف نے امام صاحب سے پوچھا: جب آپ کسی چیز کو «اکرہہ» کہیں تو آپ کی رائے کیا ہوتی ہے؟ فرمایا: تحریم۔", "s": [{"t": "s", "v": "العناية ٨/٤٢١"}]}, {"x": "دودھ کے جواز کو «الخلاصة» میں اصح کہا ہے۔", "s": [{"t": "s", "v": "البناية ١٠/٧١٦"}]}], "lughat": [{"ar": "الحُمُر الأهلية", "ur": "پالتو گدھے", "s": [{"t": "u", "v": "0:11:10"}]}, {"ar": "البِغال", "ur": "خچر", "s": [{"t": "u", "v": "0:11:10"}]}, {"ar": "لحم الفرس", "ur": "گھوڑے کا گوشت", "s": [{"t": "u", "v": "0:15:57"}]}, {"ar": "خرج مخرج الامتنان", "ur": "احسان جتانے کے طور پر آیا ہے", "s": [{"t": "u", "v": "0:13:24"}]}, {"ar": "إرهاب العدو", "ur": "دشمن کو خوف زدہ کرنا", "s": [{"t": "u", "v": "0:14:05"}]}, {"ar": "يُضرب له بسهم", "ur": "(غنیمت میں) اس کا حصہ لگایا جاتا ہے", "s": [{"t": "u", "v": "0:14:05"}]}, {"ar": "الأرنب", "ur": "خرگوش", "s": [{"t": "u", "v": "0:15:57"}]}, {"ar": "الظبي", "ur": "ہرن", "s": [{"t": "u", "v": "0:15:57"}]}]}, {"unit": "u1", "pages": [1669, 1670], "lesson": "2025-07-27", "ts": "0:16:43", "label": null, "title": "حرام جانور کو ذبح کیا تو کیا اس کا گوشت اور چمڑا پاک ہو جاتا ہے؟", "start": "قال: وإذا ذُبح ما لا يؤكل لحمه: طَهُرَ جلده ولحمه إلا الآدميّ والخنزير", "start_note": "", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 149–150", "tamheed": [{"x": "کسی نے گدھے یا کسی اور حرام جانور کو باقاعدہ ذبح کر لیا؛ گوشت تو حرام ہی ہے، لیکن کیا اس کا گوشت اور چمڑا پاک ہو گیا؟", "s": [{"t": "u", "v": "0:16:48"}, {"t": "u", "v": "0:17:56"}]}, {"x": "ذہن میں رکھیں: بکری خود مر جائے تو اس کا چمڑا ناپاک ہے، دباغت کے بعد پاک ہوتا ہے۔ اور بکری ذبح کی جائے تو گوشت حلال اور چمڑا دباغت سے پہلے بھی پاک۔", "s": [{"t": "u", "v": "0:17:11"}, {"t": "u", "v": "0:17:40"}]}], "masala": [{"x": "صاحبِ ہدایہ کا اختیار کردہ قول: غیر ماکول جانور ذبح کیا جائے تو گوشت حلال نہیں ہوتا، مگر اس کا چمڑا اور گوشت پاک ہو جاتے ہیں۔", "s": [{"t": "u", "v": "0:17:11"}, {"t": "u", "v": "0:20:03"}, {"t": "k", "v": "1669", "v7": 149}]}, {"x": "سوائے انسان اور خنزیر کے: ان میں ذبح اثر نہیں کرتا۔ انسان اپنی عزت و حرمت کی وجہ سے، خنزیر اپنی نجاست کی وجہ سے، جیسے دباغت میں۔", "s": [{"t": "u", "v": "0:18:11"}, {"t": "k", "v": "1669", "v7": 149}]}, {"x": "اس قول پر چربی بھی پاک ہے: تھوڑے پانی میں گر جائے تو اسے ناپاک نہیں کرتی؛ جیب میں ہو تو نماز ہو جائے گی۔", "s": [{"t": "u", "v": "0:22:56"}, {"t": "k", "v": "1669–1670", "v7": 150}]}, {"x": "کھانے کے علاوہ اس سے فائدہ اٹھانا (جیسے زخموں پر لگانا): ایک قول ناجائز، کھانے پر قیاس کرتے ہوئے؛ دوسرا قول جائز، جیسے وہ زیتون کا تیل جس میں مردار کی چکنائی ملی ہو اور تیل غالب ہو: کھایا نہیں جاتا، دوسرے کاموں میں استعمال ہوتا ہے۔", "s": [{"t": "u", "v": "0:22:56"}, {"t": "k", "v": "1669–1670", "v7": 150}]}], "dalil": [{"x": "احناف (صاحبِ ہدایہ کا قول): ذبح نجس رطوبتوں اور بہنے والے خون کو نکال دیتا ہے؛ نجس یہی ہیں، چمڑا اور گوشت بذاتِ خود نہیں۔ جب یہ نکل گئیں تو پاک ہو گیا، جیسے دباغت میں چمڑے کی رطوبتیں دور ہو کر وہ پاک ہوتا ہے۔", "s": [{"t": "u", "v": "0:21:35"}, {"t": "k", "v": "1669–1670", "v7": 150}]}, {"x": "گوشت میں اصل مقصد کھانا ہے، مگر چمڑے میں اصل مقصد اس کا استعمال ہے؛ اس لیے چمڑے کی پاکی خود مقصود ہے، گوشت کے تابع نہیں۔", "s": [{"t": "u", "v": "0:21:35"}, {"t": "k", "v": "1669–1670", "v7": 150}, {"t": "s", "v": "البناية"}]}, {"x": "مجوسی کے ذبح کا جواب: شریعت میں اس کا فعل ذبح ہی نہیں، صرف مار دینا ہے؛ اس لیے وہاں دباغت ضروری ہے۔", "s": [{"t": "k", "v": "1669–1670", "v7": 150}, {"t": "s", "v": "البناية ١٠/٧٢٠"}]}], "ikhtilaf": [{"x": "امام شافعی: ذبح ان سب میں بالکل اثر نہیں کرتا۔ ذبح کا اصل کام گوشت کو حلال کرنا ہے، اور گوشت و چمڑے کی پاکی اس کے تابع ہے؛ جہاں اصل (حلت) حاصل نہیں وہاں تابع بھی حاصل نہیں۔ جیسے مجوسی بکرا ذبح کرے تو نہ حلال ہوتا ہے نہ پاک۔", "s": [{"t": "u", "v": "0:20:16"}, {"t": "k", "v": "1669", "v7": 149}]}], "faida": [{"x": "استاد: یہ صاحبِ ہدایہ کا راجح قول ہے، ہمارے ہاں راجح نہیں۔ راجح یہ ہے کہ حرام جانور ذبح سے پاک نہیں ہوتا: گوشت نجس ہے، پانی میں گرے تو پانی ناپاک، جیب میں ہو تو نماز نہیں؛ چمڑا دباغت سے پاک ہوگا، ذبح سے نہیں؛ اور خارجی استعمال بھی درست نہیں۔ البتہ کتاب اسی قول کے مطابق پڑھیں گے۔", "s": [{"t": "u", "v": "0:19:24"}, {"t": "u", "v": "0:21:35"}, {"t": "u", "v": "0:22:56"}]}, {"x": "حاشیہ: ایک روایت میں ذبح سے غیر ماکول کا گوشت پاک نہیں ہوتا اور چمڑا پاک ہو جاتا ہے، اور اسی کو «صحیح» کہا ہے۔", "s": [{"t": "s", "v": "البناية ١٠/٧١٩"}]}, {"x": "پاک کرنے والی چیز صرف ذبح ہے یا ذبح مع تسمیہ؟ اختلاف ہے؛ بعض نے کہا تسمیہ بھی چاہیے، کیونکہ پاک کرنے والی ذکاۃ ہے اور ذکاۃ تسمیہ کے ساتھ ذبح کا نام ہے۔", "s": [{"t": "s", "v": "الكفاية ٨/٤٢١–٤٢٢"}]}], "lughat": [{"ar": "ما لا يؤكل لحمه", "ur": "غیر ماکول اللحم جانور، جس کا گوشت نہیں کھایا جاتا", "s": [{"t": "u", "v": "0:20:03"}]}, {"ar": "الذكاة", "ur": "شرعی طریقے سے ذبح", "s": [{"t": "u", "v": "0:17:56"}]}, {"ar": "الدِّباغ", "ur": "دباغت، چمڑا پکانا", "s": [{"t": "u", "v": "0:17:11"}]}, {"ar": "الرطوبات والدماء السيّالة", "ur": "نجس رطوبتیں اور بہنے والا خون", "s": [{"t": "u", "v": "0:21:35"}]}, {"ar": "تبعاً", "ur": "ضمناً، ثانوی طور پر (اصل کے تابع)", "s": [{"t": "u", "v": "0:20:16"}]}, {"ar": "إماتة", "ur": "(شرعی ذبح نہیں،) بس مار دینا", "s": [{"t": "s", "v": "البناية ١٠/٧٢٠"}]}, {"ar": "شحمه", "ur": "اس کی چربی", "s": [{"t": "u", "v": "0:22:56"}]}, {"ar": "وَدَك الميتة", "ur": "مردار کی چکنائی", "s": [{"t": "a", "v": ""}]}]}, {"unit": "u1", "pages": [1670], "lesson": "2025-07-27", "ts": "0:24:33", "label": null, "title": "سمندری جانوروں میں صرف مچھلی حلال", "start": "قال: ولا يؤكل من حيوان الماء إلا السمكُ", "start_note": "", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 150–151", "tamheed": [{"x": "اب «سی فوڈ»، یعنی سمندری جانوروں کا حکم۔ اس میں سب سے سخت قول امام ابو حنیفہ کا ہے: سمندری جانوروں میں صرف مچھلی جائز ہے۔", "s": [{"t": "u", "v": "0:24:39"}]}, {"x": "مچھلی کی سب قسمیں جائز ہیں، شکل سانپ جیسی ہو یا کچھ اور، بس یہ ثابت ہو جائے کہ وہ مچھلی ہے۔", "s": [{"t": "u", "v": "0:24:39"}]}], "masala": [{"x": "احناف: پانی کے جانوروں میں سے صرف مچھلی کھائی جائے گی؛ کیکڑا، سمندری کچھوا، مینڈک وغیرہ سب ناجائز۔", "s": [{"t": "u", "v": "0:24:39"}, {"t": "u", "v": "0:25:20"}, {"t": "k", "v": "1670", "v7": 150}]}, {"x": "کھانے اور بیچنے میں اختلاف ایک ہی ہے: جن کے ہاں کھانا جائز ہے ان کے ہاں بیچنا بھی، ہمارے ہاں کھانا جائز نہیں تو بیچنا بھی نہیں۔", "s": [{"t": "u", "v": "0:25:41"}, {"t": "k", "v": "1670", "v7": 150}, {"t": "s", "v": "البناية ١٠/٧٢٢"}]}], "dalil": [{"x": "احناف: «وَيُحَرِّمُ عَلَيْهِمُ الْخَبَائِثَ»؛ مچھلی کے سوا سب خبیث ہیں، سلیم طبیعت ان سے گھن کھاتی ہے۔", "s": [{"t": "u", "v": "0:27:58"}, {"t": "k", "v": "1670", "v7": 151}, {"t": "s", "v": "البناية"}]}, {"x": "آپ ﷺ سے ایک دوا کے بارے میں پوچھا گیا جس میں مینڈک ڈالا جاتا تھا، آپ نے منع فرمایا؛ جب دوا میں جائز نہیں تو کھانا بھی جائز نہیں۔ اور کیکڑے کے بیچنے سے منع فرمایا۔", "s": [{"t": "u", "v": "0:27:58"}, {"t": "k", "v": "1670", "v7": 151}]}, {"x": "آیت میں «صید البحر» سے مراد شکار کرنا ہے، اور شکار حرام جانوروں کا بھی جائز ہے، جیسے ہاتھی کا شکار کر کے اس کے دانت استعمال کرتے ہیں؛ شکار سے حلال ہونا لازم نہیں۔ یا اس سے بھی صرف مچھلی مراد لیں گے تاکہ سب احادیث پر عمل ہو۔", "s": [{"t": "u", "v": "0:27:58"}, {"t": "k", "v": "1670", "v7": 151}, {"t": "s", "v": "البناية ١٠/٧٢٤"}]}, {"x": "«والحل ميتته» میں مردار سے مراد مچھلی ہے، جو حدیث «أُحِلَّتْ لنا ميتتان ودمان» سے مستثنیٰ ہے: دو مردار مچھلی اور ٹڈی، دو خون کلیجی اور تلی۔", "s": [{"t": "u", "v": "0:29:23"}, {"t": "k", "v": "1670", "v7": 151}, {"t": "s", "v": "البناية ١٠/٧٢٥"}]}], "ikhtilaf": [{"x": "امام مالک اور اہلِ علم کی ایک جماعت: سمندر کے سب جانور حلال؛ ان میں سے بعض نے سمندری خنزیر، کتے اور انسان (کی شکل والے جانور) کو مستثنیٰ کیا۔ امام شافعی سے منقول ہے کہ سب مطلقاً حلال۔", "s": [{"t": "u", "v": "0:25:41"}, {"t": "k", "v": "1670", "v7": 150}]}, {"x": "ان کی دلیل: «أُحِلَّ لَكُمْ صَيْدُ الْبَحْرِ» بغیر کسی تفصیل کے؛ اور حدیث «هو الطهور ماؤه والحل ميتته»۔", "s": [{"t": "u", "v": "0:25:41"}, {"t": "u", "v": "0:27:18"}, {"t": "k", "v": "1670", "v7": 150}]}, {"x": "اور ان میں خون نہیں ہوتا، کیونکہ خون والا جانور پانی میں نہیں رہ سکتا؛ حرام اصل میں خون ہے، اس لیے یہ مچھلی کی طرح ہیں۔", "s": [{"t": "u", "v": "0:27:18"}, {"t": "k", "v": "1670", "v7": 151}]}], "faida": [{"x": "استاد: جھینگے میں اختلاف یہ نہیں کہ جائز ہے یا ناجائز، بلکہ یہ کہ وہ مچھلی ہے یا کیڑا۔ جو اسے مچھلی مانتے ہیں ان کے ہاں جائز؛ بہت سے فقہاء نے اسے مچھلی کی قسم مان کر اجازت دی ہے، اور احتیاطاً کوئی بچنا چاہے تو بچے۔", "s": [{"t": "u", "v": "0:29:23"}]}, {"x": "استاد: احناف کا ایک قول یہ بھی ہے کہ (ان سمندری جانوروں کا) کھانا جائز نہیں، مگر پاک ہیں، اس لیے فائدے کی خاطر بیچنا جائز ہے۔", "s": [{"t": "u", "v": "0:25:41"}]}, {"x": "کیکڑے کی بیع کی ممانعت والی حدیث کو نصب الراية میں «غریب جداً» کہا ہے۔ مینڈک والی حدیث ابو داود میں ہے: طبیب نے دوا میں ڈالنے کا پوچھا تو آپ ﷺ نے اسے مارنے سے منع فرمایا۔", "s": [{"t": "s", "v": "نصب الراية ٤/٢٠١"}]}], "lughat": [{"ar": "حيوان الماء", "ur": "پانی (سمندر) کے جانور", "s": [{"t": "u", "v": "0:24:39"}]}, {"ar": "صيد البحر", "ur": "سمندر کا شکار", "s": [{"t": "u", "v": "0:25:41"}]}, {"ar": "الطهور ماؤه والحِلّ ميتته", "ur": "اس کا پانی پاک ہے اور اس کا مردار حلال", "s": [{"t": "u", "v": "0:27:18"}]}, {"ar": "الدَّمَوي", "ur": "خون والا جانور", "s": [{"t": "u", "v": "0:27:18"}]}, {"ar": "الخبائث", "ur": "گھناؤنی چیزیں، جن سے سلیم طبیعت گھن کھائے", "s": [{"t": "u", "v": "0:27:58"}, {"t": "s", "v": "البناية"}]}, {"ar": "الضِّفْدَع", "ur": "مینڈک", "s": [{"t": "u", "v": "0:27:58"}]}, {"ar": "السَّرَطان", "ur": "کیکڑا", "s": [{"t": "u", "v": "0:27:58"}]}, {"ar": "الكبد والطِّحال", "ur": "کلیجی اور تلی", "s": [{"t": "a", "v": ""}]}]}, {"unit": "u1", "pages": [1670, 1671], "lesson": "2025-07-27", "ts": "0:30:54", "label": null, "title": "سمکِ طافی، اور جریث و مارماہی", "start": "قال: ويكره أكلُ الطافي منه، وقال مالك والشافعي رحمهما: لا بأس به", "start_note": "کارڈ «ولا بأس بأكل الجرّيث والمارماهي وأنواع السمك» (ص 152) تک ہے؛ اسی جملے کا آخری لفظ «والجراد بلا ذكاة» اگلے کارڈ میں ہے۔", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 151–152", "tamheed": [{"x": "خشکی کے حلال جانور کو ذبح کرنا ضروری ہے، مچھلی کو نہیں۔ مرغی اپنی موت آپ مر جائے تو حرام؛ مچھلی پکڑ کر خشکی پر ڈال دی اور وہ خود مر گئی تو حلال۔", "s": [{"t": "u", "v": "0:30:54"}]}, {"x": "ہمارے ہاں تفصیل ہے: پانی خشک ہو گیا، موجوں نے خشکی پر پھینک دیا، انسان نے پکڑ کر پھینکا، تلوار سے مارا یا کرنٹ لگایا: سب حلال۔ حرام صرف ایک ہے۔", "s": [{"t": "u", "v": "0:31:23"}]}], "masala": [{"x": "طافی مچھلی کا کھانا مکروہ (ہمارے ہاں حرام) ہے: جو پانی کے اندر اپنی طبعی موت مرے اور اوپر آ جائے، پیٹ اوپر کی طرف۔ اس کے سوا سب قسمیں حلال ہیں۔", "s": [{"t": "u", "v": "0:31:23"}, {"t": "u", "v": "0:34:14"}, {"t": "k", "v": "1670–1671", "v7": 151}]}, {"x": "جریث، مارماہی اور مچھلی کی سب قسمیں کھانے میں کوئی حرج نہیں۔", "s": [{"t": "u", "v": "0:34:21"}, {"t": "u", "v": "0:35:35"}, {"t": "k", "v": "1671", "v7": 152}]}], "dalil": [{"x": "حضرت جابر رضی اللہ عنہ کی حدیث: «جس سے پانی ہٹ جائے اسے کھاؤ، جسے پانی باہر پھینک دے اسے کھاؤ، اور جو (مر کر) اوپر آ جائے اسے نہ کھاؤ»۔ صحابہ کی ایک جماعت کا بھی یہی مذہب ہے۔", "s": [{"t": "u", "v": "0:31:23"}, {"t": "k", "v": "1671", "v7": 152}]}, {"x": "«میتۃ البحر» وہ ہے جسے سمندر خشکی پر پھینک دے، تاکہ اس کی موت سمندر کی طرف منسوب ہو؛ جو سمندر میں خود بخود مرا وہ سمندر کا مارا ہوا نہیں۔", "s": [{"t": "u", "v": "0:33:30"}, {"t": "k", "v": "1671", "v7": 152}]}, {"x": "جریث اور مارماہی کو الگ اس لیے ذکر کیا کہ ان کی شکل (عام) مچھلی سے نہیں ملتی؛ مگر ہیں مچھلی، اس لیے جائز۔", "s": [{"t": "u", "v": "0:34:21"}]}], "ikhtilaf": [{"x": "امام مالک اور امام شافعی: جو مچھلی بھی مرے، سب حلال؛ حدیث «والحل ميتته» مطلق ہے، اور «أحلت لنا ميتتان» میں سمندر کے مردار کو حلال کہا گیا ہے۔", "s": [{"t": "u", "v": "0:31:23"}, {"t": "k", "v": "1670–1671", "v7": 151}, {"t": "s", "v": "البناية ١٠/٧٢٧"}]}], "faida": [{"x": "طافی: «طفا يطفو» سے اسم فاعل، یعنی پانی کے اوپر آ جانا؛ مراد وہ مچھلی جو بغیر کسی سبب کے پانی میں اپنی موت مرے اور اوپر آ جائے۔", "s": [{"t": "s", "v": "العناية ٨/٤٢٢"}]}, {"x": "حضرت جابر کی حدیث ابو داود میں مرفوعاً اور موقوفاً دونوں طرح ہے؛ إعلاء السنن: مرفوع کو ضعیف کہنے کی کوئی وجہ نہیں۔ ابن ابی شیبہ نے طافی کی کراہت حضرت جابر، علی اور ابن عباس رضی اللہ عنہم سے نقل کی ہے۔", "s": [{"t": "s", "v": "إعلاء السنن ١٧/١٨١"}, {"t": "s", "v": "نصب الراية ٤/٢٠٥"}]}, {"x": "استاد: مچھلی کی سب قسمیں جائز ہیں، چاہے شارک ہو یا بڑی بڑی مچھلیاں۔", "s": [{"t": "u", "v": "0:34:21"}]}], "lughat": [{"ar": "الطافي", "ur": "جو مچھلی طبعی موت مر کر پانی کے اوپر آ جائے", "s": [{"t": "u", "v": "0:31:23"}, {"t": "s", "v": "العناية ٨/٤٢٢"}]}, {"ar": "ما نَضَبَ عنه الماء", "ur": "جس سے پانی ہٹ جائے (خشک ہو جائے)", "s": [{"t": "u", "v": "0:31:23"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "ما لَفَظَه الماء", "ur": "جسے پانی باہر پھینک دے", "s": [{"t": "u", "v": "0:31:23"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "ميتة البحر", "ur": "سمندر کا مردار: جسے سمندر نے مارا ہو", "s": [{"t": "u", "v": "0:33:30"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "من غير آفة", "ur": "کسی سبب (آفت) کے بغیر", "s": [{"t": "u", "v": "0:31:23"}]}, {"ar": "الجِرّيث", "ur": "کالی، گول قسم کی مچھلی", "s": [{"t": "u", "v": "0:34:21"}]}, {"ar": "المارماهي", "ur": "سانپ کی شکل کی مچھلی", "s": [{"t": "u", "v": "0:34:21"}]}]}, {"unit": "u1", "pages": [1671], "lesson": "2025-07-27", "ts": "0:35:35", "label": null, "title": "ٹڈی بغیر ذبح کے حلال؛ مچھلی کا اصول: آفت سے مرے تو حلال", "start": "والجراد بلا ذكاة، وقال مالك رحمه الله: لا يحل الجراد", "start_note": "«والجراد بلا ذكاة» قدوری کے اسی جملے کا آخر ہے جو «ولا بأس بأكل الجرّيث» سے شروع ہوتا ہے۔ 0:35:53–0:36:01 کلاس میں مختصر وقفہ ہے۔ یہ کارڈ کتاب الذبائح کے آخر (ص 153، «والله أعلم بالصواب») تک ہے؛ 0:40:00 پر استاد کتاب الاضحیہ کا اعلان کرتے ہیں، وہ اگلا سبق ہے۔", "norec": "", "badges": null, "v7": "بشریٰ ج٧ ص 152–153", "tamheed": [{"x": "آپ ﷺ نے فرمایا کہ دو جانور ذبح کیے بغیر بھی جائز ہیں: مچھلی اور ٹڈی۔", "s": [{"t": "u", "v": "0:36:01"}, {"t": "u", "v": "0:36:17"}]}, {"x": "ہمارے ہاں ٹڈیاں چھوٹی ہوتی ہیں، عربوں میں بڑی، چھوٹی چڑیا (پدی) کے لگ بھگ۔ طبعی طور پر کوئی گھن کھائے تو الگ بات ہے، کھانا جائز ہے۔", "s": [{"t": "u", "v": "0:36:17"}]}], "masala": [{"x": "ٹڈی بغیر ذبح کے حلال ہے: خود مر جائے تب بھی، پکڑ کر مار دیں تب بھی۔", "s": [{"t": "u", "v": "0:36:17"}, {"t": "k", "v": "1671", "v7": 152}, {"t": "k", "v": "1671", "v7": 153}]}, {"x": "مچھلی کا اصول: کسی آفت سے مرے تو حلال، جیسے پکڑی ہوئی مچھلی؛ اپنی موت آپ، بغیر آفت کے مرے تو حلال نہیں، جیسے طافی۔", "s": [{"t": "u", "v": "0:38:45"}, {"t": "k", "v": "1671", "v7": 153}]}, {"x": "آفت انسانی بھی ہو سکتی ہے (پکڑ لے، کرنٹ لگائے، باہر پھینکے) اور قدرتی بھی (پانی خشک ہو جائے، پانی باہر پھینک دے)۔", "s": [{"t": "u", "v": "0:38:45"}]}, {"x": "زندہ مچھلی کا کچھ حصہ کاٹ دیا اور وہ مر گئی تو کٹا ہوا حصہ بھی حلال اور باقی بھی، کیونکہ اس کی موت آفت سے ہے؛ اور زندہ سے جدا کیا ہوا حصہ اگرچہ مردار ہے، مگر مچھلی کا مردار حلال ہے۔", "s": [{"t": "u", "v": "0:39:15"}, {"t": "k", "v": "1671", "v7": 153}]}], "dalil": [{"x": "ٹڈی میں خون نہیں ہوتا، اس لیے خون نکالنا ضروری نہیں؛ اور یہ حشرات و خبائث میں سے بھی نہیں۔", "s": [{"t": "u", "v": "0:36:17"}]}, {"x": "حدیث «أحلت لنا ميتتان» میں ٹڈی کے مردار کی اجازت ہے۔", "s": [{"t": "u", "v": "0:37:27"}, {"t": "k", "v": "1671", "v7": 153}, {"t": "s", "v": "العناية ٨/٤٢٢"}]}, {"x": "حضرت علی رضی اللہ عنہ سے پوچھا گیا: آدمی زمین سے ٹڈیاں اٹھاتا ہے، ان میں کچھ مردہ ہوتی ہیں کچھ زندہ۔ فرمایا: «كُلْهُ كُلَّهُ» سب کی سب کھا لو۔ معلوم ہوا خود مر جائے تب بھی حلال ہے۔", "s": [{"t": "u", "v": "0:37:27"}, {"t": "k", "v": "1671", "v7": 153}]}, {"x": "سوال: حدیث میں مچھلی اور ٹڈی دونوں کے مردار کی اجازت ہے، تو خود مری ٹڈی حلال اور خود مری مچھلی حرام کیوں؟ جواب: اصولاً مچھلی کا بھی یہی حکم ہوتا، مگر طافی کے بارے میں خاص نص آ گئی، اس لیے اسے الگ کر دیا۔", "s": [{"t": "u", "v": "0:38:11"}, {"t": "k", "v": "1671", "v7": 153}]}], "ikhtilaf": [{"x": "امام مالک: جو ٹڈی اپنی موت مر جائے وہ حلال نہیں؛ حلال تب ہے جب پکڑنے والا اس کا سر کاٹ دے (اور بھون لے)۔ کیونکہ یہ خشکی کا شکار ہے؛ اسی لیے احرام والا ٹڈی مار دے تو اس پر بدلہ واجب ہے، جیسے دوسرے شکار میں۔", "s": [{"t": "u", "v": "0:36:52"}, {"t": "k", "v": "1671", "v7": 152}]}], "faida": [{"x": "استاد: احرام میں ٹڈی مارنے کا بدلہ تھوڑا سا ہوتا ہے، جیسے ایک کھجور صدقہ کر دینا۔", "s": [{"t": "u", "v": "0:36:52"}]}, {"x": "«كُلْهُ كُلَّهُ» کو حضرت علی کی فصاحت میں شمار کیا گیا ہے۔", "s": [{"t": "k", "v": "1671", "v7": 153}]}, {"x": "کفایۃ المنتہی کی فروع: مچھلی کے پیٹ سے دوسری مچھلی نکلے تو کھائی جائے گی (جگہ کی تنگی موت کا سبب ہے)؛ مچھلیوں کو ایسے احاطے میں جمع کیا جس سے نکل نہ سکیں اور بغیر شکار کے پکڑی جا سکتی ہوں، وہاں مر گئیں تو حلال؛ مجوسی کی پکڑی مچھلی بھی حلال، کیونکہ اس میں تسمیہ شرط نہیں۔", "s": [{"t": "s", "v": "الكفاية ٨/٤٢٣"}]}, {"x": "گرمی یا سردی سے مری مچھلی میں دو روایتیں ہیں؛ شیخ الاسلام کے مطابق امام ابو حنیفہ کے ہاں حلال نہیں، امام محمد کے ہاں حلال۔", "s": [{"t": "k", "v": "1671", "v7": 153}, {"t": "s", "v": "العناية ٨/٤٢٣"}]}], "lughat": [{"ar": "الجراد", "ur": "ٹڈی", "s": [{"t": "u", "v": "0:36:01"}]}, {"ar": "بلا ذكاة", "ur": "ذبح کیے بغیر", "s": [{"t": "u", "v": "0:36:17"}]}, {"ar": "جزاء", "ur": "(احرام میں شکار مارنے کا) بدلہ", "s": [{"t": "u", "v": "0:36:52"}]}, {"ar": "كُلْهُ كُلَّهُ", "ur": "سب کی سب کھا لو", "s": [{"t": "u", "v": "0:37:27"}]}, {"ar": "حَتْفَ أنفه", "ur": "اپنی طبعی موت (بغیر کسی سبب کے)", "s": [{"t": "u", "v": "0:38:45"}]}, {"ar": "آفة", "ur": "(موت کا) بیرونی سبب، انسانی یا قدرتی", "s": [{"t": "u", "v": "0:38:45"}]}, {"ar": "ما أُبين من الحيّ", "ur": "زندہ جانور سے جدا کیا گیا حصہ", "s": [{"t": "u", "v": "0:39:15"}]}, {"ar": "المُبَرِّز", "ur": "اپنے ہم عصروں سے بڑھا ہوا (ماہر)", "s": [{"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}]}], "gaps": [{"unit": "u1", "pages": "1666–1667", "page_list": [1666, 1667], "v7": "بشریٰ ج٧ ص 145", "text": "0:01:04–0:01:44 استاد کا مائیک بند رہا (طلبہ نے کہا آواز نہیں آ رہی)؛ اس دوران «لا كلّ ما له مخلب أو ناب» کی وضاحت کا کچھ حصہ ضائع ہوا۔ 0:01:44 پر استاد نے بات دہرا دی (کبوتر کے بھی چنگل ہوتے ہیں، مراد شکاری پرندے ہیں)، اس لیے حکم کارڈ 1 میں موجود ہے۔"}, {"unit": "u1", "pages": "1669–1670", "page_list": [1669, 1670], "v7": "بشریٰ ج٧ ص 150", "text": "«وفعل المجوسي إماتة في الشرع فلا بد من الدباغ» (امام شافعی کے مجوسی والے قیاس کا جواب): استاد نے امام شافعی کی دلیل بتائی مگر یہ جواب نہیں پڑھا؛ کارڈ 5 میں متن اور البناية سے لکھا ہے۔"}, {"unit": "u1", "pages": "1671", "page_list": [1671], "v7": "بشریٰ ج٧ ص 153", "text": "«وتنسحب عليه فروع كثيرة بيّناها في كفاية المنتهي…» اور «وفي الموت بالحرّ والبرد روايتان»: استاد نے صرف «ما أبين» والی فرع بتائی؛ باقی فروع اور گرمی سردی والی دو روایتیں کارڈ 8 میں حاشیے (الكفاية، العناية) سے لکھی ہیں۔"}], "kitabs": [{"title": "كتاب الشفعة", "from": 1597, "to": 1625, "href": "shufa.html"}, {"title": "كتاب القسمة", "from": 1626, "to": 1643, "href": "qisma.html"}, {"title": "كتاب المزارعة", "from": 1644, "to": 1651, "href": "muzaraa.html"}, {"title": "كتاب المساقاة", "from": 1652, "to": 1656, "href": "musaqat.html"}, {"title": "كتاب الذبائح", "from": 1657, "to": 1671, "href": "dhabaih.html"}, {"title": "كتاب الأضحية", "from": 1672, "to": 1683, "href": null}, {"title": "كتاب الكراهية", "from": 1684, "to": 1723, "href": null}, {"title": "كتاب إحياء الموات", "from": 1724, "to": 1741, "href": null}, {"title": "كتاب الأشربة", "from": 1742, "to": 1755, "href": null}, {"title": "كتاب الصيد", "from": 1756, "to": 1772, "href": null}, {"title": "كتاب الرهن", "from": 1773, "to": 1822, "href": null}, {"title": "كتاب الجنايات", "from": 1823, "to": 1855, "href": null}, {"title": "كتاب الديات", "from": 1856, "to": 1929, "href": null}, {"title": "كتاب المعاقل", "from": 1930, "to": 1938, "href": null}, {"title": "كتاب الوصايا", "from": 1939, "to": 1996, "href": null}, {"title": "كتاب الخنثى", "from": 1997, "to": 2000, "href": null}, {"title": "مسائل شتى", "from": 2001, "to": 2004, "href": null}], "sections": [["tamheed", "تمہید"], ["masala", "مسئلہ"], ["dalil", "دلیل"], ["ikhtilaf", "اختلاف"], ["faida", "فائدہ"]], "quick": ["tamheed", "masala"], "footer": ["صفحہ نمبر ساتھیوں والے نسخے (مسلسل صفحات) کے ہیں۔ ص 1609–1611 کتاب سے ملا کر لکھے گئے ہیں؛ باقی بشریٰ کے آٹھ جلدی نسخے (جلد ٧) سے حساب لگا کر، اس لیے کہیں ایک صفحہ آگے پیچھے ہو سکتا ہے۔ اصل جگہ کارڈ کی پہلی عربی سطر سے پہچانیں؛ بشریٰ کا صفحہ ہر کارڈ پر ساتھ لکھا ہے۔", "ٹرانسکرپٹ ریکارڈنگ سے Gemini نے بنایا اور اس کے وقت آواز سے ملا کر درست کیے گئے۔ کارڈ اسی ٹرانسکرپٹ، کتاب کے متن اور حاشیے سے بنے ہیں؛ ہر سطر کے آخر میں اس کا ماخذ ہے۔", "پیلی (AI) علامت والی سطریں خود جانچیں۔ امتحان میں مسئلہ، اختلاف اور دلیل سبز، نیلی یا سرمئی علامت والی سطروں سے لکھیں۔", "استاد کلاس میں اپنے نسخے کے صفحے بولتے ہیں (مثلاً كتاب المساقاة 1700)؛ وہ اس نسخے سے مختلف ہیں۔"]};
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const secs = (ts) => ts.split(":").map(Number).reduce((a, n) => a * 60 + n, 0);
+const B = DATA.book, LES = DATA.lessons, UNITS = DATA.units || [], CARDS = DATA.cards, GAPS = DATA.gaps || [];
+const PAGED = CARDS.some((c) => c.pages && c.pages.length);
+const ONE = B.unitOne || "کارڈ";
+const audio = $("audio");
+const OPUS_OK = (() => { try { return audio.canPlayType('audio/ogg; codecs="opus"') !== ""; } catch (e) { return false; } })();
+const ICON = {
+  play: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0v10l9-5z"/></svg>',
+  down: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M5 1h2v5h2.5L6 9.5 2.5 6H5zM1 10.5h10V12H1z"/></svg>',
+  file: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1h5l3 3v7H2zM6.5 2v2.5H9"/></svg>',
+};
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+const KEY = DATA.store || "cards";
+const toLatin = (v) => String(v).replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).trim();
+const LRI = "\u2066", PDI = "\u2069";
+const range = (a, b) => (a === b ? `${a}` : `${LRI}${a}–${b}${PDI}`);
+const iso = (s) => String(s ?? "").replace(/(\d+)\s*[–-]\s*(\d+)/g, `${LRI}$1–$2${PDI}`);
+const sizeMB = (x) => `${LRI}${x >= 10 ? Math.round(x) : Math.round(x * 10) / 10} MB${PDI}`;
+const pagesLabel = (ps) => `ص ${range(ps[0], ps[ps.length - 1])}`;
+
+// ---------- header
+document.title = `${B.kitab} · ${B.book}`;
+if (DATA.home) { $("homeLink").href = DATA.home; $("homeLink").textContent = `→ ${DATA.homeLabel || B.book}`; $("homeLink").hidden = false; }
+$("kitab").textContent = B.kitab;
+const usedLessons = [...new Set(CARDS.map((c) => c.lesson).filter(Boolean))].sort();
+$("meta").innerHTML = (PAGED && B.from ? `صفحات <b class="ltr num">${range(B.from, B.to)}</b>، ` : "") +
+  `<b>${CARDS.length}</b> ${esc(B.unit || "کارڈ")}، <b>${usedLessons.length}</b> اسباق کی ریکارڈنگ سے`;
+
+// ---------- units
+const unitByKey = Object.fromEntries(UNITS.map((u) => [u.key, u]));
+const cardsOf = (k) => CARDS.filter((c) => c.unit === k);
+const pagesOf = (k) => [...new Set(cardsOf(k).flatMap((c) => c.pages || []))].sort((a, b) => a - b);
+const gapsOf = (k) => GAPS.filter((g) => g.unit === k);
+const parentOf = (u) => {
+  const i = UNITS.indexOf(u);
+  for (let j = i - 1; j >= 0; j--) if (UNITS[j].level < u.level) return UNITS[j];
+  return null;
+};
+
+$("toc").innerHTML = UNITS.map((u) => {
+  const n = cardsOf(u.key).length, ps = pagesOf(u.key);
+  const pr = PAGED && u.page ? `<span class="pp">${range(u.page, u.page_to || u.page)}</span>` : "";
+  const sub = n
+    ? `<span class="n">${n} ${esc(ONE)}</span>` + (PAGED ? ps.map((p) => `<a class="pchip" href="#${u.key}-${p}" aria-label="صفحہ ${p}">${p}</a>`).join("") : "")
+    : `<span class="none">${gapsOf(u.key).length ? "ریکارڈنگ نہیں ملی" : "ابھی کارڈ نہیں"}</span>`;
+  return `<li class="lv${u.level}" id="toc-${u.key}"><a class="row" href="#${u.key}"><span class="tt" lang="ar">${esc(u.title)}</span><span class="dots"></span>${pr}</a>
+    <div class="sub">${sub}</div></li>`;
+}).join("");
+if (!PAGED) document.querySelectorAll("form.jump").forEach((f) => { f.hidden = true; });
+
+// ---------- cards (rendered once; views show and hide them)
+function chip(s, lesson) {
+  if (s.t === "u") return `<button type="button" class="chip u" data-ts="${s.v}" data-l="${s.l || lesson || ""}" title="یہاں سے سنیں">استاد ${s.v}</button>`;
+  if (s.t === "k") return `<span class="chip k"${s.v7 ? ` title="بشریٰ ج٧ ص ${s.v7}"` : ""}>کتاب ص ${iso(esc(s.v))}</span>`;
+  if (s.t === "s") return `<span class="chip s">شرح: ${esc(s.v)}</span>`;
+  return `<span class="chip a">AI · تصدیق طلب</span>`;
+}
+const chips = (arr, l) => `<span class="srcs">${arr.map((s) => chip(s, l)).join("")}</span>`;
+const QUICK = DATA.quick || ["tamheed", "masala"];
+$("cards").innerHTML = CARDS.map((c, i) => {
+  const l = c.lesson;
+  const sec = ([key, label]) => {
+    const items = c[key] || [];
+    if (!items.length) return "";
+    return `<div class="sec ${key}"><h4>${label}</h4><ul>${items.map((it) => `<li>${esc(it.x)} ${chips(it.s, l)}</li>`).join("")}</ul></div>`;
+  };
+  const quick = DATA.sections.filter(([k]) => QUICK.includes(k)).map(sec).join("");
+  const examSecs = DATA.sections.filter(([k]) => !QUICK.includes(k) && (c[k] || []).length);
+  const n = examSecs.reduce((a, [k]) => a + c[k].length, 0);
+  const exam = n ? `<details class="more"><summary>${examSecs.map(([, lb]) => lb).join("، ")} <span class="hint">${n} نکات، امتحان کی تیاری کے لیے</span></summary><div class="inner">${examSecs.map(sec).join("")}</div></details>` : "";
+  const words = (c.lughat || []).length ? `<div class="sec lughat"><h4>مشکل الفاظ</h4><div class="words">${c.lughat.map((w) =>
+    `<div class="word"><span class="ar" lang="ar">${esc(w.ar)}</span><span class="ur">${esc(w.ur)}</span>${chips(w.s, l)}</div>`).join("")}</div></div>` : "";
+  const head = l && c.ts
+    ? `<span class="les">${esc(LES[l].label)}</span><button type="button" class="play" data-ts="${c.ts}" data-l="${l}" aria-label="${esc(LES[l].label)}، ${c.ts} سے سنیں">${ICON.play}${c.ts}</button>`
+    : `<span class="norec-chip">ریکارڈنگ نہیں</span>`;
+  const badges = (c.badges || []).map((b) => `<span class="badge">${esc(b)}</span>`).join("");
+  const pg = PAGED && c.pages && c.pages.length ? `<span class="pg">${pagesLabel(c.pages)}</span>` : (c.group ? `<span class="pg">${esc(c.group)}</span>` : "");
+  return `<article class="card" id="c${i + 1}" data-unit="${esc(c.unit || "")}" data-pages="${(c.pages || []).join("|")}" hidden>
+    <div class="card-head">${pg}${c.v7 ? `<span class="v7">${iso(esc(c.v7))}</span>` : ""}<span class="cnum">${esc(ONE)} ${i + 1}</span>${badges}${head}</div>
+    ${c.label ? `<p class="label" lang="ar">(${esc(c.label)})</p>` : ""}
+    <h3 class="title">${esc(c.title)}</h3>
+    <p class="start" lang="ar">«${esc(c.start)}»</p>
+    ${c.ref ? `<p class="ref">${esc(c.ref)}</p>` : ""}
+    ${c.start_note ? `<p class="start-note">${esc(c.start_note)}</p>` : ""}
+    ${c.norec ? `<p class="norec"><b>توجہ:</b> ${esc(c.norec)}</p>` : ""}
+    ${quick}${words}${exam}
+  </article>`;
+}).join("");
+const ARTS = [...document.querySelectorAll("article.card")];
+const usedT = new Set();
+CARDS.forEach((c) => {
+  DATA.sections.forEach(([k]) => (c[k] || []).forEach((it) => it.s.forEach((x) => usedT.add(x.t))));
+  (c.lughat || []).forEach((w) => w.s.forEach((x) => usedT.add(x.t)));
+});
+document.querySelectorAll(".legend .lg").forEach((el) => { el.hidden = !usedT.has(el.dataset.t); });
+$("foot").innerHTML = (DATA.footer || []).map((p) => `<p>${esc(p)}</p>`).join("");
+
+// ---------- views
+function showToc(msg) {
+  $("tocView").hidden = false; $("unitView").hidden = true; document.body.classList.remove("unit");
+  $("tocMsg").hidden = !msg; if (msg) $("tocMsg").innerHTML = msg;
+  document.title = `${B.kitab} · ${B.book}`;
+  const last = store.get(`${KEY}-unit`, "");
+  const row = last && $(`toc-${last}`);
+  if (row && !msg) row.scrollIntoView({ block: "center" }); else window.scrollTo(0, 0);
+}
+function showUnit(key, page, msg) {
+  const u = unitByKey[key];
+  $("tocView").hidden = true; $("unitView").hidden = false; document.body.classList.add("unit");
+  const par = u.level > 1 ? parentOf(u) : null;
+  $("ubarTitle").textContent = u.title;
+  $("uParent").textContent = par ? par.title : "";
+  $("uParent").hidden = !par;
+  $("uTitle").textContent = u.title;
+  const ps = pagesOf(key), n = cardsOf(key).length;
+  $("uMeta").innerHTML = (PAGED && u.page ? `ص <span class="ltr num">${range(u.page, u.page_to || u.page)}</span>، ` : "") + (n ? `${n} ${esc(ONE)}` : "ابھی کارڈ نہیں");
+  $("pbar").innerHTML = (ps.length > 1 || page ? [`<a href="#${key}" aria-current="${!page}">سب</a>`, ...ps.map((p) =>
+    `<a href="#${key}-${p}" aria-current="${page === p}">${p}</a>`)].join("") : "");
+  $("pbar").hidden = !$("pbar").innerHTML;
+  let shown = 0;
+  ARTS.forEach((a) => {
+    const on = a.dataset.unit === key && (!page || a.dataset.pages.split("|").includes(String(page)));
+    a.hidden = !on; if (on) shown++;
+  });
+  if (page && !shown && !msg) msg = `صفحہ ${page} کا کوئی ${esc(ONE)} ابھی نہیں بنا۔`;
+  $("uMsg").hidden = !msg; if (msg) $("uMsg").innerHTML = msg;
+  const gs = gapsOf(key).filter((g) => !page || (g.page_list || []).includes(page));
+  $("gaps").hidden = !gs.length;
+  $("gapsTitle").textContent = n ? "اس حصے کی وہ عبارت جو استاد نے نہیں سمجھائی" : "اس حصے کی ریکارڈنگ نہیں ملی";
+  $("gapsLead").textContent = n ? "یہ باتیں کارڈوں میں متن اور حاشیے سے لکھی گئی ہیں؛ ریکارڈنگ میں ان کی وضاحت نہیں۔"
+    : "کسی ساتھی کے پاس اس حصے کی ریکارڈنگ ہو تو بھیج دیں، اس کے کارڈ بھی بن جائیں گے۔";
+  $("gapList").innerHTML = gs.map((g) => `<li><span class="gp">${PAGED && g.pages ? "ص " + iso(esc(g.pages)) : ""}</span><span class="gt">${esc(g.text)}</span>${g.v7 ? `<span class="gv">${iso(esc(g.v7))}</span>` : ""}</li>`).join("");
+  const i = UNITS.indexOf(u), prev = UNITS[i - 1], next = UNITS[i + 1];
+  $("unav").innerHTML = (prev ? `<a class="prev" href="#${prev.key}"><span class="k">پچھلا حصہ</span><span class="t" lang="ar">${esc(prev.title)}</span></a>` : "") +
+    (next ? `<a class="next" href="#${next.key}"><span class="k">اگلا حصہ</span><span class="t" lang="ar">${esc(next.title)}</span></a>` : "");
+  document.title = `${u.title} · ${B.kitab}`;
+  store.set(`${KEY}-unit`, key);
+  window.scrollTo(0, 0);
+}
+function findPage(p) {
+  const withCards = UNITS.find((u) => pagesOf(u.key).includes(p));
+  if (withCards) return { unit: withCards.key, page: p };
+  const inRange = [...UNITS].reverse().find((u) => u.page && u.page <= p && p <= (u.page_to || u.page));
+  if (inRange) return { unit: inRange.key, page: p };
+  return null;
+}
+function outsideMsg(p) {
+  const k = (DATA.kitabs || []).find((x) => x.from <= p && p <= x.to);
+  if (!k) return `صفحہ ${p} اس کتاب میں نہیں۔`;
+  if (k.href) return `صفحہ ${p} <a href="${k.href}#p${p}">${esc(k.title)}</a> میں ہے۔`;
+  return `صفحہ ${p} «${esc(k.title)}» میں ہے؛ اس کے کارڈ ابھی نہیں بنے۔`;
+}
+function route() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  let m;
+  if ((m = h.match(/^p(\d+)$/))) {
+    const p = +m[1], f = findPage(p);
+    if (f) { history.replaceState(null, "", `#${f.unit}-${p}`); return showUnit(f.unit, p); }
+    return showToc(outsideMsg(p));
+  }
+  if ((m = h.match(/^(u\d+)(?:-(\d+))?$/)) && unitByKey[m[1]]) return showUnit(m[1], m[2] ? +m[2] : null);
+  if (!h && UNITS.length === 1) return showUnit(UNITS[0].key, null);   // nothing to choose from
+  showToc();
+}
+window.addEventListener("hashchange", route);
+document.addEventListener("submit", (e) => {
+  const f = e.target.closest("form[data-jump]");
+  if (!f) return;
+  e.preventDefault();
+  const v = toLatin(f.querySelector("input").value || "");
+  if (!/^\d+$/.test(v)) return;
+  const p = +v, hit = findPage(p);
+  if (hit) location.hash = `${hit.unit}-${p}`;
+  else showToc(outsideMsg(p));
+});
+$("toggleAll").addEventListener("click", (e) => {
+  const open = e.currentTarget.getAttribute("aria-pressed") !== "true";
+  document.querySelectorAll("details.more").forEach((d) => { d.open = open; });
+  e.currentTarget.setAttribute("aria-pressed", String(open));
+  e.currentTarget.textContent = open ? "سب تفصیل بند کریں" : "سب تفصیل کھولیں";
+});
+route();
+
+// ---------- recordings: light copies on this site, or the reader's own file
+const driveDown = (l) => LES[l].id ? `https://drive.google.com/uc?export=download&id=${LES[l].id}` : "";
+const hasWeb = (l) => !!(LES[l] && LES[l].web && LES[l].web.length);
+const webOk = (l) => hasWeb(l) && (OPUS_OK || !/\.ogg$/i.test(LES[l].web[0].src));
+const norm = (s) => String(s).normalize("NFC").replace(/\.[A-Za-z0-9]{2,5}$/, "")
+  .replace(/[ً-ٰٟـ]/g, "").replace(/[يى]/g, "ی").replace(/ك/g, "ک")
+  .replace(/[ةۃهۀە]/g, "ہ").replace(/[أإآٱ]/g, "ا").replace(/[\s_\-–—().]+/g, "").toLowerCase();
+function matchLesson(name) {
+  const n = norm(name);
+  for (const k of Object.keys(LES)) if (norm(LES[k].file) === n) return k;
+  const d = (name.match(/\d{4}-\d{2}-\d{2}/) || [])[0];
+  if (d) { const ks = Object.keys(LES).filter((k) => LES[k].file.startsWith(d)); if (ks.length === 1) return ks[0]; }
+  return null;
+}
+const IDB_OK = (() => { try { return !!window.indexedDB; } catch (e) { return false; } })();
+function idb() {
+  return new Promise((res, rej) => {
+    try {
+      const r = indexedDB.open(`${KEY}-audio`, 1);
+      r.onupgradeneeded = () => r.result.createObjectStore("files");
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => rej(r.error);
+    } catch (e) { rej(e); }
+  });
+}
+async function idbDo(mode, fn) {
+  const db = await idb();
+  return new Promise((res, rej) => {
+    const tx = db.transaction("files", mode);
+    const out = fn(tx.objectStore("files"));
+    tx.oncomplete = () => res(out && "result" in out ? out.result : undefined);
+    tx.onerror = () => rej(tx.error);
+    tx.onabort = () => rej(tx.error);
+  });
+}
+const MAX_SAVE = 300 * 1024 * 1024;
+const urls = {}, names = {}, files = {}, saved = new Set();
+let current = null, pendingTs = null, pendingLesson = null, sheetMode = null, saveMsg = "";
+const blobUrls = {}, triedBlob = {};
+let curPart = null, lastOffset = 0, pendingSeek = null;
+function webPart(l, sec) {
+  let p = LES[l].web[0];
+  for (const x of LES[l].web) if (x.start <= sec + 0.5) p = x;
+  return p;
+}
+function stateOf(l) {
+  if (urls[l]) {
+    const warn = names[l] && matchLesson(names[l]) !== l;
+    return warn ? `<span class="state warn">کھلی: ${esc(names[l])} (نام مختلف ہے)</span>` : `<span class="state on">آپ کی فائل کھلی ہے</span>`;
+  }
+  if (saved.has(l)) return `<span class="state saved">اس فون پر محفوظ</span>`;
+  if (webOk(l)) return `<span class="state on">یہیں چلتی ہے</span>`;
+  return "";
+}
+function recRow(l) {
+  const L = LES[l], btns = [];
+  if (webOk(l) || urls[l] || saved.has(l)) btns.push(`<button type="button" class="btn" data-ts="0:00:00" data-l="${l}">${ICON.play}شروع سے سنیں</button>`);
+  if (hasWeb(l)) L.web.forEach((p, i) => btns.push(`<a class="btn ghost" href="${esc(p.src)}" download>${ICON.down}ہلکی فائل${L.web.length > 1 ? ` (حصہ ${i + 1})` : ""}${p.mb ? ` ${sizeMB(p.mb)}` : ""}</a>`));
+  if (L.id) btns.push(`<a class="btn quiet" href="${driveDown(l)}" target="_blank" rel="noopener">${ICON.down}اصل فائل${L.size_mb ? ` ${sizeMB(L.size_mb)}` : ""}</a>`);
+  btns.push(`<button type="button" class="btn quiet" data-pick="${l}">${ICON.file}${urls[l] || saved.has(l) ? "دوسری فائل چنیں" : "اپنی فائل چنیں"}</button>`);
+  const mins = L.minutes ? `${Math.round(L.minutes)} منٹ` : "";
+  return `<div class="rec" id="rec-${l}"><div class="rec-top"><b>${esc(L.label)}</b><span class="sub">${mins}</span>${stateOf(l)}</div>
+    <div class="btns">${btns.join("")}</div></div>`;
+}
+function sheetAll() {
+  sheetMode = "all";
+  const anyWeb = usedLessons.some(hasWeb);
+  const hint = anyWeb && !OPUS_OK
+    ? "یہ براؤزر یہاں کی ہلکی فائلیں (Opus) نہیں چلاتا؛ آئی فون پر iOS 18.4 یا نیا ورژن چاہیے۔ اصل فائل ڈاؤن لوڈ کر کے «اپنی فائل چنیں» دبائیں، پھر ہر سبز وقت وہیں سے چلے گا۔"
+    : "کسی سبز وقت پر ٹیپ کریں تو استاد کی آواز اسی صفحے پر وہیں سے چلتی ہے۔ ہلکی فائل ایک بار ڈاؤن لوڈ کر کے «اپنی فائل چنیں» سے کھولیں تو انٹرنیٹ کے بغیر بھی چلے گی۔";
+  const missing = usedLessons.filter((l) => !hasWeb(l)).length;
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">ریکارڈنگز</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${hint}${missing ? ` ${missing} اسباق کی ہلکی فائل ابھی نہیں لگی؛ ان کے لیے اصل فائل ڈاؤن لوڈ کریں۔` : ""}</p>
+    <div>${usedLessons.map(recRow).join("")}</div>
+    <div class="sheet-foot">
+      <label class="btn ghost" for="pickMany">${ICON.file}کئی فائلیں ایک ساتھ چنیں</label>
+      <label class="chk"><input type="checkbox" id="remember" ${store.get(`${KEY}-remember`, "1") === "1" && IDB_OK ? "checked" : ""} ${IDB_OK ? "" : "disabled"}> چنی ہوئی فائلیں اس فون پر یاد رکھیں</label>
+      ${saved.size ? `<button type="button" class="linkbtn" id="forget">محفوظ فائلیں ہٹائیں</button>` : ""}
+      <span>${esc(saveMsg)}</span>
+    </div>`;
+  $("backdrop").hidden = false;
+}
+function sheetOne(l, ts) {
+  sheetMode = "one";
+  const L = LES[l];
+  pendingLesson = l; pendingTs = ts;
+  const why = hasWeb(l) && !OPUS_OK
+    ? "یہ براؤزر یہاں کی ہلکی فائل (Opus) نہیں چلاتا؛ آئی فون پر iOS 18.4 یا نیا ورژن چاہیے۔"
+    : "اس سبق کی ہلکی فائل ابھی اس صفحے پر نہیں لگی۔";
+  const dl = L.id ? `<a class="btn quiet" href="${driveDown(l)}" target="_blank" rel="noopener">${ICON.down}اصل فائل ڈاؤن لوڈ${L.size_mb ? ` (${sizeMB(L.size_mb)})` : ""}</a>` : "";
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">یہ حصہ ${esc(L.label)} کی ریکارڈنگ میں <span class="ltr">${ts}</span> پر ہے</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${why} ریکارڈنگ فون میں ہو تو «اپنی فائل چنیں» دبا کر وہی فائل چنیں؛ آواز سیدھی ${ts} سے چلے گی۔ فائل کہیں اپلوڈ نہیں ہوتی۔</p>
+    <p class="ltr" style="text-align:right">${esc(L.file)}</p>
+    <div class="btns"><button type="button" class="btn" data-pick="${l}">${ICON.file}اپنی فائل چنیں</button>${dl}</div>
+    <button type="button" class="linkbtn" data-allrecs style="margin-inline-start:0">سب ریکارڈنگز</button>`;
+  $("backdrop").hidden = false;
+  $("sheet").querySelector("[data-pick]").focus();
+}
+function closeSheet() { $("backdrop").hidden = true; sheetMode = null; }
+function refreshSheet() { if (sheetMode === "all") sheetAll(); }
+$("recBtn").addEventListener("click", sheetAll);
+$("backdrop").addEventListener("click", (e) => {
+  if (e.target === $("backdrop") || e.target.closest("[data-close]")) closeSheet();
+  else if (e.target.closest("[data-allrecs]")) sheetAll();
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("backdrop").hidden) closeSheet(); });
+
+function useFile(l, file) {
+  if (urls[l]) URL.revokeObjectURL(urls[l]);
+  urls[l] = URL.createObjectURL(file); names[l] = file.name; files[l] = file;
+  if (current === l) { audio.dataset.src = urls[l]; audio.src = urls[l]; }
+  if (store.get(`${KEY}-remember`, "1") === "1") saveFile(l, file);
+}
+async function saveFile(l, file) {
+  if (!IDB_OK) return;
+  if (file.size > MAX_SAVE) { saveMsg = `${file.name}: بہت بڑی فائل، محفوظ نہیں کی۔`; refreshSheet(); return; }
+  try { await idbDo("readwrite", (s) => s.put(file, l)); saved.add(l); saveMsg = ""; }
+  catch (e) { saveMsg = "اس براؤزر نے فائل محفوظ نہیں کرنے دی؛ اگلی بار دوبارہ چننی ہو گی۔"; }
+  refreshSheet();
+}
+async function loadSaved(l) {
+  try {
+    const f = await idbDo("readonly", (s) => s.get(l));
+    if (f) { urls[l] = URL.createObjectURL(f); names[l] = f.name || LES[l].file; return true; }
+  } catch (e) {}
+  return false;
+}
+async function playAt(l, ts) {
+  if (!l || !LES[l]) return;
+  const sec = secs(ts);
+  if (!urls[l] && saved.has(l)) await loadSaved(l);
+  let src, offset = sec;
+  if (urls[l]) { src = urls[l]; curPart = null; }
+  else if (webOk(l)) { const p = webPart(l, sec); src = blobUrls[p.src] || p.src; offset = sec - p.start; curPart = p; }
+  else { sheetOne(l, ts); return; }
+  closeSheet();
+  current = l; lastOffset = Math.max(0, offset);
+  $("player").hidden = false;
+  if (audio.dataset.src !== src) { audio.dataset.src = src; audio.src = src; pendingSeek = lastOffset; }
+  else if (audio.readyState >= 1) {
+    if (curPart && !blobUrls[curPart.src] && !canSeekTo(lastOffset)) { pendingSeek = lastOffset; useBlob(); return; }
+    try { audio.currentTime = lastOffset; } catch (e) {}
+  } else pendingSeek = lastOffset;
+  audio.play().catch(() => {});
+  $("now").innerHTML = `${esc(LES[l].label)} · <span class="ltr">${ts}</span>`;
+}
+function canSeekTo(o) { const r = audio.seekable; return o < 1 || (r && r.length && r.end(r.length - 1) >= o - 1); }
+audio.addEventListener("loadedmetadata", () => {
+  const on = document.querySelector("#speeds button[aria-pressed='true']");
+  if (on) audio.playbackRate = +on.dataset.rate;
+  if (pendingSeek === null) return;
+  const o = pendingSeek;
+  if (curPart && !blobUrls[curPart.src] && !canSeekTo(o)) { useBlob(); return; }
+  pendingSeek = null;
+  try { audio.currentTime = o; } catch (e) {}
+  audio.play().catch(() => {});
+});
+audio.addEventListener("error", () => useBlob());
+async function useBlob() {   // the server can't jump to the time (or the stream failed): fetch the light copy whole
+  const p = curPart;
+  if (!p || blobUrls[p.src] || triedBlob[p.src]) return;
+  triedBlob[p.src] = true;
+  const label = $("now").innerHTML;
+  $("now").textContent = "آواز لوڈ ہو رہی ہے…";
+  try {
+    const r = await fetch(p.src);
+    if (!r.ok) throw new Error(r.status);
+    blobUrls[p.src] = URL.createObjectURL(await r.blob());
+    if (curPart !== p) return;
+    audio.dataset.src = blobUrls[p.src]; audio.src = blobUrls[p.src]; pendingSeek = lastOffset;
+    audio.play().catch(() => {});
+    $("now").innerHTML = label;
+  } catch (e) { $("now").textContent = "یہ آواز نہیں چل سکی۔ «ریکارڈنگز» میں اصل فائل ڈاؤن لوڈ کر کے «اپنی فائل چنیں»۔"; }
+}
+$("pclose").addEventListener("click", () => { audio.pause(); $("player").hidden = true; });
+
+document.addEventListener("click", (e) => {
+  const p = e.target.closest("[data-pick]");
+  if (p) { pendingLesson = p.dataset.pick; if (sheetMode !== "one") pendingTs = null; $("pickOne").value = ""; $("pickOne").click(); return; }
+  if (e.target.closest("#forget")) {
+    idbDo("readwrite", (s) => s.clear()).catch(() => {}).then(() => { saved.clear(); saveMsg = "محفوظ فائلیں ہٹا دی گئیں۔"; refreshSheet(); });
+    return;
+  }
+  const b = e.target.closest("[data-ts]");
+  if (!b) return;
+  playAt(b.dataset.l, b.dataset.ts);
+  const card = b.closest("article.card");
+  if (card) { card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash"); }
+});
+document.addEventListener("change", (e) => {
+  if (e.target.id === "remember") {
+    store.set(`${KEY}-remember`, e.target.checked ? "1" : "0");
+    if (e.target.checked) Object.keys(files).forEach((l) => saveFile(l, files[l]));
+  }
+});
+$("pickOne").addEventListener("change", (e) => {
+  const f = e.target.files && e.target.files[0];
+  if (!f || !pendingLesson) return;
+  const l = pendingLesson, ts = pendingTs;
+  useFile(l, f);
+  pendingTs = null;
+  if (ts) playAt(l, ts); else refreshSheet();
+});
+$("pickMany").addEventListener("change", (e) => {
+  const miss = [];
+  [...(e.target.files || [])].forEach((f) => { const l = matchLesson(f.name); if (l) useFile(l, f); else miss.push(f.name); });
+  saveMsg = miss.length ? `یہ فائلیں اس صفحے کے کسی سبق سے نہیں ملیں: ${miss.join("، ")}` : "";
+  e.target.value = "";
+  refreshSheet();
+});
+$("speeds").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-rate]");
+  if (!b) return;
+  audio.playbackRate = +b.dataset.rate;
+  document.querySelectorAll("#speeds button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+});
+(async () => {
+  if (!IDB_OK) return;
+  try {
+    const keys = await idbDo("readonly", (s) => s.getAllKeys());
+    (keys || []).forEach((k) => { if (LES[k]) saved.add(k); });
+  } catch (e) {}
+})();
+</script>
+
+</body>
+</html>

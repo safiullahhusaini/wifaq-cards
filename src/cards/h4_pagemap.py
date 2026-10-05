@@ -8,7 +8,8 @@ Result: estimated colleague page (float) for any vol-7 text position. Expect ±0
 
 The OCR (book text) is NOT kept in the public repo. Where it is on disk (env V7OCR, <repo>/.cache/v7ocr, or
 /home/claude/wifaq/v7ocr) it is used and the derived numbers (letters per page, where each card's opening words
-were found) are saved to h4_pagemap_cache.json. Without the OCR, the cache gives the same pages as before.
+were found) are saved to h4_pagemap_cache.json. Without the OCR, the cache gives the same pages as before;
+pages missing from the OCR on disk fall back to the cache one by one, so only new pages need downloading.
 Download the OCR from Drive folder 15KT9EQxSPcCWGKwCvJ73ElIVCL8rSl2U (file pAAAA-BBBB.md = PDF pages AAAA–BBBB).
 """
 import atexit, glob, json, os, re
@@ -51,7 +52,7 @@ def norm(s):
     return re.sub(r"[^ء-ي]", "", s)
 
 
-RUNNING = {norm(x) for x in ["كتاب القسمة", "باب طلب الشفعة والخصومة فيها", "كتاب المزارعة",
+RUNNING = {norm(x) for x in ["كتاب الذبائح", "كتاب الأضحية", "كتاب القسمة", "باب طلب الشفعة والخصومة فيها", "كتاب المزارعة",
                              "باب ما تجب فيه الشفعة وما لا تجب", "كتاب الشفعة", "باب دعوى الغلط في القسمة والاستحقاق فيها",
                              "باب ما تبطل به الشفعة", "الهداية", "كتاب المساقاة"]}
 
@@ -85,7 +86,7 @@ def page_body(p):
 
 
 TEXT, START, W = {}, {}, {}   # page -> normalized matn; cumulative weight at page start; page weight
-LAST_PAGE = 135                # vol-7 pages beyond the OCR on disk get the median weight
+LAST_PAGE = 174                # pages with neither OCR nor cached letters get the median weight
 for p in range(0, LAST_PAGE + 1):
     body, _ = page_body(p)
     TEXT[p] = norm(" ".join(body))
@@ -95,8 +96,8 @@ for p in range(0, LAST_PAGE + 1):
         LENS[p] = len(TEXT[p])
         if CACHE["lens"].get(str(p)) != LENS[p]:
             CACHE["lens"][str(p)] = LENS[p]; _dirty[0] = True
-    else:
-        LENS[p] = int(CACHE["lens"].get(str(p), 0)) if not OCR else 0
+    else:   # page not in the OCR on disk (or no OCR at all): letters counted earlier, else median below
+        LENS[p] = int(CACHE["lens"].get(str(p), 0))
 _lens = sorted(v for v in LENS.values() if v)
 MEDIAN = _lens[len(_lens) // 2] if _lens else 480
 _cum = 0.0
@@ -120,7 +121,7 @@ def offset_of(page, text=None, frac=None, search=1):
         q = norm(text)[:60]
         key = f"{page}|{search}|{q}"
         best = None
-        if OCR:
+        if OCR and any(TEXT.get(p) for p in range(page - search, page + search + 1)):
             for p in range(page - search, page + search + 1):
                 if p not in TEXT or len(q) < 8:
                     continue
@@ -143,7 +144,7 @@ def offset_of(page, text=None, frac=None, search=1):
 def heading_offset(page, title, frac=None):
     """Offset of a heading on `page` (a running header => page start; missing in the OCR => fraction)."""
     key = f"{page}|{title}|{frac}"
-    if not OCR:
+    if not OCR or not PAGES.get(page):
         kind = CACHE["heads"].get(key)
         if kind is None and frac is None:
             raise LookupError(f"heading {title!r} on v7 p.{page}: no OCR and no cache")
@@ -182,7 +183,8 @@ HEADINGS = [
     (48, "باب ما تبطل به الشفعة", 1619), (53, "فصل", 1622), (56, "مسائل متفرقة", 1623), (60, "كتاب القسمة", 1626),
     (70, "فصل فيما يقسم وما لا يقسم", 1630), (76, "فصل في كيفية القسمة", 1633, 0.1), (86, "باب دعوى الغلط في القسمة", 1638),
     (88, "فصل", 1639), (92, "فصل في المهايأة", 1641, 0.6), (99, "كتاب المزارعة", 1644),
-    (117, "كتاب المساقاة", 1652, 0.0), (126, "كتاب الذبائح", 1657, 0.0),
+    (117, "كتاب المساقاة", 1652, 0.0), (126, "كتاب الذبائح", 1657),
+    (145, "فصل فيما يحل أكله وما لا يحل", 1666), (154, "كتاب الأضحية", 1672),
 ]
 # exact: these words open the colleague page
 EXACT = [(29, "أخذها بمثله", 1610), (31, "إنما يثبت بالبيع", 1611)]
