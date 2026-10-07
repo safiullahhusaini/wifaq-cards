@@ -191,17 +191,12 @@ footer p { margin: 0 0 6px; }
 .rec-top .sub { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
 .state { font-size: 12px; font-weight: 600; border-radius: 5px; padding: 0 7px; }
 .state.on { color: var(--teacher); background: var(--teacher-tint); }
-.state.saved { color: var(--book); background: var(--book-tint); }
-.state.warn { color: var(--ai); background: var(--ai-tint); }
+.state.off { color: var(--muted); border: 1px solid var(--rule); }
 .btns { display: flex; flex-wrap: wrap; gap: 6px; }
 .btn { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; text-decoration: none; padding: 6px 13px; border-radius: 999px; border: 1px solid var(--teacher);
   background: var(--teacher); color: var(--surface); font-weight: 600; font-size: 13.5px; line-height: 1.6; }
 .btn.ghost { background: transparent; color: var(--teacher); }
-.btn.quiet { background: transparent; color: var(--book); border-color: var(--rule); }
 .btn svg { width: 12px; height: 12px; fill: currentColor; flex: none; }
-.sheet-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; border-top: 1px dashed var(--rule); padding-top: 10px; font-size: 13px; color: var(--muted); }
-.sheet-foot label.chk { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
-.vis { position: absolute; inline-size: 1px; block-size: 1px; opacity: 0; pointer-events: none; }
 
 /* player */
 .player { position: fixed; inset-inline: 0; bottom: 0; z-index: 10; background: var(--surface); border-top: 1px solid var(--rule); padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
@@ -277,9 +272,6 @@ footer p { margin: 0 0 6px; }
   <footer id="foot"></footer>
 </div>
 
-<input type="file" id="pickOne" class="vis" aria-label="ریکارڈنگ فائل" accept="audio/*,video/*,.m4a,.mp3,.mp4,.opus,.ogg,.aac">
-<input type="file" id="pickMany" class="vis" aria-label="کئی ریکارڈنگ فائلیں" multiple accept="audio/*,video/*,.m4a,.mp3,.mp4,.opus,.ogg,.aac">
-
 <div class="backdrop" id="backdrop" dir="rtl" lang="ur" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" id="sheet"></div>
 </div>
@@ -308,7 +300,6 @@ const OPUS_OK = (() => { try { return audio.canPlayType('audio/ogg; codecs="opus
 const ICON = {
   play: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0v10l9-5z"/></svg>',
   down: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M5 1h2v5h2.5L6 9.5 2.5 6H5zM1 10.5h10V12H1z"/></svg>',
-  file: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1h5l3 3v7H2zM6.5 2v2.5H9"/></svg>',
 };
 const store = {
   get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
@@ -485,44 +476,11 @@ $("toggleAll").addEventListener("click", (e) => {
 });
 route();
 
-// ---------- recordings: light copies on this site, or the reader's own file
-const driveDown = (l) => LES[l].id ? `https://drive.google.com/uc?export=download&id=${LES[l].id}` : "";
+// ---------- recordings: light (Opus) copies on this site
 const hasWeb = (l) => !!(LES[l] && LES[l].web && LES[l].web.length);
 const webOk = (l) => hasWeb(l) && (OPUS_OK || !/\.ogg$/i.test(LES[l].web[0].src));
-const norm = (s) => String(s).normalize("NFC").replace(/\.[A-Za-z0-9]{2,5}$/, "")
-  .replace(/[ً-ٰٟـ]/g, "").replace(/[يى]/g, "ی").replace(/ك/g, "ک")
-  .replace(/[ةۃهۀە]/g, "ہ").replace(/[أإآٱ]/g, "ا").replace(/[\s_\-–—().]+/g, "").toLowerCase();
-function matchLesson(name) {
-  const n = norm(name);
-  for (const k of Object.keys(LES)) if (norm(LES[k].file) === n) return k;
-  const d = (name.match(/\d{4}-\d{2}-\d{2}/) || [])[0];
-  if (d) { const ks = Object.keys(LES).filter((k) => LES[k].file.startsWith(d)); if (ks.length === 1) return ks[0]; }
-  return null;
-}
-const IDB_OK = (() => { try { return !!window.indexedDB; } catch (e) { return false; } })();
-function idb() {
-  return new Promise((res, rej) => {
-    try {
-      const r = indexedDB.open(`${KEY}-audio`, 1);
-      r.onupgradeneeded = () => r.result.createObjectStore("files");
-      r.onsuccess = () => res(r.result);
-      r.onerror = () => rej(r.error);
-    } catch (e) { rej(e); }
-  });
-}
-async function idbDo(mode, fn) {
-  const db = await idb();
-  return new Promise((res, rej) => {
-    const tx = db.transaction("files", mode);
-    const out = fn(tx.objectStore("files"));
-    tx.oncomplete = () => res(out && "result" in out ? out.result : undefined);
-    tx.onerror = () => rej(tx.error);
-    tx.onabort = () => rej(tx.error);
-  });
-}
-const MAX_SAVE = 300 * 1024 * 1024;
-const urls = {}, names = {}, files = {}, saved = new Set();
-let current = null, pendingTs = null, pendingLesson = null, sheetMode = null, saveMsg = "";
+const NO_OPUS = "یہ براؤزر یہاں کی ہلکی فائلیں (Opus) نہیں چلاتا۔ آئی فون پر iOS 18.4 یا نیا ورژن چاہیے؛ اینڈرائیڈ پر Chrome میں کھولیں۔";
+let current = null, sheetMode = null;
 const blobUrls = {}, triedBlob = {};
 let curPart = null, lastOffset = 0, pendingSeek = null;
 function webPart(l, sec) {
@@ -530,63 +488,38 @@ function webPart(l, sec) {
   for (const x of LES[l].web) if (x.start <= sec + 0.5) p = x;
   return p;
 }
-function stateOf(l) {
-  if (urls[l]) {
-    const warn = names[l] && matchLesson(names[l]) !== l;
-    return warn ? `<span class="state warn">کھلی: ${esc(names[l])} (نام مختلف ہے)</span>` : `<span class="state on">آپ کی فائل کھلی ہے</span>`;
-  }
-  if (saved.has(l)) return `<span class="state saved">اس فون پر محفوظ</span>`;
-  if (webOk(l)) return `<span class="state on">یہیں چلتی ہے</span>`;
-  return "";
-}
 function recRow(l) {
   const L = LES[l], btns = [];
-  if (webOk(l) || urls[l] || saved.has(l)) btns.push(`<button type="button" class="btn" data-ts="0:00:00" data-l="${l}">${ICON.play}شروع سے سنیں</button>`);
-  if (hasWeb(l)) L.web.forEach((p, i) => btns.push(`<a class="btn ghost" href="${esc(p.src)}" download>${ICON.down}ہلکی فائل${L.web.length > 1 ? ` (حصہ ${i + 1})` : ""}${p.mb ? ` ${sizeMB(p.mb)}` : ""}</a>`));
-  if (L.id) btns.push(`<a class="btn quiet" href="${driveDown(l)}" target="_blank" rel="noopener">${ICON.down}اصل فائل${L.size_mb ? ` ${sizeMB(L.size_mb)}` : ""}</a>`);
-  btns.push(`<button type="button" class="btn quiet" data-pick="${l}">${ICON.file}${urls[l] || saved.has(l) ? "دوسری فائل چنیں" : "اپنی فائل چنیں"}</button>`);
+  if (webOk(l)) btns.push(`<button type="button" class="btn" data-ts="0:00:00" data-l="${l}">${ICON.play}شروع سے سنیں</button>`);
+  if (hasWeb(l)) L.web.forEach((p, i) => btns.push(`<a class="btn ghost" href="${esc(p.src)}" download>${ICON.down}ڈاؤن لوڈ${L.web.length > 1 ? ` (حصہ ${i + 1})` : ""}${p.mb ? ` ${sizeMB(p.mb)}` : ""}</a>`));
   const mins = L.minutes ? `${Math.round(L.minutes)} منٹ` : "";
-  return `<div class="rec" id="rec-${l}"><div class="rec-top"><b>${esc(L.label)}</b><span class="sub">${mins}</span>${stateOf(l)}</div>
-    <div class="btns">${btns.join("")}</div></div>`;
+  const state = webOk(l) ? `<span class="state on">یہیں چلتی ہے</span>` : (hasWeb(l) ? "" : `<span class="state off">ابھی نہیں لگی</span>`);
+  return `<div class="rec" id="rec-${l}"><div class="rec-top"><b>${esc(L.label)}</b><span class="sub">${mins}</span>${state}</div>
+    ${btns.length ? `<div class="btns">${btns.join("")}</div>` : ""}</div>`;
 }
 function sheetAll() {
   sheetMode = "all";
   const anyWeb = usedLessons.some(hasWeb);
-  const hint = anyWeb && !OPUS_OK
-    ? "یہ براؤزر یہاں کی ہلکی فائلیں (Opus) نہیں چلاتا؛ آئی فون پر iOS 18.4 یا نیا ورژن چاہیے۔ اصل فائل ڈاؤن لوڈ کر کے «اپنی فائل چنیں» دبائیں، پھر ہر سبز وقت وہیں سے چلے گا۔"
-    : "کسی سبز وقت پر ٹیپ کریں تو استاد کی آواز اسی صفحے پر وہیں سے چلتی ہے۔ ہلکی فائل ایک بار ڈاؤن لوڈ کر کے «اپنی فائل چنیں» سے کھولیں تو انٹرنیٹ کے بغیر بھی چلے گی۔";
+  const hint = anyWeb && !OPUS_OK ? NO_OPUS : "کسی سبز وقت پر ٹیپ کریں تو استاد کی آواز اسی صفحے پر وہیں سے چلتی ہے۔";
   const missing = usedLessons.filter((l) => !hasWeb(l)).length;
   $("sheet").innerHTML = `
     <div class="sheet-head"><h3 id="sheetTitle">ریکارڈنگز</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
-    <p>${hint}${missing ? ` ${missing} اسباق کی ہلکی فائل ابھی نہیں لگی؛ ان کے لیے اصل فائل ڈاؤن لوڈ کریں۔` : ""}</p>
-    <div>${usedLessons.map(recRow).join("")}</div>
-    <div class="sheet-foot">
-      <label class="btn ghost" for="pickMany">${ICON.file}کئی فائلیں ایک ساتھ چنیں</label>
-      <label class="chk"><input type="checkbox" id="remember" ${store.get(`${KEY}-remember`, "1") === "1" && IDB_OK ? "checked" : ""} ${IDB_OK ? "" : "disabled"}> چنی ہوئی فائلیں اس فون پر یاد رکھیں</label>
-      ${saved.size ? `<button type="button" class="linkbtn" id="forget">محفوظ فائلیں ہٹائیں</button>` : ""}
-      <span>${esc(saveMsg)}</span>
-    </div>`;
+    <p>${hint}${missing ? ` ${missing} اسباق کی ریکارڈنگ ابھی اس صفحے پر نہیں لگی۔` : ""}</p>
+    <div>${usedLessons.map(recRow).join("")}</div>`;
   $("backdrop").hidden = false;
 }
 function sheetOne(l, ts) {
   sheetMode = "one";
   const L = LES[l];
-  pendingLesson = l; pendingTs = ts;
-  const why = hasWeb(l) && !OPUS_OK
-    ? "یہ براؤزر یہاں کی ہلکی فائل (Opus) نہیں چلاتا؛ آئی فون پر iOS 18.4 یا نیا ورژن چاہیے۔"
-    : "اس سبق کی ہلکی فائل ابھی اس صفحے پر نہیں لگی۔";
-  const dl = L.id ? `<a class="btn quiet" href="${driveDown(l)}" target="_blank" rel="noopener">${ICON.down}اصل فائل ڈاؤن لوڈ${L.size_mb ? ` (${sizeMB(L.size_mb)})` : ""}</a>` : "";
+  const why = hasWeb(l) && !OPUS_OK ? NO_OPUS : "اس سبق کی ریکارڈنگ ابھی اس صفحے پر نہیں لگی۔";
   $("sheet").innerHTML = `
     <div class="sheet-head"><h3 id="sheetTitle">یہ حصہ ${esc(L.label)} کی ریکارڈنگ میں <span class="ltr">${ts}</span> پر ہے</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
-    <p>${why} ریکارڈنگ فون میں ہو تو «اپنی فائل چنیں» دبا کر وہی فائل چنیں؛ آواز سیدھی ${ts} سے چلے گی۔ فائل کہیں اپلوڈ نہیں ہوتی۔</p>
-    <p class="ltr" style="text-align:right">${esc(L.file)}</p>
-    <div class="btns"><button type="button" class="btn" data-pick="${l}">${ICON.file}اپنی فائل چنیں</button>${dl}</div>
+    <p>${why}</p>
     <button type="button" class="linkbtn" data-allrecs style="margin-inline-start:0">سب ریکارڈنگز</button>`;
   $("backdrop").hidden = false;
-  $("sheet").querySelector("[data-pick]").focus();
+  $("sheet").querySelector("[data-close]").focus();
 }
 function closeSheet() { $("backdrop").hidden = true; sheetMode = null; }
-function refreshSheet() { if (sheetMode === "all") sheetAll(); }
 $("recBtn").addEventListener("click", sheetAll);
 $("backdrop").addEventListener("click", (e) => {
   if (e.target === $("backdrop") || e.target.closest("[data-close]")) closeSheet();
@@ -594,40 +527,18 @@ $("backdrop").addEventListener("click", (e) => {
 });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("backdrop").hidden) closeSheet(); });
 
-function useFile(l, file) {
-  if (urls[l]) URL.revokeObjectURL(urls[l]);
-  urls[l] = URL.createObjectURL(file); names[l] = file.name; files[l] = file;
-  if (current === l) { audio.dataset.src = urls[l]; audio.src = urls[l]; }
-  if (store.get(`${KEY}-remember`, "1") === "1") saveFile(l, file);
-}
-async function saveFile(l, file) {
-  if (!IDB_OK) return;
-  if (file.size > MAX_SAVE) { saveMsg = `${file.name}: بہت بڑی فائل، محفوظ نہیں کی۔`; refreshSheet(); return; }
-  try { await idbDo("readwrite", (s) => s.put(file, l)); saved.add(l); saveMsg = ""; }
-  catch (e) { saveMsg = "اس براؤزر نے فائل محفوظ نہیں کرنے دی؛ اگلی بار دوبارہ چننی ہو گی۔"; }
-  refreshSheet();
-}
-async function loadSaved(l) {
-  try {
-    const f = await idbDo("readonly", (s) => s.get(l));
-    if (f) { urls[l] = URL.createObjectURL(f); names[l] = f.name || LES[l].file; return true; }
-  } catch (e) {}
-  return false;
-}
-async function playAt(l, ts) {
+function playAt(l, ts) {
   if (!l || !LES[l]) return;
   const sec = secs(ts);
-  if (!urls[l] && saved.has(l)) await loadSaved(l);
-  let src, offset = sec;
-  if (urls[l]) { src = urls[l]; curPart = null; }
-  else if (webOk(l)) { const p = webPart(l, sec); src = blobUrls[p.src] || p.src; offset = sec - p.start; curPart = p; }
-  else { sheetOne(l, ts); return; }
+  if (!webOk(l)) { sheetOne(l, ts); return; }
+  const p = webPart(l, sec), src = blobUrls[p.src] || p.src, offset = sec - p.start;
+  curPart = p;
   closeSheet();
   current = l; lastOffset = Math.max(0, offset);
   $("player").hidden = false;
   if (audio.dataset.src !== src) { audio.dataset.src = src; audio.src = src; pendingSeek = lastOffset; }
   else if (audio.readyState >= 1) {
-    if (curPart && !blobUrls[curPart.src] && !canSeekTo(lastOffset)) { pendingSeek = lastOffset; useBlob(); return; }
+    if (!blobUrls[curPart.src] && !canSeekTo(lastOffset)) { pendingSeek = lastOffset; useBlob(); return; }
     try { audio.currentTime = lastOffset; } catch (e) {}
   } else pendingSeek = lastOffset;
   audio.play().catch(() => {});
@@ -659,43 +570,16 @@ async function useBlob() {   // the server can't jump to the time (or the stream
     audio.dataset.src = blobUrls[p.src]; audio.src = blobUrls[p.src]; pendingSeek = lastOffset;
     audio.play().catch(() => {});
     $("now").innerHTML = label;
-  } catch (e) { $("now").textContent = "یہ آواز نہیں چل سکی۔ «ریکارڈنگز» میں اصل فائل ڈاؤن لوڈ کر کے «اپنی فائل چنیں»۔"; }
+  } catch (e) { $("now").textContent = "یہ آواز نہیں چل سکی؛ انٹرنیٹ دیکھ کر دوبارہ ٹیپ کریں۔"; }
 }
 $("pclose").addEventListener("click", () => { audio.pause(); $("player").hidden = true; });
 
 document.addEventListener("click", (e) => {
-  const p = e.target.closest("[data-pick]");
-  if (p) { pendingLesson = p.dataset.pick; if (sheetMode !== "one") pendingTs = null; $("pickOne").value = ""; $("pickOne").click(); return; }
-  if (e.target.closest("#forget")) {
-    idbDo("readwrite", (s) => s.clear()).catch(() => {}).then(() => { saved.clear(); saveMsg = "محفوظ فائلیں ہٹا دی گئیں۔"; refreshSheet(); });
-    return;
-  }
   const b = e.target.closest("[data-ts]");
   if (!b) return;
   playAt(b.dataset.l, b.dataset.ts);
   const card = b.closest("article.card");
   if (card) { card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash"); }
-});
-document.addEventListener("change", (e) => {
-  if (e.target.id === "remember") {
-    store.set(`${KEY}-remember`, e.target.checked ? "1" : "0");
-    if (e.target.checked) Object.keys(files).forEach((l) => saveFile(l, files[l]));
-  }
-});
-$("pickOne").addEventListener("change", (e) => {
-  const f = e.target.files && e.target.files[0];
-  if (!f || !pendingLesson) return;
-  const l = pendingLesson, ts = pendingTs;
-  useFile(l, f);
-  pendingTs = null;
-  if (ts) playAt(l, ts); else refreshSheet();
-});
-$("pickMany").addEventListener("change", (e) => {
-  const miss = [];
-  [...(e.target.files || [])].forEach((f) => { const l = matchLesson(f.name); if (l) useFile(l, f); else miss.push(f.name); });
-  saveMsg = miss.length ? `یہ فائلیں اس صفحے کے کسی سبق سے نہیں ملیں: ${miss.join("، ")}` : "";
-  e.target.value = "";
-  refreshSheet();
 });
 $("speeds").addEventListener("click", (e) => {
   const b = e.target.closest("button[data-rate]");
@@ -703,13 +587,9 @@ $("speeds").addEventListener("click", (e) => {
   audio.playbackRate = +b.dataset.rate;
   document.querySelectorAll("#speeds button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
 });
-(async () => {
-  if (!IDB_OK) return;
-  try {
-    const keys = await idbDo("readonly", (s) => s.getAllKeys());
-    (keys || []).forEach((k) => { if (LES[k]) saved.add(k); });
-  } catch (e) {}
-})();
+// files people picked on earlier versions of this page: free the space on their phone
+try { if (window.indexedDB) indexedDB.deleteDatabase(`${KEY}-audio`); } catch (e) {}
+try { localStorage.removeItem(`${KEY}-remember`); } catch (e) {}
 </script>
 
 </body>

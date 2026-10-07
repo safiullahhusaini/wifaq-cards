@@ -50,7 +50,7 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
   - Tapping a fasl shows its cards. A sticky bar has page chips and a page box; previous/next fasl links sit at the bottom.
   - Hash routes: `#u3` (unit), `#u3-1613` (unit + page), `#p1613` (page jump, resolves to a unit).
 - **Recordings** sit behind the header button in a bottom sheet:
-  - Per lesson: listen here, light Opus download, original download from Drive, pick own file, remember on this phone (IndexedDB).
+  - Per lesson: listen here, and download the light Opus file(s). Nothing else (7 Oct: the original-file download from Drive and «اپنی فائل چنیں» / remember-on-phone were removed at the user's request, since colleagues don't have the originals; the page now deletes any IndexedDB copies those features left on phones). A lesson with no Opus file yet shows «ابھی نہیں لگی», and tapping its times says the recording isn't on the page yet.
   - The player bar only shows while playing. The Drive "open at time" links were removed: they never worked on phones.
 - **Cards: 110 from 14 lessons.**
   - Shuf'a 47 (05-11 → 06-15), Qisma 36 (06-21 → 07-07), Muzara'a 17 complete (07-07, 07-12, 07-13), Musaqat 10 complete (07-19).
@@ -99,7 +99,7 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
 ## 7. Audio
 
 - **Format: Ogg Opus 16 kbps mono** (user agreed; most classmates use Android). About 5 MB per 45 min, against about 48 MB for the original.
-  - Plays on Android and on iOS 18.4+. Older iPhones are told to download the original and use «اپنی فائل چنیں».
+  - Plays on Android and on iOS 18.4+. Older iPhones are told to update to iOS 18.4 (there is no fallback any more).
   - The player streams, and if the server can't seek it fetches the whole file once (blob fallback).
 - **The Drive connector only downloads files up to about 5.7 MB.** Base64 results are saved to disk, so let a sub-agent do downloads.
   - Cell 7 (`src/colab/cell7_opus_audio.py`) therefore cuts lessons into parts of at most 5 MB, named `<stem>.ogg` or `<stem> - N.ogg`.
