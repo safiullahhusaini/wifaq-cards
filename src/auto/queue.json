@@ -279,7 +279,10 @@
    "repair": "fixed 90%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-08T03:30:00Z",
+    "by": "scheduled run 8 Oct 8:30 am PKT"
+   }
   },
   {
    "id": "h4-2025-08-10",
@@ -291,7 +294,10 @@
    "repair": "fixed 90%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-08T03:30:00Z",
+    "by": "scheduled run 8 Oct 8:30 am PKT"
+   }
   },
   {
    "id": "h4-2025-08-16",
