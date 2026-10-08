@@ -1,0 +1,45 @@
+name: probe
+on:
+  push:
+    branches: [ci-probe]
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: ci-probe }
+      - name: Network and machine
+        run: |
+          mkdir -p probe
+          { echo "nproc: $(nproc)"; free -g | head -2; 
+            for u in https://generativelanguage.googleapis.com/ https://aiplatform.googleapis.com/ https://www.googleapis.com/drive/v3/about https://drive.google.com/ ; do
+              echo "$u -> $(curl -s -o /dev/null -w '%{http_code}' --max-time 20 $u)"; done; } > probe/net.txt 2>&1
+          cat probe/net.txt
+      - name: Whisper speed on CPU
+        run: |
+          pip install -q faster-whisper==1.1.1
+          sudo apt-get -qq install -y ffmpeg >/dev/null
+          cat > bench.py <<'PY'
+          import time, sys, subprocess, numpy as np
+          from faster_whisper import WhisperModel
+          def load(p):
+              raw = subprocess.run(["ffmpeg","-v","error","-i",p,"-ac","1","-ar","16000","-f","s16le","-"],capture_output=True).stdout
+              return np.frombuffer(raw,np.int16).astype(np.float32)/32768
+          out = open("probe/whisper.txt","a")
+          for name, f in [("large-v3","hidaya4/audio/2025-05-18.ogg"),("large-v3-turbo","hidaya4/audio/2025-05-18.ogg"),("large-v3-turbo","hidaya4/audio/2025-06-15.ogg")]:
+              a = load(f); dur = len(a)/16000
+              t0=time.time(); m = WhisperModel(name, device="cpu", compute_type="int8", cpu_threads=4); tl=time.time()-t0
+              t0=time.time(); segs,_ = m.transcribe(a, language="ur", word_timestamps=True, beam_size=1, vad_filter=True)
+              words = sum(len(s.words or []) for s in segs); tt=time.time()-t0
+              line=f"{name} {f} audio={dur/60:.1f}min load={tl:.0f}s transcribe={tt/60:.1f}min rtf={tt/dur:.2f} words={words}"
+              print(line, flush=True); out.write(line+"\n"); out.flush()
+          PY
+          python bench.py
+      - name: Save results
+        if: always()
+        run: |
+          git config user.name "probe-bot"; git config user.email "noreply@github.com"
+          git add probe && git commit -m "probe results" && git push origin ci-probe || true
