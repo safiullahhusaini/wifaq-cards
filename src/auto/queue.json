@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T14:40:00+05:00",
+ "updated": "2026-10-08T15:30:00+05:00",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 2,
@@ -1150,9 +1150,10 @@
    "id": "eng-past-papers",
    "kind": "eng",
    "state": "blocked",
-   "title": "Exam badges and A/B/C tiers from «الجواب للموقوف علیہ» (10 years of papers)",
-   "needs": "the PDF from the user",
-   "done_when": "per-fasl tier marks and per-card 'وفاق ۱۴۴x' badges on the site"
+   "title": "Past-paper badges and A/B/C tiers from «الجواب للموقوف علیہ» (10 years of Wifaq papers)",
+   "needs": "the PDF from the user (the free online scans are old editions; their OCR is garbled and the sandbox cannot download them). Hidaya 3 + 4 sections are enough to start",
+   "done_when": "each paper question in src/data/h4_exam.json 'papers' as {year, n (question no.), start (Arabic as printed), q (short Urdu gist)}; build matches 'start' to a card (rapidfuzz against card start + OCR offset) and the template already renders it as «★ وفاق ۱۴۴x · س n»; per-fasl tier mark (A ≥3 times, B 1–2, C never) on the contents pages",
+   "note": "8 Oct (chat): teacher-flag part done — searched all 84 Hidaya 4 transcripts; the teacher never says a passage comes in the exam, but flags 17 masāʾil as «اہم/مشہور/بہت ضروری». They are in h4_exam.json 'teacher'; 5 sit on cards, 12 wait in uncarded kitabs and show on hidaya4/index.html until those lessons are carded."
   },
   {
    "id": "eng-exact-pages",

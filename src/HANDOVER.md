@@ -1,6 +1,6 @@
 # Wifaq 1448 card site: handover (start here in a new chat)
 
-Updated 8 Oct 2026, 2:40 pm (scheduled run: الأضحية carded; earlier: automation added, section 0). This is the single source of truth for continuing the work. `claude/wifaq-1448-plan.md` (project doc) is background: exam facts, study method, timeline. Its "Open next steps" and its audio notes are out of date; follow this file. A copy lives in the repo at `src/HANDOVER.md`; the project doc `claude/HANDOVER.md` is the primary one.
+Updated 8 Oct 2026, 3:30 pm (chat: teacher's exam/importance marks added, section 4; earlier: scheduled run carded الأضحية; automation added, section 0). This is the single source of truth for continuing the work. `claude/wifaq-1448-plan.md` (project doc) is background: exam facts, study method, timeline. Its "Open next steps" and its audio notes are out of date; follow this file. A copy lives in the repo at `src/HANDOVER.md`; the project doc `claude/HANDOVER.md` is the primary one.
 
 ## 0. Automation (since 8 Oct 2026)
 
@@ -67,6 +67,8 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
   - Each card shows its colleague page(s), its Bushra vol-7 page, the lesson, and a play button at the card's timestamp.
 - **In-page audio: all 19 carded lessons** (Opus, 29 files in `hidaya4/audio/`, about 83 MB).
 - **QA (independent agents):** 3 Oct: all 2,794 timestamps match real transcript lines; 52 random lines all supported; no imam-attribution errors. 5 Oct, 07-27 batch: 186 timestamps all real; all 177 lines checked, no wrong rulings or attributions; 8 minor wording/tag issues fixed. 7 Oct, 07-20 + 07-26: 592 timestamps all real; all 308 lines checked; no wrong rulings or attributions; 1 unsupported tag + 11 nits fixed. Scripts in `src/qa/`.
+
+- **Exam marks (8 Oct):** `src/data/h4_exam.json`. All 84 Hidaya 4 transcripts were searched: the teacher never says a passage comes in the exam (only «امتحان کے لیے وقت کم ہے», 10 Jan). He does flag masāʾil as «اہم», «مشہور», «بہت ضروری», «اچھی طرح ذہن میں رکھیں»: 17 flags, each with lesson, ts, his exact words and the Arabic opening. `h4_data.attach_exam` puts a flag on the card of that lesson whose start ts is the last at or before it; the card shows a red «★ استاد: اہم/مشہور» badge that plays the remark, and the fasl row in the kitab contents shows «★ n». Flags in lessons without cards (12: الجنايات 5, الديات 3, الرهن 2, الكراهية 1, الأشربة 1) are listed under their kitab on `hidaya4/index.html` until carded (AUTOMATION step 5 checks them).
 
 ## 5. How a lesson becomes cards (the pipeline)
 
@@ -162,12 +164,12 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
    - Mishkat audio needs cell 7 with `WEB_BOOKS` extended (the sample has no playable audio since 7 Oct). Hifz list: 38 hadith (matn + sahabi).
 7. **Hidaya 3**: deliberately last. Earlier pilot: Kitab al-Sarf pp. 254–258 (`src/cards/legacy/sarf_cards.py`, project doc `claude/cards/hidaya3-kitab-al-sarf-253-258.md`).
 8. **Other papers**: Tibyan, Taysir → Nukhba, Aina-e-Qadiyaniyat, Baydawi. No cards yet. Aina is an Urdu book and needs a transcription prompt tweak.
-9. **Past-paper heat map** from «الجواب للموقوف علیہ» (10 years of solved papers, 454 pages; the user has it as an app/PDF). Waiting for the PDF. The plan's tiers: A = asked 3+ times, B = 1–2, C = never.
+9. **Past-paper badges** from «الجواب للموقوف علیہ» (10 years of solved papers, 454 pages; the user has it as an app/PDF). Waiting for the PDF (queue `eng-past-papers`). 8 Oct search: Wifaq's site has no past papers; the only free copies online are old editions (Yasin Shakir 2021 on besturdubooks/archive.org; Maktaba tul Ishaat «7-sabia Baneen.pdf», 40 MB, on archive.org) whose OCR is garbled and which the sandbox cannot download; no 1443–1447 papers anywhere online. The plan's tiers: A = asked 3+ times, B = 1–2, C = never. The data slot is `src/data/h4_exam.json → papers` and the template already renders paper badges (`k` ≠ `t`).
 10. **Ideas, not requested yet** (ask before building):
     - Search across cards.
     - An offline/PWA mode (would also replace the offline use the removed file picker gave).
     - A "report a mistake" link for classmates.
-    - Exam-hint badges where the teacher says «امتحان میں آتا ہے» (none found in the 15 lessons so far).
+
     - A short reason under «ابھی کارڈ نہیں» when a lesson exists but awaits re-transcription.
 
 Done (8 Oct, 6:45 am): download-all in the recordings sheet (per lesson and whole kitab); cards folded in the «سب» view, «سب تفصیل» opens cards but not their دلیل sections (commit 559f111).

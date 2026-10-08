@@ -18,7 +18,7 @@ FOOTER = [
 
 
 def card_json(c):
-    d = {k: c.get(k) for k in ("unit", "pages", "lesson", "ts", "label", "title", "start", "start_note", "norec", "badges")}
+    d = {k: c.get(k) for k in ("unit", "pages", "lesson", "ts", "label", "title", "start", "start_note", "norec", "badges", "exam")}
     if c.get("v7a"):
         d["v7"] = h4_data.v7_label(c["v7a"], c.get("v7b") or c["v7a"])
     for key, _ in SECTIONS:
@@ -95,6 +95,15 @@ ol.toc { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid va
 .toc .pp { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .toc .sub { font-size: 12.5px; color: var(--muted); }
 .toc .sub b { color: var(--teacher); font-weight: 600; }
+.toc .sub .ex { color: var(--matn); font-weight: 600; margin-inline-start: 10px; }
+details.exw { font-size: 13px; }
+details.exw summary { cursor: pointer; color: var(--matn); padding-block: 4px; }
+details.exw ul { list-style: none; margin: 4px 0 2px; padding: 0; display: grid; gap: 8px; }
+details.exw li { display: grid; gap: 1px; border-inline-start: 3px solid var(--matn); padding-inline-start: 10px; }
+details.exw .ar { font-family: var(--arabic); font-size: 18px; line-height: 1.8; color: var(--matn); }
+details.exw .said { line-height: 1.9; }
+details.exw .when { color: var(--muted); font-size: 12px; }
+.ltr { direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular-nums; }
 section.how { margin-block-start: 26px; border-top: 1px solid var(--rule); padding-block-start: 14px; display: grid; gap: 6px; }
 section.how h2 { margin: 0; font-size: 15px; }
 section.how ul { margin: 0; padding-inline-start: 18px; color: var(--muted); font-size: 13.5px; line-height: 2.1; }
@@ -109,13 +118,26 @@ def paper_page(D):
         total += n
         rng = f'<span class="pp">\u2066{k["page_from"]}–{k["page_to"]}\u2069</span>'
         tt = f'<span class="tt" lang="ar">{html.escape(k["title"])}</span><span class="dots"></span>{rng}'
+        ex = k.get("exam_n") or 0
+        exs = f'<span class="ex">★ استاد کے اہم {"مقام" if ex == 1 else "مقامات"}: {ex}</span>' if ex else ""
+        wait = k.get("exam_waiting") or []
+        waits = ""
+        if wait:
+            items = "".join(
+                f'<li><span class="ar" lang="ar">«{html.escape(w["start"])}»</span>'
+                f'<span class="said">استاد: «{html.escape(w["said"])}»</span>'
+                f'<span class="when">{html.escape(h4_data.label_of(w["l"]))} · <span class="ltr">{w["ts"]}</span>'
+                + (f' · استاد کا ص <span class="ltr">{w["tpage"]}</span>' if w.get("tpage") else "") + "</span></li>"
+                for w in wait)
+            waits = (f'<details class="exw"><summary>ابھی کارڈ نہیں بنے؛ {"وہ مقام" if len(wait) == 1 else f"وہ {len(wait)} مقامات"} دیکھیں</summary>'
+                     f'<ul>{items}</ul></details>')
         if n:
             units = sum(1 for u in k["units"] if u["level"] > 1)
             lessons = len({c["lesson"] for c in k["cards"] if c.get("lesson")})
             sub = f"<b>{n} کارڈ</b>، {lessons} اسباق" + (f"، {units + 1} حصے" if units else "")
-            rows.append(f'<li><a class="row" href="{k["slug"]}.html">{tt}</a><div class="sub">{sub}</div></li>')
+            rows.append(f'<li><a class="row" href="{k["slug"]}.html">{tt}</a><div class="sub">{sub}{exs}</div>{waits}</li>')
         else:
-            rows.append(f'<li><div class="row">{tt}</div><div class="sub">ابھی کارڈ نہیں</div></li>')
+            rows.append(f'<li><div class="row">{tt}</div><div class="sub">ابھی کارڈ نہیں{exs}</div>{waits}</li>')
     kit = json.dumps([{"t": k["title"], "f": k["page_from"], "to": k["page_to"], "h": f'{k["slug"]}.html' if k["cards"] else ""}
                       for k in D["kitabs"]], ensure_ascii=False)
     return f"""<title>ہدایہ جلد رابع · تمہیدی کارڈ</title>
@@ -143,6 +165,7 @@ def paper_page(D):
       <li>صفحہ نمبر ساتھیوں والے نسخے کے ہیں (مسلسل صفحات، جلد رابع ص 1595 سے)؛ ہر کارڈ پر بشریٰ (آٹھ جلدی) کا صفحہ بھی لکھا ہے۔</li>
       <li>سبز وقت پر ٹیپ کریں تو استاد کی آواز اسی صفحے پر وہیں سے چلتی ہے۔ ہلکی فائلیں اور اصل ریکارڈنگ «ریکارڈنگز» کے بٹن میں ہیں۔</li>
       <li>سبز = استاد کی ریکارڈنگ، نیلا = کتاب کا متن، سرمئی = حاشیہ یا شرح، پیلا = AI کی لکھی ہوئی سطر، خود جانچیں۔</li>
+      <li>★ سرخ نشان = وہ مسئلہ جسے استاد نے کلاس میں «اہم» یا «مشہور» کہا؛ ٹیپ کریں تو وہ جملہ سنائی دیتا ہے۔ استاد نے کسی جگہ یہ نہیں کہا کہ یہ امتحان میں آتا ہے۔ وفاق کے سابقہ پرچوں کے حوالے بعد میں لگیں گے۔</li>
     </ul>
   </section>
 </div>

@@ -85,6 +85,7 @@ ol.toc { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid va
 .toc .sub { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
 .toc .sub .n { margin-inline-end: 4px; }
 .toc .sub .none { color: var(--ai); }
+.toc .sub .exn { color: var(--matn); font-weight: 600; margin-inline-end: 4px; }
 a.pchip { text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 0 9px;
   font-size: 12.5px; line-height: 1.9; font-variant-numeric: tabular-nums; }
 a.pchip:hover { border-color: var(--ink); }
@@ -120,6 +121,8 @@ article.card { background: var(--surface); border: 1px solid var(--rule); border
 .v7 { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
 .cnum { color: var(--muted); font-size: 12.5px; }
 .badge { font-size: 12px; font-weight: 600; color: var(--book); background: var(--book-tint); border-radius: 999px; padding: 1px 9px; }
+.badge.exam { color: var(--matn); background: var(--matn-tint); border: 0; font-family: inherit; line-height: inherit; }
+button.badge.exam { cursor: pointer; }
 .les { color: var(--muted); font-size: 12.5px; margin-inline-start: auto; }
 .play { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--teacher); color: var(--teacher); background: transparent;
   border-radius: 999px; padding: 3px 11px; font-size: 13px; font-variant-numeric: tabular-nums; direction: ltr; }
@@ -349,8 +352,9 @@ const parentOf = (u) => {
 $("toc").innerHTML = UNITS.map((u) => {
   const n = cardsOf(u.key).length, ps = pagesOf(u.key);
   const pr = PAGED && u.page ? `<span class="pp">${range(u.page, u.page_to || u.page)}</span>` : "";
+  const ex = cardsOf(u.key).reduce((a, c) => a + (c.exam || []).length, 0);
   const sub = n
-    ? `<span class="n">${n} ${esc(ONE)}</span>` + (PAGED ? ps.map((p) => `<a class="pchip" href="#${u.key}-${p}" aria-label="صفحہ ${p}">${p}</a>`).join("") : "")
+    ? `<span class="n">${n} ${esc(ONE)}</span>` + (ex ? `<span class="exn" title="استاد نے اہم کہا">★ ${ex}</span>` : "") + (PAGED ? ps.map((p) => `<a class="pchip" href="#${u.key}-${p}" aria-label="صفحہ ${p}">${p}</a>`).join("") : "")
     : `<span class="none">${gapsOf(u.key).length ? "ریکارڈنگ نہیں ملی" : "ابھی کارڈ نہیں"}</span>`;
   return `<li class="lv${u.level}" id="toc-${u.key}"><a class="row" href="#${u.key}"><span class="tt" lang="ar">${esc(u.title)}</span><span class="dots"></span>${pr}</a>
     <div class="sub">${sub}</div></li>`;
@@ -382,7 +386,10 @@ $("cards").innerHTML = CARDS.map((c, i) => {
   const head = l && c.ts
     ? `<span class="les">${esc(LES[l].label)}</span><button type="button" class="play" data-ts="${c.ts}" data-l="${l}" aria-label="${esc(LES[l].label)}، ${c.ts} سے سنیں">${ICON.play}${c.ts}</button>`
     : `<span class="norec-chip">ریکارڈنگ نہیں</span>`;
-  const badges = (c.badges || []).map((b) => `<span class="badge">${esc(b)}</span>`).join("");
+  const badges = (c.badges || []).map((b) => `<span class="badge">${esc(b)}</span>`).join("")
+    + (c.exam || []).map((x) => x.k === "t"
+      ? `<button type="button" class="badge exam" data-ts="${x.ts}" data-l="${x.l}" title="استاد (${x.ts}): «${esc(x.said)}»" aria-label="استاد نے ${esc(x.kind)} کہا، ${x.ts} سے سنیں">★ استاد: ${esc(x.kind)}</button>`
+      : `<span class="badge exam paper" title="${esc(x.q || "")}">★ وفاق ${esc(x.year)}${x.n ? ` · س ${esc(x.n)}` : ""}</span>`).join("");
   const pg = PAGED && c.pages && c.pages.length ? `<span class="pg">${pagesLabel(c.pages)}</span>` : (c.group ? `<span class="pg">${esc(c.group)}</span>` : "");
   return `<article class="card" id="c${i + 1}" data-unit="${esc(c.unit || "")}" data-pages="${(c.pages || []).join("|")}" hidden>
     <div class="card-head">${pg}${c.v7 ? `<span class="v7">${iso(esc(c.v7))}</span>` : ""}<span class="cnum">${esc(ONE)} ${i + 1}</span>${badges}${head}</div>

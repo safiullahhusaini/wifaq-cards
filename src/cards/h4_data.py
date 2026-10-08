@@ -203,10 +203,46 @@ def pilot_cards():
     return out
 
 
+EXAM_FILE = os.path.join(REPO, "src", "data", "h4_exam.json")
+
+
+def _secs(ts):
+    h, m, s = (int(x) for x in ts.split(":"))
+    return h * 3600 + m * 60 + s
+
+
+def attach_exam(cards):
+    """Exam marks (src/data/h4_exam.json): a teacher flag goes on the card of the same lesson whose start ts is the
+    last one at or before the flag's ts. Flags whose lesson has no cards yet are returned per kitab slug, for the
+    contents pages. Returns {slug: [flag, ...]} of unplaced flags."""
+    if not os.path.exists(EXAM_FILE):
+        return {}
+    E = json.load(open(EXAM_FILE, encoding="utf-8"))
+    by_lesson = {}
+    for c in cards:
+        if c.get("lesson") and c.get("ts"):
+            by_lesson.setdefault(c["lesson"], []).append(c)
+    unplaced = {}
+    for f in E.get("teacher", []):
+        cs = sorted(by_lesson.get(f["lesson"], []), key=lambda c: _secs(c["ts"]))
+        t = _secs(f["ts"])
+        host = None
+        for c in cs:
+            if _secs(c["ts"]) <= t + 5:      # a flag said just before the card's first timestamp still belongs to it
+                host = c
+        mark = {"k": "t", "kind": f.get("kind", "اہم"), "said": f["said"], "ts": f["ts"], "l": f["lesson"]}
+        if host is not None:
+            host.setdefault("exam", []).append(mark)
+        else:
+            unplaced.setdefault(f.get("kitab", ""), []).append(dict(mark, start=f.get("start", ""), tpage=f.get("tpage")))
+    return unplaced
+
+
 def build():
     recs = recordings()
     cards, gaps, notes = lesson_cards()
     cards += pilot_cards()
+    exam_unplaced = attach_exam(cards)
     cards.sort(key=lambda c: c["off"])
     # pages + unit
     for n, c in enumerate(cards):
@@ -270,8 +306,10 @@ def build():
                 kg.append({"unit": next(u["key"] for u in units if u["title"] == (f or b or k)),
                            "pages": plabel(ps), "page_list": ps, "v7": v7_label(*g["v7"]), "text": g["text"],
                            "lesson": g["lesson"]})
-        kitabs.append({"slug": SLUGS.get(title, f"k{cp}"), "title": title, "page_from": cp, "page_to": nxt - 1,
-                       "units": units, "cards": kc, "gaps": kg})
+        slug = SLUGS.get(title, f"k{cp}")
+        kitabs.append({"slug": slug, "title": title, "page_from": cp, "page_to": nxt - 1,
+                       "units": units, "cards": kc, "gaps": kg, "exam_waiting": exam_unplaced.get(slug, []),
+                       "exam_n": sum(len(c.get("exam", [])) for c in kc) + len(exam_unplaced.get(slug, []))})
     return {"lessons": lessons, "kitabs": kitabs, "notes": notes}
 
 

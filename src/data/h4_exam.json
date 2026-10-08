@@ -1,0 +1,143 @@
+{
+  "about": "Exam-importance marks for Hidaya 4. 'teacher' = places where the teacher himself stressed a masala in class (searched in all 84 Hidaya 4 transcripts on 8 Oct 2026; he never says a passage comes in the exam, so these are his «اہم / مشہور / بہت ضروری» flags). 'papers' = Wifaq past-paper questions (filled from the user's «الجواب للموقوف علیہ» once it is available). The build attaches each entry to the card whose recording span contains (lesson, ts); entries whose lesson has no cards yet are listed per kitab on the contents page. When a lesson is re-transcribed or carded, re-check its entries' ts against the repaired transcript.",
+  "teacher": [
+    {
+      "lesson": "2025-02-22",
+      "kitab": "jinayat",
+      "ts": "0:32:21",
+      "kind": "اہم",
+      "said": "اس فصل کے آخر میں ایک اضافی اہم بات",
+      "start": "وما يكون شبه عمد في النفس فهو عمد فيما سواها"
+    },
+    {
+      "lesson": "2025-03-02",
+      "kitab": "jinayat",
+      "ts": "0:25:10",
+      "kind": "اہم",
+      "said": "ایک اہم مسئلہ ہے، مشہور مسئلہ ہے",
+      "start": "وإن شهر المجنون على غيره سلاحا"
+    },
+    {
+      "lesson": "2025-03-08",
+      "kitab": "jinayat",
+      "ts": "0:11:16",
+      "kind": "مشہور",
+      "said": "ایک اور مشہور مسئلہ ہے جو کہ احناف اور امام شافعی کے درمیان اختلافی ہے",
+      "start": "ولا قصاص بين الرجل والمرأة فيما دون النفس"
+    },
+    {
+      "lesson": "2025-03-09",
+      "kitab": "jinayat",
+      "ts": "0:06:05",
+      "kind": "اہم",
+      "said": "ایک اور مشہور اور اہم مسئلہ",
+      "start": "وإذا عفا أحد الشركاء في الدم"
+    },
+    {
+      "lesson": "2025-03-09",
+      "kitab": "jinayat",
+      "ts": "0:17:10",
+      "kind": "مشہور",
+      "said": "1942 صفحہ کے بالکل آخر میں ایک اور مشہور مسئلہ",
+      "start": "وإذا قتل جماعة واحدا عمدا",
+      "tpage": 1942
+    },
+    {
+      "lesson": "2025-05-03",
+      "kitab": "diyat",
+      "ts": "0:21:15",
+      "kind": "مشہور",
+      "said": "یہ وہ مشہور مسئلہ ہے جس کے بارے میں پیچھے اشارہ ہو گیا",
+      "start": "ومن شج رجلا فالتحمت ولم يبق لها أثر ونبت الشعر سقط الأرش"
+    },
+    {
+      "lesson": "2025-05-03",
+      "kitab": "diyat",
+      "ts": "0:28:00",
+      "kind": "اہم",
+      "said": "کچھ اہم مسائل جن کا پیچھے سے تعلق ہے",
+      "start": "ومن جرح رجلا جراحة لم يقتص منه حتى يبرأ"
+    },
+    {
+      "lesson": "2025-05-17",
+      "kitab": "shufa",
+      "ts": "0:35:24",
+      "kind": "اہم",
+      "said": "ایک بہت اہم مسئلہ… یعنی باریک مسئلہ"
+    },
+    {
+      "lesson": "2025-06-01",
+      "kitab": "shufa",
+      "ts": "0:05:52",
+      "kind": "اہم",
+      "said": "امام ابو حنیفہ کی دلیل… وہ ایک بنیادی اہم بات کرتے ہیں"
+    },
+    {
+      "lesson": "2025-06-01",
+      "kitab": "shufa",
+      "ts": "0:32:08",
+      "kind": "اہم",
+      "said": "اگلا اہم مسئلہ",
+      "start": "وإذا ملك العقار بعوض هو مال"
+    },
+    {
+      "lesson": "2025-07-20",
+      "kitab": "dhabaih",
+      "ts": "0:12:09",
+      "kind": "مشہور",
+      "said": "اگلا ایک مشہور مسئلہ ہے",
+      "start": "وإن ترك الذابح التسمية عمدا"
+    },
+    {
+      "lesson": "2025-07-26",
+      "kitab": "dhabaih",
+      "ts": "0:25:16",
+      "kind": "مشہور",
+      "said": "آگے ایک اور مشہور مسئلہ ہے",
+      "start": "ومن نحر ناقة أو ذبح بقرة"
+    },
+    {
+      "lesson": "2025-08-31",
+      "kitab": "karahiya",
+      "ts": "0:17:16",
+      "kind": "اہم",
+      "said": "یہ ایک اور اہم اصول بیان کر رہے ہیں، اس کو بھی غور سے دیکھیں",
+      "start": "ولو أن امرأة أخبرها ثقة"
+    },
+    {
+      "lesson": "2025-09-27-ashriba",
+      "kitab": "ashriba",
+      "ts": "0:10:38",
+      "kind": "اہم",
+      "said": "یہ بہت اہم چیز ہے، اس کو دوبارہ سے مختصراً ذہن میں رکھیں",
+      "start": "الأشربة المحرمة أربعة"
+    },
+    {
+      "lesson": "2025-10-28",
+      "kitab": "diyat",
+      "ts": "0:32:32",
+      "kind": "اہم",
+      "said": "یہ ایک چیز جو ہے یہ بہت باریک ہے، اس کو سمجھنا بہت ضروری ہے",
+      "start": "والقائد ضامن لما أصابت بيدها دون رجلها"
+    },
+    {
+      "lesson": "2025-12-29",
+      "kitab": "rahn",
+      "ts": "0:14:53",
+      "kind": "اہم",
+      "said": "ایک اہم بات… جو کہ ایک بہت باریک بات ہے",
+      "start": "ولأن الثابت للمرتهن يد الاستيفاء",
+      "tpage": 1862
+    },
+    {
+      "lesson": "2026-01-10-rahn",
+      "kitab": "rahn",
+      "ts": "0:17:41",
+      "kind": "اہم",
+      "said": "یہ بات جو ہے نا آپ اچھی طرح ذہن میں رکھیں",
+      "start": "وكذلك لو استهلك الراهن الرهن",
+      "tpage": 1895
+    }
+  ],
+  "papers": []
+}

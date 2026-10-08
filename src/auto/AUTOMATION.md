@@ -54,8 +54,9 @@ Follow HANDOVER section 5 exactly (it is the tested pipeline), with these rules 
 2. **Draft**: one sub-agent with `src/cards/h4/BRIEF.md`, model `settings.draft_model` (`inherit` = same as you). Give it the date, file name, start/end passages, previous card, the teacher's slips you noticed.
 3. **QA**: a separate sub-agent that has not seen the draft being made (`settings.qa`: `full` = every line, the current standard; `focused` = every ruling, attribution and ikhtilaf line plus the mechanical timestamp check). Fix what it finds. Check S tags against the OCR yourself.
 4. **Audio**: add the Opus part(s) (HANDOVER section 7). Same-date lessons: key them by the queue id's suffix (`2025-09-27-ashriba` → `hidaya4/audio/2025-09-27-ashriba.ogg`); extend `h4_data.py` the first time this happens, keeping old keys working.
-5. **Build, check, push**: `python3 build_site.py`, Playwright screenshots at 390×844 of the changed kitab page (contents view, one fasl, the recordings sheet), then commit and push. One commit per lesson, message `cards: <kitab> <date> (<n> cards)`.
-6. Set the item to `done` with `cards: <n>` and a one-line `qa` summary, clear its claim, push the queue. Then the next lesson.
+5. **Exam marks**: if `src/data/h4_exam.json` has `teacher` entries for this lesson, check after the build that each sits on the card that covers that masala (`h4_data.attach_exam`: the card of that lesson whose start `ts` is the last one at or before the flag). If the transcript was re-transcribed since 8 Oct, find the remark again in the new transcript («اہم», «مشہور», «بہت ضروری», «ذہن میں رکھیں») and correct its `ts`; keep `said` as the teacher's exact words.
+6. **Build, check, push**: `python3 build_site.py`, Playwright screenshots at 390×844 of the changed kitab page (contents view, one fasl, the recordings sheet), then commit and push. One commit per lesson, message `cards: <kitab> <date> (<n> cards)`.
+7. Set the item to `done` with `cards: <n>` and a one-line `qa` summary, clear its claim, push the queue. Then the next lesson.
 
 Hard rules (from the user, unchanged): every line traceable to the teacher or the book; never invent a timestamp; the teacher's own examples; quality over speed; colleagues' page numbers; Hidaya 3 not now; don't card a lesson whose transcript is not repaired.
 
