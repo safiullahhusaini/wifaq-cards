@@ -1,0 +1,3 @@
+large-v3 hidaya4/audio/2025-05-18.ogg audio=5.6min load=25s transcribe=11.5min rtf=2.06 words=1064
+large-v3-turbo hidaya4/audio/2025-05-18.ogg audio=5.6min load=12s transcribe=2.7min rtf=0.49 words=1067
+large-v3-turbo hidaya4/audio/2025-06-15.ogg audio=39.4min load=2s transcribe=16.3min rtf=0.41 words=7202

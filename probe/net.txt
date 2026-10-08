@@ -1,0 +1,7 @@
+nproc: 4
+               total        used        free      shared  buff/cache   available
+Mem:              15           0          12           0           2          14
+https://generativelanguage.googleapis.com/ -> 404
+https://aiplatform.googleapis.com/ -> 404
+https://www.googleapis.com/drive/v3/about -> 401
+https://drive.google.com/ -> 302
