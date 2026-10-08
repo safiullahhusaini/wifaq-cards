@@ -1101,7 +1101,15 @@
    "state": "blocked",
    "title": "Move the daily Colab work to GitHub Actions (cron 1:20 pm PKT): same code as the Daily notebook, Drive via rclone mount, Whisper on CPU",
    "needs": "user adds repo secrets GEMINI_API_KEY, VERTEX_API_KEY, RCLONE_CONF (panel question q-github-secrets answered yes)",
-   "done_when": "one scheduled workflow run re-transcribes + repairs one lesson and its output matches the Colab output; user told he can stop running Colab"
+   "done_when": "one scheduled workflow run re-transcribes + repairs one lesson and its output matches the Colab output; user told he can stop running Colab",
+   "setup_steps_for_user": [
+    "On your Ubuntu: sudo -v ; curl https://rclone.org/install.sh | sudo bash",
+    "rclone config → n (new remote) → name: gdrive → storage: drive → leave client id/secret empty → scope: 1 (full access) → leave the rest as default → auto config: y (a browser opens; sign in as safiullahhusaini@gmail.com) → shared drive: n → y to save → q",
+    "cat ~/.config/rclone/rclone.conf  — copy everything it prints",
+    "GitHub → repo wifaq-cards → Settings → Secrets and variables → Actions → New repository secret: RCLONE_CONF = what you copied; GEMINI_API_KEY = your AI Studio key; VERTEX_API_KEY = your Vertex express key",
+    "Tell the panel 'secrets added' (a note). From then on, stop running Colab; the GitHub pipeline runs every day at 1:20 pm."
+   ],
+   "design": "workflow .github/workflows/daily.yml, cron '20 8 * * *' (1:20 pm PKT, after the quota reset in both summer and winter time); rclone mount of 'gdrive:' at /content/drive/MyDrive (fuse3), the same code as the Daily notebook (retx_core.py, tsfix, cell 7) with Whisper on CPU (model chosen from the 8 Oct probe on branch ci-probe: probe/whisper.txt); one job for re-transcription + Opus, a matrix of jobs for repair; MAX 5 h per job; writes automation/daily_done.md like the notebook. Also take over the bulk transcription that v2.5 does (port its queue order: Hidaya 3 last/skipped) only after the user agrees."
   },
   {
    "id": "eng-vol8-pagemap",

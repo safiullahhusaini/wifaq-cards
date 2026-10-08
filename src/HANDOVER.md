@@ -1,6 +1,10 @@
 # Wifaq 1448 card site: handover (start here in a new chat)
 
-Updated 8 Oct 2026, 6:45 am. This is the single source of truth for continuing the work. `claude/wifaq-1448-plan.md` (project doc) is background: exam facts, study method, timeline. Its "Open next steps" and its audio notes are out of date; follow this file. A copy lives in the repo at `src/HANDOVER.md`; the project doc `claude/HANDOVER.md` is the primary one.
+Updated 8 Oct 2026, 8:45 am (automation added: section 0). This is the single source of truth for continuing the work. `claude/wifaq-1448-plan.md` (project doc) is background: exam facts, study method, timeline. Its "Open next steps" and its audio notes are out of date; follow this file. A copy lives in the repo at `src/HANDOVER.md`; the project doc `claude/HANDOVER.md` is the primary one.
+
+## 0. Automation (since 8 Oct 2026)
+
+The remaining cards are now made by **scheduled runs** ("Wifaq cards run", 1:52 am and 1:52 pm PKT, cloud, automatic approval). A run starts cold and follows `src/auto/AUTOMATION.md`; the to-do list is `src/auto/queue.json` (every remaining lesson with its state, plus engineering items); the user's answers and notes come from the private control panel https://claude.ai/artifact/GqWNYfh4ZBwfozCFqAwbSN (copied to `src/auto/INBOX.md`); each run adds a line to `src/auto/runs.md`. The user's daily Colab work is one notebook, `src/colab/daily/Wifaq_1448_Daily.ipynb` (opened from GitHub), driven by Drive `Wifaq 1448/automation/daily_config.json`, which the runs keep current. Plan for the user: the Claude doc "Wifaq Cards Automation Plan" (https://claude.ai/code/artifact/24f9f1eb-01ac-431e-bbbf-b8d897759121). **Hidaya 3 is skipped for now (user, 8 Oct).** A chat session that is not a scheduled run should not card lessons from the queue without claiming them there first.
 
 ## 1. What this is
 
@@ -181,7 +185,7 @@ Done (5 Oct): the 9 missing Opus files were pulled and pushed; every carded less
 - **Recordings:** keep them hidden behind a button, so first-time users aren't confused. Offer only listen-here and the light (Opus) download, with one-tap download of all parts and of the whole kitab. No original-file download, no "pick your own file" (user, 7 Oct: colleagues don't have the originals).
 - **Card folding:** in the «سب» view cards start folded (title, Arabic start, note); دلیل/اختلاف/فائدہ always open by hand, never by «سب تفصیل» (user, 8 Oct).
 - **Drive links:** don't add Drive "open at timestamp" links again; they don't jump on phones.
-- **Order of work:** quality over speed. Hidaya 3 goes last in transcription and cards. Don't card lessons whose transcripts have bad timestamps; wait for re-transcription.
+- **Order of work:** quality over speed. Hidaya 3 goes last in transcription and cards, and is skipped for now (user, 8 Oct). Don't card lessons whose transcripts have bad timestamps; wait for re-transcription.
 - **Visual identity:** matn red rubric (#A3211A), teacher green, book blue, AI amber; Amiri for Arabic, Noto Nastaliq for Urdu, Noto Naskh for UI; contents styled like a printed فہرست. Light and dark themes.
 
 ## 10. Known technical limits
