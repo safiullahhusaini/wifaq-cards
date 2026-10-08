@@ -1,0 +1,254 @@
+<title>Wifaq Cards Control</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+<style>
+/* Layout: one narrow column for a phone. What needs the user comes first (to-do, questions), then progress, notes, run log. */
+:root {
+  --bg: #F5F4F3; --surface: #FFFFFF; --fg: #1F1B1B; --muted: #6A6262; --line: #E2DDDB;
+  --accent: #A3211A; --accent-soft: #F6E6E4; --ok: #2E6A3E; --ok-soft: #E3F0E6; --wait: #8F6210; --wait-soft: #F6EDDA;
+  --info: #23508A; --bar: #E9E5E3;
+  --ui: "IBM Plex Sans", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --urdu: "Noto Nastaliq Urdu", "IBM Plex Sans Arabic", serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141213; --surface: #1D1A1B; --fg: #ECE7E6; --muted: #A69D9C; --line: #343031;
+  --accent: #E77565; --accent-soft: #3A2220; --ok: #79C48D; --ok-soft: #1E3324; --wait: #E3B65A; --wait-soft: #3A2F18;
+  --info: #86ADE3; --bar: #2B2728; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #141213; --surface: #1D1A1B; --fg: #ECE7E6; --muted: #A69D9C; --line: #343031;
+  --accent: #E77565; --accent-soft: #3A2220; --ok: #79C48D; --ok-soft: #1E3324; --wait: #E3B65A; --wait-soft: #3A2F18;
+  --info: #86ADE3; --bar: #2B2728; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--ui); }
+.wrap { max-width: 720px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 48px; display: grid; gap: 28px; }
+header { display: grid; gap: 6px; }
+h1 { font-size: 22px; font-weight: 600; margin: 0; text-wrap: balance; }
+h1 span { color: var(--accent); }
+h2 { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.meta { color: var(--muted); font-size: 13px; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.ur { font-family: var(--urdu); line-height: 2.1; }
+[dir="auto"] { unicode-bidi: plaintext; text-align: start; }
+button, select, textarea { font: inherit; color: inherit; }
+button { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 7px 12px; cursor: pointer; }
+button:hover { border-color: var(--muted); }
+button:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); font-weight: 500; }
+button[disabled] { opacity: .5; cursor: default; }
+select { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 6px 8px; }
+textarea { width: 100%; box-sizing: border-box; min-height: 76px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 10px; resize: vertical; }
+.pill { font-size: 12px; font-weight: 500; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.p-run { background: var(--ok-soft); color: var(--ok); }
+.p-pause { background: var(--wait-soft); color: var(--wait); }
+.p-open { background: var(--accent-soft); color: var(--accent); }
+.p-done { background: var(--ok-soft); color: var(--ok); }
+.p-new { background: var(--wait-soft); color: var(--wait); }
+.todo { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.todo li { background: var(--surface); border-inline-start: 3px solid var(--accent); border-radius: 6px; padding: 10px 12px; min-width: 0; overflow-wrap: anywhere; }
+.todo a { color: var(--info); }
+.q { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: grid; gap: 10px; min-width: 0; }
+.q.answered { opacity: .8; }
+.q .why { color: var(--muted); font-size: 13px; }
+.opts { display: grid; gap: 8px; }
+.opts button { text-align: start; }
+.opts button.sel { border-color: var(--accent); background: var(--accent-soft); }
+.reply { font-size: 13px; color: var(--ok); }
+.books { display: grid; gap: 12px; }
+.book { display: grid; gap: 4px; }
+.book .top { display: flex; justify-content: space-between; gap: 10px; font-variant-numeric: tabular-nums; }
+.book .name { font-family: var(--urdu); line-height: 2; }
+.bar { height: 8px; background: var(--bar); border-radius: 4px; display: flex; overflow: hidden; }
+.bar i { display: block; height: 100%; }
+.bar .d { background: var(--ok); } .bar .r { background: var(--info); } .bar .w { background: var(--wait); }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); }
+.legend b { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-inline-end: 5px; vertical-align: -1px; }
+.notes { display: grid; gap: 8px; }
+.note { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: grid; gap: 4px; min-width: 0; overflow-wrap: anywhere; }
+.runs { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 13px; }
+.runs li { color: var(--muted); overflow-wrap: anywhere; }
+.runs li:first-child { color: var(--fg); }
+.empty { color: var(--muted); font-size: 14px; }
+.msg { font-size: 13px; color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) { button { transition: border-color .15s, background .15s; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Wifaq Cards <span>Control</span></h1>
+    <div class="meta" id="updated">Waiting for the first report from a run.</div>
+    <div class="row">
+      <span class="pill p-run" id="statePill">Runs on</span>
+      <button id="pauseBtn" type="button">Pause runs</button>
+      <label class="meta" for="perRun">Lessons per run</label>
+      <select id="perRun"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select>
+    </div>
+    <div class="msg" id="ctlMsg" aria-live="polite"></div>
+  </header>
+
+  <section>
+    <h2>Your to-do</h2>
+    <ul class="todo" id="todo"><li class="empty">Nothing for you right now.</li></ul>
+  </section>
+
+  <section>
+    <h2>Questions for you</h2>
+    <div id="questions" style="display:grid;gap:12px"><p class="empty">No open questions. When a run needs a decision, it appears here and you get a notification.</p></div>
+  </section>
+
+  <section>
+    <h2>Progress</h2>
+    <div class="books" id="books"><p class="empty">Progress shows here after the first run.</p></div>
+    <div class="legend" style="margin-top:10px"><span><b style="background:var(--ok)"></b>cards live</span><span><b style="background:var(--info)"></b>ready to card</span><span><b style="background:var(--wait)"></b>transcript being redone</span></div>
+  </section>
+
+  <section>
+    <h2>Tell Claude something</h2>
+    <div style="display:grid;gap:8px">
+      <textarea id="noteText" dir="auto" placeholder="A wrong line on a card, something to change on the site, a decision… (Urdu or English)"></textarea>
+      <div class="row"><button class="primary" id="sendNote" type="button">Send to the next run</button><span class="msg" id="noteMsg" aria-live="polite"></span></div>
+    </div>
+    <div class="notes" id="notes" style="margin-top:12px"></div>
+  </section>
+
+  <section>
+    <h2>Recent runs</h2>
+    <ul class="runs" id="runs"><li class="empty">No runs yet.</li></ul>
+    <p class="msg" id="next"></p>
+  </section>
+</div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const fmt = (iso) => { try { const d = new Date(iso); return d.toLocaleString("en-GB", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Karachi" }).replace(",", ","); } catch (e) { return iso || ""; } };
+let db = null, settings = { paused: false, max_lessons_per_run: 2 }, canWrite = true;
+
+function linkify(li, text) {
+  const parts = String(text).split(/(https?:\/\/\S+)/);
+  for (const p of parts) {
+    if (/^https?:\/\//.test(p)) { const a = el("a", null, p.length > 60 ? p.slice(0, 57) + "…" : p); a.href = p; a.target = "_blank"; a.rel = "noopener"; li.append(a); }
+    else if (p) li.append(document.createTextNode(p));
+  }
+}
+
+function renderStatus(snap) {
+  if (!snap.exists) return;
+  const s = snap.data();
+  $("#updated").textContent = "Last report: " + (s.updated || "—");
+  const todo = $("#todo"); todo.replaceChildren();
+  const items = Array.isArray(s.user_todo) ? s.user_todo : [];
+  if (!items.length) todo.append(el("li", "empty", "Nothing for you right now."));
+  for (const t of items) { const li = el("li"); li.dir = "auto"; linkify(li, t); todo.append(li); }
+  const books = $("#books"); books.replaceChildren();
+  for (const b of (Array.isArray(s.books) ? s.books : [])) {
+    const total = Math.max(1, b.total || 0), d = b.done || 0, r = b.ready || 0, w = b.redo || 0;
+    const box = el("div", "book");
+    const top = el("div", "top"); top.append(el("span", "name", b.name || "")); top.append(el("span", "meta", `${d} of ${b.total || 0} lessons carded` + (b.cards ? ` · ${b.cards} cards` : "")));
+    const bar = el("div", "bar"); bar.setAttribute("role", "img"); bar.setAttribute("aria-label", `${d} carded, ${r} ready, ${w} being redone, of ${b.total || 0}`);
+    for (const [cls, n] of [["d", d], ["r", r], ["w", w]]) { const i = el("i", cls); i.style.width = (100 * n / total) + "%"; bar.append(i); }
+    box.append(top, bar);
+    if (b.note) box.append(el("span", "meta", b.note));
+    books.append(box);
+  }
+  if (!books.children.length) books.append(el("p", "empty", "Progress shows here after the first run."));
+  const runs = $("#runs"); runs.replaceChildren();
+  for (const r of (Array.isArray(s.runs) ? s.runs.slice(0, 10) : [])) runs.append(el("li", null, r));
+  if (!runs.children.length) runs.append(el("li", "empty", "No runs yet."));
+  $("#next").textContent = s.next ? "Next run: " + s.next : "";
+}
+
+function renderSettings(snap) {
+  if (snap.exists) settings = Object.assign({ paused: false, max_lessons_per_run: 2 }, snap.data());
+  $("#statePill").textContent = settings.paused ? "Paused" : "Runs on";
+  $("#statePill").className = "pill " + (settings.paused ? "p-pause" : "p-run");
+  $("#pauseBtn").textContent = settings.paused ? "Resume runs" : "Pause runs";
+  $("#perRun").value = String(settings.max_lessons_per_run || 2);
+}
+
+async function saveSettings(patch, msg) {
+  if (!db) return;
+  const next = Object.assign({}, settings, patch, { changed: new Date().toISOString() });
+  try { await db.doc("control/settings").set(next); $("#ctlMsg").textContent = msg; }
+  catch (e) { $("#ctlMsg").textContent = "Couldn't save: " + (e.message || e.code); }
+}
+
+function renderQuestions(qs) {
+  const box = $("#questions"); box.replaceChildren();
+  const docs = qs.docs.slice().sort((a, b) => {
+    const A = a.data(), B = b.data();
+    const ao = A.state === "open" ? 0 : 1, bo = B.state === "open" ? 0 : 1;
+    return ao - bo || String(B.asked || "").localeCompare(String(A.asked || ""));
+  });
+  if (!docs.length) { box.append(el("p", "empty", "No open questions. When a run needs a decision, it appears here and you get a notification.")); return; }
+  for (const d of docs) {
+    const q = d.data(), open = q.state === "open";
+    const card = el("div", "q" + (open ? "" : " answered"));
+    const head = el("div", "row");
+    head.append(el("span", "pill " + (open ? "p-open" : "p-done"), open ? "Needs your answer" : (q.state === "applied" ? "Applied" : "Answered")));
+    if (q.asked) head.append(el("span", "meta", "asked " + fmt(q.asked)));
+    const text = el("div", null, q.q || ""); text.dir = "auto"; text.style.fontWeight = "500";
+    card.append(head, text);
+    if (q.why) { const w = el("div", "why", q.why); w.dir = "auto"; card.append(w); }
+    if (open) {
+      let picked = "";
+      const opts = el("div", "opts");
+      for (const o of (Array.isArray(q.options) ? q.options : [])) {
+        const b = el("button", null, o); b.type = "button"; b.dir = "auto";
+        b.addEventListener("click", () => { picked = o; for (const x of opts.children) x.classList.toggle("sel", x === b); send.disabled = false; });
+        opts.append(b);
+      }
+      const ta = el("textarea"); ta.dir = "auto"; ta.id = "c-" + d.id; ta.placeholder = "Anything to add (optional)"; ta.style.minHeight = "52px";
+      ta.addEventListener("input", () => { send.disabled = !picked && !ta.value.trim(); });
+      const send = el("button", "primary", "Send answer"); send.type = "button"; send.disabled = true;
+      const m = el("span", "msg");
+      send.addEventListener("click", async () => {
+        send.disabled = true;
+        try { await db.doc("questions/" + d.id).update({ answer: picked || ta.value.trim(), comment: picked ? ta.value.trim() : "", state: "answered", answered_at: new Date().toISOString() }); }
+        catch (e) { m.textContent = "Couldn't send: " + (e.message || e.code); send.disabled = false; }
+      });
+      const r = el("div", "row"); r.append(send, m);
+      card.append(opts, ta, r);
+    } else {
+      const a = el("div", null, "Your answer: " + (q.answer || "") + (q.comment ? " — " + q.comment : "")); a.dir = "auto";
+      card.append(a);
+      if (q.reply) { const r = el("div", "reply", q.reply); r.dir = "auto"; card.append(r); }
+    }
+    box.append(card);
+  }
+}
+
+function renderNotes(qs) {
+  const box = $("#notes"); box.replaceChildren();
+  for (const d of qs.docs) {
+    const n = d.data(), card = el("div", "note");
+    const head = el("div", "row");
+    const st = n.state || "new";
+    head.append(el("span", "pill " + (st === "new" ? "p-new" : "p-done"), st === "new" ? "Waiting for a run" : st === "queued" ? "Added to the queue" : "Done"));
+    head.append(el("span", "meta", fmt(n.at)));
+    const t = el("div", null, n.text || ""); t.dir = "auto";
+    card.append(head, t);
+    if (n.reply) { const r = el("div", "reply", n.reply); r.dir = "auto"; card.append(r); }
+    box.append(card);
+  }
+}
+
+$("#pauseBtn").addEventListener("click", () => saveSettings({ paused: !settings.paused }, settings.paused ? "Resumed. The next scheduled run will work." : "Paused. Scheduled runs will start, see this, and stop."));
+$("#perRun").addEventListener("change", (e) => saveSettings({ max_lessons_per_run: Number(e.target.value) }, "Saved. The next run takes " + e.target.value + " lesson(s)."));
+$("#sendNote").addEventListener("click", async () => {
+  const text = $("#noteText").value.trim(); if (!text || !db) return;
+  $("#sendNote").disabled = true;
+  try { await db.collection("notes").add({ text, at: new Date().toISOString(), state: "new", reply: "" }); $("#noteText").value = ""; $("#noteMsg").textContent = "Sent. The next run reads it first."; }
+  catch (e) { $("#noteMsg").textContent = "Couldn't send: " + (e.message || e.code); }
+  $("#sendNote").disabled = false;
+});
+
+(async () => {
+  const c = window.claude;
+  db = c && c.use ? await c.use("db") : null;
+  if (!db) { $("#ctlMsg").textContent = "Open this page in Claude (signed in) to see live status and answer questions."; for (const b of document.querySelectorAll("button, select, textarea")) b.disabled = true; return; }
+  const err = (e) => { $("#ctlMsg").textContent = "Live updates stopped (" + e.code + "). Reload the page."; };
+  db.doc("status/now").onSnapshot(renderStatus, err);
+  db.doc("control/settings").onSnapshot(renderSettings, err);
+  db.collection("questions").onSnapshot(renderQuestions, err);
+  db.collection("notes").orderBy("at", "desc").limit(40).onSnapshot(renderNotes, err);
+})();
+</script>
