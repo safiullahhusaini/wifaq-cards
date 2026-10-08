@@ -280,8 +280,8 @@
    "state": "ready",
    "note": "",
    "claim": {
-    "run": "2026-10-08T03:30:00Z",
-    "by": "scheduled run 8 Oct 8:30 am PKT"
+    "run": "2026-10-08T08:55:00Z",
+    "by": "scheduled run 8 Oct 1:52 pm PKT (took over stale 8:30 am claim)"
    }
   },
   {
@@ -295,8 +295,8 @@
    "state": "ready",
    "note": "",
    "claim": {
-    "run": "2026-10-08T03:30:00Z",
-    "by": "scheduled run 8 Oct 8:30 am PKT"
+    "run": "2026-10-08T08:55:00Z",
+    "by": "scheduled run 8 Oct 1:52 pm PKT (took over stale 8:30 am claim)"
    }
   },
   {
