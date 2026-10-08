@@ -26,11 +26,22 @@ REPO = os.path.abspath(os.path.join(HERE, "..", ".."))
 AUDIO_DIR = os.path.join(REPO, "hidaya4", "audio")
 
 
+# Two recordings on one date: the lesson key is the queue id without "h4-" (e.g. "2025-08-09-udhiya-2"); the card
+# file sets LESSON to that key, its audio is hidaya4/audio/<key>.ogg (or <key>-1.ogg …), and LESSON_FILES names its
+# recording in recordings.csv by its Drive id (file names mix Arabic letter forms). Plain-date keys work as before.
+LESSON_FILES = {"2025-08-09-udhiya-2": "1T8bKxus3AK9NQgTdbUnB5KMuHbzZZIkm"}   # "2025-08-09 … كتاب الأضحية 2.m4a", 7 min
+LESSON_SUFFIX = {"2025-08-09-udhiya-2": "دوسری ریکارڈنگ"}
+
+
 def web_parts(date):
     one = os.path.join(AUDIO_DIR, f"{date}.ogg")
     if os.path.exists(one):
         return [(f"{date}.ogg", 0.0, one)]
-    parts = sorted(glob.glob(os.path.join(AUDIO_DIR, f"{date}-*.ogg")), key=lambda p: int(re.findall(r"-(\d+)\.ogg$", p)[0]))
+    pat = re.compile(re.escape(date) + r"-(\d+)\.ogg$")
+    others = {f"{k}.ogg" for k in LESSON_FILES if k != date}   # another lesson's own file is never a part of this one
+    parts = sorted((p for p in glob.glob(os.path.join(AUDIO_DIR, f"{date}-*.ogg"))
+                    if pat.search(os.path.basename(p)) and os.path.basename(p) not in others),
+                   key=lambda p: int(pat.search(os.path.basename(p)).group(1)))
     known = {}
     pj = os.path.join(AUDIO_DIR, "parts.json")
     if os.path.exists(pj):
@@ -58,9 +69,12 @@ def _dur(path):
 ESTIMATED_DATES = {"2025-07-20"}
 
 
-def label_of(date):
+def label_of(key):
+    date = key[:10]
     y, m, d = map(int, date.split("-"))
     s = f"{d} {MONTHS[m - 1]} {y}" if d != 1 else f"یکم {MONTHS[m - 1]} {y}"
+    if key in LESSON_SUFFIX:
+        s += f"، {LESSON_SUFFIX[key]}"
     return s + " (اندازاً)" if date in ESTIMATED_DATES else s
 
 
@@ -72,6 +86,10 @@ def recordings():
             r = {k.replace("\\", "").strip(): (v or "").replace("\\", "").strip() for k, v in r.items()}
             if "ہدایہ جلد رابع" in r.get("book", "") and r.get("date"):
                 out.setdefault(r["date"], r)
+                out["id:" + r["drive_id"]] = r
+    for key, fid in LESSON_FILES.items():
+        if "id:" + fid in out:
+            out[key] = out["id:" + fid]
     return out
 
 

@@ -54,7 +54,7 @@ def norm(s):
 
 RUNNING = {norm(x) for x in ["كتاب الذبائح", "كتاب الأضحية", "كتاب القسمة", "باب طلب الشفعة والخصومة فيها", "كتاب المزارعة",
                              "باب ما تجب فيه الشفعة وما لا تجب", "كتاب الشفعة", "باب دعوى الغلط في القسمة والاستحقاق فيها",
-                             "باب ما تبطل به الشفعة", "الهداية", "كتاب المساقاة"]}
+                             "باب ما تبطل به الشفعة", "الهداية", "كتاب المساقاة", "كتاب الكراهية"]}
 
 
 def load_pages():
@@ -86,7 +86,7 @@ def page_body(p):
 
 
 TEXT, START, W = {}, {}, {}   # page -> normalized matn; cumulative weight at page start; page weight
-LAST_PAGE = 174                # pages with neither OCR nor cached letters get the median weight
+LAST_PAGE = 184                # pages with neither OCR nor cached letters get the median weight
 for p in range(0, LAST_PAGE + 1):
     body, _ = page_body(p)
     TEXT[p] = norm(" ".join(body))
@@ -185,6 +185,7 @@ HEADINGS = [
     (88, "فصل", 1639), (92, "فصل في المهايأة", 1641, 0.6), (99, "كتاب المزارعة", 1644),
     (117, "كتاب المساقاة", 1652, 0.0), (126, "كتاب الذبائح", 1657),
     (145, "فصل فيما يحل أكله وما لا يحل", 1666), (154, "كتاب الأضحية", 1672),
+    (179, "كتاب الكراهية", 1684),
 ]
 # exact: these words open the colleague page
 EXACT = [(29, "أخذها بمثله", 1610), (31, "إنما يثبت بالبيع", 1611)]
