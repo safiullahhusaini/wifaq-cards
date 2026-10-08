@@ -1,6 +1,6 @@
 # Wifaq 1448 card site: handover (start here in a new chat)
 
-Updated 8 Oct 2026, 8:45 am (automation added: section 0). This is the single source of truth for continuing the work. `claude/wifaq-1448-plan.md` (project doc) is background: exam facts, study method, timeline. Its "Open next steps" and its audio notes are out of date; follow this file. A copy lives in the repo at `src/HANDOVER.md`; the project doc `claude/HANDOVER.md` is the primary one.
+Updated 8 Oct 2026, 2:40 pm (scheduled run: الأضحية carded; earlier: automation added, section 0). This is the single source of truth for continuing the work. `claude/wifaq-1448-plan.md` (project doc) is background: exam facts, study method, timeline. Its "Open next steps" and its audio notes are out of date; follow this file. A copy lives in the repo at `src/HANDOVER.md`; the project doc `claude/HANDOVER.md` is the primary one.
 
 ## 0. Automation (since 8 Oct 2026)
 
@@ -45,11 +45,11 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
 5. Check the pages: run `python3 -m http.server` in the repo, then take Playwright screenshots at 390×844. Google Fonts don't load in the sandbox, which is expected. Range text is RTL with LRI/PDI isolates, so read numbers from zoomed screenshots (device_scale_factor 3); low-res screenshots mislead.
 6. Commit and push to `main` with the session's attribution lines. Pages deploys in about a minute. `curl` to github.io is blocked by the sandbox proxy; WebFetch to github.io needs the user's approval in the chat (it timed out unanswered on 5 Oct), so ask the user to open the page if needed.
 
-## 4. What is live (8 Oct 2026)
+## 4. What is live (8 Oct 2026, 2:40 pm)
 
 - **Home** → paper list. Hidaya 4 links to `hidaya4/` and Mishkat 1 to its sample. The other four papers say "coming".
 - **`hidaya4/`** = the colleagues' contents page: every kitab of the volume in book order, with page range, card count, and "ابھی کارڈ نہیں" where there are none. A page-number box jumps to the right kitab.
-- **Kitab pages** `shufa.html`, `qisma.html`, `muzaraa.html`, `musaqat.html`, `dhabaih.html`:
+- **Kitab pages** `shufa.html`, `qisma.html`, `muzaraa.html`, `musaqat.html`, `dhabaih.html`, `udhiya.html`:
   - They open on a **فہرست** styled like the book's contents: bab and fasl rows with dotted leaders, a page range, and page chips under each.
   - Tapping a fasl shows its cards. A sticky bar has page chips and a page box; previous/next fasl links sit at the bottom.
   - Hash routes: `#u3` (unit), `#u3-1613` (unit + page), `#p1613` (page jump, resolves to a unit).
@@ -60,11 +60,12 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
   - **Removed 7 Oct (commit 2e474ed), at the user's request:** the original-file download from Drive, «اپنی فائل چنیں» / «کئی فائلیں ایک ساتھ چنیں», and remember-on-this-phone (IndexedDB). Reason: colleagues don't have the original files. The page now deletes the old `<store>-audio` IndexedDB and the `-remember` key on load, freeing space on phones. Don't add these back.
   - A lesson with no Opus file shows «ابھی نہیں لگی»; tapping its times opens a small sheet saying the recording isn't on the page yet. This is currently the case for the Mishkat sample (2025-03-16).
   - The player bar only shows while playing. The Drive "open at time" links were removed: they never worked on phones.
-- **Cards: 132 from 17 lessons.**
+- **Cards: 144 from 19 lessons.**
   - Shuf'a 47 (05-11 → 06-15), Qisma 36 (06-21 → 07-07), Muzara'a 17 complete (07-07, 07-12, 07-13), Musaqat 10 complete (07-19).
   - Dhabaih 22 complete (1657–1671): 07-20 (8, date estimated, shown «(اندازاً)»), 07-26 (6), 07-27 (8).
+  - Udhiya 12 (1677–1684): 08-09 second recording (3, key `2025-08-09-udhiya-2`, label «9 اگست 2025، دوسری ریکارڈنگ»), 08-10 (9, to the end of the kitab). Its start (v7 154–165, the first 9 Aug recording) waits for re-transcription; a GAPS line on the page says so.
   - Each card shows its colleague page(s), its Bushra vol-7 page, the lesson, and a play button at the card's timestamp.
-- **In-page audio: all 17 carded lessons** (Opus, 27 files in `hidaya4/audio/`, about 77 MB).
+- **In-page audio: all 19 carded lessons** (Opus, 29 files in `hidaya4/audio/`, about 83 MB).
 - **QA (independent agents):** 3 Oct: all 2,794 timestamps match real transcript lines; 52 random lines all supported; no imam-attribution errors. 5 Oct, 07-27 batch: 186 timestamps all real; all 177 lines checked, no wrong rulings or attributions; 8 minor wording/tag issues fixed. 7 Oct, 07-20 + 07-26: 592 timestamps all real; all 308 lines checked; no wrong rulings or attributions; 1 unsupported tag + 11 nits fixed. Scripts in `src/qa/`.
 
 ## 5. How a lesson becomes cards (the pipeline)
@@ -107,7 +108,7 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
 - **To pin exactly:** the colleagues' edition as a PDF (best) or photos of its pages. Then add EXACT anchors in `h4_pagemap.py` (or replace the model with real per-page text matching).
 - **Extending to new kitabs:**
   - Add each heading as (vol-7 page, heading text, colleague page[, fraction if the OCR lost the heading]) to `HEADINGS` in `h4_pagemap.py`; already there up to الأضحية (v7 154 ↔ 1672). Add the kitab's running header to `RUNNING` too.
-  - `LAST_PAGE = 174` (the OCR downloaded so far ends at printed 174).
+  - `LAST_PAGE = 184` (8 Oct: OCR to printed 184 measured; كتاب الكراهية heading at v7 179 = 1684 added; existing card pages unchanged).
   - Vol 7 reaches well past الأضحية (OCR folder to PDF ≥ 300). Find where it ends before generalising the map to (volume, page) for vol 8.
 - **Teacher's edition** (pages he announces in class) differs from both and can't be used directly: Shuf'a 1637, Qisma 1669, فصل المهايأة 1684, Muzara'a shurut 1692, Musaqat 1700, الذبائح 1705, his page 1711 (mid الذبائح, four veins), فصل فيما يحل أكله 1720, فصل في الجنين 1992. The offset to the colleagues' pages drifts from about +40 to about +130.
 
@@ -124,7 +125,7 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
   2. Save as `hidaya4/audio/<date>.ogg`, or `<date>-1.ogg`, `<date>-2.ogg`.
   3. Add each later part's `start_sec` from `index.csv` to `hidaya4/audio/parts.json`.
   4. Rebuild.
-  - Dates with two lessons (e.g. 2025-04-20, 2025-08-09, 2025-09-27, 2025-10-18, 2025-11-29, 2026-01-10) need a naming rule first, since the site keys audio by date. Undated files: give them an estimated date in `recordings.csv` and add it to `ESTIMATED_DATES` in `h4_data.py` (done for 2025-07-20).
+  - Dates with two lessons (e.g. 2025-04-20, 2025-08-09, 2025-09-27, 2025-10-18, 2025-11-29, 2026-01-10): since 8 Oct the lesson key is the queue id without `h4-` (e.g. `2025-08-09-udhiya-2`). The card file sets `LESSON` to it, audio is `hidaya4/audio/<key>.ogg`, and `LESSON_FILES` / `LESSON_SUFFIX` in `h4_data.py` map it to its recording (by Drive id) and its label. Undated files: give them an estimated date in `recordings.csv` and add it to `ESTIMATED_DATES` in `h4_data.py` (done for 2025-07-20).
 - **Storage:** a GitHub Pages site should stay under 1 GB. All 85 Hidaya 4 lessons ≈ 400 MB (77 MB live now). Other books' audio will need a second repo that the user creates and adds to the Claude app. Don't commit the AAC copies. Mishkat needs cell 7 with `WEB_BOOKS` extended; until then the Mishkat sample's times can't play.
 
 ## 8. Missing items and backlog (in priority order)
@@ -134,8 +135,8 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
    | Kitab | Colleague pages | Lessons | Problems to fix first |
    |---|---|---|---|
    | الذبائح | 1657 (v7 126–153) | **Done** (7 Oct): 07-20 (estimated date, set in `recordings.csv` + `ESTIMATED_DATES`), 07-26, 07-27 | — |
-   | الأضحية | 1672 (v7 154–) | 08-09 (+ "الأضحية 2", 7 min), 08-10 | "2025-08-09 المشكاة المصابيح اكتاب الأضحية.m4a" sits in the Hidaya 4 list: check whether it is Hidaya or Mishkat |
-   | الكراهية | 1684 | 08-16, 08-24, 08-30, 08-31, 09-07 | 08-16 skipped by repair |
+   | الأضحية | 1672 (v7 154–178) | **Mostly done** (8 Oct): «الأضحية 2» (7 min) and 08-10 carded. Left: the first 08-09 recording (v7 154–165) | Its file is named «المشكاة المصابيح اكتاب الأضحية» but it is the Hidaya lesson (the transcript is Roman Urdu and doesn't match the audio, 1%): re-transcribe |
+   | الكراهية | 1684 (v7 179–) | 08-16, 08-24, 08-30, 08-31, 09-07 | 08-16 skipped by repair; 08-24 text missing. Heading already in the map |
    | إحياء الموات | 1724 | 09-13, 09-21, 09-27 | |
    | الأشربة | 1742 | 09-27, 09-28, 10-04 | 09-28 skipped by repair |
    | الصيد | 1756 | 10-05, 10-11, 10-12, 10-18 | 10-05 skipped |
@@ -145,7 +146,7 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
    | الوصايا | 1939 | 12-06 … 12-27 | 12-14 skipped |
    | الخنثى | 1997 | 12-28 | |
 
-   **Next: الأضحية** (download the OCR from p0155 on — printed 154 is already on disk — and check its lessons' transcripts first; heading already in the map).
+   **Next: الكراهية** (OCR on disk only in the run that downloads it: fetch v7 179 onward from p0180; `LAST_PAGE = 184`, raise it as new pages are added and compare card pages before/after).
 2. **Re-transcribe** with 3.8/3.7/3.6 Flash, then repair:
    - 06-15 and 07-07: only 45–49 timestamps, so green times can be 1–3 min early. 06-15 is also short of text after 0:31.
    - 06-22: text missing 0:35:31–0:37:39.

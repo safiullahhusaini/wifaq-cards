@@ -1,5 +1,5 @@
 {
- "updated": "8 Oct 2026, 8:45 am",
+ "updated": "2026-10-08T14:40:00+05:00",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 2,
@@ -277,12 +277,10 @@
    "file": "2025-08-09 الهدايه الرابع كتاب الأضحية 2.m4a",
    "minutes": 7.0,
    "repair": "fixed 90%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-08T08:55:00Z",
-    "by": "scheduled run 8 Oct 1:52 pm PKT (took over stale 8:30 am claim)"
-   }
+   "cards": 3,
+   "qa": "full: 70 timestamps real, 0 wrong rulings/attributions, 5 nits fixed"
   },
   {
    "id": "h4-2025-08-10",
@@ -292,12 +290,10 @@
    "file": "2025-08-10 الهدايه الرابع كتاب الأضحية.mp4",
    "minutes": 38.6,
    "repair": "fixed 90%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-08T08:55:00Z",
-    "by": "scheduled run 8 Oct 1:52 pm PKT (took over stale 8:30 am claim)"
-   }
+   "cards": 9,
+   "qa": "full: 279 timestamps real, 0 wrong rulings/attributions, 4 nits fixed + 1 coverage line"
   },
   {
    "id": "h4-2025-08-16",
