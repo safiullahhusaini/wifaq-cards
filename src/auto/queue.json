@@ -2,9 +2,9 @@
  "updated": "2026-10-08T15:30:00+05:00",
  "settings": {
   "paused": false,
-  "max_lessons_per_run": 2,
-  "draft_model": "inherit",
-  "qa": "full",
+  "max_lessons_per_run": 1,
+  "draft_model": "sonnet",
+  "qa": "focused",
   "book_order": [
    "h4",
    "baydawi",
@@ -19,7 +19,10 @@
    "h3"
   ],
   "panel_url": "https://claude.ai/artifact/GqWNYfh4ZBwfozCFqAwbSN",
-  "schedule": "two runs a day, 1:52 am and 1:52 pm PKT (scheduled task 'Wifaq cards run')"
+  "schedule": "user asked 8 Oct for nights only (12:52 am, 4:52 am); task still 1:52 am / 1:52 pm on 10 Oct; he changes it",
+  "draft_model_note": "Sonnet test (user, 8 Oct): first lesson h4-2025-08-09-udhiya, full Opus QA; keep only if as accurate as Opus drafts, else back to inherit",
+  "qa_rule": "full for a book's first 3 lessons (and any draft-model test); focused once 3 have passed clean (user, 8 Oct). h4: passed (3, 5, 7 Oct)",
+  "plan": "Pro (user, 8 Oct)"
  },
  "books": {
   "h4": "ہدایہ جلد رابع",
@@ -264,10 +267,13 @@
    "date": "2025-08-09",
    "file": "2025-08-09 المشكاة المصابيح اكتاب الأضحية.m4a",
    "minutes": 37.6,
-   "repair": "not aligned 1%",
-   "state": "redo",
-   "note": "named as Mishkat but filed under Hidaya 4; transcript does not match audio (1%). Re-transcribe, then check whether it is Hidaya 4 الأضحية",
-   "claim": null
+   "repair": "fixed 95%, 2026-10-10 08:43 AM",
+   "state": "ready",
+   "note": "named as Mishkat but filed under Hidaya 4; transcript does not match audio (1%). Re-transcribe, then check whether it is Hidaya 4 الأضحية · re-transcribed + repaired 2026-10-10 08:43 AM (95%), ready",
+   "claim": {
+    "run": "2026-10-10T09:10:00+05:00",
+    "by": "https://claude.ai/code/session_01KmtNiQjopJxbTgkBVMp32T"
+   }
   },
   {
    "id": "h4-2025-08-09-udhiya-2",
@@ -302,9 +308,9 @@
    "date": "2025-08-16",
    "file": "2025-08-16 الهدايه الرابع كتاب الكراهية.mp4",
    "minutes": 34.4,
-   "repair": "not repaired",
-   "state": "redo",
-   "note": "transcript not repaired (too few timestamped lines)",
+   "repair": "fixed 90%, 2026-10-10 08:45 AM",
+   "state": "ready",
+   "note": "transcript not repaired (too few timestamped lines) · re-transcribed + repaired 2026-10-10 08:45 AM (90%), ready",
    "claim": null
   },
   {
@@ -314,9 +320,9 @@
    "date": "2025-08-24",
    "file": "2025-08-24 الهدايه الرابع كتاب الكراهية.mp4",
    "minutes": 39.0,
-   "repair": "fixed, text missing 40%",
-   "state": "redo",
-   "note": "repair: text missing (40% matched)",
+   "repair": "fixed 84%, 2026-10-10 08:45 AM",
+   "state": "ready",
+   "note": "repair: text missing (40% matched) · re-transcribed + repaired 2026-10-10 08:45 AM (84%), ready",
    "claim": null
   },
   {
@@ -410,9 +416,9 @@
    "date": "2025-09-28",
    "file": "2025-09-28 الهدايه الرابع كتاب الأشربة.mp4",
    "minutes": 39.0,
-   "repair": "not repaired",
-   "state": "redo",
-   "note": "transcript not repaired (too few timestamped lines)",
+   "repair": "fixed 95%, 2026-10-10 08:48 AM",
+   "state": "ready",
+   "note": "transcript not repaired (too few timestamped lines) · re-transcribed + repaired 2026-10-10 08:48 AM (95%), ready",
    "claim": null
   },
   {
@@ -434,9 +440,9 @@
    "date": "2025-10-05",
    "file": "2025-10-05 الهدايه الرابع كتاب الصيد.mp4",
    "minutes": 31.1,
-   "repair": "not repaired",
-   "state": "redo",
-   "note": "transcript not repaired (too few timestamped lines)",
+   "repair": "fixed 87%, 2026-10-10 08:50 AM",
+   "state": "ready",
+   "note": "transcript not repaired (too few timestamped lines) · re-transcribed + repaired 2026-10-10 08:50 AM (87%), ready",
    "claim": null
   },
   {
@@ -506,9 +512,9 @@
    "date": "2026-01-04",
    "file": "2026-01-04 الهدايه الرابع كتاب الرهن.m4a",
    "minutes": 50.0,
-   "repair": "fixed, text missing 95%",
-   "state": "redo",
-   "note": "repair: text missing (95% matched)",
+   "repair": "fixed 94%, 2026-10-10 08:50 AM",
+   "state": "ready",
+   "note": "repair: text missing (95% matched) · re-transcribed + repaired 2026-10-10 08:50 AM (94%), ready",
    "claim": null
   },
   {
@@ -530,9 +536,9 @@
    "date": "2026-01-08",
    "file": "2026-01-08 الهدايه الرابع كتاب الرهن.m4a",
    "minutes": 34.5,
-   "repair": "not repaired",
-   "state": "redo",
-   "note": "transcript not repaired (too few timestamped lines)",
+   "repair": "fixed 97%, 2026-10-10 08:53 AM",
+   "state": "ready",
+   "note": "transcript not repaired (too few timestamped lines) · re-transcribed + repaired 2026-10-10 08:53 AM (97%), ready",
    "claim": null
   },
   {
@@ -554,9 +560,9 @@
    "date": "2026-01-10",
    "file": "2026-01-10 الهدايه الرابع كتاب الرهن.m4a",
    "minutes": 42.0,
-   "repair": "fixed, text missing 93%",
-   "state": "redo",
-   "note": "repair: text missing (93% matched)",
+   "repair": "fixed 92%, 2026-10-10 08:53 AM",
+   "state": "ready",
+   "note": "repair: text missing (93% matched) · re-transcribed + repaired 2026-10-10 08:53 AM (92%), ready",
    "claim": null
   },
   {
@@ -590,9 +596,9 @@
    "date": "2025-02-23",
    "file": "2025-02-23 الهدايه الرابع كتاب الجنايات.mp4",
    "minutes": 43.9,
-   "repair": "fixed 40%",
-   "state": "redo",
-   "note": "repair matched only 40%",
+   "repair": "fixed 94%, 2026-10-10 08:53 AM",
+   "state": "ready",
+   "note": "repair matched only 40% · re-transcribed + repaired 2026-10-10 08:53 AM (94%), ready",
    "claim": null
   },
   {
@@ -650,7 +656,7 @@
    "date": "2025-04-19",
    "file": "2025-04-19 الهدايه الرابع كتاب الجنايات.mp4",
    "minutes": 47.0,
-   "repair": "not repaired",
+   "repair": "fixed, text missing 88% (gaps 0:08:29–0:10:10 0:19:48–0:30:00), 2026-10-10 08:41 AM",
    "state": "redo",
    "note": "transcript not repaired (too few timestamped lines)",
    "claim": null
@@ -686,7 +692,7 @@
    "date": "2025-04-20",
    "file": "2025-04-20 الهدايه الرابع كتاب الديات.m4a",
    "minutes": 18.3,
-   "repair": "not repaired",
+   "repair": "fixed, text missing 96% (gaps 0:00:01–0:10:00), 2026-10-10 08:43 AM",
    "state": "redo",
    "note": "transcript not repaired (too few timestamped lines)",
    "claim": null
@@ -710,9 +716,9 @@
    "date": "2025-04-27",
    "file": "2025-04-27 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 39.2,
-   "repair": "fixed 64%",
-   "state": "redo",
-   "note": "repair matched only 64%",
+   "repair": "fixed 91%, 2026-10-10 08:43 AM",
+   "state": "ready",
+   "note": "repair matched only 64% · re-transcribed + repaired 2026-10-10 08:43 AM (91%), ready",
    "claim": null
   },
   {
