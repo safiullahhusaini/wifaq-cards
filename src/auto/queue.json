@@ -308,12 +308,11 @@
    "file": "2025-08-16 الهدايه الرابع كتاب الكراهية.mp4",
    "minutes": 34.4,
    "repair": "fixed 90%, 2026-10-10 08:45 AM",
-   "state": "ready",
+   "state": "done",
    "note": "transcript not repaired (too few timestamped lines) · re-transcribed + repaired 2026-10-10 08:45 AM (90%), ready",
-   "claim": {
-    "run": "2026-10-10T08:53:00Z",
-    "by": "scheduled run 10 Oct 1:52 pm"
-   }
+   "claim": null,
+   "cards": 7,
+   "qa": "focused: 310 timestamps real, 0 wrong rulings/attributions, 2 minor fixed (ملمع wording, «قيل» for Fakhr al-Islam) + 1 tag trim + 1 GAPS line"
   },
   {
    "id": "h4-2025-08-24",
