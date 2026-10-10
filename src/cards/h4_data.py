@@ -29,8 +29,9 @@ AUDIO_DIR = os.path.join(REPO, "hidaya4", "audio")
 # Two recordings on one date: the lesson key is the queue id without "h4-" (e.g. "2025-08-09-udhiya-2"); the card
 # file sets LESSON to that key, its audio is hidaya4/audio/<key>.ogg (or <key>-1.ogg …), and LESSON_FILES names its
 # recording in recordings.csv by its Drive id (file names mix Arabic letter forms). Plain-date keys work as before.
-LESSON_FILES = {"2025-08-09-udhiya-2": "1T8bKxus3AK9NQgTdbUnB5KMuHbzZZIkm"}   # "2025-08-09 … كتاب الأضحية 2.m4a", 7 min
-LESSON_SUFFIX = {"2025-08-09-udhiya-2": "دوسری ریکارڈنگ"}
+LESSON_FILES = {"2025-08-09-udhiya": "1MVGVDm7Qpu6vo48Z8hPGfxgiBRH_T26e",     # "2025-08-09 المشكاة … اكتاب الأضحية.m4a", 38 min (Hidaya, misnamed)
+                "2025-08-09-udhiya-2": "1T8bKxus3AK9NQgTdbUnB5KMuHbzZZIkm"}   # "2025-08-09 … كتاب الأضحية 2.m4a", 7 min
+LESSON_SUFFIX = {"2025-08-09-udhiya": "پہلی ریکارڈنگ", "2025-08-09-udhiya-2": "دوسری ریکارڈنگ"}
 
 
 def web_parts(date):
