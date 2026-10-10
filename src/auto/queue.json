@@ -3,7 +3,7 @@
  "settings": {
   "paused": false,
   "max_lessons_per_run": 1,
-  "draft_model": "sonnet",
+  "draft_model": "inherit",
   "qa": "focused",
   "book_order": [
    "h4",
@@ -20,7 +20,7 @@
   ],
   "panel_url": "https://claude.ai/artifact/GqWNYfh4ZBwfozCFqAwbSN",
   "schedule": "user asked 8 Oct for nights only (12:52 am, 4:52 am); task still 1:52 am / 1:52 pm on 10 Oct; he changes it",
-  "draft_model_note": "Sonnet test (user, 8 Oct): first lesson h4-2025-08-09-udhiya, full Opus QA; keep only if as accurate as Opus drafts, else back to inherit",
+  "draft_model_note": "Sonnet test 10 Oct (h4-2025-08-09-udhiya): full Opus check found 3 wrong rulings/attributions (teacher slips stated as fact, «وقيل» scope) + 17 tag fixes, against 0 wrong rulings in the three Opus-drafted batches. Back to inherit (Opus); user told on the panel.",
   "qa_rule": "full for a book's first 3 lessons (and any draft-model test); focused once 3 have passed clean (user, 8 Oct). h4: passed (3, 5, 7 Oct)",
   "plan": "Pro (user, 8 Oct)"
  },
@@ -268,12 +268,11 @@
    "file": "2025-08-09 المشكاة المصابيح اكتاب الأضحية.m4a",
    "minutes": 37.6,
    "repair": "fixed 95%, 2026-10-10 08:43 AM",
-   "state": "ready",
+   "state": "done",
    "note": "named as Mishkat but filed under Hidaya 4; transcript does not match audio (1%). Re-transcribe, then check whether it is Hidaya 4 الأضحية · re-transcribed + repaired 2026-10-10 08:43 AM (95%), ready",
-   "claim": {
-    "run": "2026-10-10T09:10:00+05:00",
-    "by": "https://claude.ai/code/session_01KmtNiQjopJxbTgkBVMp32T"
-   }
+   "claim": null,
+   "cards": 12,
+   "qa": "full (Sonnet draft test): 225 lines, 603 timestamps all real; 3 wrong rulings/attributions + 2 imprecise, 17 tag fixes, 7 nits — all fixed; S tags checked against OCR (2 unprinted hadith numbers replaced)"
   },
   {
    "id": "h4-2025-08-09-udhiya-2",
