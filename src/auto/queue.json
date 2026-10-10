@@ -322,12 +322,11 @@
    "file": "2025-08-24 الهدايه الرابع كتاب الكراهية.mp4",
    "minutes": 39.0,
    "repair": "fixed 84%, 2026-10-10 08:45 AM",
-   "state": "ready",
+   "state": "done",
    "note": "repair: text missing (40% matched) · re-transcribed + repaired 2026-10-10 08:45 AM (84%), ready",
-   "claim": {
-    "run": "2026-10-10T20:55:00Z",
-    "by": "https://claude.ai/code/session_012EYi8aVq4PKZPQghey6hje"
-   }
+   "claim": null,
+   "cards": 10,
+   "qa": "focused: 247 timestamps real, 0 wrong rulings/attributions, 4 citation fixes (1 timestamp added, 2 sharh refs, 1 gloss); فصل في اللبس not recorded (GAPS)"
   },
   {
    "id": "h4-2025-08-30",

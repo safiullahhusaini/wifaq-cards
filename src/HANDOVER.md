@@ -1,6 +1,6 @@
 # Wifaq 1448 card site: handover (start here in a new chat)
 
-Updated 10 Oct 2026, 2:45 pm (scheduled run: first كتاب الكراهية lesson, 08-16). Before: 10 Oct, 9:50 am (كتاب الأضحية completed; Sonnet drafting tested and dropped). Before: 8 Oct, 3:30 pm (exam/importance marks, section 4). This is the single source of truth for continuing the work. `claude/wifaq-1448-plan.md` (project doc) is background: exam facts, study method, timeline. Its "Open next steps" and its audio notes are out of date; follow this file. A copy lives in the repo at `src/HANDOVER.md`; the project doc `claude/HANDOVER.md` is the primary one.
+Updated 11 Oct 2026, 2:30 am (scheduled run: الكراهية 08-24). Before: 10 Oct, 2:45 pm (first كتاب الكراهية lesson, 08-16). Before: 10 Oct, 9:50 am (كتاب الأضحية completed; Sonnet drafting tested and dropped). Before: 8 Oct, 3:30 pm (exam/importance marks, section 4). This is the single source of truth for continuing the work. `claude/wifaq-1448-plan.md` (project doc) is background: exam facts, study method, timeline. Its "Open next steps" and its audio notes are out of date; follow this file. A copy lives in the repo at `src/HANDOVER.md`; the project doc `claude/HANDOVER.md` is the primary one.
 
 ## 0. Automation (since 8 Oct 2026)
 
@@ -45,7 +45,7 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
 5. Check the pages: run `python3 -m http.server` in the repo, then take Playwright screenshots at 390×844. Google Fonts don't load in the sandbox, which is expected. Range text is RTL with LRI/PDI isolates, so read numbers from zoomed screenshots (device_scale_factor 3); low-res screenshots mislead.
 6. Commit and push to `main` with the session's attribution lines. Pages deploys in about a minute. `curl` to github.io is blocked by the sandbox proxy; WebFetch to github.io needs the user's approval in the chat (it timed out unanswered on 5 Oct), so ask the user to open the page if needed.
 
-## 4. What is live (10 Oct 2026, 2:45 pm)
+## 4. What is live (11 Oct 2026, 2:30 am)
 
 - **Home** → paper list. Hidaya 4 links to `hidaya4/` and Mishkat 1 to its sample. The other four papers say "coming".
 - **`hidaya4/`** = the colleagues' contents page: every kitab of the volume in book order, with page range, card count, and "ابھی کارڈ نہیں" where there are none. A page-number box jumps to the right kitab.
@@ -60,13 +60,13 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
   - **Removed 7 Oct (commit 2e474ed), at the user's request:** the original-file download from Drive, «اپنی فائل چنیں» / «کئی فائلیں ایک ساتھ چنیں», and remember-on-this-phone (IndexedDB). Reason: colleagues don't have the original files. The page now deletes the old `<store>-audio` IndexedDB and the `-remember` key on load, freeing space on phones. Don't add these back.
   - A lesson with no Opus file shows «ابھی نہیں لگی»; tapping its times opens a small sheet saying the recording isn't on the page yet. This is currently the case for the Mishkat sample (2025-03-16).
   - The player bar only shows while playing. The Drive "open at time" links were removed: they never worked on phones.
-- **Cards: 163 from 21 lessons.**
+- **Cards: 173 from 22 lessons.**
   - Shuf'a 47 (05-11 → 06-15), Qisma 36 (06-21 → 07-07), Muzara'a 17 complete (07-07, 07-12, 07-13), Musaqat 10 complete (07-19).
   - Dhabaih 22 complete (1657–1671): 07-20 (8, date estimated, shown «(اندازاً)»), 07-26 (6), 07-27 (8).
   - Udhiya 24 complete (1672–1683): 08-09 first recording (12, key `2025-08-09-udhiya`, label «پہلی ریکارڈنگ»; its Drive file is misnamed «المشكاة … اكتاب الأضحية» but is this Hidaya lesson; re-transcribed 10 Oct, 95%), 08-09 second recording (3, key `2025-08-09-udhiya-2`), 08-10 (9).
-  - Karahiya 7 so far: 08-16 (v7 179–187, 1684–1688, فصل في الأكل والشرب complete). Next 08-24 starts فصل في اللبس.
+  - Karahiya 17 so far: 08-16 (7; v7 179–187, 1684–1688, فصل في الأكل والشرب complete), 08-24 (10; v7 195–208, 1693–1699, فصل في الوطء والنظر والمس up to «وينظر الرجل من مملوكة غيره»). **فصل في اللبس (v7 187–195, 1688–1692) is in no recording**: 08-24 opens directly on النظر, 08-30 continues with أمة الغير; it shows «ریکارڈنگ نہیں ملی». Next 08-30.
   - Each card shows its colleague page(s), its Bushra vol-7 page, the lesson, and a play button at the card's timestamp.
-- **In-page audio: all 21 carded lessons** (Opus, 31 files in `hidaya4/audio/`, about 88 MB).
+- **In-page audio: all 22 carded lessons** (Opus, 32 files in `hidaya4/audio/`, about 93 MB).
 - **QA (independent agents):** 3 Oct: all 2,794 timestamps match real transcript lines; 52 random lines all supported; no imam-attribution errors. 5 Oct, 07-27 batch: 186 timestamps all real; all 177 lines checked, no wrong rulings or attributions; 8 minor wording/tag issues fixed. 7 Oct, 07-20 + 07-26: 592 timestamps all real; all 308 lines checked; no wrong rulings or attributions; 1 unsupported tag + 11 nits fixed. Scripts in `src/qa/`.
 
 - **Exam marks (8 Oct):** `src/data/h4_exam.json`. All 84 Hidaya 4 transcripts were searched: the teacher never says a passage comes in the exam (only «امتحان کے لیے وقت کم ہے», 10 Jan). He does flag masāʾil as «اہم», «مشہور», «بہت ضروری», «اچھی طرح ذہن میں رکھیں»: 17 flags, each with lesson, ts, his exact words and the Arabic opening. `h4_data.attach_exam` puts a flag on the card of that lesson whose start ts is the last at or before it; the card shows a red «★ استاد: اہم/مشہور» badge that plays the remark, and the fasl row in the kitab contents shows «★ n». Flags in lessons without cards (12: الجنايات 5, الديات 3, الرهن 2, الكراهية 1, الأشربة 1) are listed under their kitab on `hidaya4/index.html` until carded (AUTOMATION step 5 checks them).
@@ -139,7 +139,7 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
    |---|---|---|---|
    | الذبائح | 1657 (v7 126–153) | **Done** (7 Oct): 07-20 (estimated date, set in `recordings.csv` + `ESTIMATED_DATES`), 07-26, 07-27 | — |
    | الأضحية | 1672 (v7 154–178) | **Done** (10 Oct): 08-09 (both recordings), 08-10 | — |
-   | الكراهية | 1684 (v7 179–) | 08-16 **done** (10 Oct), 08-24, 08-30, 08-31, 09-07 | All ready. Map: كتاب الكراهية v7 179 = 1684, فصل في اللبس v7 187 (frac 0.5, no OCR) = 1688; `LAST_PAGE = 188` |
+   | الكراهية | 1684 (v7 179–) | 08-16 **done** (10 Oct), 08-24 **done** (11 Oct), 08-30, 08-31, 09-07 | All ready. Map: كتاب الكراهية v7 179 = 1684, فصل في اللبس v7 187 (frac 0.5, no OCR; the OCR shows it near the bottom, ≈0.85) = 1688, فصل في الوطء والنظر والمس v7 195 (frac 0.55) = 1693; `LAST_PAGE = 209`. Adding the 195 heading moved 13 earlier card edges by one page (Qisma, Dhabaih, Udhiya, Karahiya 08-16); no card changed fasl. Still to add: فصل في الاستبراء وغيره = 1702, فصل في البيع = 1708, مسائل متفرقة = 1716 (find their v7 pages in the OCR) |
    | إحياء الموات | 1724 | 09-13, 09-21, 09-27 | |
    | الأشربة | 1742 | 09-27, 09-28, 10-04 | 09-28 skipped by repair |
    | الصيد | 1756 | 10-05, 10-11, 10-12, 10-18 | 10-05 skipped |
@@ -151,7 +151,7 @@ Syed (Khanpur, Haripur) is preparing for the Wifaq ul Madaris Alamiya year-1 exa
 
    **10 Oct:** the user's Daily run re-transcribed + repaired 08-09, 08-16, 08-24, 09-28, 10-05, 2026-01-04, 01-08, 01-10 (الرهن), 2025-02-23 and 04-27: all ready. 04-19 and 04-20 الديات came back «text missing» (04-19: 0:08:29–0:10:10, 0:19:48–0:30:00; 04-20: first 10 min). **The Drive connector cannot rewrite a file's content** (`update_file` changes only title/folder), so runs can't edit `daily_config.json`; the notebook skips entries already redone since their `added` date, so the stale list is harmless, but re-adding 04-19/04-20 needs the user or a chat with another way to write it.
 
-   **Next: الكراهية 08-24.** **OCR to disk (10 Oct):** the Drive connector returns files under ~20 KB inline (base64 in the reply), not saved to disk, and a sub-agent could not copy 15 KB of base64 byte-exact. So the 10 Oct run built 08-16 without OCR on disk: `offset_of` falls back to each card's `v7`/`v7_frac`, and pages > 184 get the median letter weight. Drafting and QA agents read the OCR from Drive directly (fine). Existing card pages did not change. Colleague pages beyond 184 are therefore a little rougher (±1 as always). Files larger than the inline limit (e.g. a 5 MB Opus part) do get saved to disk.
+   **Next: الكراهية 08-30** (starts with أمة الغير, «وينظر الرجل من مملوكة غيره», v7 208). 11 Oct: same OCR fallback as 08-16 (pages 185–209 median weight). **OCR to disk (10 Oct):** the Drive connector returns files under ~20 KB inline (base64 in the reply), not saved to disk, and a sub-agent could not copy 15 KB of base64 byte-exact. So the 10 Oct run built 08-16 without OCR on disk: `offset_of` falls back to each card's `v7`/`v7_frac`, and pages > 184 get the median letter weight. Drafting and QA agents read the OCR from Drive directly (fine). Existing card pages did not change. Colleague pages beyond 184 are therefore a little rougher (±1 as always). Files larger than the inline limit (e.g. a 5 MB Opus part) do get saved to disk.
 2. **Re-transcribe** with 3.8/3.7/3.6 Flash, then repair:
    - 06-15 and 07-07: only 45–49 timestamps, so green times can be 1–3 min early. 06-15 is also short of text after 0:31.
    - 06-22: text missing 0:35:31–0:37:39.
