@@ -310,7 +310,10 @@
    "repair": "fixed 90%, 2026-10-10 08:45 AM",
    "state": "ready",
    "note": "transcript not repaired (too few timestamped lines) · re-transcribed + repaired 2026-10-10 08:45 AM (90%), ready",
-   "claim": null
+   "claim": {
+    "run": "2026-10-10T08:53:00Z",
+    "by": "scheduled run 10 Oct 1:52 pm"
+   }
   },
   {
    "id": "h4-2025-08-24",
