@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T15:30:00+05:00",
+ "updated": "2026-10-12T01:40:00+05:00",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 1,
@@ -336,12 +336,11 @@
    "file": "2025-08-30 الهدايه الرابع كتاب الكراهية.mp4",
    "minutes": 39.5,
    "repair": "fixed 86%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-12T00:52:00+05:00",
-    "by": "https://claude.ai/code/session_013q4Bc7JZMi1J6sciEkEmPJ"
-   }
+   "claim": null,
+   "cards": 11,
+   "qa": "focused: 229 timestamps real; 2 fixed (hadith «الحيالى» misread from OCR; fatwa line tagged to teacher's name-swapped lines → K7 only), 4 nits; recording starts late (v7 208–210 in GAPS)"
   },
   {
    "id": "h4-2025-08-31",
@@ -746,8 +745,8 @@
    "date": "2025-05-04",
    "file": "2025-05-04 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 31.5,
-   "repair": "fixed 62%",
-   "state": "redo",
+   "repair": "fixed 87% (11 Oct)",
+   "state": "ready",
    "note": "repair matched only 62%",
    "claim": null
   },
@@ -758,8 +757,8 @@
    "date": "2025-10-18",
    "file": "2025-10-18 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 32.8,
-   "repair": "not repaired",
-   "state": "redo",
+   "repair": "fixed 86% (11 Oct)",
+   "state": "ready",
    "note": "transcript not repaired (too few timestamped lines)",
    "claim": null
   },
@@ -782,8 +781,8 @@
    "date": "2025-10-28",
    "file": "2025-10-28 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 33.1,
-   "repair": "not repaired",
-   "state": "redo",
+   "repair": "fixed 84% (11 Oct)",
+   "state": "ready",
    "note": "transcript not repaired (too few timestamped lines)",
    "claim": null
   },
@@ -806,8 +805,8 @@
    "date": "2025-11-02",
    "file": "2025-11-02 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 41.3,
-   "repair": "fixed 73%",
-   "state": "redo",
+   "repair": "fixed 87% (11 Oct)",
+   "state": "ready",
    "note": "repair matched only 73%",
    "claim": null
   },
@@ -938,8 +937,8 @@
    "date": "2025-12-06",
    "file": "2025-12-06 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 35.3,
-   "repair": "fixed, text missing 82%",
-   "state": "redo",
+   "repair": "fixed 84% (11 Oct)",
+   "state": "ready",
    "note": "repair: text missing (82% matched)",
    "claim": null
   },
@@ -950,7 +949,7 @@
    "date": "2025-12-07",
    "file": "2025-12-07 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 26.1,
-   "repair": "fixed 61%",
+   "repair": "11 Oct redo: 86% but text missing 0:00:00–0:05:13",
    "state": "redo",
    "note": "repair matched only 61%",
    "claim": null
@@ -986,7 +985,7 @@
    "date": "2025-12-14",
    "file": "2025-12-14 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 45.6,
-   "repair": "not repaired",
+   "repair": "11 Oct redo: not aligned (17%); needs re-transcription again",
    "state": "redo",
    "note": "transcript not repaired (too few timestamped lines)",
    "claim": null
@@ -1034,8 +1033,8 @@
    "date": "2025-12-21",
    "file": "2025-12-21 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 44.5,
-   "repair": "fixed 53%",
-   "state": "redo",
+   "repair": "fixed 91% (11 Oct)",
+   "state": "ready",
    "note": "repair matched only 53%",
    "claim": null
   },
@@ -1080,9 +1079,10 @@
    "book": "h4",
    "kind": "retime",
    "date": "2025-06-15",
-   "state": "redo",
+   "state": "ready",
    "note": "already carded; transcript has few timestamps or missing text. After re-transcription + repair, re-time its cards (a small agent re-checks)",
-   "claim": null
+   "claim": null,
+   "repair": "fixed 90% (11 Oct)"
   },
   {
    "id": "retime-h4-2025-06-22",
@@ -1148,7 +1148,8 @@
    "state": "blocked",
    "title": "Mishkat pages: كتاب → باب → الفصل الأول/الثاني/الثالث, running hadith number on every card, hadith-card brief (teacher's additions + hard words, background only when given)",
    "needs": "user's answer on the classmates' Mishkat edition and its numbering (q-mishkat-edition) + book text source",
-   "done_when": "m1 sample rebuilt in the new layout with hadith numbers; BRIEF_mishkat.md written; Mishkat lessons added to the queue"
+   "done_when": "m1 sample rebuilt in the new layout with hadith numbers; BRIEF_mishkat.md written; Mishkat lessons added to the queue",
+   "note": "11 Oct: user dropped Mishkat title + contents photos (Bushra 3rd ed., Saharanpuri hashiya; vol 1 الإيمان–الفرائض, vol 2 النكاح–الفتن); catalogue in src/auto/from-me.md. Still missing: a text page showing the hadith numbering (asked on the panel note reply 12 Oct)."
   },
   {
    "id": "eng-other-books",
@@ -1156,7 +1157,8 @@
    "state": "blocked",
    "title": "Pages + briefs for بیضاوی, تیسیر مصطلح الحدیث, شرح نخبۃ الفکر, التبیان, آئینہ قادیانیت (Urdu book: adjust the brief)",
    "needs": "editions/contents pages from the user; transcripts (still being made by the daily transcription)",
-   "done_when": "each book has a contents page and its lessons are in the queue"
+   "done_when": "each book has a contents page and its lessons are in the queue",
+   "note": "11 Oct: title/contents photos catalogued in src/auto/from-me.md: Taysir (Bushra, 224 pp, full contents), Tibyan (Bushra, contents), Nuzhat al-Nazar (Bushra/Rahili, contents minus pp. 260–261), Baydawi (Bushra, title + 3 text pages, no contents), Aina (title only; IMG_…151219 OCR empty). Missing: Baydawi + Aina contents."
   },
   {
    "id": "eng-past-papers",
