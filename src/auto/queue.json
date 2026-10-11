@@ -1079,10 +1079,11 @@
    "book": "h4",
    "kind": "retime",
    "date": "2025-06-15",
-   "state": "ready",
+   "state": "done",
    "note": "already carded; transcript has few timestamps or missing text. After re-transcription + repair, re-time its cards (a small agent re-checks)",
    "claim": null,
-   "repair": "fixed 90% (11 Oct)"
+   "repair": "fixed 90% (11 Oct)",
+   "qa": "12 Oct: 147 timestamps re-mapped to the 11 Oct transcript (122 U tags + 7 card ts changed; cards 6–8 had been up to 2–8 min off); every ts verified present; gaps/start notes updated; no new teaching"
   },
   {
    "id": "retime-h4-2025-06-22",
