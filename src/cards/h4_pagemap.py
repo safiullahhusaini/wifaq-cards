@@ -86,7 +86,7 @@ def page_body(p):
 
 
 TEXT, START, W = {}, {}, {}   # page -> normalized matn; cumulative weight at page start; page weight
-LAST_PAGE = 221                # pages with neither OCR nor cached letters get the median weight
+LAST_PAGE = 233                # pages with neither OCR nor cached letters get the median weight
 for p in range(0, LAST_PAGE + 1):
     body, _ = page_body(p)
     TEXT[p] = norm(" ".join(body))
@@ -186,6 +186,7 @@ HEADINGS = [
     (117, "كتاب المساقاة", 1652, 0.0), (126, "كتاب الذبائح", 1657),
     (145, "فصل فيما يحل أكله وما لا يحل", 1666), (154, "كتاب الأضحية", 1672),
     (179, "كتاب الكراهية", 1684), (187, "فصل في اللبس", 1688, 0.5), (195, "فصل في الوطء والنظر والمس", 1693, 0.55), (213, "فصل في الاستبراء وغيره", 1702, 0.45),
+    (224, "فصل في البيع", 1708, 0.4),
 ]
 # exact: these words open the colleague page
 EXACT = [(29, "أخذها بمثله", 1610), (31, "إنما يثبت بالبيع", 1611)]
