@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-12T01:40:00+05:00",
+ "updated": "2026-10-13 1:10 am PKT",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 1,
@@ -350,12 +350,11 @@
    "file": "2025-08-31 الهدايه الرابع كتاب الكراهية.mp4",
    "minutes": 44.7,
    "repair": "fixed 92%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-12T19:52:00Z",
-    "by": "https://claude.ai/code/session_01ACG8sDMcoeaTtSc7N7q3hd"
-   }
+   "claim": null,
+   "cards": 10,
+   "qa": "focused: 329 timestamps real, 0 wrong rulings/attributions; 5 nits fixed (2 tags credited the teacher with words he didn't say, two Abu Hanifa riwayat split, مکاری wording, 'second view' on selling the hoarder's goods); v7 224 matn lost in OCR (card 3 from teacher + footnotes; printed page to be checked: «ويكره بيع العذرة»?)"
   },
   {
    "id": "h4-2025-09-07",
