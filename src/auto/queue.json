@@ -370,7 +370,10 @@
    "repair": "fixed 83%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-13T20:01:45.009592Z",
+    "by": "https://claude.ai/code/session_01N52q6ZWWnewB27ZuBspmnD"
+   }
   },
   {
    "id": "h4-2025-09-13",
@@ -382,7 +385,10 @@
    "repair": "fixed 94%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-13T20:01:45.009592Z",
+    "by": "https://claude.ai/code/session_01N52q6ZWWnewB27ZuBspmnD"
+   }
   },
   {
    "id": "h4-2025-09-21",
