@@ -86,7 +86,7 @@ def page_body(p):
 
 
 TEXT, START, W = {}, {}, {}   # page -> normalized matn; cumulative weight at page start; page weight
-LAST_PAGE = 251                # pages with neither OCR nor cached letters get the median weight
+LAST_PAGE = 261                # pages with neither OCR nor cached letters get the median weight
 for p in range(0, LAST_PAGE + 1):
     body, _ = page_body(p)
     TEXT[p] = norm(" ".join(body))

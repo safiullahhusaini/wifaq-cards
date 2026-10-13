@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-13 7:05 am PKT (chat: speed-up)",
+ "updated": "2026-10-14 (run 12:52 am PKT)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 2,
@@ -368,12 +368,11 @@
    "file": "2025-09-07 الهدايه الرابع كتاب الكراهية.mp4",
    "minutes": 43.5,
    "repair": "fixed 83%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-13T20:01:45.009592Z",
-    "by": "https://claude.ai/code/session_01N52q6ZWWnewB27ZuBspmnD"
-   }
+   "claim": null,
+   "cards": 17,
+   "qa": "full (trial night): 426 timestamps real; 2 wrong rulings (wali list incl. uncle; unscoped «جائز» for healing with haram) + 1 attribution tag (Abu Usaid) found and fixed, ~11 tag/nit fixes"
   },
   {
    "id": "h4-2025-09-13",
@@ -383,12 +382,11 @@
    "file": "2025-09-13 الهدايه الرابع كتاب احياء الموات .mp4",
    "minutes": 31.9,
    "repair": "fixed 94%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-13T20:01:45.009592Z",
-    "by": "https://claude.ai/code/session_01N52q6ZWWnewB27ZuBspmnD"
-   }
+   "claim": null,
+   "cards": 10,
+   "qa": "full (trial night): 308 timestamps real; 2 wrong rulings/attributions (teacher's reversed ماء الخراج/عشري definition; Abu Yusuf credited with unknown-owner view) found and fixed, ~12 tag/nit fixes; next lesson starts at «فإن احتفر آخر بئراً في حد حريم الأولى» v7 260 frac 0.65"
   },
   {
    "id": "h4-2025-09-21",
