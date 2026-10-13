@@ -4,6 +4,16 @@ Written 8 Oct 2026. The user (Syed) asked for the remaining cards to be made aut
 
 You are one scheduled run. You start cold: nothing from earlier runs is in your context except what is written in this repo, in the control panel, and in Drive. Work carefully and push often, because a run can be cut off by usage limits at any moment.
 
+## Speed and models (since 13 Oct 2026, the user's decision)
+
+The user is on the Pro plan; his own chats share the allowance with these runs, and there is a weekly cap. On 13 Oct he chose to go faster without lowering quality, like this:
+
+- **Who does what.** You, the run manager, run on Sonnet. You do the housekeeping: git, inbox, readiness, preparing passages, page map, audio, build, screenshots, queue, reports. You never write card text and never judge a ruling or an attribution yourself. Every drafting, QA and fix sub-agent is spawned with `model: "opus"` (`settings.draft_model`). Sonnet drafting was tested on 10 Oct and dropped (3 wrong rulings against 0 for Opus), so never use Sonnet or Haiku for drafting, QA or fixes.
+- **Several lessons a night.** Card up to `max_lessons_per_run` lessons (the panel value wins), one after another, each pushed when done (section 5). A run fired by the nightly schedule starts no new lesson after `settings.stop_new_lesson_after` (4:30 am PKT), so the user's morning allowance stays free; a lesson already started is finished. If the run is cut off mid-lesson, its claim goes stale after 5 hours and the next night takes it again.
+- **Trial QA.** Runs on or before `settings.qa_full_until` use `full` QA whatever `settings.qa` says (the Sonnet-manager trial: the nights of 14 and 15 Oct). If a trial QA finds a wrong ruling or attribution that came from your preparation (wrong passage bounds, a missed boundary, a fix applied wrongly), set `max_lessons_per_run` to 1 in `queue.json` and put a note on the panel asking the user to switch the scheduled task back to Opus (you may not change it yourself, section 10).
+- **Data repo.** Once `eng-data-repo` is done, read transcripts, OCR, status files and Opus parts from the private repo `safiullahhusaini/wifaq-data` (`src/auto/DATA_REPO.md`) and write `daily_config.json` there; Drive stays the fallback. Until then, use Drive as before.
+- **Ramp.** The user checks his usage meter after the first nights. He raises `max_lessons_per_run` to 3 on the panel if a night takes less than about a tenth of his weekly allowance. Don't change it yourself except for the trial rule above.
+
 ## 0. Files you rely on
 
 | File | What it is |
@@ -15,6 +25,7 @@ You are one scheduled run. You start cold: nothing from earlier runs is in your 
 | `src/auto/runs.md` | One short line per run (newest first). |
 | Control panel "Wifaq Cards Control" | Private artifact https://claude.ai/artifact/GqWNYfh4ZBwfozCFqAwbSN (also in `queue.json → settings.panel_url`). Database: collections `questions`, `notes`; documents `status/now` (you write) and `control/settings` (the user writes: `paused`, `max_lessons_per_run`). Read and write it with the `ArtifactData` tool (load it with ToolSearch `select:ArtifactData`); every write to an existing document needs `if_version` from your read. Page source: `src/auto/panel/panel.html`. |
 | Drive `Wifaq 1448/automation/` (folder `19mMOc1kOSN5W-OId2Wtp0uuuhfmkkVd-`) | `daily_config.json` (`14cUGi-JrijwUDqhm-xJUGwHXlvJNvg8e`): what the user's daily Colab notebook does (transcripts to redo, books to repair, books to make Opus copies for); you keep it current with `update_file`. `daily_done.md`: what the last daily run did. `from-me/` (`19CUJI0EcDuV6OLmneplrXgOdfkTVnU4C`): photos and PDFs the user drops for you (editions, contents pages, past papers). |
+| `src/auto/DATA_REPO.md` | The private repo `wifaq-data` (Drive copy for runs, filled by the Daily notebook's cell 9): layout and how to clone it cheaply. |
 | Daily notebook | `src/colab/daily/Wifaq_1448_Daily.ipynb` (built by `build_daily_nb.py` from `retx_core.py`, the tsfix code and cell 7). The user opens it from GitHub: https://colab.research.google.com/github/safiullahhusaini/wifaq-cards/blob/main/src/colab/daily/Wifaq_1448_Daily.ipynb, so a pushed rebuild reaches him without uploads. |
 
 ## 1. Start
@@ -42,7 +53,7 @@ You are one scheduled run. You start cold: nothing from earlier runs is in your 
 ## 4. Choose and claim work
 
 - Order: `settings.book_order`, and inside a book the queue order (book order of kitabs, then date). Prefer finishing a kitab before starting the next, but don't wait: if a lesson is blocked on re-transcription, card the next ready one and note the hole (`GAPS` already shows unrecorded/unexplained parts on the site).
-- At most `settings.max_lessons_per_run` lessons per run, plus at most one `eng` item whose `needs` are met. Do an `eng` item first when ready lessons depend on it (for example the vol-8 page map before الوصايا).
+- At most `settings.max_lessons_per_run` lessons per run (and none started after `settings.stop_new_lesson_after` on a nightly run), plus at most one `eng` item whose `needs` are met. Do an `eng` item first when ready lessons depend on it (for example the vol-8 page map before الوصايا).
 - `retime` items (re-time an already carded lesson after its transcript was redone) are cheap: do them when ready, they don't count against the lesson limit.
 - Claim: set `claim: {"run": "<ISO time>", "by": "<session link if known>"}` on the chosen items, commit `queue: claim …`, `git fetch origin main && git rebase origin/main`, push. If the push conflicts on the queue, re-read it and choose again.
 
@@ -51,8 +62,8 @@ You are one scheduled run. You start cold: nothing from earlier runs is in your 
 Follow HANDOVER section 5 exactly (it is the tested pipeline), with these rules for unattended runs:
 
 1. **Prepare** (yourself, not an agent): find the lesson's transcript in Drive, check it has a `- وقت:` line, find its start and end passages in the OCR with rapidfuzz, and note the previous lesson's last card and where the next lesson starts. If the kitab is new: download its OCR pages (sub-agent), add its headings to `HEADINGS` and `RUNNING` in `h4_pagemap.py`, and compare existing card pages before and after (HANDOVER section 6).
-2. **Draft**: one sub-agent with `src/cards/h4/BRIEF.md`, model `settings.draft_model` (`inherit` = same as you). Give it the date, file name, start/end passages, previous card, the teacher's slips you noticed.
-3. **QA**: a separate sub-agent that has not seen the draft being made (`settings.qa`: `full` = every line, the current standard; `focused` = every ruling, attribution and ikhtilaf line plus the mechanical timestamp check). Fix what it finds. Check S tags against the OCR yourself.
+2. **Draft**: one sub-agent with `src/cards/h4/BRIEF.md`, model `settings.draft_model` (`opus`; never Sonnet or Haiku for drafting). If `eng-lesson-pack` is done, give it the lesson pack instead of having it search Drive. Give it the date, file name, start/end passages, previous card, the teacher's slips you noticed.
+3. **QA**: a separate sub-agent that has not seen the draft being made (`settings.qa`: `full` = every line, the current standard; `focused` = every ruling, attribution and ikhtilaf line plus the mechanical timestamp check; `full` on or before `settings.qa_full_until`). Spawn it with `model: "opus"`, and give it the S-tag check against the OCR too (each S tag: found, not found, or misread). Run the mechanical checks yourself first (`src/qa/check_a.py`, and `src/qa/mech_check.py` once `eng-mech-checks` is done) and pass their report to it. Fixes are made by Opus, not by you: send the findings to the drafting agent with SendMessage so it edits its own file; if it can't be reached, spawn a fresh `opus` fix agent with the card file, the transcript and the findings. Then rerun the mechanical checks.
 4. **Audio**: add the Opus part(s) (HANDOVER section 7). Same-date lessons: key them by the queue id's suffix (`2025-09-27-ashriba` → `hidaya4/audio/2025-09-27-ashriba.ogg`); extend `h4_data.py` the first time this happens, keeping old keys working.
 5. **Exam marks**: if `src/data/h4_exam.json` has `teacher` entries for this lesson, check after the build that each sits on the card that covers that masala (`h4_data.attach_exam`: the card of that lesson whose start `ts` is the last one at or before the flag). If the transcript was re-transcribed since 8 Oct, find the remark again in the new transcript («اہم», «مشہور», «بہت ضروری», «ذہن میں رکھیں») and correct its `ts`; keep `said` as the teacher's exact words.
 6. **Build, check, push**: `python3 build_site.py`, Playwright screenshots at 390×844 of the changed kitab page (contents view, one fasl, the recordings sheet), then commit and push. One commit per lesson, message `cards: <kitab> <date> (<n> cards)`.

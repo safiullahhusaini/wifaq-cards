@@ -1,9 +1,10 @@
 {
- "updated": "2026-10-13 1:10 am PKT",
+ "updated": "2026-10-13 7:05 am PKT (chat: speed-up)",
  "settings": {
   "paused": false,
-  "max_lessons_per_run": 1,
-  "draft_model": "inherit",
+  "max_lessons_per_run": 2,
+  "stop_new_lesson_after": "4:30 am PKT (nightly runs only)",
+  "draft_model": "opus",
   "qa": "focused",
   "book_order": [
    "h4",
@@ -19,10 +20,13 @@
    "h3"
   ],
   "panel_url": "https://claude.ai/artifact/GqWNYfh4ZBwfozCFqAwbSN",
-  "schedule": "user asked 8 Oct for nights only (12:52 am, 4:52 am); task still 1:52 am / 1:52 pm on 10 Oct; he changes it",
+  "schedule": "one run nightly at 12:50 am PKT (since 11 Oct); 13 Oct: up to max_lessons_per_run lessons per run, none started after 4:30 am",
   "draft_model_note": "Sonnet test 10 Oct (h4-2025-08-09-udhiya): full Opus check found 3 wrong rulings/attributions (teacher slips stated as fact, «وقيل» scope) + 17 tag fixes, against 0 wrong rulings in the three Opus-drafted batches. Back to inherit (Opus); user told on the panel.",
   "qa_rule": "full for a book's first 3 lessons (and any draft-model test); focused once 3 have passed clean (user, 8 Oct). h4: passed (3, 5, 7 Oct)",
-  "plan": "Pro (user, 8 Oct)"
+  "plan": "Pro (user, 8 Oct)",
+  "qa_full_until": "2026-10-15",
+  "manager_model": "sonnet (scheduled task, 13 Oct); draft, QA and fix agents opus",
+  "speed_note": "13 Oct (user, chat): go faster within Pro limits without lowering quality. 2 lessons/night; manager on Sonnet, all drafting/QA/fixes on Opus; full QA for the nights of 14 and 15 Oct; user raises to 3 on the panel if a night uses < ~10% of his weekly allowance. Token-saving eng items: eng-lesson-pack, eng-mech-checks, eng-slim-docs, eng-data-repo."
  },
  "books": {
   "h4": "ہدایہ جلد رابع",
@@ -1104,6 +1108,42 @@
    "state": "redo",
    "note": "already carded; transcript has few timestamps or missing text. After re-transcription + repair, re-time its cards (a small agent re-checks)",
    "claim": null
+  },
+  {
+   "id": "eng-lesson-pack",
+   "kind": "eng",
+   "state": "todo",
+   "title": "Lesson pack: src/auto/prep_lesson.py <queue id> writes .cache/pack/<id>/ with the lesson's transcript (as in Drive/wifaq-data, byte-exact), the OCR pages its passage covers (start/end found with rapidfuzz, one page either side, page labels kept), the previous lesson's last card, the next lesson's start, and this lesson's teacher flags from h4_exam.json. Drafting and QA agents read the pack instead of searching Drive.",
+   "needs": "nothing",
+   "done_when": "tested on two already-carded lessons (e.g. 08-30 and 08-31): every card's v7 page lies inside the pack's OCR span and the transcript matches the source byte for byte; BRIEF.md and AUTOMATION section 5 point the agents to the pack; HANDOVER section 5 updated",
+   "why": "cuts the usage of each drafting/QA agent (no Drive searching, no reading OCR files outside the passage) without changing what they check"
+  },
+  {
+   "id": "eng-mech-checks",
+   "kind": "eng",
+   "state": "todo",
+   "title": "src/qa/mech_check.py <card file>: everything QA can check by code. Timestamps exist (reuse check_a.py), S tags found in the OCR footnotes/interlinear of the cited or neighbouring pages (rapidfuzz on the sharh name), K7 pages inside the lesson's span, no card start overlapping the previous/next lesson's cards, each teacher flag of the lesson lands on a card. Prints a short report for the Opus QA agent.",
+   "needs": "nothing",
+   "done_when": "run on all Karahiya card files: no false alarms on lines QA already passed, and it catches a planted wrong timestamp, a planted wrong S tag and a planted overlap; AUTOMATION section 5 step 3 uses it",
+   "why": "the Opus QA agent then spends its effort only on rulings, attributions and ikhtilaf"
+  },
+  {
+   "id": "eng-slim-docs",
+   "kind": "eng",
+   "state": "todo",
+   "title": "Lighter cold start: move queue items in state done/skip to src/auto/queue_done.json (keep ids unique across both; scripts that count done items read both), and move dated history out of HANDOVER (the 'Updated … Before: …' chain, the 'Done (date)' lines, per-lesson details in section 4 and the long kitab table notes in section 8) into src/HISTORY.md, which runs don't read",
+   "needs": "nothing",
+   "done_when": "queue.json holds only open items; HANDOVER keeps every rule, decision, path and open problem but is about half its size; build output byte-identical; status/now counts unchanged",
+   "why": "every run and every agent reads these files; history doesn't need re-reading every night"
+  },
+  {
+   "id": "eng-data-repo",
+   "kind": "eng",
+   "state": "blocked",
+   "title": "Runs read from the private repo wifaq-data instead of Drive (src/auto/DATA_REPO.md): blobless sparse clone, v7ocr symlink to its OCR, transcripts/status from it, Opus parts by sparse-checkout add, daily_config.json written there with git",
+   "needs": "the user creates the private repo safiullahhusaini/wifaq-data, gives the Claude GitHub app access, adds the GITHUB_DATA_TOKEN secret in Colab and runs the Daily notebook once (cell 9 fills the repo). Check: add_repo works and SYNCED.md exists",
+   "done_when": "one lesson carded entirely from wifaq-data (no Drive calls except the fallback), its OCR on disk again so its colleague pages use real letter counts, not the median fallback; daily_config.json updated in wifaq-data and read by the next Daily run (its cell 2 says 'To-do from wifaq-data'); AUTOMATION sections 0, 1, 3 and HANDOVER sections 2, 3, 10 updated",
+   "why": "no Drive connector traffic (small files arrive inline as base64 and fill the context), no 5.7 MB limit, and runs can finally rewrite daily_config.json"
   },
   {
    "id": "eng-daily-notebook",

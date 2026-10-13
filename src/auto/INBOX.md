@@ -4,6 +4,7 @@ Copied here from the control panel by each run (newest first). The panel is wher
 
 ## Decisions
 
+- 13 Oct 2026, 6:42 am (chat): **go faster within the Pro limits without lowering quality.** Applied in that chat: `max_lessons_per_run` 2 (queue + panel), no new lesson after 4:30 am on nightly runs; scheduled task switched to Sonnet as manager, with drafting, QA and fixes always on Opus; full QA on the nights of 14 and 15 Oct; four token-saving eng items queued; Daily notebook cell 9 (sync to the private repo wifaq-data). The user raises the limit to 3 on the panel if a night uses under ~10% of his weekly allowance. (This replaces "runs stay small, 1 per run" from 9 Oct.)
 - 10 Oct 2026 (panel, answered 8 Oct, 3:37–3:41 pm; applied by the 10 Oct 9:05 am run):
   - **Book order after Hidaya 4:** Baydawi → Mishkat 1 → Mishkat 2 → Taysir → Nukhba → Tibyan → Aina. Already `settings.book_order`.
   - **Claude plan:** Pro. Runs stay small (the user also set `max_lessons_per_run` = 1 on the panel, 9 Oct).
