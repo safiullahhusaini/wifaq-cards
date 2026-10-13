@@ -1147,7 +1147,8 @@
    "title": "Runs read from the private repo wifaq-data instead of Drive (src/auto/DATA_REPO.md): blobless sparse clone, v7ocr symlink to its OCR, transcripts/status from it, Opus parts by sparse-checkout add, daily_config.json written there with git",
    "needs": "the user creates the private repo safiullahhusaini/wifaq-data, gives the Claude GitHub app access, adds the GITHUB_DATA_TOKEN secret in Colab and runs the Daily notebook once (cell 9 fills the repo). Check: add_repo works and SYNCED.md exists",
    "done_when": "one lesson carded entirely from wifaq-data (no Drive calls except the fallback), its OCR on disk again so its colleague pages use real letter counts, not the median fallback; daily_config.json updated in wifaq-data and read by the next Daily run (its cell 2 says 'To-do from wifaq-data'); AUTOMATION sections 0, 1, 3 and HANDOVER sections 2, 3, 10 updated",
-   "why": "no Drive connector traffic (small files arrive inline as base64 and fill the context), no 5.7 MB limit, and runs can finally rewrite daily_config.json"
+   "why": "no Drive connector traffic (small files arrive inline as base64 and fill the context), no 5.7 MB limit, and runs can finally rewrite daily_config.json",
+   "note": " 14 Oct: user's panel note says wifaq-data is ready, but the scheduled task's session has GitHub scope only for wifaq-cards and no add_repo tool, so the repo could not be attached; the task needs wifaq-data in its repository list."
   },
   {
    "id": "eng-daily-notebook",
