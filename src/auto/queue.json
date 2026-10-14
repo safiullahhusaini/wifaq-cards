@@ -24,9 +24,10 @@
   "draft_model_note": "Sonnet test 10 Oct (h4-2025-08-09-udhiya): full Opus check found 3 wrong rulings/attributions (teacher slips stated as fact, «وقيل» scope) + 17 tag fixes, against 0 wrong rulings in the three Opus-drafted batches. Back to inherit (Opus); user told on the panel.",
   "qa_rule": "full for a book's first 3 lessons (and any draft-model test); focused once 3 have passed clean (user, 8 Oct). h4: passed (3, 5, 7 Oct)",
   "plan": "Pro (user, 8 Oct)",
-  "qa_full_until": "2026-10-15",
+  "qa_full_until": "2026-10-18",
   "manager_model": "sonnet (scheduled task, 13 Oct); draft, QA and fix agents opus",
-  "speed_note": "13 Oct (user, chat): go faster within Pro limits without lowering quality. 2 lessons/night; manager on Sonnet, all drafting/QA/fixes on Opus; full QA for the nights of 14 and 15 Oct; user raises to 3 on the panel if a night uses < ~10% of his weekly allowance. Token-saving eng items: eng-lesson-pack, eng-mech-checks, eng-slim-docs, eng-data-repo."
+  "speed_note": "13 Oct (user, chat): go faster within Pro limits without lowering quality. 2 lessons/night; manager on Sonnet, all drafting/QA/fixes on Opus; full QA for the nights of 14 and 15 Oct; user raises to 3 on the panel if a night uses < ~10% of his weekly allowance. Token-saving eng items: eng-lesson-pack, eng-mech-checks, eng-slim-docs, eng-data-repo.",
+  "qa_full_note": "14 Oct (user): full QA extended to the night of 18 Oct; the 14 Oct trial found 4 wrong rulings/attributions in Opus drafts (all fixed by QA)."
  },
  "books": {
   "h4": "ہدایہ جلد رابع",
@@ -1143,12 +1144,12 @@
   {
    "id": "eng-data-repo",
    "kind": "eng",
-   "state": "blocked",
+   "state": "todo",
    "title": "Runs read from the private repo wifaq-data instead of Drive (src/auto/DATA_REPO.md): blobless sparse clone, v7ocr symlink to its OCR, transcripts/status from it, Opus parts by sparse-checkout add, daily_config.json written there with git",
    "needs": "the user creates the private repo safiullahhusaini/wifaq-data, gives the Claude GitHub app access, adds the GITHUB_DATA_TOKEN secret in Colab and runs the Daily notebook once (cell 9 fills the repo). Check: add_repo works and SYNCED.md exists",
    "done_when": "one lesson carded entirely from wifaq-data (no Drive calls except the fallback), its OCR on disk again so its colleague pages use real letter counts, not the median fallback; daily_config.json updated in wifaq-data and read by the next Daily run (its cell 2 says 'To-do from wifaq-data'); AUTOMATION sections 0, 1, 3 and HANDOVER sections 2, 3, 10 updated",
    "why": "no Drive connector traffic (small files arrive inline as base64 and fill the context), no 5.7 MB limit, and runs can finally rewrite daily_config.json",
-   "note": " 14 Oct: user's panel note says wifaq-data is ready, but the scheduled task's session has GitHub scope only for wifaq-cards and no add_repo tool, so the repo could not be attached; the task needs wifaq-data in its repository list."
+   "note": " 14 Oct: user's panel note says wifaq-data is ready, but the scheduled task's session has GitHub scope only for wifaq-cards and no add_repo tool, so the repo could not be attached; the task needs wifaq-data in its repository list. · 14 Oct (chat): new scheduled task trig_01Vc2HFoLvtw7HdSc32ehLp3 created from a session that has both repos; old task paused. Repo checked: synced 13 Oct 9:07 am (229 transcripts, 662 OCR, 200 audio). If wifaq-data still isn't reachable, say so in the run summary and use Drive."
   },
   {
    "id": "eng-daily-notebook",
