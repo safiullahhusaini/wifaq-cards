@@ -411,12 +411,11 @@
    "file": "2025-09-27 الهدايه الرابع كتاب احياء الموات .m4a",
    "minutes": 18.5,
    "repair": "fixed 94%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-15T00:58+05:00",
-    "by": "https://claude.ai/code/session_01KL5eWWQdKZwXKb2nxHHb9a"
-   }
+   "claim": null,
+   "cards": 6,
+   "qa": "full (trial): 224 timestamps real; 1 wrong scope (تفاحش الجهالة widened to صلح), 5 tag fixes, 8 nits, all fixed"
   },
   {
    "id": "h4-2025-09-27-ashriba",
@@ -426,12 +425,11 @@
    "file": "2025-09-27 الهدايه الرابع كتاب الأشربة.m4a",
    "minutes": 24.6,
    "repair": "fixed 95%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-15T00:58+05:00",
-    "by": "https://claude.ai/code/session_01KL5eWWQdKZwXKb2nxHHb9a"
-   }
+   "claim": null,
+   "cards": 5,
+   "qa": "full (trial): 186 timestamps real; 2 wrong rulings/definitions (teacher inference on pre-froth stage stated as Abu Hanifa; سكر = dried dates vs the book's رطب), 4 tag fixes, 7 nits, all fixed"
   },
   {
    "id": "h4-2025-09-28",
@@ -1157,7 +1155,7 @@
    "needs": "the user creates the private repo safiullahhusaini/wifaq-data, gives the Claude GitHub app access, adds the GITHUB_DATA_TOKEN secret in Colab and runs the Daily notebook once (cell 9 fills the repo). Check: add_repo works and SYNCED.md exists",
    "done_when": "one lesson carded entirely from wifaq-data (no Drive calls except the fallback), its OCR on disk again so its colleague pages use real letter counts, not the median fallback; daily_config.json updated in wifaq-data and read by the next Daily run (its cell 2 says 'To-do from wifaq-data'); AUTOMATION sections 0, 1, 3 and HANDOVER sections 2, 3, 10 updated",
    "why": "no Drive connector traffic (small files arrive inline as base64 and fill the context), no 5.7 MB limit, and runs can finally rewrite daily_config.json",
-   "note": " 14 Oct: user's panel note says wifaq-data is ready, but the scheduled task's session has GitHub scope only for wifaq-cards and no add_repo tool, so the repo could not be attached; the task needs wifaq-data in its repository list. · 14 Oct (chat): new scheduled task trig_01Vc2HFoLvtw7HdSc32ehLp3 created from a session that has both repos; old task paused. Repo checked: synced 13 Oct 9:07 am (229 transcripts, 662 OCR, 200 audio). If wifaq-data still isn't reachable, say so in the run summary and use Drive."
+   "note": " 14 Oct: user's panel note says wifaq-data is ready, but the scheduled task's session has GitHub scope only for wifaq-cards and no add_repo tool, so the repo could not be attached; the task needs wifaq-data in its repository list. · 14 Oct (chat): new scheduled task trig_01Vc2HFoLvtw7HdSc32ehLp3 created from a session that has both repos; old task paused. Repo checked: synced 13 Oct 9:07 am (229 transcripts, 662 OCR, 200 audio). If wifaq-data still isn't reachable, say so in the run summary and use Drive. | 15 Oct run: wifaq-data cloned (blobless sparse) and read fine: transcripts, status, OCR vol-7 to p449, audio via sparse-checkout. OCR symlinked into .cache/v7ocr. Still todo: write daily_config.json there (not needed tonight)."
   },
   {
    "id": "eng-daily-notebook",

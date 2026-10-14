@@ -14,7 +14,7 @@ MONTHS = ["جنوری", "فروری", "مارچ", "اپریل", "مئی", "جو�
 URDU_DIGITS = str.maketrans("0123456789", "٠١٢٣٤٥٦٧٨٩")
 
 SLUGS = {"كتاب الشفعة": "shufa", "كتاب القسمة": "qisma", "كتاب المزارعة": "muzaraa", "كتاب المساقاة": "musaqat",
-         "كتاب الذبائح": "dhabaih", "كتاب الأضحية": "udhiya", "كتاب الكراهية": "karahiya", "كتاب إحياء الموات": "ihya",
+         "كتاب الذبائح": "dhabaih", "كتاب الأضحية": "udhiya", "كتاب الكراهية": "karahiya", "كتاب إحياء الموات": "ihya", "كتاب الأشربة": "ashriba",
          "كتاب الأشربة": "ashriba", "كتاب الصيد": "sayd", "كتاب الرهن": "rahn", "كتاب الجنايات": "jinayat",
          "كتاب الديات": "diyat", "كتاب المعاقل": "maaqil", "كتاب الوصايا": "wasaya", "كتاب الخنثى": "khuntha",
          "مسائل شتى": "shatta"}
@@ -30,8 +30,11 @@ AUDIO_DIR = os.path.join(REPO, "hidaya4", "audio")
 # file sets LESSON to that key, its audio is hidaya4/audio/<key>.ogg (or <key>-1.ogg …), and LESSON_FILES names its
 # recording in recordings.csv by its Drive id (file names mix Arabic letter forms). Plain-date keys work as before.
 LESSON_FILES = {"2025-08-09-udhiya": "1MVGVDm7Qpu6vo48Z8hPGfxgiBRH_T26e",     # "2025-08-09 المشكاة … اكتاب الأضحية.m4a", 38 min (Hidaya, misnamed)
-                "2025-08-09-udhiya-2": "1T8bKxus3AK9NQgTdbUnB5KMuHbzZZIkm"}   # "2025-08-09 … كتاب الأضحية 2.m4a", 7 min
-LESSON_SUFFIX = {"2025-08-09-udhiya": "پہلی ریکارڈنگ", "2025-08-09-udhiya-2": "دوسری ریکارڈنگ"}
+                "2025-08-09-udhiya-2": "1T8bKxus3AK9NQgTdbUnB5KMuHbzZZIkm",   # "2025-08-09 … كتاب الأضحية 2.m4a", 7 min
+                "2025-09-27-ihya": "1TkhTK_moN3XrqBVySZe4yvDZl93LFmp7",       # "2025-09-27 … احياء الموات .m4a", 18.5 min
+                "2025-09-27-ashriba": "1Xosff4Ced_kkvpkjRtN4ytN-rvdG6-gF"}    # "2025-09-27 … الأشربة.m4a", 24.6 min
+LESSON_SUFFIX = {"2025-08-09-udhiya": "پہلی ریکارڈنگ", "2025-08-09-udhiya-2": "دوسری ریکارڈنگ",
+                 "2025-09-27-ihya": "احیاء الموات", "2025-09-27-ashriba": "کتاب الأشربة"}
 
 
 def web_parts(date):

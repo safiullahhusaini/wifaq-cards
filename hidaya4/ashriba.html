@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>كتاب الأشربة · ہدایہ جلد رابع</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+<style>
+/* One kitab of a book. Two views on one page:
+   فہرست (contents, styled like the book's own contents page: title … page) and a unit view (one bab/fasl,
+   its cards, page chips). Recordings live in a bottom sheet behind the header button. */
+:root {
+  --paper: #FDFCFB; --surface: #FFFFFF; --ink: #1F1A1B; --muted: #6E6566; --rule: #E9E3E2;
+  --matn: #A3211A; --matn-tint: #FBEDEB; --teacher: #17624C; --teacher-tint: #E3F2EC;
+  --book: #2B4B7E; --book-tint: #E8EEF8; --note: #545A68; --note-tint: #EDEEF2;
+  --ai: #8A5A00; --ai-tint: #FBF0DA; --focus: #2B4B7E;
+  --shadow: 0 1px 2px rgba(31,26,27,.05), 0 4px 16px rgba(31,26,27,.05);
+  --urdu: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Urdu Typesetting", "Noto Naskh Arabic", serif;
+  --ui: "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+  --arabic: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+    --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+    --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+    --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+  --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+  --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+  --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--ui); font-size: 15px; padding-inline: 16px; padding-block: 0 110px; }
+.wrap { max-width: 760px; margin: 0 auto; }
+[lang="ar"] { font-family: var(--arabic); }
+button, input, a.btn { font: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* header */
+header.top { padding-block: 14px 8px; display: grid; gap: 4px; }
+.topbar { display: flex; align-items: center; gap: 10px; min-height: 40px; }
+.homelink { color: var(--book); font-size: 13.5px; font-weight: 600; text-decoration: none; padding-block: 6px; }
+.homelink:hover { text-decoration: underline; }
+.recbtn { margin-inline-start: auto; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--rule);
+  background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 14px; font-size: 13.5px; font-weight: 600; }
+.recbtn svg { width: 15px; height: 15px; fill: none; stroke: var(--teacher); stroke-width: 1.7; stroke-linecap: round; }
+.recbtn:hover { border-color: var(--teacher); }
+h1 { margin: 6px 0 0; font-family: var(--arabic); font-weight: 700; color: var(--matn); font-size: clamp(36px, 8vw, 50px); line-height: 1.25; }
+.meta { color: var(--muted); font-size: 13.5px; line-height: 1.9; margin: 0; }
+.meta b { color: var(--ink); font-weight: 600; }
+
+/* contents (فہرست) */
+.tochead { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-block: 14px 4px; }
+.tochead h2 { margin: 0; font-size: 15px; font-weight: 700; color: var(--muted); }
+form.jump { display: flex; gap: 4px; margin-inline-start: auto; }
+form.jump input { inline-size: 92px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px;
+  padding: 5px 12px; font-size: 14px; font-variant-numeric: tabular-nums; direction: ltr; text-align: center; }
+form.jump button { cursor: pointer; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 999px; padding: 5px 13px; font-size: 13.5px; }
+.msg { margin: 8px 0 0; color: var(--ink); background: var(--ai-tint); border-radius: 8px; padding: 7px 12px; font-size: 13.5px; line-height: 1.9; }
+.msg a { color: var(--book); font-weight: 600; }
+ol.toc { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.toc li { border-bottom: 1px solid var(--rule); padding-block: 10px 9px; display: grid; gap: 4px; }
+.toc li.lv3 { padding-inline-start: 22px; }
+.toc a.row { display: flex; align-items: baseline; gap: 8px; text-decoration: none; color: inherit; }
+.toc .tt { font-family: var(--arabic); line-height: 1.6; }
+.toc li.lv1 .tt { font-size: 23px; color: var(--matn); font-weight: 700; }
+.toc li.lv2 .tt { font-size: 20px; font-weight: 700; }
+.toc li.lv3 .tt { font-size: 18.5px; }
+.toc .dots { flex: 1 1 24px; min-inline-size: 24px; border-bottom: 2px dotted var(--rule); transform: translateY(-5px); }
+.toc .pp { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.toc a.row:hover .tt, .toc a.row:focus-visible .tt { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.toc .sub { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.toc .sub .n { margin-inline-end: 4px; }
+.toc .sub .none { color: var(--ai); }
+.toc .sub .exn { color: var(--matn); font-weight: 600; margin-inline-end: 4px; }
+a.pchip { text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 0 9px;
+  font-size: 12.5px; line-height: 1.9; font-variant-numeric: tabular-nums; }
+a.pchip:hover { border-color: var(--ink); }
+
+/* unit view */
+.ubar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); margin-inline: -16px; padding: 8px 16px 8px;
+  border-bottom: 1px solid var(--rule); display: grid; gap: 6px; }
+.ubar-top { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.back { flex: none; cursor: pointer; text-decoration: none; color: var(--book); font-size: 13.5px; font-weight: 600; border: 1px solid var(--rule); border-radius: 999px; padding: 3px 12px; background: var(--surface); }
+.utitle { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--arabic); font-size: 19px; font-weight: 700; line-height: 1.6; }
+.pbar { display: flex; gap: 6px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+.pbar::-webkit-scrollbar { display: none; }
+.pbar a { flex: none; text-decoration: none; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 3px 13px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.pbar a[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.ubar form.jump input { inline-size: 70px; padding: 3px 8px; }
+.ubar form.jump button { padding: 3px 10px; }
+.ubar form.jump { flex: none; }
+body.unit h1 { font-size: 26px; margin-top: 0; }
+body.unit header .meta { display: none; }
+.uhead { padding-block: 16px 0; display: grid; gap: 2px; }
+.uhead .parent { margin: 0; font-family: var(--arabic); color: var(--muted); font-size: 16px; }
+.uhead h2 { margin: 0; font-family: var(--arabic); color: var(--matn); font-size: clamp(26px, 6vw, 32px); line-height: 1.5; }
+.uhead p.meta { margin: 0; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; padding-block: 12px 0; color: var(--muted); font-size: 12.5px; align-items: center; }
+.lg { display: inline-flex; align-items: center; gap: 6px; }
+.linkbtn { cursor: pointer; background: none; border: 0; color: var(--book); font-weight: 600; font-size: 13px; padding: 4px 0; margin-inline-start: auto; }
+
+main { display: grid; gap: 18px; padding-block: 14px; }
+article.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; box-shadow: var(--shadow); padding: 18px 18px 14px; display: grid; gap: 12px; }
+.card-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.pg { font-size: 12.5px; font-weight: 600; color: var(--matn); background: var(--matn-tint); border-radius: 6px; padding: 2px 8px; font-variant-numeric: tabular-nums; }
+.v7 { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.cnum { color: var(--muted); font-size: 12.5px; }
+.badge { font-size: 12px; font-weight: 600; color: var(--book); background: var(--book-tint); border-radius: 999px; padding: 1px 9px; }
+.badge.exam { color: var(--matn); background: var(--matn-tint); border: 0; font-family: inherit; line-height: inherit; }
+button.badge.exam { cursor: pointer; }
+.les { color: var(--muted); font-size: 12.5px; margin-inline-start: auto; }
+.play { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--teacher); color: var(--teacher); background: transparent;
+  border-radius: 999px; padding: 3px 11px; font-size: 13px; font-variant-numeric: tabular-nums; direction: ltr; }
+.play svg { width: 10px; height: 10px; fill: currentColor; }
+.norec-chip { margin-inline-start: auto; color: var(--ai); background: var(--ai-tint); border-radius: 999px; padding: 2px 10px; font-size: 12.5px; font-weight: 600; }
+.label { margin: 0; font-family: var(--arabic); color: var(--book); font-size: 15px; line-height: 1.7; }
+h3.title { margin: 0; font-size: 19px; font-weight: 700; line-height: 1.7; text-wrap: balance; }
+.start { margin: 0; font-family: var(--arabic); font-size: 21px; line-height: 1.9; color: var(--matn); border-inline-start: 3px solid var(--matn); padding-inline-start: 12px; }
+.ref { margin: -4px 0 0; color: var(--book); font-size: 13px; line-height: 1.9; }
+.start-note { margin: -6px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.8; }
+.norec { margin: 0; background: var(--ai-tint); color: var(--ink); border-radius: 8px; padding: 6px 12px; font-size: 13.5px; line-height: 1.9; }
+.norec b { color: var(--ai); }
+.sec { display: grid; gap: 6px; }
+.sec h4 { margin: 0; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.sec ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.sec li { font-family: var(--urdu); font-size: 16px; line-height: 2.35; }
+.sec.tamheed li { font-size: 16.5px; }
+.sec.masala li { font-weight: 600; }
+.srcs { display: inline-flex; flex-wrap: wrap; gap: 4px; vertical-align: middle; margin-inline-start: 4px; }
+.chip { font-family: var(--ui); font-size: 11.5px; line-height: 1.6; border-radius: 5px; padding: 0 6px; white-space: nowrap; font-variant-numeric: tabular-nums; border: 0; font-weight: 600; }
+.chip.u { background: var(--teacher-tint); color: var(--teacher); cursor: pointer; }
+.chip.k { background: var(--book-tint); color: var(--book); }
+.chip.s { background: var(--note-tint); color: var(--note); }
+.chip.a { background: var(--ai-tint); color: var(--ai); }
+/* in the "سب" view a card opens folded: head, title, Arabic start and the note under it; the rest behind .ctoggle */
+.ctoggle { display: none; cursor: pointer; align-items: center; gap: 6px 10px; inline-size: 100%; background: none; border: 0; border-top: 1px dashed var(--rule);
+  padding: 8px 0 2px; color: var(--book); font-weight: 600; font-size: 13.5px; text-align: start; }
+.ctoggle::before { content: "−"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+.ctoggle[aria-expanded="false"]::before { content: "+"; }
+body.allview .ctoggle { display: flex; }
+.cbody { display: grid; gap: 12px; }
+article.card.folded .cbody { display: none; }
+article.card { scroll-margin-top: 112px; }
+.dlall { display: grid; gap: 6px; padding: 10px 12px; border-radius: 10px; background: var(--teacher-tint); }
+.dlall .btns { align-items: center; }
+.dlall .sub { color: var(--muted); font-size: 12.5px; }
+.dlall .dlstat { font-size: 12.5px; color: var(--ink); line-height: 1.9; }
+.btn[disabled] { opacity: .55; cursor: default; }
+details.more { border-top: 1px dashed var(--rule); padding-top: 8px; }
+details.more > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; color: var(--book); font-weight: 600; font-size: 13.5px; padding-block: 2px; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::before { content: "+"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+details.more[open] > summary::before { content: "−"; }
+details.more > summary .hint { color: var(--muted); font-weight: 400; font-size: 12.5px; }
+details.more > .inner { display: grid; gap: 12px; padding-top: 10px; }
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 14px; }
+.word { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; padding-block: 4px; border-bottom: 1px solid var(--rule); }
+.word .ar { font-family: var(--arabic); font-size: 19px; color: var(--matn); }
+.word .ur { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; flex: 1 1 auto; }
+.word .chip { font-size: 10.5px; }
+
+section.gaps { display: grid; gap: 8px; margin-block-start: 6px; border: 1px dashed var(--rule); border-radius: 12px; padding: 12px 14px; }
+section.gaps h3 { margin: 0; font-size: 14.5px; }
+section.gaps p.lead { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.9; }
+.glist { margin: 0; padding: 0; list-style: none; display: grid; }
+.glist li { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: start; padding-block: 8px; border-top: 1px solid var(--rule); }
+.glist .gp { font-size: 12px; font-weight: 600; color: var(--ai); background: var(--ai-tint); border-radius: 6px; padding: 1px 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.glist .gt { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; }
+.glist .gv { grid-column: 2; color: var(--muted); font-size: 12px; }
+
+nav.unav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-block-start: 18px; }
+nav.unav a { display: grid; gap: 2px; text-decoration: none; color: inherit; border: 1px solid var(--rule); border-radius: 12px; padding: 10px 14px; background: var(--surface); }
+nav.unav a:hover { border-color: var(--ink); }
+nav.unav .k { color: var(--muted); font-size: 12px; }
+nav.unav .t { font-family: var(--arabic); font-size: 17px; line-height: 1.6; }
+nav.unav a.next { text-align: left; grid-column: 2; }
+
+footer { margin-block-start: 28px; color: var(--muted); font-size: 13px; line-height: 2; border-top: 1px solid var(--rule); padding-block-start: 14px; }
+footer p { margin: 0 0 6px; }
+
+/* sheet */
+.backdrop { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.38); display: flex; align-items: flex-end; justify-content: center; }
+.sheet { background: var(--surface); color: var(--ink); inline-size: 100%; max-inline-size: 600px; max-block-size: 88vh; overflow-y: auto; border-radius: 16px 16px 0 0;
+  padding: 16px 18px calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 12px; box-shadow: 0 -8px 30px rgba(0,0,0,.2); }
+.sheet-head { display: flex; align-items: center; gap: 10px; }
+.sheet h3 { margin: 0; font-size: 17px; line-height: 1.7; }
+.sheet .x { margin-inline-start: auto; cursor: pointer; border: 1px solid var(--rule); background: transparent; color: var(--ink); border-radius: 999px; inline-size: 34px; block-size: 34px; font-size: 18px; line-height: 1; }
+.sheet p { margin: 0; font-size: 13.5px; line-height: 1.95; color: var(--muted); }
+.sheet p b { color: var(--ink); }
+.rec { display: grid; gap: 6px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.rec-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.rec-top b { font-size: 14.5px; }
+.rec-top .sub { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.state { font-size: 12px; font-weight: 600; border-radius: 5px; padding: 0 7px; }
+.state.on { color: var(--teacher); background: var(--teacher-tint); }
+.state.off { color: var(--muted); border: 1px solid var(--rule); }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; text-decoration: none; padding: 6px 13px; border-radius: 999px; border: 1px solid var(--teacher);
+  background: var(--teacher); color: var(--surface); font-weight: 600; font-size: 13.5px; line-height: 1.6; }
+.btn.ghost { background: transparent; color: var(--teacher); }
+.btn svg { width: 12px; height: 12px; fill: currentColor; flex: none; }
+
+/* player */
+.player { position: fixed; inset-inline: 0; bottom: 0; z-index: 10; background: var(--surface); border-top: 1px solid var(--rule); padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; justify-content: center; }
+.player audio { flex: 1 1 280px; max-width: 520px; height: 36px; }
+.speeds { display: flex; gap: 4px; direction: ltr; }
+.speeds button, .pclose { cursor: pointer; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 6px; padding: 3px 8px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.speeds button[aria-pressed="true"] { background: var(--teacher); color: var(--surface); border-color: var(--teacher); }
+.now { font-size: 12.5px; color: var(--muted); }
+.flash { animation: flash 1.2s ease-out; }
+@keyframes flash { from { box-shadow: 0 0 0 3px var(--teacher); } to { box-shadow: var(--shadow); } }
+@media (prefers-reduced-motion: reduce) { .flash { animation: none; } }
+@media (max-width: 460px) {
+  article.card { padding: 14px 14px 10px; }
+  .start { font-size: 19px; }
+  .sec li { font-size: 15.5px; }
+  .toc li.lv3 { padding-inline-start: 14px; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap" dir="rtl" lang="ur">
+  <header class="top">
+    <div class="topbar">
+      <a class="homelink" id="homeLink" href="./" hidden></a>
+      <button type="button" class="recbtn" id="recBtn" aria-haspopup="dialog">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 10V8a5.5 5.5 0 0 1 11 0v2"/><path d="M2.5 10h2v4h-2zM11.5 10h2v4h-2z"/></svg><span>ریکارڈنگز</span>
+      </button>
+    </div>
+    <h1 lang="ar" id="kitab"></h1>
+    <p class="meta" id="meta"></p>
+  </header>
+
+  <section id="tocView">
+    <div class="tochead">
+      <h2>فہرست</h2>
+      <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ نمبر" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form>
+    </div>
+    <p class="msg" id="tocMsg" hidden></p>
+    <ol class="toc" id="toc"></ol>
+  </section>
+
+  <section id="unitView" hidden>
+    <div class="ubar">
+      <div class="ubar-top"><a class="back" href="#">فہرست</a><span class="utitle" lang="ar" id="ubarTitle"></span>
+        <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form></div>
+      <nav class="pbar" id="pbar" aria-label="صفحات"></nav>
+    </div>
+    <div class="uhead">
+      <p class="parent" lang="ar" id="uParent"></p>
+      <h2 lang="ar" id="uTitle"></h2>
+      <p class="meta" id="uMeta"></p>
+    </div>
+    <p class="msg" id="uMsg" hidden></p>
+    <div class="legend" id="legend" aria-label="ماخذ کی علامتیں">
+      <span class="lg" data-t="u"><span class="chip u">استاد</span><span>ریکارڈنگ کا وقت</span></span>
+      <span class="lg" data-t="k"><span class="chip k">کتاب ص</span><span>متن</span></span>
+      <span class="lg" data-t="s"><span class="chip s">شرح</span><span>حاشیہ یا بین السطور</span></span>
+      <span class="lg" data-t="a"><span class="chip a">AI</span><span>خود جانچیں</span></span>
+      <button type="button" class="linkbtn" id="toggleAll" aria-pressed="false">سب تفصیل کھولیں</button>
+    </div>
+    <main id="cards"></main>
+    <section class="gaps" id="gaps" hidden>
+      <h3 id="gapsTitle"></h3>
+      <p class="lead" id="gapsLead"></p>
+      <ul class="glist" id="gapList"></ul>
+    </section>
+    <nav class="unav" id="unav" aria-label="پچھلا اور اگلا حصہ"></nav>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<div class="backdrop" id="backdrop" dir="rtl" lang="ur" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" id="sheet"></div>
+</div>
+
+<div class="player" id="player" dir="rtl" lang="ur" hidden>
+  <audio id="audio" controls preload="metadata"></audio>
+  <div class="speeds" id="speeds" role="group" aria-label="رفتار">
+    <button type="button" data-rate="1" aria-pressed="true">1×</button>
+    <button type="button" data-rate="1.25" aria-pressed="false">1.25×</button>
+    <button type="button" data-rate="1.5" aria-pressed="false">1.5×</button>
+  </div>
+  <span class="now" id="now"></span>
+  <button type="button" class="pclose" id="pclose" aria-label="آواز بند کریں">✕</button>
+</div>
+
+<script>
+const DATA = {"book": {"book": "ہدایہ جلد رابع", "kitab": "كتاب الأشربة", "from": 1742, "to": 1755, "unit": "کارڈ", "unitOne": "کارڈ"}, "home": "./", "homeLabel": "ہدایہ جلد رابع", "store": "h4", "lessons": {"2025-09-27-ashriba": {"file": "2025-09-27 الهدايه الرابع كتاب الأشربة.m4a", "minutes": 24.6, "id": "1Xosff4Ced_kkvpkjRtN4ytN-rvdG6-gF", "size_mb": 23.2, "label": "27 ستمبر 2025، کتاب الأشربة", "web": [{"src": "audio/2025-09-27-ashriba.ogg", "start": 0.0, "mb": 3.0}], "web_mb": 3.0}}, "units": [{"key": "u0", "level": 1, "title": "كتاب الأشربة", "page": 1742, "page_to": 1753}, {"key": "u1", "level": 3, "title": "فصل في طبخ العصير", "page": 1754, "page_to": 1755}], "cards": [{"unit": "u0", "pages": [1742], "lesson": "2025-09-27-ashriba", "ts": "0:00:08", "label": null, "title": "کتاب الاشربہ کا تعارف: شراب کس چیز سے بنتی ہے، اور حلال و حرام مشروبات کی تقسیم", "start": "كتاب الأشربة سُمِّيَ بها، وهي جمع شَراب", "start_note": "یہ کتاب الاشربہ کا پہلا سبق ہے؛ پچھلا سبق (2025-09-27، احیاء الموات) کتاب احیاء الموات کے آخر (v7 284) پر ختم ہوا۔ ساتھیوں کے نسخے میں کتاب ص 1742 سے شروع ہوتی ہے۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٧ ص 285", "tamheed": [{"x": "کتاب الحدود میں بھی شراب کا ذکر ہوتا ہے، مگر وہاں اس کی سزا کا ذکر ہے: اسّی کوڑے، زیادہ یا کم (باب شرب الخمر)۔", "s": [{"t": "u", "v": "0:00:15"}, {"t": "u", "v": "0:00:18"}, {"t": "u", "v": "0:00:49"}, {"t": "u", "v": "0:00:56"}]}, {"x": "یہاں اس کی ماہیت کا ذکر ہے: شراب کہتے کس کو ہیں، بنتی کس چیز سے ہے، اور اس کے احکام کیا ہیں۔", "s": [{"t": "u", "v": "0:00:31"}, {"t": "u", "v": "0:00:42"}, {"t": "u", "v": "0:00:44"}, {"t": "u", "v": "0:00:46"}]}, {"x": "استاد: عام طور پر علماء اور مفتیان کرام نے یہ باب اچھی طرح نہیں پڑھا ہوتا، تو حیران ہوتے ہیں کہ شراب اور باقی منشیات میں، اور شراب اور اس کی باقی حرام قسموں، جنہیں اشربہ اربعہ محرمہ کہتے ہیں، میں کیا فرق ہے۔ اس لیے اسے اچھی طرح یاد رکھیں۔", "s": [{"t": "u", "v": "0:01:23"}, {"t": "u", "v": "0:01:32"}, {"t": "u", "v": "0:01:38"}, {"t": "u", "v": "0:01:45"}]}], "masala": [{"x": "شراب چار طرح کی چیزوں سے بنتی ہے: (1) پھل، جیسے انگور، کھجور، سیب؛ (2) غلہ جات، جیسے گندم، جو، مکئی، باجرہ؛ (3) میٹھی چیزیں، جیسے شہد، شیرہ؛ (4) دودھ۔", "s": [{"t": "u", "v": "0:01:52"}, {"t": "u", "v": "0:01:59"}, {"t": "u", "v": "0:02:03"}, {"t": "u", "v": "0:02:13"}, {"t": "u", "v": "0:02:28"}, {"t": "s", "v": "الكفاية ٩/٢٢"}]}, {"x": "پھر مشروبات دو طرح کے ہیں: حلال اور حرام۔", "s": [{"t": "u", "v": "0:02:28"}, {"t": "u", "v": "0:06:28"}]}, {"x": "جب تک کسی مشروب میں نشہ نہ ہو وہ کسی کے ہاں حرام نہیں؛ جیسے کسی نے رات کو پانی میں چھوارے ڈالے اور صبح پی لیے۔", "s": [{"t": "u", "v": "0:02:46"}, {"t": "u", "v": "0:02:55"}]}, {"x": "نشہ آنے کا مطلب یہ نہیں کہ اس پینے والے کو نشہ چڑھے؛ مطلب یہ ہے کہ کسی نہ کسی کو اس سے نشہ چڑھتا ہو۔", "s": [{"t": "u", "v": "0:03:06"}, {"t": "u", "v": "0:03:12"}]}, {"x": "گندم، جو، سیب وغیرہ سے بنی نشہ آور شراب امام ابو حنیفہ اور امام ابو یوسف کے ہاں حلال ہے؛ حرام وہ مقدار ہے جس سے نشہ چڑھ جائے۔", "s": [{"t": "u", "v": "0:03:19"}, {"t": "u", "v": "0:03:28"}, {"t": "k", "v": "1745–1746", "v7": 293}, {"t": "k", "v": "1747", "v7": 296}]}, {"x": "استاد کی مثال: کسی کو گندم کی شراب کے دو گلاس سے نشہ چڑھتا ہے، ایک سے نہیں؛ تو ایک گلاس اس کے لیے حلال ہے، نشے والی مقدار حرام ہے۔", "s": [{"t": "u", "v": "0:03:34"}, {"t": "u", "v": "0:03:44"}, {"t": "u", "v": "0:03:47"}]}, {"x": "شیخین کے ہاں بھی یہ اس وقت حلال ہے جب جائز نیت سے ہو، جیسے طاقت کے لیے؛ لہو و لعب یا گناہ کی مجلس کے لیے ہو تو حرام ہے۔", "s": [{"t": "u", "v": "0:06:46"}, {"t": "u", "v": "0:06:51"}, {"t": "u", "v": "0:11:15"}, {"t": "k", "v": "1747", "v7": 296}]}], "dalil": [], "ikhtilaf": [{"x": "امام ابو حنیفہ و امام ابو یوسف: غلہ جات وغیرہ کی شراب نشے سے کم مقدار میں حلال؛ نشہ چڑھ جائے تو حرام کام کیا۔", "s": [{"t": "u", "v": "0:04:43"}, {"t": "u", "v": "0:04:51"}, {"t": "k", "v": "1745–1746", "v7": 293}, {"t": "k", "v": "1747", "v7": 296}]}, {"x": "امام محمد: جس کی زیادہ مقدار نشہ دے اس کی کم مقدار بھی حرام ہے؛ البتہ سزا تب ہوگی جب باقاعدہ نشہ چڑھ جائے۔", "s": [{"t": "u", "v": "0:04:02"}, {"t": "u", "v": "0:04:15"}, {"t": "u", "v": "0:04:23"}, {"t": "u", "v": "0:04:39"}, {"t": "u", "v": "0:11:39"}, {"t": "k", "v": "1746", "v7": 294}]}, {"x": "ائمہ ثلاثہ (امام مالک، امام احمد، امام شافعی): کم مقدار بھی حرام، اور کم مقدار پر بھی شراب کی طرح سزا ہے۔", "s": [{"t": "u", "v": "0:04:23"}, {"t": "u", "v": "0:05:04"}, {"t": "u", "v": "0:05:11"}]}, {"x": "کتاب (آگے): ہلکا پکا ہوا کھجور و کشمش کا نبیذ شیخین کے ہاں (لہو کے بغیر، نشے سے کم) حلال، امام محمد اور امام شافعی کے ہاں حرام؛ مثلث (دو تہائی پکا انگور کا پانی) امام محمد، امام مالک اور امام شافعی کے ہاں حرام۔", "s": [{"t": "k", "v": "1746–1747", "v7": 295}, {"t": "k", "v": "1747–1748", "v7": 297}]}, {"x": "حاشیہ: امام شافعی نے حکمِ خمر کو دوسری نشہ آور چیزوں تک متعدی کیا، یہاں تک کہ باذق کے ایک قطرے پر بھی قیاساً حد واجب کی۔", "s": [{"t": "s", "v": "الكفاية ٩/٢٨"}]}, {"x": "استاد: متاخرین احناف کا فتویٰ امام محمد کے قول پر ہے۔", "s": [{"t": "u", "v": "0:06:41"}, {"t": "u", "v": "0:11:54"}]}], "faida": [{"x": "نشہ چڑھنے پر سزا کے بارے میں: استاد کہتے ہیں شیخین کے ہاں بھی شرب خمر کی سزا ہوگی۔ کتاب میں «الجامع الصغير» کی روایت ہے کہ امام صاحب کے ہاں ایسے نشے پر حد نہیں، پھر آگے «قيل: لا يحد… والأصح أنه يحد»؛ یہ تفصیل اگلے اسباق میں ہے۔", "s": [{"t": "u", "v": "0:03:47"}, {"t": "u", "v": "0:04:51"}, {"t": "k", "v": "1745–1746", "v7": 293}, {"t": "k", "v": "1747–1748", "v7": 297}]}, {"x": "استاد: یہی اہم اختلافی مسائل اصول فقہ میں بھی پڑھتے ہیں: شراب کی حقیقت، کس چیز سے بنتی ہے، خمر کس کو کہتے ہیں، خمر کے خاص احکام کون سے ہیں۔", "s": [{"t": "u", "v": "0:01:02"}, {"t": "u", "v": "0:01:07"}, {"t": "u", "v": "0:01:15"}]}, {"x": "حاشیے میں ماخذ: انگور، کشمش، کھجور، دانے (گندم، جو، چاول، باجرہ)، پھل (آلوچہ، شہتوت)، شہد، فانیذ اور دودھ۔", "s": [{"t": "s", "v": "الكفاية ٩/٢٢"}]}], "lughat": [{"ar": "الأشربة", "ur": "شَراب کی جمع: پینے کی چیزیں، مشروبات", "s": [{"t": "k", "v": "1742", "v7": 285}]}, {"ar": "سُمِّيَ بها", "ur": "کتاب کا یہ نام اس لیے رکھا کہ اس میں ان کے احکام کا بیان ہے", "s": [{"t": "k", "v": "1742", "v7": 285}, {"t": "s", "v": "الكفاية ٩/٢٢"}]}, {"ar": "مُسكِر", "ur": "نشہ آور", "s": [{"t": "u", "v": "0:02:38"}]}]}, {"unit": "u0", "pages": [1742], "lesson": "2025-09-27-ashriba", "ts": "0:05:21", "label": null, "title": "چار حرام مشروبات (اشربہ اربعہ محرمہ): خمر، طِلاء، سَکَر، نقیع الزبیب", "start": "قال: والأشربة المحرَّمَة أربعة: الخمر وهي عصير العنب", "start_note": "استاد نے 0:05:21 پر یہ موضوع شروع کیا، 0:06:14 پر روکا، 0:07:01 سے تفصیل؛ متن 0:12:03 پر پڑھا۔", "norec": "", "badges": null, "exam": [{"k": "t", "kind": "اہم", "said": "یہ بہت اہم چیز ہے، اس کو دوبارہ سے مختصراً ذہن میں رکھیں", "ts": "0:10:38", "l": "2025-09-27-ashriba"}], "v7": "بشریٰ ج٧ ص 285", "tamheed": [{"x": "چار مشروبات ایسے ہیں جو کم مقدار میں بھی حرام ہیں، زیادہ میں بھی؛ ان میں سے ایک کو خمر کہتے ہیں، باقی تین کو خمر نہیں کہتے مگر وہ حرام ہیں۔ ان چاروں کو اشربہ اربعہ کہتے ہیں۔", "s": [{"t": "u", "v": "0:05:21"}, {"t": "u", "v": "0:05:28"}, {"t": "u", "v": "0:05:36"}, {"t": "u", "v": "0:05:43"}, {"t": "u", "v": "0:05:57"}]}, {"x": "ان چاروں میں آپس میں تھوڑا سا فرق ہے؛ اسے غور سے دیکھیں۔", "s": [{"t": "u", "v": "0:05:57"}, {"t": "u", "v": "0:06:08"}]}], "masala": [{"x": "(1) خمر: انگور کا کچا پانی (نچوڑ کر نکالا ہوا، کشمش کا پانی نہیں) جسے اتنا رکھا جائے کہ گاڑھا ہو جائے، اس میں نشہ آ جائے اور جھاگ پھینکنے لگے۔", "s": [{"t": "u", "v": "0:07:11"}, {"t": "u", "v": "0:07:24"}, {"t": "u", "v": "0:07:35"}, {"t": "u", "v": "0:07:39"}, {"t": "u", "v": "0:12:08"}, {"t": "u", "v": "0:12:25"}, {"t": "k", "v": "1742", "v7": 285}]}, {"x": "(2) طِلاء: انگور کا پانی پکایا جائے اور دو تہائی سے کم اڑے، مثلاً تھوڑا سا، ایک تہائی یا آدھا؛ یہ بھی حرام ہے۔", "s": [{"t": "u", "v": "0:08:44"}, {"t": "u", "v": "0:09:17"}, {"t": "u", "v": "0:09:25"}, {"t": "u", "v": "0:12:30"}, {"t": "k", "v": "1742", "v7": 285}]}, {"x": "اگر دو تہائی اڑ جائے، مثلاً تین گلاس جوس میں سے دو خشک ہو گئے اور ایک رہ گیا، تو وہ حلال مشروبات میں چلا جاتا ہے؛ اس کا ذکر آگے آئے گا۔", "s": [{"t": "u", "v": "0:09:31"}, {"t": "u", "v": "0:12:30"}]}, {"x": "کتاب (آگے): یہ مثلث امام ابو حنیفہ اور امام ابو یوسف کے ہاں حلال ہے اگرچہ سخت ہو جائے؛ امام محمد، امام مالک اور امام شافعی کے ہاں حرام۔ یہ اختلاف تب ہے جب طاقت (تقوّی) کے لیے پیا جائے؛ لہو و لعب (تلہّی) کے لیے ہو تو بالاتفاق حلال نہیں۔", "s": [{"t": "k", "v": "1747–1748", "v7": 297}]}, {"x": "(3) نقیع التمر، جسے سَکَر کہتے ہیں: کھجور کا کچا پانی (کتاب: «أي الرطب»، یعنی تر کھجور) جو سخت ہو جائے اور اس میں نشہ آ جائے۔", "s": [{"t": "u", "v": "0:10:00"}, {"t": "u", "v": "0:13:06"}, {"t": "k", "v": "1742", "v7": 285}, {"t": "k", "v": "1744–1745", "v7": 291}, {"t": "s", "v": "نتائج الأفكار ٩/٣٠"}]}, {"x": "استاد: خشک کھجوریں پانی میں ڈالی جائیں، اتنی کہ پانی گاڑھا ہو جائے۔ (حاشیہ: «تمر» کی تفسیر «رطب» سے اس لیے کی کہ خشک کھجور سے بنے کا نام نبیذ التمر ہے، سکر نہیں، اور وہ شیخین کے ہاں حلال ہے۔)", "s": [{"t": "u", "v": "0:09:54"}, {"t": "u", "v": "0:10:00"}, {"t": "s", "v": "نتائج الأفكار ٩/٣٠"}]}, {"x": "(4) نقیع الزبیب: کشمش پانی میں ڈالی جائے اور پانی سخت ہو جائے اور اس میں نشہ آ جائے۔", "s": [{"t": "u", "v": "0:10:08"}, {"t": "u", "v": "0:13:20"}, {"t": "k", "v": "1742", "v7": 285}]}, {"x": "خمر کا ایک قطرہ بھی حرام اور زیادہ بھی؛ ایک قطرے پر بھی شراب کی سزا ہے۔ باقی تین بھی حرام ہیں مگر سزا تب ہے جب نشہ چڑھے؛ نشہ نہ چڑھے تو سزا نہیں، مگر ہیں حرام۔ (کتاب: ان کی حرمت خمر سے کم درجے کی ہے؛ «ولا يجب الحد بشربها حتى يسكر، ويجب بشرب قطرة من الخمر»۔)", "s": [{"t": "u", "v": "0:08:30"}, {"t": "u", "v": "0:08:35"}, {"t": "u", "v": "0:10:54"}, {"t": "u", "v": "0:11:05"}, {"t": "u", "v": "0:11:11"}, {"t": "k", "v": "1743–1744", "v7": 289}, {"t": "k", "v": "1745", "v7": 292}]}], "dalil": [{"x": "پکانے سے حکم کیوں بدلتا ہے: شراب ہمیشہ کچی ہوتی ہے؛ جتنا زیادہ پکایا جائے اتنا اس میں نشہ کم ہوتا جاتا ہے، یا نشے کی صلاحیت ختم ہو جاتی ہے۔", "s": [{"t": "u", "v": "0:09:06"}, {"t": "u", "v": "0:12:30"}]}], "ikhtilaf": [{"x": "خمر کی تعریف میں جھاگ پھینکنا امام ابو حنیفہ کے ہاں ضروری ہے؛ صاحبین کے ہاں گاڑھا ہو کر نشہ آ جائے تو بس شراب بن گئی (تفصیل کارڈ 4 میں)۔", "s": [{"t": "u", "v": "0:07:42"}, {"t": "k", "v": "1742", "v7": 286}, {"t": "k", "v": "1742–1743", "v7": 287}]}], "faida": [{"x": "یاد رکھنے کا خلاصہ: امام صاحب کے ہاں (1) خمر: قطرہ بھی حرام، قطرے پر حد؛ (2) باقی تین: حرام، حد صرف نشے پر؛ (3) تیسری قسم، جیسے گندم و سیب کی شراب: نشے سے کم مقدار جائز مقصد سے حلال۔", "s": [{"t": "u", "v": "0:10:38"}, {"t": "u", "v": "0:10:54"}, {"t": "u", "v": "0:11:05"}, {"t": "u", "v": "0:11:15"}, {"t": "k", "v": "1745", "v7": 292}]}, {"x": "خمر صرف انگور کے کچے پانی کو کہتے ہیں، اس کے علاوہ کسی چیز کو احناف کے ہاں خمر نہیں کہتے۔", "s": [{"t": "u", "v": "0:07:59"}, {"t": "k", "v": "1742", "v7": 285}]}, {"x": "«اشتدّ» سے مراد: نشہ دینے کے قابل ہو جانا۔", "s": [{"t": "s", "v": "الكفاية"}]}], "lughat": [{"ar": "عصير العنب", "ur": "انگور کا شیرہ، یعنی اس سے نکالا ہوا پانی", "s": [{"t": "u", "v": "0:12:08"}]}, {"ar": "غَلَى", "ur": "جوش مارے، گاڑھا ہو جائے", "s": [{"t": "u", "v": "0:12:15"}]}, {"ar": "اشتدّ", "ur": "سخت ہو جائے: مٹھاس ختم ہو اور نشہ آ جائے", "s": [{"t": "u", "v": "0:12:17"}, {"t": "s", "v": "الكفاية"}]}, {"ar": "قذف بالزَّبَد", "ur": "جھاگ پھینکنا شروع کر دے", "s": [{"t": "u", "v": "0:12:25"}]}, {"ar": "طُبِخَ حتى يذهب أقلّ من ثلثيه", "ur": "پکایا جائے یہاں تک کہ دو تہائی سے کم اڑ جائے", "s": [{"t": "u", "v": "0:12:30"}]}, {"ar": "الطِّلاء", "ur": "انگور کا وہ پانی جو دو تہائی سے کم پکا ہو (دوسری قسم)", "s": [{"t": "u", "v": "0:12:30"}, {"t": "k", "v": "1742", "v7": 285}]}, {"ar": "نقيع التمر / السَّكَر", "ur": "کھجور کا کچا پانی؛ کتاب: «النيء من ماء التمر أي الرطب» (تر کھجور)۔ استاد: خشک کھجوریں پانی میں بھگو کر", "s": [{"t": "k", "v": "1744–1745", "v7": 291}, {"t": "s", "v": "نتائج الأفكار ٩/٣٠"}, {"t": "u", "v": "0:09:54"}, {"t": "u", "v": "0:13:06"}]}, {"ar": "نقيع الزبيب", "ur": "پانی میں بھگوئی ہوئی کشمش کا پانی", "s": [{"t": "u", "v": "0:13:20"}]}]}, {"unit": "u0", "pages": [1742], "lesson": "2025-09-27-ashriba", "ts": "0:13:33", "label": null, "title": "خمر کے دس مباحث میں پہلا: خمر کس کو کہتے ہیں؟ صرف انگور کا کچا نشہ آور پانی، یا ہر نشہ آور چیز؟", "start": "أما الخمر فالكلام فيها في عشرة مواضع. أحدها: في بيان مَائِيَّتها", "start_note": "", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٧ ص 285–286", "tamheed": [{"x": "خمر کے بارے میں ہمارا اور امام شافعی کا سب سے بڑا اور بنیادی اختلاف ہے۔", "s": [{"t": "u", "v": "0:13:33"}, {"t": "u", "v": "0:18:01"}]}, {"x": "امام شافعی کہتے ہیں: ہر نشہ آور چیز خمر ہے، چاہے انگور کی ہو، سیب کی، گندم کی یا کسی بھی چیز کی۔ احناف کہتے ہیں: لغت میں خمر صرف انگور کے کچے پانی کو کہتے ہیں جب اس میں نشہ آ جائے۔", "s": [{"t": "u", "v": "0:13:39"}, {"t": "u", "v": "0:13:55"}, {"t": "u", "v": "0:14:01"}]}], "masala": [{"x": "ہمارے ہاں خمر انگور کا کچا پانی ہے جب نشہ آور ہو جائے؛ لغت والے اور اہل علم بھی اسی کو خمر کہتے ہیں۔", "s": [{"t": "u", "v": "0:14:01"}, {"t": "u", "v": "0:14:07"}, {"t": "k", "v": "1742", "v7": 285}]}, {"x": "باقی نشہ آور چیزوں کو شراب کی طرح کہہ سکتے ہیں (اس میں اختلاف ہو سکتا ہے)، مگر انہیں خمر نہیں کہا جا سکتا۔", "s": [{"t": "u", "v": "0:14:16"}]}], "dalil": [{"x": "امام شافعی کی پہلی دلیل: حدیث «كل مسكر خمر»: ہر نشہ آور چیز خمر ہے۔", "s": [{"t": "u", "v": "0:14:23"}, {"t": "k", "v": "1742", "v7": 285}]}, {"x": "دوسری دلیل: حضور ﷺ نے دو درختوں، انگور اور کھجور، کی طرف اشارہ کر کے فرمایا کہ خمر ان سے بنتا ہے («الخمر من هاتين الشجرتين»)۔", "s": [{"t": "u", "v": "0:14:32"}, {"t": "k", "v": "1742", "v7": 285}, {"t": "k", "v": "1742", "v7": 286}]}, {"x": "تیسری دلیل: خمر کو خمر اس لیے کہتے ہیں کہ وہ عقل پر پردہ ڈالتا ہے؛ تو جو چیز بھی عقل پر پردہ ڈالے، سیب کی ہو یا گندم کی، وہ خمر ہے۔", "s": [{"t": "u", "v": "0:14:44"}, {"t": "k", "v": "1742", "v7": 286}]}, {"x": "ہمارا جواب 1: کتاب: اہل لغت کے اتفاق («بإطباق أهل اللغة») سے خمر انگور کے کچے نشہ آور پانی کا خاص نام ہے۔", "s": [{"t": "k", "v": "1742", "v7": 286}, {"t": "s", "v": "البناية ١١/٣٩٤–٣٩٥"}]}, {"x": "استاد: باقیوں کے الگ نام ہیں: کسی کو طلاء، کسی کو باذق، کسی کو سکر کہا جاتا ہے؛ اس لیے خمر اسی کو کہتے ہیں۔", "s": [{"t": "u", "v": "0:15:00"}, {"t": "u", "v": "0:15:12"}]}, {"x": "جواب 2: لغت میں جسے خمر کہتے ہیں اس کی حرمت قطعی ہے، اور جسے لغت میں خمر نہیں کہتے اس میں ظن ہے؛ ظنی کو قطعی کے ساتھ نہیں ملایا جا سکتا۔ اس لیے باقی تین حرام تو ہیں مگر خمر نہیں۔", "s": [{"t": "u", "v": "0:15:12"}, {"t": "u", "v": "0:15:26"}, {"t": "k", "v": "1742", "v7": 286}, {"t": "s", "v": "الكفاية ٩/٢٣"}]}, {"x": "جواب 3: امام صاحب کہتے ہیں کہ اسے خمر اس لیے کہتے ہیں کہ وہ گاڑھا اور سخت ہو جاتا ہے (تخمّر)، عقل ڈھانپنے کی وجہ سے نہیں؛ انگور کا پانی گاڑھا ہوتا ہے، گندم یا سیب کی شراب گاڑھی نہیں ہوتی۔", "s": [{"t": "u", "v": "0:15:42"}, {"t": "u", "v": "0:15:54"}, {"t": "k", "v": "1742", "v7": 286}, {"t": "s", "v": "البناية ١١/٣٩٥"}]}, {"x": "جواب 4: اگر نام عقل ڈھانپنے ہی سے پڑا ہو تب بھی ضروری نہیں کہ ہر عقل ڈھانپنے والی چیز خمر کہلائے؛ پہلی دفعہ نام رکھتے وقت صرف مناسبت دیکھی جاتی ہے۔", "s": [{"t": "u", "v": "0:16:05"}, {"t": "u", "v": "0:16:19"}, {"t": "k", "v": "1742", "v7": 286}]}, {"x": "مثالیں: استاد: برتن (مٹکے) میں پانی ٹھہرتا ہے تو اہل لغت نے اسے قارورہ کہا؛ پیٹ میں بھی پانی ٹھہرتا ہے مگر پیٹ کو قارورہ نہیں کہتے (حاشیہ: قارورہ قرار سے مشتق ہے مگر کوزے کو نہیں کہتے، اگرچہ اس میں بھی پانی ٹھہرتا ہے)۔ نجم کا معنی ظاہر ہونا ہے، ستارے ظاہر ہیں اس لیے نجم کہلائے، مگر ہر ظاہر چیز نجم نہیں۔", "s": [{"t": "u", "v": "0:16:19"}, {"t": "u", "v": "0:16:44"}, {"t": "k", "v": "1742", "v7": 286}, {"t": "s", "v": "العناية ٩/٢٥"}]}, {"x": "جواب 5: «كل مسكر خمر» میں کلام ہے؛ یحییٰ بن معین نے اس پر طعن کیا ہے۔", "s": [{"t": "u", "v": "0:17:13"}, {"t": "k", "v": "1742", "v7": 286}]}, {"x": "جواب 6: «الخمر من هاتين الشجرتين» میں حکم بیان کرنا مقصود ہے (کہ ان دونوں سے بنا مشروب حرام ہے)، لغت بتانا نہیں؛ حضور ﷺ منصب رسالت کی وجہ سے حکم بیان کرتے ہیں، دنیا کی چیزوں کے نام بتانے نہیں آئے تھے۔", "s": [{"t": "u", "v": "0:17:22"}, {"t": "u", "v": "0:17:31"}, {"t": "u", "v": "0:17:44"}, {"t": "k", "v": "1742", "v7": 286}, {"t": "s", "v": "البناية ١١/٣٩٦"}]}], "ikhtilaf": [{"x": "کتاب میں مخالف قول «بعض الناس» کا ہے؛ حاشیہ: اس سے مراد ائمہ ثلاثہ اور اہل ظاہر ہیں۔ استاد نے اسے امام شافعی کا قول بتایا۔", "s": [{"t": "u", "v": "0:13:39"}, {"t": "k", "v": "1742", "v7": 285}, {"t": "s", "v": "البناية ١١/٣٩٣"}]}], "faida": [{"x": "استاد: خمر میں دس مباحث ہم پڑھیں گے، یہ پہلی بحث ہے (کتاب: «فالكلام فيها في عشرة مواضع»)۔", "s": [{"t": "u", "v": "0:18:20"}, {"t": "k", "v": "1742", "v7": 285}]}, {"x": "خلاصہ: امام شافعی کے ہاں ہر نشہ آور چیز خمر؛ ہمارے ہاں خمر صرف ایک ہے، باقی تین حرام ہیں مگر خمر نہیں، اور باقی مشروبات امام صاحب کے ہاں حلال ہیں۔", "s": [{"t": "u", "v": "0:18:03"}]}, {"x": "دونوں حدیثیں صحیح مسلم میں ہیں: «كل مسكر خمر وكل مسكر حرام» (رقم ٢٠٠٣)، اور «الخمر من هاتين الشجرتين: النخلة والعنبة» (رقم ١٩٨٥)۔", "s": [{"t": "s", "v": "حاشیہ ص ٢٨٥"}]}, {"x": "حاشیہ: «بیان الحكم» سے مراد حرمت کا بیان ہے، حقیقت کا بیان نہیں؛ اور اس میں نزاع ہے۔", "s": [{"t": "s", "v": "البناية ١١/٣٩٦"}]}], "lughat": [{"ar": "مائيّتها", "ur": "اس کی ماہیت، فقہاء کی اصطلاح میں حقیقت", "s": [{"t": "u", "v": "0:00:31"}, {"t": "s", "v": "البناية"}]}, {"ar": "النِّيّ من ماء العنب", "ur": "انگور کا کچا (بغیر پکا) پانی", "s": [{"t": "u", "v": "0:14:01"}]}, {"ar": "مخامرة العقل", "ur": "عقل کو ڈھانپ لینا، عقل پر پردہ ڈالنا", "s": [{"t": "u", "v": "0:14:44"}]}, {"ar": "بإطباق أهل اللغة", "ur": "اہل لغت کے اتفاق سے", "s": [{"t": "k", "v": "1742", "v7": 286}, {"t": "s", "v": "البناية ١١/٣٩٤–٣٩٥"}]}, {"ar": "التخمُّر", "ur": "گاڑھا اور سخت ہونا", "s": [{"t": "u", "v": "0:15:42"}, {"t": "s", "v": "البناية ١١/٣٩٥"}]}, {"ar": "النجم", "ur": "ظہور سے مشتق؛ مخصوص ستارے کا نام (بین السطور: ثریا)", "s": [{"t": "u", "v": "0:16:44"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "القارورة", "ur": "قرار سے مشتق، مگر ہر قرار کی جگہ (مثلاً کوزے) کو نہیں کہتے", "s": [{"t": "u", "v": "0:16:19"}, {"t": "s", "v": "العناية ٩/٢٥"}]}, {"ar": "منصب الرسالة", "ur": "رسالت کا عہدہ", "s": [{"t": "u", "v": "0:17:44"}]}]}, {"unit": "u0", "pages": [1742, 1743], "lesson": "2025-09-27-ashriba", "ts": "0:18:24", "label": null, "title": "دوسری بحث: انگور کا پانی کب خمر بنتا ہے؟ امام صاحب کے ہاں جھاگ پھینکنے پر، صاحبین کے ہاں صرف سخت ہونے پر", "start": "والثاني في حق ثبوت هذا الاسم، وهذا الذي ذكره في الكتاب قول أبي حنيفة", "start_note": "OCR میں «في حق ثبوت» چھپا ہے؛ استاد نے «في حد ثبوت» پڑھا (0:18:26)۔ استاد کے نسخے میں ص 1825۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٧ ص 286–287", "tamheed": [{"x": "انگور کا کچا پانی کب خمر کہلائے گا؟ طریقہ یہ تھا کہ اسے برتن میں رکھ کر زمین میں دبا دیا جاتا، گاڑھا ہو جاتا تو شراب بن جاتا۔ جتنی پرانی شراب ہو اتنی قیمتی ہوتی تھی۔", "s": [{"t": "u", "v": "0:18:32"}, {"t": "u", "v": "0:18:38"}, {"t": "u", "v": "0:18:46"}]}], "masala": [{"x": "امام ابو حنیفہ: جب گاڑھا ہو جائے اور جھاگ پھینکنے لگے تب خمر ہے (یہی قدوری کی تعریف ہے)۔", "s": [{"t": "u", "v": "0:18:55"}, {"t": "k", "v": "1742", "v7": 286}, {"t": "s", "v": "الكفاية ٩/٢٦"}]}, {"x": "صاحبین: جھاگ پھینکنا شرط نہیں؛ سخت (گاڑھا) ہو گیا تو خمر بن گیا۔", "s": [{"t": "u", "v": "0:18:59"}, {"t": "k", "v": "1742", "v7": 286}, {"t": "k", "v": "1742–1743", "v7": 287}]}, {"x": "امام صاحب کے ہاں جھاگ سے پہلے یہ خمر نہیں، اس لیے خمر کے قطعی احکام (حد، حلال سمجھنے والے کی تکفیر، حرمتِ بیع) اس پر نہیں لگتے۔", "s": [{"t": "k", "v": "1742–1743", "v7": 287}]}, {"x": "استاد: (جھاگ سے پہلے) پینا پھر بھی حرام ہے، حد صرف نشہ چڑھنے پر ہے، حلال سمجھنے والا کافر نہیں، اور اس کی بیع جائز ہے۔", "s": [{"t": "u", "v": "0:20:03"}, {"t": "u", "v": "0:20:30"}]}, {"x": "وقيل: پینے کی حرمت میں احتیاطاً صرف سخت ہونے کو لیا جائے گا (یعنی جھاگ سے پہلے بھی پینا حرام)۔", "s": [{"t": "u", "v": "0:20:36"}, {"t": "u", "v": "0:20:45"}, {"t": "k", "v": "1742–1743", "v7": 287}]}], "dalil": [{"x": "صاحبین: نشہ گاڑھا ہونے ہی سے آتا ہے؛ جھاگ پھینکنے کا اس سے کوئی تعلق نہیں۔ کتاب: نام بھی اسی سے ثابت ہوتا ہے اور حرام کرنے والا معنی، یعنی فساد میں مؤثر چیز، بھی سختی ہے۔", "s": [{"t": "u", "v": "0:19:06"}, {"t": "u", "v": "0:19:13"}, {"t": "k", "v": "1742–1743", "v7": 287}]}, {"x": "امام صاحب: سختی کا پہلا مرحلہ گاڑھا ہونا (غلیان) ہے، آخری مرحلہ جھاگ پھینکنا؛ جھاگ پھینکے تب خمر کہلائے گا۔", "s": [{"t": "u", "v": "0:19:17"}, {"t": "u", "v": "0:19:26"}, {"t": "u", "v": "0:19:30"}, {"t": "k", "v": "1742–1743", "v7": 287}]}, {"x": "شریعت کے یہ احکام قطعی ہیں، اس لیے انتہا سے جڑے ہوں گے: جھاگ پھینکنے پر ہی حد لگے گی، اسی کو حلال سمجھنے والا کافر ہے، اسی کی بیع حرام ہے۔", "s": [{"t": "u", "v": "0:19:42"}, {"t": "u", "v": "0:20:03"}, {"t": "k", "v": "1742–1743", "v7": 287}, {"t": "s", "v": "البناية ١١/٣٩٨"}]}], "ikhtilaf": [{"x": "امام ابو حنیفہ: غلیان + جھاگ؛ صاحبین: صرف اشتداد۔ «وقيل» (بعض مشائخ): حرمتِ شرب میں احتیاطاً صاحبین کا قول لیا جائے۔", "s": [{"t": "u", "v": "0:18:55"}, {"t": "u", "v": "0:18:59"}, {"t": "u", "v": "0:20:36"}, {"t": "k", "v": "1742–1743", "v7": 287}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}], "faida": [{"x": "استاد کی وضاحت: احتیاط یہ ہے کہ حرمت میں صاحبین کا قول اور سزا میں امام صاحب کا قول لیا جائے؛ سزا تب جب جھاگ پھینکے، یا حقیقتاً نشہ چڑھ جائے تو پھر جھاگ نہیں دیکھا جائے گا۔ (کتاب کا «وقيل» صرف حرمتِ شرب کے بارے میں ہے۔)", "s": [{"t": "u", "v": "0:20:45"}, {"t": "u", "v": "0:21:00"}, {"t": "k", "v": "1742–1743", "v7": 287}]}, {"x": "جھاگ پھینکنے اور ٹھہر جانے سے صاف حصہ میل سے الگ ہو جاتا ہے، کیونکہ نیچے والا حصہ اوپر آ جاتا ہے۔", "s": [{"t": "k", "v": "1742–1743", "v7": 287}, {"t": "s", "v": "البناية"}]}], "lughat": [{"ar": "في حدّ ثبوت هذا الاسم", "ur": "اس نام (خمر) کے ثابت ہونے کی حد، یعنی کس مرحلے پر خمر کہلائے", "s": [{"t": "u", "v": "0:18:26"}, {"t": "u", "v": "0:21:18"}]}, {"ar": "الغليان بداية الشدة", "ur": "جوش مارنا (گاڑھا ہونا) سختی کی ابتدا ہے", "s": [{"t": "u", "v": "0:19:17"}]}, {"ar": "كمالها بقذف الزبد", "ur": "سختی کی انتہا جھاگ پھینکنا ہے", "s": [{"t": "u", "v": "0:19:26"}]}, {"ar": "تُناط بالنهاية", "ur": "(احکام) انتہائی مرحلے سے جوڑے جاتے ہیں", "s": [{"t": "u", "v": "0:19:42"}]}, {"ar": "إكفار المستحِلّ", "ur": "حلال سمجھنے والے کو کافر قرار دینا", "s": [{"t": "u", "v": "0:20:03"}]}, {"ar": "احتياطاً", "ur": "احتیاط کے طور پر", "s": [{"t": "u", "v": "0:20:36"}]}]}, {"unit": "u0", "pages": [1743], "lesson": "2025-09-27-ashriba", "ts": "0:21:24", "label": null, "title": "تیسری بحث: خمر کا عین حرام ہے، نشے پر موقوف نہیں؛ ایک گھونٹ پر بھی حد، اور یہ حکم دوسری نشہ آور چیزوں کی طرف متعدی نہیں", "start": "والثالث: أن عَينَها حرام غيرُ معلول بالسُّكْرِ، ولا موقوفٍ عليه", "start_note": "OCR میں «مووقف» چھپا ہے، صحیح «موقوف»۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٧ ص 287–288", "tamheed": [{"x": "جب انگور کا پانی گاڑھا ہو کر جھاگ پھینکنے لگے اور امام صاحب کے ہاں اس پر خمر کا اطلاق ہونے لگے، تو اب یہ نہیں دیکھا جائے گا کہ اس سے نشہ چڑھا یا نہیں، یا اس میں نشہ ہے یا نہیں۔", "s": [{"t": "u", "v": "0:21:30"}]}], "masala": [{"x": "شراب کا عین حرام ہے، نشے پر موقوف نہیں (حاشیہ: اس کا قطرہ بھی حرام ہے)؛ ایک گھونٹ پینے پر بھی شراب کی سزا لگے گی (کتاب، آٹھویں بحث: «أن يحد شاربها وإن لم يسكر منها»)۔", "s": [{"t": "u", "v": "0:21:24"}, {"t": "u", "v": "0:21:28"}, {"t": "u", "v": "0:21:47"}, {"t": "k", "v": "1743", "v7": 287}, {"t": "k", "v": "1743–1744", "v7": 289}, {"t": "s", "v": "الكفاية ٩/٢٧"}]}, {"x": "ہمارے ہاں یہ حکم کسی علت (نشے) سے جڑا نہیں، اس لیے دوسری نشہ آور چیزوں کی طرف متعدی نہیں ہوگا۔ ایک گھونٹ پر حد صرف خمر کا حکم ہے؛ اشربہ اربعہ کے باقی اور دوسرے مشروبات میں سزا تب ہے جب باقاعدہ نشہ چڑھے۔", "s": [{"t": "u", "v": "0:22:41"}, {"t": "u", "v": "0:23:23"}, {"t": "k", "v": "1743", "v7": 288}, {"t": "k", "v": "1745", "v7": 292}]}], "dalil": [{"x": "قرآن نے اسے «رجس» کہا ہے، اور رجس وہ ہے جو بعینہ حرام ہو۔", "s": [{"t": "u", "v": "0:21:53"}, {"t": "k", "v": "1743", "v7": 287}, {"t": "s", "v": "البناية ١١/٣٩٩"}]}, {"x": "حضور ﷺ سے متواتر احادیث ہیں کہ آپ نے خمر کو حرام قرار دیا، اور اس میں کوئی ایسی تحدید نہیں کی؛ اور اسی پر مسلمانوں کا اجماع ہے۔", "s": [{"t": "u", "v": "0:21:53"}, {"t": "k", "v": "1743", "v7": 287}, {"t": "k", "v": "1743", "v7": 288}]}, {"x": "خمر کی کم مقدار زیادہ کی طرف بلاتی ہے: آدمی پہلے ایک گھونٹ پیتا ہے پھر گلاس۔ باقی کھانوں میں ایک حد کے بعد مزہ نہیں آتا، گوشت بھی ایک مقدار تک مزہ دیتا ہے، مگر شراب جتنی زیادہ پیے اتنا لطف بڑھتا ہے؛ یہ خمر کی خاصیت ہے۔", "s": [{"t": "u", "v": "0:22:41"}, {"t": "k", "v": "1743", "v7": 288}, {"t": "s", "v": "العناية ٩/٢٧"}]}, {"x": "امام شافعی کا جواب: نام کو آگے متعدی نہیں کیا جا سکتا؛ حدیث کا حکم صرف خمر کا ہے اور باقی چیزیں خمر نہیں (کتاب: علت احکام میں ہوتی ہے، ناموں میں نہیں)۔ (استاد نے یہاں سہواً امام ابو حنیفہ کہا؛ کتاب: «والشافعي يعديه إليها»۔)", "s": [{"t": "u", "v": "0:23:23"}, {"t": "k", "v": "1743", "v7": 288}, {"t": "s", "v": "الكفاية ٩/٢٨"}]}], "ikhtilaf": [{"x": "کچھ لوگوں نے خمر کے عین کی حرمت کا انکار کیا اور کہا کہ صرف اس کا نشہ حرام ہے؛ نشے سے پہلے سزا نہیں۔ کتاب: یہ کفر ہے، کیونکہ کتاب اللہ کا انکار ہے۔ (استاد نے انہیں کچھ معتزلہ کہا؛ کتاب میں «ومن الناس»۔)", "s": [{"t": "u", "v": "0:21:53"}, {"t": "k", "v": "1743", "v7": 287}]}, {"x": "امام شافعی حکمِ خمر کو دوسری نشہ آور چیزوں کی طرف متعدی کرتے ہیں: انگور کے علاوہ کھجور، گندم یا اشربہ اربعہ میں سے کسی کی شراب کے ایک گھونٹ پر بھی حد۔ حاشیہ: حتیٰ کہ باذق کے ایک قطرے پر قیاساً حد واجب کی۔ کتاب: یہ بعید ہے۔ (استاد نے یہاں سہواً امام ابو حنیفہ کہا؛ کتاب: «والشافعي يعديه إليها»۔)", "s": [{"t": "u", "v": "0:23:23"}, {"t": "k", "v": "1743", "v7": 288}, {"t": "s", "v": "الكفاية ٩/٢٨"}]}], "faida": [{"x": "استاد کا خلاصہ: تین مسائل پڑھ لیے: خمر کس کو کہتے ہیں، کس مرحلے پر خمر کہلائے گا، اور کم و زیادہ میں کیا فرق ہے۔ چوتھا حکم (نجاست غلیظہ ہے یا خفیفہ، یا نجاست ہے بھی یا نہیں) اگلے سبق میں۔", "s": [{"t": "u", "v": "0:23:23"}, {"t": "u", "v": "0:24:06"}]}, {"x": "حرمت کی احادیث ایک ایک کر کے تواتر کو نہ پہنچیں تو بھی ان کا مشترک مضمون متواتر ہے (تواتر معنوی)، جیسے حضرت علی کی شجاعت اور حاتم کی سخاوت۔", "s": [{"t": "s", "v": "العناية ٩/٢٧"}]}, {"x": "«سائر المطعومات» کے بجائے «سائر المسكرات/المشروبات» کہنا بہتر تھا، کیونکہ فرق خمر اور دوسری نشہ آور چیزوں میں بیان کرنا ہے۔", "s": [{"t": "s", "v": "حاشیہ ص ٢٨٨"}]}, {"x": "«السنة المشهورة»: ابن عباس سے موقوفاً و مرفوعاً: «حرمت الخمر لعينها، والسكر من كل شراب»۔", "s": [{"t": "s", "v": "البناية ١١/٤٠٣"}]}], "lughat": [{"ar": "عينها حرام", "ur": "اس کی ذات ہی حرام ہے", "s": [{"t": "u", "v": "0:21:24"}, {"t": "u", "v": "0:21:28"}]}, {"ar": "غير معلول بالسكر", "ur": "اس کی حرمت نشے کی علت سے نہیں جڑی", "s": [{"t": "u", "v": "0:21:30"}, {"t": "s", "v": "الكفاية ٩/٢٧"}]}, {"ar": "الصدّ عن ذكر الله", "ur": "اللہ کے ذکر سے روکنا", "s": [{"t": "k", "v": "1743", "v7": 287}]}, {"ar": "جُحود الكتاب", "ur": "کتاب اللہ کا انکار", "s": [{"t": "u", "v": "0:21:53"}]}, {"ar": "رِجس", "ur": "ناپاک، جو بعینہ حرام ہو", "s": [{"t": "u", "v": "0:21:53"}, {"t": "s", "v": "البناية ١١/٣٩٩"}]}, {"ar": "قليله يدعو إلى كثيره", "ur": "تھوڑی مقدار زیادہ کی طرف بلاتی ہے", "s": [{"t": "u", "v": "0:22:41"}]}, {"ar": "الاستكثار منه", "ur": "اسے زیادہ پینا", "s": [{"t": "u", "v": "0:22:41"}, {"t": "s", "v": "العناية ٩/٢٧"}]}, {"ar": "يُعدّيه إليها", "ur": "اس (حکم) کو ان (دوسری نشہ آور چیزوں) کی طرف متعدی کرتے ہیں", "s": [{"t": "u", "v": "0:23:23"}, {"t": "s", "v": "الكفاية ٩/٢٨"}]}]}], "gaps": [{"unit": "u0", "pages": "1742", "page_list": [1742], "v7": "بشریٰ ج٧ ص 285", "text": "«سُمِّيَ بها، وهي جمع شراب؛ لما فيه من بيان حكمها» (کتاب کا نام اور شراب کی جمع) استاد نے نہیں سمجھایا؛ کارڈ 1 کے مشکل الفاظ میں متن/حاشیے سے۔ «وهو الطلاء المذكور في الجامع الصغير» میں جامع صغیر کا حوالہ بھی نہیں آیا۔"}, {"unit": "u0", "pages": "1742–1743", "page_list": [1742, 1743], "v7": "بشریٰ ج٧ ص 287", "text": "امام صاحب کی دلیل کا ٹکڑا «وسكونه؛ إذ به يتميز الصافي من الكدر» استاد نے نہیں بتایا؛ کارڈ 4 کے فائدے میں حاشیے سے۔"}, {"unit": "u0", "pages": "1742–1743", "page_list": [1742, 1743], "v7": "بشریٰ ج٧ ص 287", "text": "منکرین کی دلیل «لأن به يحصل الفساد وهو الصد عن ذكر الله تعالى» استاد نے نہیں بتائی؛ صرف ان کا قول اور رد (0:21:53)۔"}, {"unit": "u0", "pages": "1743", "page_list": [1743], "v7": "بشریٰ ج٧ ص 288", "text": "«وهذا بعيد؛ لأنه خلاف السنة المشهورة» استاد نے نہیں سمجھایا (سنت مشہورہ کون سی)؛ صرف «نام متعدی نہیں ہوتا» والی دلیل (0:23:23)۔ کارڈ 5 کے فائدے میں البناية سے۔"}], "kitabs": [{"title": "كتاب الشفعة", "from": 1597, "to": 1625, "href": "shufa.html"}, {"title": "كتاب القسمة", "from": 1626, "to": 1643, "href": "qisma.html"}, {"title": "كتاب المزارعة", "from": 1644, "to": 1651, "href": "muzaraa.html"}, {"title": "كتاب المساقاة", "from": 1652, "to": 1656, "href": "musaqat.html"}, {"title": "كتاب الذبائح", "from": 1657, "to": 1671, "href": "dhabaih.html"}, {"title": "كتاب الأضحية", "from": 1672, "to": 1683, "href": "udhiya.html"}, {"title": "كتاب الكراهية", "from": 1684, "to": 1723, "href": "karahiya.html"}, {"title": "كتاب إحياء الموات", "from": 1724, "to": 1741, "href": "ihya.html"}, {"title": "كتاب الأشربة", "from": 1742, "to": 1755, "href": "ashriba.html"}, {"title": "كتاب الصيد", "from": 1756, "to": 1772, "href": null}, {"title": "كتاب الرهن", "from": 1773, "to": 1822, "href": null}, {"title": "كتاب الجنايات", "from": 1823, "to": 1855, "href": null}, {"title": "كتاب الديات", "from": 1856, "to": 1929, "href": null}, {"title": "كتاب المعاقل", "from": 1930, "to": 1938, "href": null}, {"title": "كتاب الوصايا", "from": 1939, "to": 1996, "href": null}, {"title": "كتاب الخنثى", "from": 1997, "to": 2000, "href": null}, {"title": "مسائل شتى", "from": 2001, "to": 2004, "href": null}], "sections": [["tamheed", "تمہید"], ["masala", "مسئلہ"], ["dalil", "دلیل"], ["ikhtilaf", "اختلاف"], ["faida", "فائدہ"]], "quick": ["tamheed", "masala"], "footer": ["صفحہ نمبر ساتھیوں والے نسخے (مسلسل صفحات) کے ہیں۔ ص 1609–1611 کتاب سے ملا کر لکھے گئے ہیں؛ باقی بشریٰ کے آٹھ جلدی نسخے (جلد ٧) سے حساب لگا کر، اس لیے کہیں ایک صفحہ آگے پیچھے ہو سکتا ہے۔ اصل جگہ کارڈ کی پہلی عربی سطر سے پہچانیں؛ بشریٰ کا صفحہ ہر کارڈ پر ساتھ لکھا ہے۔", "ٹرانسکرپٹ ریکارڈنگ سے Gemini نے بنایا اور اس کے وقت آواز سے ملا کر درست کیے گئے۔ کارڈ اسی ٹرانسکرپٹ، کتاب کے متن اور حاشیے سے بنے ہیں؛ ہر سطر کے آخر میں اس کا ماخذ ہے۔", "پیلی (AI) علامت والی سطریں خود جانچیں۔ امتحان میں مسئلہ، اختلاف اور دلیل سبز، نیلی یا سرمئی علامت والی سطروں سے لکھیں۔", "استاد کلاس میں اپنے نسخے کے صفحے بولتے ہیں (مثلاً كتاب المساقاة 1700)؛ وہ اس نسخے سے مختلف ہیں۔"]};
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const secs = (ts) => ts.split(":").map(Number).reduce((a, n) => a * 60 + n, 0);
+const B = DATA.book, LES = DATA.lessons, UNITS = DATA.units || [], CARDS = DATA.cards, GAPS = DATA.gaps || [];
+const PAGED = CARDS.some((c) => c.pages && c.pages.length);
+const ONE = B.unitOne || "کارڈ";
+const audio = $("audio");
+const OPUS_OK = (() => { try { return audio.canPlayType('audio/ogg; codecs="opus"') !== ""; } catch (e) { return false; } })();
+const ICON = {
+  play: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0v10l9-5z"/></svg>',
+  down: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M5 1h2v5h2.5L6 9.5 2.5 6H5zM1 10.5h10V12H1z"/></svg>',
+};
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+const KEY = DATA.store || "cards";
+const toLatin = (v) => String(v).replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).trim();
+const LRI = "\u2066", PDI = "\u2069";
+const range = (a, b) => (a === b ? `${a}` : `${LRI}${a}–${b}${PDI}`);
+const iso = (s) => String(s ?? "").replace(/(\d+)\s*[–-]\s*(\d+)/g, `${LRI}$1–$2${PDI}`);
+const sizeMB = (x) => `${LRI}${x >= 10 ? Math.round(x) : Math.round(x * 10) / 10} MB${PDI}`;
+const pagesLabel = (ps) => `ص ${range(ps[0], ps[ps.length - 1])}`;
+
+// ---------- header
+document.title = `${B.kitab} · ${B.book}`;
+if (DATA.home) { $("homeLink").href = DATA.home; $("homeLink").textContent = `→ ${DATA.homeLabel || B.book}`; $("homeLink").hidden = false; }
+$("kitab").textContent = B.kitab;
+const usedLessons = [...new Set(CARDS.map((c) => c.lesson).filter(Boolean))].sort();
+$("meta").innerHTML = (PAGED && B.from ? `صفحات <b class="ltr num">${range(B.from, B.to)}</b>، ` : "") +
+  `<b>${CARDS.length}</b> ${esc(B.unit || "کارڈ")}، <b>${usedLessons.length}</b> اسباق کی ریکارڈنگ سے`;
+
+// ---------- units
+const unitByKey = Object.fromEntries(UNITS.map((u) => [u.key, u]));
+const cardsOf = (k) => CARDS.filter((c) => c.unit === k);
+const pagesOf = (k) => [...new Set(cardsOf(k).flatMap((c) => c.pages || []))].sort((a, b) => a - b);
+const gapsOf = (k) => GAPS.filter((g) => g.unit === k);
+const parentOf = (u) => {
+  const i = UNITS.indexOf(u);
+  for (let j = i - 1; j >= 0; j--) if (UNITS[j].level < u.level) return UNITS[j];
+  return null;
+};
+
+$("toc").innerHTML = UNITS.map((u) => {
+  const n = cardsOf(u.key).length, ps = pagesOf(u.key);
+  const pr = PAGED && u.page ? `<span class="pp">${range(u.page, u.page_to || u.page)}</span>` : "";
+  const ex = cardsOf(u.key).reduce((a, c) => a + (c.exam || []).length, 0);
+  const sub = n
+    ? `<span class="n">${n} ${esc(ONE)}</span>` + (ex ? `<span class="exn" title="استاد نے اہم کہا">★ ${ex}</span>` : "") + (PAGED ? ps.map((p) => `<a class="pchip" href="#${u.key}-${p}" aria-label="صفحہ ${p}">${p}</a>`).join("") : "")
+    : `<span class="none">${gapsOf(u.key).length ? "ریکارڈنگ نہیں ملی" : "ابھی کارڈ نہیں"}</span>`;
+  return `<li class="lv${u.level}" id="toc-${u.key}"><a class="row" href="#${u.key}"><span class="tt" lang="ar">${esc(u.title)}</span><span class="dots"></span>${pr}</a>
+    <div class="sub">${sub}</div></li>`;
+}).join("");
+if (!PAGED) document.querySelectorAll("form.jump").forEach((f) => { f.hidden = true; });
+
+// ---------- cards (rendered once; views show and hide them)
+function chip(s, lesson) {
+  if (s.t === "u") return `<button type="button" class="chip u" data-ts="${s.v}" data-l="${s.l || lesson || ""}" title="یہاں سے سنیں">استاد ${s.v}</button>`;
+  if (s.t === "k") return `<span class="chip k"${s.v7 ? ` title="بشریٰ ج٧ ص ${s.v7}"` : ""}>کتاب ص ${iso(esc(s.v))}</span>`;
+  if (s.t === "s") return `<span class="chip s">شرح: ${esc(s.v)}</span>`;
+  return `<span class="chip a">AI · تصدیق طلب</span>`;
+}
+const chips = (arr, l) => `<span class="srcs">${arr.map((s) => chip(s, l)).join("")}</span>`;
+const QUICK = DATA.quick || ["tamheed", "masala"];
+$("cards").innerHTML = CARDS.map((c, i) => {
+  const l = c.lesson;
+  const sec = ([key, label]) => {
+    const items = c[key] || [];
+    if (!items.length) return "";
+    return `<div class="sec ${key}"><h4>${label}</h4><ul>${items.map((it) => `<li>${esc(it.x)} ${chips(it.s, l)}</li>`).join("")}</ul></div>`;
+  };
+  const quick = DATA.sections.filter(([k]) => QUICK.includes(k)).map(sec).join("");
+  const examSecs = DATA.sections.filter(([k]) => !QUICK.includes(k) && (c[k] || []).length);
+  const n = examSecs.reduce((a, [k]) => a + c[k].length, 0);
+  const exam = n ? `<details class="more"><summary>${examSecs.map(([, lb]) => lb).join("، ")} <span class="hint">${n} نکات، امتحان کی تیاری کے لیے</span></summary><div class="inner">${examSecs.map(sec).join("")}</div></details>` : "";
+  const words = (c.lughat || []).length ? `<div class="sec lughat"><h4>مشکل الفاظ</h4><div class="words">${c.lughat.map((w) =>
+    `<div class="word"><span class="ar" lang="ar">${esc(w.ar)}</span><span class="ur">${esc(w.ur)}</span>${chips(w.s, l)}</div>`).join("")}</div></div>` : "";
+  const head = l && c.ts
+    ? `<span class="les">${esc(LES[l].label)}</span><button type="button" class="play" data-ts="${c.ts}" data-l="${l}" aria-label="${esc(LES[l].label)}، ${c.ts} سے سنیں">${ICON.play}${c.ts}</button>`
+    : `<span class="norec-chip">ریکارڈنگ نہیں</span>`;
+  const badges = (c.badges || []).map((b) => `<span class="badge">${esc(b)}</span>`).join("")
+    + (c.exam || []).map((x) => x.k === "t"
+      ? `<button type="button" class="badge exam" data-ts="${x.ts}" data-l="${x.l}" title="استاد (${x.ts}): «${esc(x.said)}»" aria-label="استاد نے ${esc(x.kind)} کہا، ${x.ts} سے سنیں">★ استاد: ${esc(x.kind)}</button>`
+      : `<span class="badge exam paper" title="${esc(x.q || "")}">★ وفاق ${esc(x.year)}${x.n ? ` · س ${esc(x.n)}` : ""}</span>`).join("");
+  const pg = PAGED && c.pages && c.pages.length ? `<span class="pg">${pagesLabel(c.pages)}</span>` : (c.group ? `<span class="pg">${esc(c.group)}</span>` : "");
+  return `<article class="card" id="c${i + 1}" data-unit="${esc(c.unit || "")}" data-pages="${(c.pages || []).join("|")}" hidden>
+    <div class="card-head">${pg}${c.v7 ? `<span class="v7">${iso(esc(c.v7))}</span>` : ""}<span class="cnum">${esc(ONE)} ${i + 1}</span>${badges}${head}</div>
+    ${c.label ? `<p class="label" lang="ar">(${esc(c.label)})</p>` : ""}
+    <h3 class="title">${esc(c.title)}</h3>
+    <p class="start" lang="ar">«${esc(c.start)}»</p>
+    ${c.ref ? `<p class="ref">${esc(c.ref)}</p>` : ""}
+    ${c.start_note ? `<p class="start-note">${esc(c.start_note)}</p>` : ""}
+    <button type="button" class="ctoggle" aria-expanded="true" aria-controls="cb${i + 1}">تفصیل بند کریں</button>
+    <div class="cbody" id="cb${i + 1}">
+    ${c.norec ? `<p class="norec"><b>توجہ:</b> ${esc(c.norec)}</p>` : ""}
+    ${quick}${words}${exam}
+    </div>
+  </article>`;
+}).join("");
+const ARTS = [...document.querySelectorAll("article.card")];
+const usedT = new Set();
+CARDS.forEach((c) => {
+  DATA.sections.forEach(([k]) => (c[k] || []).forEach((it) => it.s.forEach((x) => usedT.add(x.t))));
+  (c.lughat || []).forEach((w) => w.s.forEach((x) => usedT.add(x.t)));
+});
+document.querySelectorAll(".legend .lg").forEach((el) => { el.hidden = !usedT.has(el.dataset.t); });
+$("foot").innerHTML = (DATA.footer || []).map((p) => `<p>${esc(p)}</p>`).join("");
+
+// ---------- views
+function showToc(msg) {
+  $("tocView").hidden = false; $("unitView").hidden = true; document.body.classList.remove("unit");
+  $("tocMsg").hidden = !msg; if (msg) $("tocMsg").innerHTML = msg;
+  document.title = `${B.kitab} · ${B.book}`;
+  const last = store.get(`${KEY}-unit`, "");
+  const row = last && $(`toc-${last}`);
+  if (row && !msg) row.scrollIntoView({ block: "center" }); else window.scrollTo(0, 0);
+}
+function showUnit(key, page, msg) {
+  const u = unitByKey[key];
+  $("tocView").hidden = true; $("unitView").hidden = false; document.body.classList.add("unit");
+  const par = u.level > 1 ? parentOf(u) : null;
+  $("ubarTitle").textContent = u.title;
+  $("uParent").textContent = par ? par.title : "";
+  $("uParent").hidden = !par;
+  $("uTitle").textContent = u.title;
+  const ps = pagesOf(key), n = cardsOf(key).length;
+  $("uMeta").innerHTML = (PAGED && u.page ? `ص <span class="ltr num">${range(u.page, u.page_to || u.page)}</span>، ` : "") + (n ? `${n} ${esc(ONE)}` : "ابھی کارڈ نہیں");
+  $("pbar").innerHTML = (ps.length > 1 || page ? [`<a href="#${key}" aria-current="${!page}">سب</a>`, ...ps.map((p) =>
+    `<a href="#${key}-${p}" aria-current="${page === p}">${p}</a>`)].join("") : "");
+  $("pbar").hidden = !$("pbar").innerHTML;
+  const allView = !page && !$("pbar").hidden;   // the «سب» chip is selected: cards start folded
+  document.body.classList.toggle("allview", allView);
+  $("toggleAll").hidden = !allView;
+  let shown = 0;
+  ARTS.forEach((a) => {
+    const on = a.dataset.unit === key && (!page || a.dataset.pages.split("|").includes(String(page)));
+    a.hidden = !on; if (on) shown++;
+    setFold(a, allView);
+  });
+  syncToggleAll();
+  if (page && !shown && !msg) msg = `صفحہ ${page} کا کوئی ${esc(ONE)} ابھی نہیں بنا۔`;
+  $("uMsg").hidden = !msg; if (msg) $("uMsg").innerHTML = msg;
+  const gs = gapsOf(key).filter((g) => !page || (g.page_list || []).includes(page));
+  $("gaps").hidden = !gs.length;
+  $("gapsTitle").textContent = n ? "اس حصے کی وہ عبارت جو استاد نے نہیں سمجھائی" : "اس حصے کی ریکارڈنگ نہیں ملی";
+  $("gapsLead").textContent = n ? "یہ باتیں کارڈوں میں متن اور حاشیے سے لکھی گئی ہیں؛ ریکارڈنگ میں ان کی وضاحت نہیں۔"
+    : "کسی ساتھی کے پاس اس حصے کی ریکارڈنگ ہو تو بھیج دیں، اس کے کارڈ بھی بن جائیں گے۔";
+  $("gapList").innerHTML = gs.map((g) => `<li><span class="gp">${PAGED && g.pages ? "ص " + iso(esc(g.pages)) : ""}</span><span class="gt">${esc(g.text)}</span>${g.v7 ? `<span class="gv">${iso(esc(g.v7))}</span>` : ""}</li>`).join("");
+  const i = UNITS.indexOf(u), prev = UNITS[i - 1], next = UNITS[i + 1];
+  $("unav").innerHTML = (prev ? `<a class="prev" href="#${prev.key}"><span class="k">پچھلا حصہ</span><span class="t" lang="ar">${esc(prev.title)}</span></a>` : "") +
+    (next ? `<a class="next" href="#${next.key}"><span class="k">اگلا حصہ</span><span class="t" lang="ar">${esc(next.title)}</span></a>` : "");
+  document.title = `${u.title} · ${B.kitab}`;
+  store.set(`${KEY}-unit`, key);
+  window.scrollTo(0, 0);
+}
+function findPage(p) {
+  const withCards = UNITS.find((u) => pagesOf(u.key).includes(p));
+  if (withCards) return { unit: withCards.key, page: p };
+  const inRange = [...UNITS].reverse().find((u) => u.page && u.page <= p && p <= (u.page_to || u.page));
+  if (inRange) return { unit: inRange.key, page: p };
+  return null;
+}
+function outsideMsg(p) {
+  const k = (DATA.kitabs || []).find((x) => x.from <= p && p <= x.to);
+  if (!k) return `صفحہ ${p} اس کتاب میں نہیں۔`;
+  if (k.href) return `صفحہ ${p} <a href="${k.href}#p${p}">${esc(k.title)}</a> میں ہے۔`;
+  return `صفحہ ${p} «${esc(k.title)}» میں ہے؛ اس کے کارڈ ابھی نہیں بنے۔`;
+}
+function route() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  let m;
+  if ((m = h.match(/^p(\d+)$/))) {
+    const p = +m[1], f = findPage(p);
+    if (f) { history.replaceState(null, "", `#${f.unit}-${p}`); return showUnit(f.unit, p); }
+    return showToc(outsideMsg(p));
+  }
+  if ((m = h.match(/^(u\d+)(?:-(\d+))?$/)) && unitByKey[m[1]]) return showUnit(m[1], m[2] ? +m[2] : null);
+  if (!h && UNITS.length === 1) return showUnit(UNITS[0].key, null);   // nothing to choose from
+  showToc();
+}
+window.addEventListener("hashchange", route);
+document.addEventListener("submit", (e) => {
+  const f = e.target.closest("form[data-jump]");
+  if (!f) return;
+  e.preventDefault();
+  const v = toLatin(f.querySelector("input").value || "");
+  if (!/^\d+$/.test(v)) return;
+  const p = +v, hit = findPage(p);
+  if (hit) location.hash = `${hit.unit}-${p}`;
+  else showToc(outsideMsg(p));
+});
+// folding: «سب تفصیل» opens or folds every card shown; each card's دلیل/اختلاف (details.more) stays as the reader left it
+function setFold(a, fold) {
+  a.classList.toggle("folded", fold);
+  const t = a.querySelector(".ctoggle");
+  t.setAttribute("aria-expanded", String(!fold));
+  t.textContent = fold ? "تمہید اور تفصیل" : "تفصیل بند کریں";
+}
+function syncToggleAll() {
+  const anyFolded = ARTS.some((a) => !a.hidden && a.classList.contains("folded"));
+  $("toggleAll").setAttribute("aria-pressed", String(!anyFolded));
+  $("toggleAll").textContent = anyFolded ? "سب تفصیل کھولیں" : "سب تفصیل بند کریں";
+}
+$("toggleAll").addEventListener("click", () => {
+  const anyFolded = ARTS.some((a) => !a.hidden && a.classList.contains("folded"));
+  ARTS.forEach((a) => { if (!a.hidden) setFold(a, !anyFolded); });
+  syncToggleAll();
+});
+$("cards").addEventListener("click", (e) => {
+  const t = e.target.closest(".ctoggle");
+  if (!t) return;
+  const a = t.closest("article.card");
+  const wasOpen = !a.classList.contains("folded");
+  setFold(a, wasOpen);
+  if (wasOpen && a.getBoundingClientRect().top < 0) a.scrollIntoView({ block: "start" });   // folding a long card: keep it in view
+  syncToggleAll();
+});
+route();
+
+// ---------- recordings: light (Opus) copies on this site
+const hasWeb = (l) => !!(LES[l] && LES[l].web && LES[l].web.length);
+const webOk = (l) => hasWeb(l) && (OPUS_OK || !/\.ogg$/i.test(LES[l].web[0].src));
+const NO_OPUS = "یہ براؤزر یہاں کی ہلکی فائلیں (Opus) نہیں چلاتا۔ آئی فون پر iOS 18.4 یا نیا ورژن چاہیے؛ اینڈرائیڈ پر Chrome میں کھولیں۔";
+let current = null, sheetMode = null;
+const blobUrls = {}, triedBlob = {};
+let curPart = null, lastOffset = 0, pendingSeek = null;
+function webPart(l, sec) {
+  let p = LES[l].web[0];
+  for (const x of LES[l].web) if (x.start <= sec + 0.5) p = x;
+  return p;
+}
+function recRow(l) {
+  const L = LES[l], btns = [];
+  if (webOk(l)) btns.push(`<button type="button" class="btn" data-ts="0:00:00" data-l="${l}">${ICON.play}شروع سے سنیں</button>`);
+  if (hasWeb(l)) {   // one button per lesson, whatever the number of parts
+    const mb = L.web.reduce((a, p) => a + (p.mb || 0), 0);
+    btns.push(`<button type="button" class="btn ghost" data-dl="${l}">${ICON.down}ڈاؤن لوڈ${L.web.length > 1 ? ` (${L.web.length} حصے)` : ""}${mb ? ` ${sizeMB(mb)}` : ""}</button>`);
+  }
+  const mins = L.minutes ? `${Math.round(L.minutes)} منٹ` : "";
+  const state = webOk(l) ? `<span class="state on">یہیں چلتی ہے</span>` : (hasWeb(l) ? "" : `<span class="state off">ابھی نہیں لگی</span>`);
+  return `<div class="rec" id="rec-${l}"><div class="rec-top"><b>${esc(L.label)}</b><span class="sub">${mins}</span>${state}</div>
+    ${btns.length ? `<div class="btns">${btns.join("")}</div>` : ""}</div>`;
+}
+function sheetAll() {
+  sheetMode = "all";
+  const anyWeb = usedLessons.some(hasWeb);
+  const hint = anyWeb && !OPUS_OK ? NO_OPUS : "کسی سبز وقت پر ٹیپ کریں تو استاد کی آواز اسی صفحے پر وہیں سے چلتی ہے۔";
+  const missing = usedLessons.filter((l) => !hasWeb(l)).length;
+  const all = filesOf(usedLessons.filter(hasWeb));
+  const mb = all.reduce((a, f) => a + (f.mb || 0), 0);
+  const dlAll = all.length > 1 ? `<div class="dlall"><div class="btns"><button type="button" class="btn" data-dl="*">${ICON.down}سب ڈاؤن لوڈ کریں</button>
+      <span class="sub">${usedLessons.filter(hasWeb).length} اسباق، ${all.length} فائلیں، کل ${sizeMB(mb)}</span></div>
+      <span class="dlstat" id="dlstat" hidden></span></div>` : "";
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">ریکارڈنگز</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${hint}${missing ? ` ${missing} اسباق کی ریکارڈنگ ابھی اس صفحے پر نہیں لگی۔` : ""}</p>
+    ${dlAll}
+    <div>${usedLessons.map(recRow).join("")}</div>`;
+  if (dlBusy) markBusy();
+  $("backdrop").hidden = false;
+}
+function sheetOne(l, ts) {
+  sheetMode = "one";
+  const L = LES[l];
+  const why = hasWeb(l) && !OPUS_OK ? NO_OPUS : "اس سبق کی ریکارڈنگ ابھی اس صفحے پر نہیں لگی۔";
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">یہ حصہ ${esc(L.label)} کی ریکارڈنگ میں <span class="ltr">${ts}</span> پر ہے</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${why}</p>
+    <button type="button" class="linkbtn" data-allrecs style="margin-inline-start:0">سب ریکارڈنگز</button>`;
+  $("backdrop").hidden = false;
+  $("sheet").querySelector("[data-close]").focus();
+}
+function closeSheet() { $("backdrop").hidden = true; sheetMode = null; }
+
+// downloads: every part of a lesson, or every lesson of this kitab, one after another.
+// Phones ask once to allow several downloads from this site.
+function filesOf(ls) {
+  return ls.flatMap((l) => LES[l].web.map((p, i, all) => {
+    const ext = (p.src.match(/\.\w+$/) || [".ogg"])[0];
+    return { src: p.src, mb: p.mb, name: `${l} ${B.book}${all.length > 1 ? ` - حصہ ${i + 1}` : ""}${ext}` };
+  }));
+}
+let dlBusy = false;
+function markBusy() { $("sheet").querySelectorAll("[data-dl]").forEach((b) => { b.disabled = dlBusy; }); }
+function dlStatus(html) { const s = $("dlstat"); if (s) { s.hidden = !html; s.innerHTML = html || ""; } }
+async function runDownloads(files) {
+  if (dlBusy || !files.length) return;
+  dlBusy = true; markBusy();
+  const allow = files.length > 1 ? " براؤزر «کئی فائلیں ڈاؤن لوڈ کریں؟» پوچھے تو Allow دبائیں۔" : "";
+  for (let i = 0; i < files.length; i++) {
+    dlStatus(`فائل <span class="ltr num">${i + 1} / ${files.length}</span> ڈاؤن لوڈ کے لیے بھیجی جا رہی ہے…${allow}`);
+    const a = document.createElement("a");
+    a.href = files[i].src; a.download = files[i].name; a.hidden = true;
+    document.body.appendChild(a); a.click(); a.remove();
+    await new Promise((r) => setTimeout(r, 1200));
+  }
+  dlBusy = false; markBusy();
+  dlStatus(files.length > 1
+    ? `${files.length} فائلیں بھیج دی گئیں؛ فون کے Downloads میں دیکھیں۔ اگر کم آئیں تو براؤزر کی سیٹنگ میں اس سائٹ کو <span class="ltr">Automatic downloads</span> کی اجازت دے کر دوبارہ دبائیں۔`
+    : "");
+}
+$("recBtn").addEventListener("click", sheetAll);
+$("backdrop").addEventListener("click", (e) => {
+  if (e.target === $("backdrop") || e.target.closest("[data-close]")) closeSheet();
+  else if (e.target.closest("[data-allrecs]")) sheetAll();
+  else if (e.target.closest("[data-dl]")) {
+    const k = e.target.closest("[data-dl]").dataset.dl;
+    runDownloads(filesOf(k === "*" ? usedLessons.filter(hasWeb) : [k]));
+  }
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("backdrop").hidden) closeSheet(); });
+
+function playAt(l, ts) {
+  if (!l || !LES[l]) return;
+  const sec = secs(ts);
+  if (!webOk(l)) { sheetOne(l, ts); return; }
+  const p = webPart(l, sec), src = blobUrls[p.src] || p.src, offset = sec - p.start;
+  curPart = p;
+  closeSheet();
+  current = l; lastOffset = Math.max(0, offset);
+  $("player").hidden = false;
+  if (audio.dataset.src !== src) { audio.dataset.src = src; audio.src = src; pendingSeek = lastOffset; }
+  else if (audio.readyState >= 1) {
+    if (!blobUrls[curPart.src] && !canSeekTo(lastOffset)) { pendingSeek = lastOffset; useBlob(); return; }
+    try { audio.currentTime = lastOffset; } catch (e) {}
+  } else pendingSeek = lastOffset;
+  audio.play().catch(() => {});
+  $("now").innerHTML = `${esc(LES[l].label)} · <span class="ltr">${ts}</span>`;
+}
+function canSeekTo(o) { const r = audio.seekable; return o < 1 || (r && r.length && r.end(r.length - 1) >= o - 1); }
+audio.addEventListener("loadedmetadata", () => {
+  const on = document.querySelector("#speeds button[aria-pressed='true']");
+  if (on) audio.playbackRate = +on.dataset.rate;
+  if (pendingSeek === null) return;
+  const o = pendingSeek;
+  if (curPart && !blobUrls[curPart.src] && !canSeekTo(o)) { useBlob(); return; }
+  pendingSeek = null;
+  try { audio.currentTime = o; } catch (e) {}
+  audio.play().catch(() => {});
+});
+audio.addEventListener("error", () => useBlob());
+async function useBlob() {   // the server can't jump to the time (or the stream failed): fetch the light copy whole
+  const p = curPart;
+  if (!p || blobUrls[p.src] || triedBlob[p.src]) return;
+  triedBlob[p.src] = true;
+  const label = $("now").innerHTML;
+  $("now").textContent = "آواز لوڈ ہو رہی ہے…";
+  try {
+    const r = await fetch(p.src);
+    if (!r.ok) throw new Error(r.status);
+    blobUrls[p.src] = URL.createObjectURL(await r.blob());
+    if (curPart !== p) return;
+    audio.dataset.src = blobUrls[p.src]; audio.src = blobUrls[p.src]; pendingSeek = lastOffset;
+    audio.play().catch(() => {});
+    $("now").innerHTML = label;
+  } catch (e) { $("now").textContent = "یہ آواز نہیں چل سکی؛ انٹرنیٹ دیکھ کر دوبارہ ٹیپ کریں۔"; }
+}
+$("pclose").addEventListener("click", () => { audio.pause(); $("player").hidden = true; });
+
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-ts]");
+  if (!b) return;
+  playAt(b.dataset.l, b.dataset.ts);
+  const card = b.closest("article.card");
+  if (card) { card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash"); }
+});
+$("speeds").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-rate]");
+  if (!b) return;
+  audio.playbackRate = +b.dataset.rate;
+  document.querySelectorAll("#speeds button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+});
+// files people picked on earlier versions of this page: free the space on their phone
+try { if (window.indexedDB) indexedDB.deleteDatabase(`${KEY}-audio`); } catch (e) {}
+try { localStorage.removeItem(`${KEY}-remember`); } catch (e) {}
+</script>
+
+</body>
+</html>
