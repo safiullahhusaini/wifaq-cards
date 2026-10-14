@@ -399,7 +399,10 @@
    "repair": "fixed 90%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-15T00:58+05:00",
+    "by": "https://claude.ai/code/session_01KL5eWWQdKZwXKb2nxHHb9a"
+   }
   },
   {
    "id": "h4-2025-09-27-ihya",
@@ -411,7 +414,10 @@
    "repair": "fixed 94%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-15T00:58+05:00",
+    "by": "https://claude.ai/code/session_01KL5eWWQdKZwXKb2nxHHb9a"
+   }
   },
   {
    "id": "h4-2025-09-27-ashriba",
@@ -423,7 +429,10 @@
    "repair": "fixed 95%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-15T00:58+05:00",
+    "by": "https://claude.ai/code/session_01KL5eWWQdKZwXKb2nxHHb9a"
+   }
   },
   {
    "id": "h4-2025-09-28",
