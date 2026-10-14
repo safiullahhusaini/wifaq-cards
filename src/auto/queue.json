@@ -397,12 +397,11 @@
    "file": "2025-09-21 الهدايه الرابع كتاب احياء الموات .mp4",
    "minutes": 28.7,
    "repair": "fixed 90%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-15T00:58+05:00",
-    "by": "https://claude.ai/code/session_01KL5eWWQdKZwXKb2nxHHb9a"
-   }
+   "claim": null,
+   "cards": 6,
+   "qa": "full (trial): 221 timestamps real; 1 wrong scope (matn «ولا يجبر لحق الشفة» given the teacher's reading), 2 wrong tags, 6 page-tag nits, all fixed; recording starts at فصل في كري الأنهار (v7 272), v7 260.65–272.28 in no recording (GAP)"
   },
   {
    "id": "h4-2025-09-27-ihya",

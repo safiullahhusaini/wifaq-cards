@@ -184,7 +184,10 @@ def lesson_cards():
                 card["badges"] = ["17 مئی کی دہرائی"]
             cards.append(card)
         for rng, text in d.get("GAPS", []):
-            nums = [int(x) for x in re.findall(r"\d+", re.sub(r"^\s*v7\s*", "", rng))]
+            if not rng.strip().startswith("v7"):     # «ٹرانسکرپٹ: …» entries are about the recording, not a book range
+                continue
+            plain = re.sub(r"\([^)]*\)", " ", re.sub(r"^\s*v7\s*", "", rng))   # drop "(frac ≈0.2–0.3)" and "(آخر)"
+            nums = [int(x) for x in re.findall(r"(?<![\d.])\d{1,3}(?![\d.])", plain)]
             if nums:
                 a, b = nums[0], nums[-1]
                 lo_, hi_ = pm.START[a], pm.START[b] + pm.W[b]

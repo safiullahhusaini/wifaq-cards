@@ -57,12 +57,17 @@ RUNNING = {norm(x) for x in ["كتاب الذبائح", "كتاب الأضحية
                              "باب ما تبطل به الشفعة", "الهداية", "كتاب المساقاة", "كتاب الكراهية", "كتاب إحياء الموات"]}
 
 
+MAX_OCR_PDF = 300               # raise together with LAST_PAGE when cards reach further
+
+
 def load_pages():
     pages = {}
     if not OCR:
         return pages
     for f in sorted(glob.glob(os.path.join(OCR, "p*.md"))):
         a, b = map(int, re.match(r"p(\d+)-(\d+)", os.path.basename(f)).groups())
+        if a > MAX_OCR_PDF:          # the data repo holds the whole volume; only pages in use are read
+            continue
         txt = open(f, encoding="utf-8").read()
         secs = re.split(r"^=== PDF [^\n]*===\n", txt, flags=re.M)[1:]
         if len(secs) != b - a + 1:
@@ -86,7 +91,7 @@ def page_body(p):
 
 
 TEXT, START, W = {}, {}, {}   # page -> normalized matn; cumulative weight at page start; page weight
-LAST_PAGE = 261                # pages with neither OCR nor cached letters get the median weight
+LAST_PAGE = 281                # pages with neither OCR nor cached letters get the median weight
 for p in range(0, LAST_PAGE + 1):
     body, _ = page_body(p)
     TEXT[p] = norm(" ".join(body))
@@ -187,6 +192,7 @@ HEADINGS = [
     (145, "فصل فيما يحل أكله وما لا يحل", 1666), (154, "كتاب الأضحية", 1672),
     (179, "كتاب الكراهية", 1684), (187, "فصل في اللبس", 1688, 0.5), (195, "فصل في الوطء والنظر والمس", 1693, 0.55), (213, "فصل في الاستبراء وغيره", 1702, 0.45),
     (224, "فصل في البيع", 1708, 0.3), (238, "مسائل متفرقة", 1716, 0.0), (251, "كتاب إحياء الموات", 1724, 0.0),
+    (267, "فصل في المياه", 1732), (272, "فصل في كري الأنهار", 1735), (276, "فصل في الدعوى والاختلاف والتصرف فيه", 1737),
 ]
 # exact: these words open the colleague page
 EXACT = [(29, "أخذها بمثله", 1610), (31, "إنما يثبت بالبيع", 1611)]
