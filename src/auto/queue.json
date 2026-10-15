@@ -439,12 +439,11 @@
    "file": "2025-09-28 الهدايه الرابع كتاب الأشربة.mp4",
    "minutes": 39.0,
    "repair": "fixed 95%, 2026-10-10 08:48 AM",
-   "state": "ready",
+   "state": "done",
    "note": "transcript not repaired (too few timestamped lines) · re-transcribed + repaired 2026-10-10 08:48 AM (95%), ready",
-   "claim": {
-    "run": "2026-10-15T19:58:00Z",
-    "by": "https://claude.ai/code/session_011yU33c5QNqB6z5UGeSdU8o"
-   }
+   "claim": null,
+   "cards": 10,
+   "qa": "full (trial): 466 timestamps real, 0 wrong rulings, 1 wrong «قالوا» scope + 3 wrong tags + 7 nits fixed; 51 S tags found"
   },
   {
    "id": "h4-2025-10-04",
