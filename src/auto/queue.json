@@ -469,7 +469,10 @@
    "repair": "fixed 87%, 2026-10-10 08:50 AM",
    "state": "ready",
    "note": "transcript not repaired (too few timestamped lines) · re-transcribed + repaired 2026-10-10 08:50 AM (87%), ready",
-   "claim": null
+   "claim": {
+    "run": "2026-10-15T20:30:00Z",
+    "by": "https://claude.ai/code/session_011yU33c5QNqB6z5UGeSdU8o"
+   }
   },
   {
    "id": "h4-2025-10-11",
