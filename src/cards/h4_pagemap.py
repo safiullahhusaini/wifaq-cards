@@ -54,10 +54,10 @@ def norm(s):
 
 RUNNING = {norm(x) for x in ["كتاب الذبائح", "كتاب الأضحية", "كتاب القسمة", "باب طلب الشفعة والخصومة فيها", "كتاب المزارعة",
                              "باب ما تجب فيه الشفعة وما لا تجب", "كتاب الشفعة", "باب دعوى الغلط في القسمة والاستحقاق فيها",
-                             "باب ما تبطل به الشفعة", "الهداية", "كتاب المساقاة", "كتاب الكراهية", "كتاب إحياء الموات", "كتاب الأشربة"]}
+                             "باب ما تبطل به الشفعة", "الهداية", "كتاب المساقاة", "كتاب الكراهية", "كتاب إحياء الموات", "كتاب الأشربة", "كتاب الصيد"]}
 
 
-MAX_OCR_PDF = 305               # raise together with LAST_PAGE when cards reach further
+MAX_OCR_PDF = 310               # raise together with LAST_PAGE when cards reach further
 
 
 def load_pages():
@@ -69,7 +69,7 @@ def load_pages():
         if a > MAX_OCR_PDF:          # the data repo holds the whole volume; only pages in use are read
             continue
         txt = open(f, encoding="utf-8").read()
-        secs = re.split(r"^=== PDF [^\n]*===\n", txt, flags=re.M)[1:]
+        secs = re.split(r"^=== PDF [^\n]*\n", txt, flags=re.M)[1:]   # 15 Oct: some headers lack the closing ===
         if len(secs) != b - a + 1:
             raise ValueError(f"{f}: {len(secs)} sections for PDF {a}-{b}")
         for k, body in enumerate(secs):
@@ -91,7 +91,7 @@ def page_body(p):
 
 
 TEXT, START, W = {}, {}, {}   # page -> normalized matn; cumulative weight at page start; page weight
-LAST_PAGE = 300                # pages with neither OCR nor cached letters get the median weight
+LAST_PAGE = 309                # pages with neither OCR nor cached letters get the median weight
 for p in range(0, LAST_PAGE + 1):
     body, _ = page_body(p)
     TEXT[p] = norm(" ".join(body))
@@ -193,7 +193,7 @@ HEADINGS = [
     (179, "كتاب الكراهية", 1684), (187, "فصل في اللبس", 1688, 0.5), (195, "فصل في الوطء والنظر والمس", 1693, 0.55), (213, "فصل في الاستبراء وغيره", 1702, 0.45),
     (224, "فصل في البيع", 1708, 0.3), (238, "مسائل متفرقة", 1716, 0.0), (251, "كتاب إحياء الموات", 1724, 0.0),
     (267, "فصل في المياه", 1732), (272, "فصل في كري الأنهار", 1735), (276, "فصل في الدعوى والاختلاف والتصرف فيه", 1737),
-    (285, "كتاب الأشربة", 1742),
+    (285, "كتاب الأشربة", 1742), (305, "فصل في طبخ العصير", 1754, 0.12), (308, "كتاب الصيد", 1756, 0.0),
 ]
 # exact: these words open the colleague page
 EXACT = [(29, "أخذها بمثله", 1610), (31, "إنما يثبت بالبيع", 1611)]
