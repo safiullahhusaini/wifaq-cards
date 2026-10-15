@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>كتاب الصيد · ہدایہ جلد رابع</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+<style>
+/* One kitab of a book. Two views on one page:
+   فہرست (contents, styled like the book's own contents page: title … page) and a unit view (one bab/fasl,
+   its cards, page chips). Recordings live in a bottom sheet behind the header button. */
+:root {
+  --paper: #FDFCFB; --surface: #FFFFFF; --ink: #1F1A1B; --muted: #6E6566; --rule: #E9E3E2;
+  --matn: #A3211A; --matn-tint: #FBEDEB; --teacher: #17624C; --teacher-tint: #E3F2EC;
+  --book: #2B4B7E; --book-tint: #E8EEF8; --note: #545A68; --note-tint: #EDEEF2;
+  --ai: #8A5A00; --ai-tint: #FBF0DA; --focus: #2B4B7E;
+  --shadow: 0 1px 2px rgba(31,26,27,.05), 0 4px 16px rgba(31,26,27,.05);
+  --urdu: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Urdu Typesetting", "Noto Naskh Arabic", serif;
+  --ui: "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+  --arabic: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+    --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+    --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+    --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+  --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+  --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+  --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--ui); font-size: 15px; padding-inline: 16px; padding-block: 0 110px; }
+.wrap { max-width: 760px; margin: 0 auto; }
+[lang="ar"] { font-family: var(--arabic); }
+button, input, a.btn { font: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* header */
+header.top { padding-block: 14px 8px; display: grid; gap: 4px; }
+.topbar { display: flex; align-items: center; gap: 10px; min-height: 40px; }
+.homelink { color: var(--book); font-size: 13.5px; font-weight: 600; text-decoration: none; padding-block: 6px; }
+.homelink:hover { text-decoration: underline; }
+.recbtn { margin-inline-start: auto; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--rule);
+  background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 14px; font-size: 13.5px; font-weight: 600; }
+.recbtn svg { width: 15px; height: 15px; fill: none; stroke: var(--teacher); stroke-width: 1.7; stroke-linecap: round; }
+.recbtn:hover { border-color: var(--teacher); }
+h1 { margin: 6px 0 0; font-family: var(--arabic); font-weight: 700; color: var(--matn); font-size: clamp(36px, 8vw, 50px); line-height: 1.25; }
+.meta { color: var(--muted); font-size: 13.5px; line-height: 1.9; margin: 0; }
+.meta b { color: var(--ink); font-weight: 600; }
+
+/* contents (فہرست) */
+.tochead { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-block: 14px 4px; }
+.tochead h2 { margin: 0; font-size: 15px; font-weight: 700; color: var(--muted); }
+form.jump { display: flex; gap: 4px; margin-inline-start: auto; }
+form.jump input { inline-size: 92px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px;
+  padding: 5px 12px; font-size: 14px; font-variant-numeric: tabular-nums; direction: ltr; text-align: center; }
+form.jump button { cursor: pointer; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 999px; padding: 5px 13px; font-size: 13.5px; }
+.msg { margin: 8px 0 0; color: var(--ink); background: var(--ai-tint); border-radius: 8px; padding: 7px 12px; font-size: 13.5px; line-height: 1.9; }
+.msg a { color: var(--book); font-weight: 600; }
+ol.toc { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.toc li { border-bottom: 1px solid var(--rule); padding-block: 10px 9px; display: grid; gap: 4px; }
+.toc li.lv3 { padding-inline-start: 22px; }
+.toc a.row { display: flex; align-items: baseline; gap: 8px; text-decoration: none; color: inherit; }
+.toc .tt { font-family: var(--arabic); line-height: 1.6; }
+.toc li.lv1 .tt { font-size: 23px; color: var(--matn); font-weight: 700; }
+.toc li.lv2 .tt { font-size: 20px; font-weight: 700; }
+.toc li.lv3 .tt { font-size: 18.5px; }
+.toc .dots { flex: 1 1 24px; min-inline-size: 24px; border-bottom: 2px dotted var(--rule); transform: translateY(-5px); }
+.toc .pp { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.toc a.row:hover .tt, .toc a.row:focus-visible .tt { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.toc .sub { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.toc .sub .n { margin-inline-end: 4px; }
+.toc .sub .none { color: var(--ai); }
+.toc .sub .exn { color: var(--matn); font-weight: 600; margin-inline-end: 4px; }
+a.pchip { text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 0 9px;
+  font-size: 12.5px; line-height: 1.9; font-variant-numeric: tabular-nums; }
+a.pchip:hover { border-color: var(--ink); }
+
+/* unit view */
+.ubar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); margin-inline: -16px; padding: 8px 16px 8px;
+  border-bottom: 1px solid var(--rule); display: grid; gap: 6px; }
+.ubar-top { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.back { flex: none; cursor: pointer; text-decoration: none; color: var(--book); font-size: 13.5px; font-weight: 600; border: 1px solid var(--rule); border-radius: 999px; padding: 3px 12px; background: var(--surface); }
+.utitle { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--arabic); font-size: 19px; font-weight: 700; line-height: 1.6; }
+.pbar { display: flex; gap: 6px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+.pbar::-webkit-scrollbar { display: none; }
+.pbar a { flex: none; text-decoration: none; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 3px 13px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.pbar a[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.ubar form.jump input { inline-size: 70px; padding: 3px 8px; }
+.ubar form.jump button { padding: 3px 10px; }
+.ubar form.jump { flex: none; }
+body.unit h1 { font-size: 26px; margin-top: 0; }
+body.unit header .meta { display: none; }
+.uhead { padding-block: 16px 0; display: grid; gap: 2px; }
+.uhead .parent { margin: 0; font-family: var(--arabic); color: var(--muted); font-size: 16px; }
+.uhead h2 { margin: 0; font-family: var(--arabic); color: var(--matn); font-size: clamp(26px, 6vw, 32px); line-height: 1.5; }
+.uhead p.meta { margin: 0; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; padding-block: 12px 0; color: var(--muted); font-size: 12.5px; align-items: center; }
+.lg { display: inline-flex; align-items: center; gap: 6px; }
+.linkbtn { cursor: pointer; background: none; border: 0; color: var(--book); font-weight: 600; font-size: 13px; padding: 4px 0; margin-inline-start: auto; }
+
+main { display: grid; gap: 18px; padding-block: 14px; }
+article.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; box-shadow: var(--shadow); padding: 18px 18px 14px; display: grid; gap: 12px; }
+.card-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.pg { font-size: 12.5px; font-weight: 600; color: var(--matn); background: var(--matn-tint); border-radius: 6px; padding: 2px 8px; font-variant-numeric: tabular-nums; }
+.v7 { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.cnum { color: var(--muted); font-size: 12.5px; }
+.badge { font-size: 12px; font-weight: 600; color: var(--book); background: var(--book-tint); border-radius: 999px; padding: 1px 9px; }
+.badge.exam { color: var(--matn); background: var(--matn-tint); border: 0; font-family: inherit; line-height: inherit; }
+button.badge.exam { cursor: pointer; }
+.les { color: var(--muted); font-size: 12.5px; margin-inline-start: auto; }
+.play { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--teacher); color: var(--teacher); background: transparent;
+  border-radius: 999px; padding: 3px 11px; font-size: 13px; font-variant-numeric: tabular-nums; direction: ltr; }
+.play svg { width: 10px; height: 10px; fill: currentColor; }
+.norec-chip { margin-inline-start: auto; color: var(--ai); background: var(--ai-tint); border-radius: 999px; padding: 2px 10px; font-size: 12.5px; font-weight: 600; }
+.label { margin: 0; font-family: var(--arabic); color: var(--book); font-size: 15px; line-height: 1.7; }
+h3.title { margin: 0; font-size: 19px; font-weight: 700; line-height: 1.7; text-wrap: balance; }
+.start { margin: 0; font-family: var(--arabic); font-size: 21px; line-height: 1.9; color: var(--matn); border-inline-start: 3px solid var(--matn); padding-inline-start: 12px; }
+.ref { margin: -4px 0 0; color: var(--book); font-size: 13px; line-height: 1.9; }
+.start-note { margin: -6px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.8; }
+.norec { margin: 0; background: var(--ai-tint); color: var(--ink); border-radius: 8px; padding: 6px 12px; font-size: 13.5px; line-height: 1.9; }
+.norec b { color: var(--ai); }
+.sec { display: grid; gap: 6px; }
+.sec h4 { margin: 0; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.sec ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.sec li { font-family: var(--urdu); font-size: 16px; line-height: 2.35; }
+.sec.tamheed li { font-size: 16.5px; }
+.sec.masala li { font-weight: 600; }
+.srcs { display: inline-flex; flex-wrap: wrap; gap: 4px; vertical-align: middle; margin-inline-start: 4px; }
+.chip { font-family: var(--ui); font-size: 11.5px; line-height: 1.6; border-radius: 5px; padding: 0 6px; white-space: nowrap; font-variant-numeric: tabular-nums; border: 0; font-weight: 600; }
+.chip.u { background: var(--teacher-tint); color: var(--teacher); cursor: pointer; }
+.chip.k { background: var(--book-tint); color: var(--book); }
+.chip.s { background: var(--note-tint); color: var(--note); }
+.chip.a { background: var(--ai-tint); color: var(--ai); }
+/* in the "سب" view a card opens folded: head, title, Arabic start and the note under it; the rest behind .ctoggle */
+.ctoggle { display: none; cursor: pointer; align-items: center; gap: 6px 10px; inline-size: 100%; background: none; border: 0; border-top: 1px dashed var(--rule);
+  padding: 8px 0 2px; color: var(--book); font-weight: 600; font-size: 13.5px; text-align: start; }
+.ctoggle::before { content: "−"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+.ctoggle[aria-expanded="false"]::before { content: "+"; }
+body.allview .ctoggle { display: flex; }
+.cbody { display: grid; gap: 12px; }
+article.card.folded .cbody { display: none; }
+article.card { scroll-margin-top: 112px; }
+.dlall { display: grid; gap: 6px; padding: 10px 12px; border-radius: 10px; background: var(--teacher-tint); }
+.dlall .btns { align-items: center; }
+.dlall .sub { color: var(--muted); font-size: 12.5px; }
+.dlall .dlstat { font-size: 12.5px; color: var(--ink); line-height: 1.9; }
+.btn[disabled] { opacity: .55; cursor: default; }
+details.more { border-top: 1px dashed var(--rule); padding-top: 8px; }
+details.more > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; color: var(--book); font-weight: 600; font-size: 13.5px; padding-block: 2px; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::before { content: "+"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+details.more[open] > summary::before { content: "−"; }
+details.more > summary .hint { color: var(--muted); font-weight: 400; font-size: 12.5px; }
+details.more > .inner { display: grid; gap: 12px; padding-top: 10px; }
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 14px; }
+.word { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; padding-block: 4px; border-bottom: 1px solid var(--rule); }
+.word .ar { font-family: var(--arabic); font-size: 19px; color: var(--matn); }
+.word .ur { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; flex: 1 1 auto; }
+.word .chip { font-size: 10.5px; }
+
+section.gaps { display: grid; gap: 8px; margin-block-start: 6px; border: 1px dashed var(--rule); border-radius: 12px; padding: 12px 14px; }
+section.gaps h3 { margin: 0; font-size: 14.5px; }
+section.gaps p.lead { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.9; }
+.glist { margin: 0; padding: 0; list-style: none; display: grid; }
+.glist li { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: start; padding-block: 8px; border-top: 1px solid var(--rule); }
+.glist .gp { font-size: 12px; font-weight: 600; color: var(--ai); background: var(--ai-tint); border-radius: 6px; padding: 1px 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.glist .gt { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; }
+.glist .gv { grid-column: 2; color: var(--muted); font-size: 12px; }
+
+nav.unav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-block-start: 18px; }
+nav.unav a { display: grid; gap: 2px; text-decoration: none; color: inherit; border: 1px solid var(--rule); border-radius: 12px; padding: 10px 14px; background: var(--surface); }
+nav.unav a:hover { border-color: var(--ink); }
+nav.unav .k { color: var(--muted); font-size: 12px; }
+nav.unav .t { font-family: var(--arabic); font-size: 17px; line-height: 1.6; }
+nav.unav a.next { text-align: left; grid-column: 2; }
+
+footer { margin-block-start: 28px; color: var(--muted); font-size: 13px; line-height: 2; border-top: 1px solid var(--rule); padding-block-start: 14px; }
+footer p { margin: 0 0 6px; }
+
+/* sheet */
+.backdrop { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.38); display: flex; align-items: flex-end; justify-content: center; }
+.sheet { background: var(--surface); color: var(--ink); inline-size: 100%; max-inline-size: 600px; max-block-size: 88vh; overflow-y: auto; border-radius: 16px 16px 0 0;
+  padding: 16px 18px calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 12px; box-shadow: 0 -8px 30px rgba(0,0,0,.2); }
+.sheet-head { display: flex; align-items: center; gap: 10px; }
+.sheet h3 { margin: 0; font-size: 17px; line-height: 1.7; }
+.sheet .x { margin-inline-start: auto; cursor: pointer; border: 1px solid var(--rule); background: transparent; color: var(--ink); border-radius: 999px; inline-size: 34px; block-size: 34px; font-size: 18px; line-height: 1; }
+.sheet p { margin: 0; font-size: 13.5px; line-height: 1.95; color: var(--muted); }
+.sheet p b { color: var(--ink); }
+.rec { display: grid; gap: 6px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.rec-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.rec-top b { font-size: 14.5px; }
+.rec-top .sub { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.state { font-size: 12px; font-weight: 600; border-radius: 5px; padding: 0 7px; }
+.state.on { color: var(--teacher); background: var(--teacher-tint); }
+.state.off { color: var(--muted); border: 1px solid var(--rule); }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; text-decoration: none; padding: 6px 13px; border-radius: 999px; border: 1px solid var(--teacher);
+  background: var(--teacher); color: var(--surface); font-weight: 600; font-size: 13.5px; line-height: 1.6; }
+.btn.ghost { background: transparent; color: var(--teacher); }
+.btn svg { width: 12px; height: 12px; fill: currentColor; flex: none; }
+
+/* player */
+.player { position: fixed; inset-inline: 0; bottom: 0; z-index: 10; background: var(--surface); border-top: 1px solid var(--rule); padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; justify-content: center; }
+.player audio { flex: 1 1 280px; max-width: 520px; height: 36px; }
+.speeds { display: flex; gap: 4px; direction: ltr; }
+.speeds button, .pclose { cursor: pointer; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 6px; padding: 3px 8px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.speeds button[aria-pressed="true"] { background: var(--teacher); color: var(--surface); border-color: var(--teacher); }
+.now { font-size: 12.5px; color: var(--muted); }
+.flash { animation: flash 1.2s ease-out; }
+@keyframes flash { from { box-shadow: 0 0 0 3px var(--teacher); } to { box-shadow: var(--shadow); } }
+@media (prefers-reduced-motion: reduce) { .flash { animation: none; } }
+@media (max-width: 460px) {
+  article.card { padding: 14px 14px 10px; }
+  .start { font-size: 19px; }
+  .sec li { font-size: 15.5px; }
+  .toc li.lv3 { padding-inline-start: 14px; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap" dir="rtl" lang="ur">
+  <header class="top">
+    <div class="topbar">
+      <a class="homelink" id="homeLink" href="./" hidden></a>
+      <button type="button" class="recbtn" id="recBtn" aria-haspopup="dialog">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 10V8a5.5 5.5 0 0 1 11 0v2"/><path d="M2.5 10h2v4h-2zM11.5 10h2v4h-2z"/></svg><span>ریکارڈنگز</span>
+      </button>
+    </div>
+    <h1 lang="ar" id="kitab"></h1>
+    <p class="meta" id="meta"></p>
+  </header>
+
+  <section id="tocView">
+    <div class="tochead">
+      <h2>فہرست</h2>
+      <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ نمبر" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form>
+    </div>
+    <p class="msg" id="tocMsg" hidden></p>
+    <ol class="toc" id="toc"></ol>
+  </section>
+
+  <section id="unitView" hidden>
+    <div class="ubar">
+      <div class="ubar-top"><a class="back" href="#">فہرست</a><span class="utitle" lang="ar" id="ubarTitle"></span>
+        <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form></div>
+      <nav class="pbar" id="pbar" aria-label="صفحات"></nav>
+    </div>
+    <div class="uhead">
+      <p class="parent" lang="ar" id="uParent"></p>
+      <h2 lang="ar" id="uTitle"></h2>
+      <p class="meta" id="uMeta"></p>
+    </div>
+    <p class="msg" id="uMsg" hidden></p>
+    <div class="legend" id="legend" aria-label="ماخذ کی علامتیں">
+      <span class="lg" data-t="u"><span class="chip u">استاد</span><span>ریکارڈنگ کا وقت</span></span>
+      <span class="lg" data-t="k"><span class="chip k">کتاب ص</span><span>متن</span></span>
+      <span class="lg" data-t="s"><span class="chip s">شرح</span><span>حاشیہ یا بین السطور</span></span>
+      <span class="lg" data-t="a"><span class="chip a">AI</span><span>خود جانچیں</span></span>
+      <button type="button" class="linkbtn" id="toggleAll" aria-pressed="false">سب تفصیل کھولیں</button>
+    </div>
+    <main id="cards"></main>
+    <section class="gaps" id="gaps" hidden>
+      <h3 id="gapsTitle"></h3>
+      <p class="lead" id="gapsLead"></p>
+      <ul class="glist" id="gapList"></ul>
+    </section>
+    <nav class="unav" id="unav" aria-label="پچھلا اور اگلا حصہ"></nav>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<div class="backdrop" id="backdrop" dir="rtl" lang="ur" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" id="sheet"></div>
+</div>
+
+<div class="player" id="player" dir="rtl" lang="ur" hidden>
+  <audio id="audio" controls preload="metadata"></audio>
+  <div class="speeds" id="speeds" role="group" aria-label="رفتار">
+    <button type="button" data-rate="1" aria-pressed="true">1×</button>
+    <button type="button" data-rate="1.25" aria-pressed="false">1.25×</button>
+    <button type="button" data-rate="1.5" aria-pressed="false">1.5×</button>
+  </div>
+  <span class="now" id="now"></span>
+  <button type="button" class="pclose" id="pclose" aria-label="آواز بند کریں">✕</button>
+</div>
+
+<script>
+const DATA = {"book": {"book": "ہدایہ جلد رابع", "kitab": "كتاب الصيد", "from": 1756, "to": 1772, "unit": "کارڈ", "unitOne": "کارڈ"}, "home": "./", "homeLabel": "ہدایہ جلد رابع", "store": "h4", "lessons": {"2025-10-05": {"file": "2025-10-05 الهدايه الرابع كتاب الصيد.mp4", "minutes": 31.1, "id": "1sALa9GWwMBbaklHaxxJowprHMITA8DAJ", "size_mb": 29.7, "label": "5 اکتوبر 2025", "web": [{"src": "audio/2025-10-05.ogg", "start": 0.0, "mb": 3.7}], "web_mb": 3.7}}, "units": [{"key": "u0", "level": 1, "title": "كتاب الصيد", "page": 1756, "page_to": 1756}, {"key": "u1", "level": 3, "title": "فصل في الجوارح", "page": 1756, "page_to": 1764}, {"key": "u2", "level": 3, "title": "فصل في الرمي", "page": 1765, "page_to": 1772}], "cards": [{"unit": "u0", "pages": [1756], "lesson": "2025-10-05", "ts": "0:00:30", "label": null, "title": "کتاب الصید کا تعارف: صید کا معنی، شکار کا جواز (قرآن، حدیثِ عدی، اجماع، عقل) اور کتاب کی دو فصلیں", "start": "الصيد: الاصطياد، ويطلق على ما يُصَاد، والفعل مباح لغير المُحْرِم", "start_note": "یہ کتاب الصید کا پہلا سبق ہے؛ پچھلا سبق (2025-10-04) کتاب الاشربہ کے آخر (v7 307) پر ختم ہوا۔ ساتھیوں کے نسخے میں کتاب الصید ص 1756 سے شروع ہوتی ہے (فصل في الجوارح بھی ص 1756)؛ استاد نے اپنے نسخے کا ص 1840 بتایا (0:00:30)۔ ریکارڈنگ کے پہلے 30 سیکنڈ کی کوئی سطر نہیں؛ شروع کی کئی سطریں ایک ہی وقت 0:00:30 پر ہیں (دیکھیں NOTES)۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٧ ص 308–309", "tamheed": [{"x": "اس کتاب میں شکار کے احکام ہیں، چاہے شکار جانور کے ذریعے ہو یا تیر کے ذریعے۔", "s": [{"t": "u", "v": "0:00:30"}]}, {"x": "کتاب الصید کی دو اہم بحثیں ہیں: جانوروں کے ذریعے شکار، اور تیر کے ذریعے شکار؛ دونوں کے احکام الگ الگ بیان ہوں گے۔ (کتاب: «أحدهما: في الصيد بالجوارح، والثاني: في الاصطياد بالرمي»۔)", "s": [{"t": "u", "v": "0:01:37"}, {"t": "u", "v": "0:01:42"}, {"t": "u", "v": "0:01:47"}, {"t": "k", "v": "1756", "v7": 309}]}], "masala": [{"x": "«صید» کا لفظ شکار کرنے کو بھی کہتے ہیں، اور جس جانور کا شکار کیا جائے اسے بھی۔ (کتاب: «الصيد: الاصطياد، ويطلق على ما يُصاد»۔)", "s": [{"t": "u", "v": "0:00:30"}, {"t": "k", "v": "1756", "v7": 308}]}, {"x": "شکار مباح ہے؛ صرف محرم کے لیے جائز نہیں، اور حرم کے اندر کسی کے لیے بھی جائز نہیں، محرم ہو یا غیر محرم۔ (کتاب: «مباح لغير المُحْرِم في غير الحَرَم»۔)", "s": [{"t": "u", "v": "0:00:30"}, {"t": "u", "v": "0:00:31"}, {"t": "k", "v": "1756", "v7": 308}]}], "dalil": [{"x": "قرآن: «فاصطادوا» کا لفظ (کتاب: «إذا حللتم فاصطادوا»)؛ اور «وحُرِّم عليكم صيدُ البرّ ما دمتم حُرُماً»: جب تم حالتِ احرام میں ہو تو شکار حرام ہے، اس کے علاوہ جائز۔", "s": [{"t": "u", "v": "0:00:46"}, {"t": "u", "v": "0:00:50"}, {"t": "u", "v": "0:00:54"}, {"t": "u", "v": "0:00:56"}, {"t": "u", "v": "0:00:58"}, {"t": "k", "v": "1756", "v7": 308}]}, {"x": "حدیث: حضرت عدی بن حاتمؓ شکار کرتے تھے؛ حضور ﷺ نے انہیں شکار کے احکام بتائے، ان سے بہت سی ہدایات منقول ہیں۔ (کتاب: «إذا أرسلت كلبك المعلَّم وذكرت اسم الله عليه فكُلْ…»)", "s": [{"t": "u", "v": "0:01:00"}, {"t": "u", "v": "0:01:01"}, {"t": "u", "v": "0:01:05"}, {"t": "u", "v": "0:01:08"}, {"t": "k", "v": "1756", "v7": 308}]}, {"x": "اس پر اجماع بھی ہے۔", "s": [{"t": "u", "v": "0:01:11"}, {"t": "k", "v": "1756", "v7": 308}]}, {"x": "عقلی دلیل: جو چیزیں اللہ نے انسان کے فائدے کے لیے پیدا کیں، انسان ان سے فائدہ اٹھاتا اور کھاتا ہے، اور یوں اس مقصد کو پورا کرتا ہے جس کے لیے وہ پیدا کی گئیں۔ (کتاب: «ولأنه نوع اكتساب وانتفاع بما هو مخلوق لذلك… فكان مباحاً بمنزلة الاحتطاب»۔)", "s": [{"t": "u", "v": "0:01:12"}, {"t": "u", "v": "0:01:21"}, {"t": "u", "v": "0:01:28"}, {"t": "u", "v": "0:01:30"}, {"t": "u", "v": "0:01:35"}, {"t": "k", "v": "1756", "v7": 309}]}], "ikhtilaf": [], "faida": [{"x": "حاشیہ: کتاب الاشربہ کے بعد کتاب الصید اس لیے کہ دونوں سرور کا باعث ہیں؛ اشربہ کو اس کی حرمت کی وجہ سے پہلے لائے تاکہ اس سے بچنے کا اہتمام ہو۔", "s": [{"t": "s", "v": "العناية ٩/٤٢"}]}, {"x": "حاشیہ: «ما دمتم حُرُماً» میں تحریم ایک حد تک ہے، تو اس کے بعد اباحت کا تقاضا کرتی ہے؛ اور «فاصطادوا» میں امر اباحت کے لیے ہے۔", "s": [{"t": "s", "v": "البناية"}, {"t": "s", "v": "الكفاية ٩/٤٢–٤٣"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"x": "حاشیہ: شکار ماکول اللحم ہو یا غیر ماکول، دونوں کا شکار جائز ہے، کیونکہ اس میں کھال یا بال کا فائدہ یا لوگوں سے تکلیف دور کرنا ہے۔ صید وہ جانور ہے جو اصل خلقت میں انسان سے بِدکنے والا جنگلی ہو۔", "s": [{"t": "s", "v": "الكفاية ٩/٤٢–٤٣"}, {"t": "s", "v": "نتائج الأفكار ٩/٤٢"}]}, {"x": "حاشیہ: حدیثِ عدیؓ ائمۂ ستہ نے روایت کی (بخاری رقم ٥٤٨٦: کتا کھا لے تو نہ کھاؤ، کیونکہ اس نے اپنے لیے روکا؛ ساتھ دوسرا کتا ملا ہو تو نہ کھاؤ، کیونکہ تم نے اپنے کتے پر بسم اللہ پڑھی تھی)۔", "s": [{"t": "s", "v": "نصب الراية ٤/٣١٢"}, {"t": "k", "v": "1756", "v7": 308}]}], "lughat": [{"ar": "الاصطياد", "ur": "شکار کرنا", "s": [{"t": "u", "v": "0:00:30"}]}, {"ar": "يُطلق على ما يُصاد", "ur": "جس جانور کا شکار کیا جائے، اس پر بھی بولا جاتا ہے", "s": [{"t": "u", "v": "0:00:30"}]}, {"ar": "إذا حللتم", "ur": "جب تم احرام سے نکل آؤ", "s": [{"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "ما دمتم حُرُماً", "ur": "جب تک تم حالتِ احرام میں ہو", "s": [{"t": "u", "v": "0:00:54"}]}, {"ar": "بمنزلة الاحتطاب", "ur": "لکڑیاں جمع کرنے کی طرح (مباح کمائی)", "s": [{"t": "a", "v": ""}, {"t": "s", "v": "نتائج الأفكار ٩/٤٢"}]}, {"ar": "استبقاء المكلَّف", "ur": "مکلف (انسان) کی زندگی باقی رکھنا", "s": [{"t": "a", "v": ""}, {"t": "s", "v": "البناية"}]}]}, {"unit": "u1", "pages": [1756, 1757], "lesson": "2025-10-05", "ts": "0:01:50", "label": null, "title": "فصل في الجوارح: ہر سدھائے ہوئے چیر پھاڑ والے درندے اور چنگل والے پرندے سے شکار جائز؛ امام ابو یوسف کے ہاں شیر اور ریچھ مستثنیٰ؛ خنزیر مستثنیٰ؛ تعلیم شرط", "start": "فصل في الجوارح قال: ويجوز الاصطياد بالكلب المُعَلَّم والفَهْدِ والبازي", "start_note": "«فصل في الجوارح» 0:01:52 پر پڑھا؛ 0:01:53–0:06:07 تمہید و تشریح، پھر عبارت 0:06:11 سے پڑھی۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٧ ص 309–311", "tamheed": [{"x": "عام طور پر سنا ہے کہ کتے سے شکار کیا جاتا ہے، لیکن یہ صرف کتے کا حکم نہیں: کسی بھی زخمی کرنے والے جانور سے شکار ہو سکتا ہے، کتا، چیتا، باز؛ حتیٰ کہ ٹائیگر یا شیر کو تعلیم دے دیں اور وہ آپ کے لیے شکار کرے تو بھی مسئلہ نہیں۔", "s": [{"t": "u", "v": "0:01:56"}, {"t": "u", "v": "0:01:59"}, {"t": "u", "v": "0:02:03"}, {"t": "u", "v": "0:02:08"}, {"t": "u", "v": "0:02:19"}]}, {"x": "پرندوں میں بھی صرف باز نہیں؛ جانوروں کو پکڑنے والا کوئی بھی شکاری پرندہ انسان سدھا دے تو اس سے شکار جائز ہے۔", "s": [{"t": "u", "v": "0:02:40"}, {"t": "u", "v": "0:02:49"}]}, {"x": "مثال: مالک کا ایک غیر سدھایا ہوا کتا کسی ہرن کو زخمی کر دے؛ مالک نے پکڑ کر ذبح کر دیا تو ذبح کی وجہ سے جائز، ذبح نہ کیا تو جائز نہیں۔ سدھایا ہوا (معلّم) ہو تو ذبح کا موقع نہ ملے تب بھی جائز۔", "s": [{"t": "u", "v": "0:03:14"}, {"t": "u", "v": "0:03:16"}, {"t": "u", "v": "0:03:18"}, {"t": "u", "v": "0:03:24"}, {"t": "u", "v": "0:03:25"}, {"t": "u", "v": "0:03:31"}, {"t": "u", "v": "0:03:34"}, {"t": "u", "v": "0:03:37"}, {"t": "u", "v": "0:03:41"}]}], "masala": [{"x": "سدھائے ہوئے کتے، چیتے، باز اور تمام سدھائے ہوئے زخمی کرنے والے جانوروں سے شکار جائز ہے۔", "s": [{"t": "u", "v": "0:06:11"}, {"t": "u", "v": "0:06:13"}, {"t": "u", "v": "0:06:17"}, {"t": "u", "v": "0:06:19"}, {"t": "k", "v": "1756", "v7": 309}]}, {"x": "جامع صغیر: ہر وہ چیز جسے آپ سکھا دیں، درندوں میں سے کچلی والا اور پرندوں میں سے چنگل والا، اس کے شکار میں حرج نہیں؛ اس کے علاوہ میں خیر نہیں (یعنی ناجائز، اگر تعلیم نہ دی گئی ہو)۔", "s": [{"t": "u", "v": "0:06:24"}, {"t": "u", "v": "0:06:25"}, {"t": "u", "v": "0:06:30"}, {"t": "u", "v": "0:06:34"}, {"t": "u", "v": "0:06:39"}, {"t": "u", "v": "0:06:43"}, {"t": "k", "v": "1756", "v7": 309}, {"t": "k", "v": "1756–1757", "v7": 310}, {"t": "s", "v": "البناية"}]}, {"x": "مگر یہ کہ اس کا ذبح پا لیا جائے: زندہ حالت میں مل جائے اور ذبح کر لے، تو کسی بھی جانور کا شکار ہو، حلال ہو جائے گا؛ اور معلّم کا شکار مردہ لے آئے تب بھی جائز۔", "s": [{"t": "u", "v": "0:06:51"}, {"t": "u", "v": "0:06:59"}, {"t": "u", "v": "0:07:01"}, {"t": "u", "v": "0:07:03"}, {"t": "u", "v": "0:07:11"}, {"t": "u", "v": "0:07:15"}, {"t": "k", "v": "1756–1757", "v7": 310}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"x": "امام ابو یوسف نے شیر اور ریچھ کو مستثنیٰ کیا، کیونکہ یہ دونوں کسی کے کام نہیں آتے: شیر بلند ہمتی کی وجہ سے کسی کا غلام نہیں بنتا؛ ریچھ ذلیل جانور ہے، شرف کی وجہ سے نہیں بلکہ خساست کی وجہ سے۔ (کتاب: «لأنهما لا يعملان لغيرهما: الأسد لعلو همته، و[الدب] لخساسته»۔)", "s": [{"t": "u", "v": "0:04:37"}, {"t": "u", "v": "0:04:43"}, {"t": "u", "v": "0:04:47"}, {"t": "u", "v": "0:04:50"}, {"t": "u", "v": "0:04:57"}, {"t": "u", "v": "0:05:05"}, {"t": "k", "v": "1756–1757", "v7": 310}, {"t": "k", "v": "1757", "v7": 311}]}, {"x": "کتاب: بعض نے ان کے ساتھ چیل («الحِدَأة») کو بھی خساست کی وجہ سے ملایا۔", "s": [{"t": "k", "v": "1757", "v7": 311}]}, {"x": "خنزیر مستثنیٰ ہے، کیونکہ وہ نجس العین ہے (کتاب: تو اس سے فائدہ اٹھانا جائز نہیں)۔", "s": [{"t": "u", "v": "0:05:18"}, {"t": "u", "v": "0:05:21"}, {"t": "k", "v": "1757", "v7": 311}]}, {"x": "باقی سب جانوروں کا شکار جائز، لیکن شرط یہ ہے کہ انہیں تعلیم دی گئی ہو۔", "s": [{"t": "u", "v": "0:05:23"}, {"t": "u", "v": "0:05:33"}, {"t": "k", "v": "1757", "v7": 311}]}], "dalil": [{"x": "اصل آیت: «وما علَّمتم من الجوارح مكلِّبين»۔ جَرَحَ زخمی کرنے کو بھی کہتے ہیں اور کمانے کو بھی؛ جوارح وہ جانور جو خود شکار کماتے (حاصل کرتے) ہیں؛ مکلّبین = مسلَّطین (شکار پر مسلط کیے ہوئے)۔ تو یہ اوصاف جس جانور میں ہوں، اس سے شکار ہو سکتا ہے۔ (کتاب: «والجوارح: الكواسب… والمكلِّبين: المسلَّطين، فيتناول الكل بعمومه»۔)", "s": [{"t": "u", "v": "0:03:45"}, {"t": "u", "v": "0:03:47"}, {"t": "u", "v": "0:03:50"}, {"t": "u", "v": "0:03:53"}, {"t": "u", "v": "0:03:56"}, {"t": "u", "v": "0:04:06"}, {"t": "u", "v": "0:04:12"}, {"t": "u", "v": "0:04:17"}, {"t": "k", "v": "1756–1757", "v7": 310}]}, {"x": "قرآن میں کلب کا لفظ (مکلّبین) آیا ہے، لیکن اصل عربی لغت میں کلب ہر زخمی کرنے والے درندے کو کہتے ہیں۔ (کتاب: «واسم الكلب في اللغة يقع على كل سبع حتى الأسد»؛ حاشیہ: عتبہ بن ابی لہب کے لیے دعا «اللهم سلّط عليه كلباً من كلابك» پر اللہ نے شیر مسلط کیا۔)", "s": [{"t": "u", "v": "0:04:26"}, {"t": "u", "v": "0:04:31"}, {"t": "k", "v": "1756–1757", "v7": 310}, {"t": "s", "v": "البناية"}]}, {"x": "تعلیم کیوں شرط: قرآن میں «علَّمتم» کا لفظ اور حدیث میں تعلیم کا ذکر ہے؛ اور (حدیث میں) ارسال یعنی بھیجنا، بھیجا اسی کو جاتا ہے جو سدھایا ہوا ہو۔ سکھانے کے بعد وہ اپنے لیے نہیں، آپ کے لیے شکار کرتا اور روکتا ہے؛ اپنے لیے شکار کرے اور اس میں سے کھائے تو معلّم نہیں، اس کا شکار جائز نہیں۔ (کتاب: «ولأنه إنما يصير آلة بالتعليم؛ ليكون عاملاً له فيترسل بإرساله، ويمسكه عليه»۔)", "s": [{"t": "u", "v": "0:05:33"}, {"t": "u", "v": "0:05:40"}, {"t": "u", "v": "0:05:42"}, {"t": "u", "v": "0:05:48"}, {"t": "u", "v": "0:05:57"}, {"t": "u", "v": "0:06:05"}, {"t": "u", "v": "0:06:07"}, {"t": "k", "v": "1757", "v7": 311}]}], "ikhtilaf": [], "faida": [{"x": "استاد: کتا الگ سے اس لیے مشہور ہے کہ جلدی سیکھ جاتا ہے، مالک کا وفادار ہوتا ہے اور شکار میں سے نہیں کھاتا؛ ورنہ حکم صرف کتے کا نہیں۔", "s": [{"t": "u", "v": "0:02:26"}, {"t": "u", "v": "0:02:29"}, {"t": "u", "v": "0:02:30"}, {"t": "u", "v": "0:02:36"}]}, {"x": "حاشیہ: شکار حلال ہونے کی شرطیں: شکاری اہلِ ذکاة میں سے ہو (ذبح اور تسمیہ سمجھتا ہو، اس لیے ناسمجھ بچے اور مجنون کا شکار نہیں کھایا جائے گا؛ مسلمان یا کتابی ہو)، جس سے شکار کرے وہ معلّم ہو اور زخمی کرنے والا ہو۔", "s": [{"t": "s", "v": "الكفاية ٩/٤٤"}]}, {"x": "حاشیہ: «وسائر الجوارح» اپنے عموم میں شیر، بھیڑیے، ریچھ اور خنزیر کو بھی شامل ہے؛ خنزیر نجس العین ہونے کی وجہ سے (سب کو معلوم تھا، اس لیے قدوری نے استثناء نہیں کیا)، باقی کی تعلیم ممکن ہو تو ان سے شکار جائز۔", "s": [{"t": "s", "v": "العناية ٩/٤٤"}]}, {"x": "حاشیہ: جامع صغیر کی روایت اس لیے لائے کہ اس میں «ولا خير فيما سوى ذلك» سے نفی بھی ہے، قدوری کی روایت صرف اثبات بتاتی ہے؛ اور «لا بأس» کا لفظ اس لیے کہ آیت سے کچھ (بھیڑیا، خنزیر) خاص کر لیے گئے، تو باقی ظنی ہو گیا۔", "s": [{"t": "s", "v": "العناية ٩/٤٤"}, {"t": "s", "v": "الكفاية ٩/٤٤"}]}, {"x": "حاشیہ: جوارح کی فصل رمی کی فصل سے پہلے، کیونکہ یہاں شکار کا آلہ حیوان ہے اور رمی میں جماد۔", "s": [{"t": "s", "v": "العناية"}]}, {"x": "حاشیہ: جوارح کے معنی میں دو قول: حقیقی زخمی کرنے والے (جراحت)، یا کمانے والے («ويعلم ما جرحتم بالنهار»: جو تم نے کمایا)؛ دونوں معنی مراد لیے جا سکتے ہیں۔ مکلِّب = کتوں کو سدھانے والا، پھر ہر شکاری جانور یا پرندہ سدھانے والے کے لیے عام ہو گیا۔", "s": [{"t": "s", "v": "الكفاية ٩/٤٥–٤٦"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}], "lughat": [{"ar": "الجوارح", "ur": "زخمی کرنے والے اور (شکار) کمانے والے جانور؛ جَرَحَ = زخمی کرنا بھی، کمانا بھی", "s": [{"t": "u", "v": "0:03:47"}, {"t": "u", "v": "0:03:50"}, {"t": "u", "v": "0:03:53"}, {"t": "u", "v": "0:04:06"}, {"t": "k", "v": "1756–1757", "v7": 310}]}, {"ar": "مكلِّبين", "ur": "مسلَّطین، (شکار پر) مسلط کیے ہوئے؛ بین السطور: کتوں کو سدھانے والے", "s": [{"t": "u", "v": "0:04:12"}, {"t": "k", "v": "1756–1757", "v7": 310}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "الفَهْد", "ur": "چیتا", "s": [{"t": "u", "v": "0:06:17"}]}, {"ar": "ذي ناب من السباع", "ur": "ڈاڑھوں (کچلیوں) والے درندے", "s": [{"t": "u", "v": "0:06:30"}]}, {"ar": "ذي مِخْلَب من الطير", "ur": "شکاری پرندوں میں سے چنگل والے", "s": [{"t": "u", "v": "0:06:34"}]}, {"ar": "إلا أن تُدرك ذكاته", "ur": "مگر یہ کہ اسے زندہ پا کر ذبح کر لے", "s": [{"t": "u", "v": "0:06:51"}, {"t": "u", "v": "0:06:59"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "لعلو همته / لخساسته", "ur": "اپنی بلند ہمتی کی وجہ سے / اپنی خساست اور کمینگی کی وجہ سے", "s": [{"t": "u", "v": "0:04:50"}, {"t": "u", "v": "0:04:57"}]}, {"ar": "الحِدَأة (OCR: الحِدَّة)", "ur": "چیل", "s": [{"t": "u", "v": "0:05:09"}, {"t": "k", "v": "1757", "v7": 311}]}]}, {"unit": "u1", "pages": [1757, 1758], "lesson": "2025-10-05", "ts": "0:07:17", "label": null, "title": "تعلیم کا معیار: کتا تین دفعہ کھانا چھوڑ دے، باز بلانے پر لوٹ آئے؛ امام صاحب کی دوسری روایت: شکاری کا غالب گمان؛ تیسری دفعہ کا شکار حلال یا نہیں", "start": "قال: وتعليم الكلب: أن يَتْرُك الأكل ثلاث مرات، وتعليم البازي أن يرجع", "start_note": "استاد نے 0:07:17 سے سمجھانا شروع کیا؛ عبارت 0:08:36–0:08:37 پر پڑھی (یہاں کئی سطروں کا ایک ہی وقت ہے)۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٧ ص 311–313", "tamheed": [{"x": "اب معیار کیا ہے کہ اسے معلّم کب قرار دیں؟ باز کی فطرت یہ ہے کہ وہ پالتو جانوروں کی طرح انسان کا عادی نہیں ہوتا؛ کتے کا کام ہی کھانا ہے۔", "s": [{"t": "u", "v": "0:07:17"}, {"t": "u", "v": "0:07:23"}, {"t": "u", "v": "0:07:26"}, {"t": "u", "v": "0:07:32"}, {"t": "u", "v": "0:08:21"}]}, {"x": "کتے کی تعلیم یوں ہوتی ہے کہ جب کھاتا ہے تو کھانے پر اسے مارتے ہیں، آہستہ آہستہ سمجھ جاتا ہے اور کھانا چھوڑ دیتا ہے۔", "s": [{"t": "u", "v": "0:08:11"}, {"t": "u", "v": "0:08:16"}]}], "masala": [{"x": "کتے کی تعلیم: آقا بھیجے تو وہ (شکار میں سے) نہ کھائے؛ کم از کم تین دفعہ نہ کھائے۔ (کتاب: «أن يترك الأكل ثلاث مرات»؛ یہ ابن عباسؓ سے منقول ہے۔)", "s": [{"t": "u", "v": "0:07:48"}, {"t": "u", "v": "0:08:00"}, {"t": "u", "v": "0:08:04"}, {"t": "u", "v": "0:08:05"}, {"t": "u", "v": "0:08:36"}, {"t": "k", "v": "1757", "v7": 311}]}, {"x": "باز کی تعلیم: مالک کے بلانے پر آئے اور چھوڑنے پر جائے؛ جب آپ اسے بلائیں تو لوٹے اور جواب دے۔", "s": [{"t": "u", "v": "0:07:36"}, {"t": "u", "v": "0:07:44"}, {"t": "u", "v": "0:07:46"}, {"t": "u", "v": "0:08:37"}, {"t": "k", "v": "1757", "v7": 311}]}, {"x": "کتاب: تین دفعہ کی شرط صاحبین کے ہاں ہے، اور یہی امام ابو حنیفہ سے ایک روایت ہے۔", "s": [{"t": "k", "v": "1757–1758", "v7": 312}, {"t": "s", "v": "البناية"}]}, {"x": "امام ابو حنیفہ کی دوسری رائے (کتاب: «على ما ذكر في الأصل»): کوئی تعداد نہیں، بلکہ شکار کرنے والے کا غالب گمان ہو کہ اب یہ معلّم بن گیا، تو معلّم ہو جائے گا۔", "s": [{"t": "u", "v": "0:10:06"}, {"t": "u", "v": "0:10:10"}, {"t": "u", "v": "0:10:14"}, {"t": "u", "v": "0:10:17"}, {"t": "k", "v": "1757–1758", "v7": 312}]}, {"x": "تیسری دفعہ والا شکار: تین دفعہ نہ کھانے سے معلوم ہوا کہ معلّم بن گیا؛ اس کے بعد والا شکار تو درست ہے؛ تیسری دفعہ والا؟ امام ابو حنیفہ کی (تین دفعہ والی) پہلی روایت پر حلال ہے، صاحبین کے ہاں حرام، اعتبار اس کے بعد کا ہے۔", "s": [{"t": "u", "v": "0:10:42"}, {"t": "u", "v": "0:10:46"}, {"t": "u", "v": "0:10:49"}, {"t": "u", "v": "0:10:52"}, {"t": "u", "v": "0:10:55"}, {"t": "u", "v": "0:11:03"}, {"t": "u", "v": "0:11:06"}, {"t": "u", "v": "0:11:16"}, {"t": "u", "v": "0:13:16"}, {"t": "u", "v": "0:13:21"}, {"t": "k", "v": "1757–1758", "v7": 312}, {"t": "k", "v": "1758", "v7": 313}]}], "dalil": [{"x": "دونوں میں فرق کیوں (استاد): باز انسان کے ساتھ نہیں ٹھہرتا، اس لیے اس کا (بلانے پر) آنا ہی تعلیم کی علامت ہے؛ کتے کا کام کھانا ہے، کھانا چھوڑ دے تو معلّم ہو گیا۔ (کتاب: تعلیم کی علامت مانوس عادت کو چھوڑنا ہے؛ باز وحشی اور بدکنے والا ہے تو اس کی علامت لوٹ آنا، کتا مانوس اور چھینا جھپٹی کا عادی ہے تو اس کی علامت کھانا اور چھیننا چھوڑنا۔)", "s": [{"t": "u", "v": "0:08:21"}, {"t": "u", "v": "0:08:26"}, {"t": "u", "v": "0:08:28"}, {"t": "u", "v": "0:08:35"}, {"t": "k", "v": "1757", "v7": 311}, {"t": "k", "v": "1757–1758", "v7": 312}]}, {"x": "تین دفعہ کیوں: ایک دو دفعہ چھوڑنے میں امکان ہے کہ اس کا پیٹ بھرا ہوا تھا؛ تین دفعہ چھوڑا تو معلوم ہوا کہ یہ اس کی عادت بن گئی۔", "s": [{"t": "u", "v": "0:07:54"}, {"t": "u", "v": "0:07:57"}, {"t": "u", "v": "0:08:58"}, {"t": "u", "v": "0:09:03"}, {"t": "u", "v": "0:09:06"}, {"t": "u", "v": "0:09:09"}, {"t": "k", "v": "1757–1758", "v7": 312}]}, {"x": "شریعت میں بہت سی چیزوں کے لیے تین کا عدد مقرر ہے: موسیٰؑ کے واقعے میں تین دفعہ اختیار دیا گیا، دروازہ تین دفعہ کھٹکھٹانے کا کہا گیا، خیار کی مدت تین دن۔ (کتاب: «لأن الثلاث مدة ضُربت للاختبار وإبلاء الأعذار، كما في مدة الخيار، وفي بعض قصص الأخبار»۔)", "s": [{"t": "u", "v": "0:09:13"}, {"t": "u", "v": "0:09:18"}, {"t": "u", "v": "0:09:25"}, {"t": "u", "v": "0:09:30"}, {"t": "u", "v": "0:09:32"}, {"t": "u", "v": "0:09:38"}, {"t": "u", "v": "0:09:41"}, {"t": "k", "v": "1757–1758", "v7": 312}, {"t": "s", "v": "الكفاية ٩/٤٧"}]}, {"x": "کتا تب معلّم کہا جائے گا جب زیادہ دفعہ کھانا چھوڑ دے؛ کم اور زیادہ کی مقدار تین ہے، کیونکہ تین جمع ہے۔ (کتاب: «والجمع هو الكثير، وأدناه الثلاث، فقُدِّر بها»۔)", "s": [{"t": "u", "v": "0:09:42"}, {"t": "u", "v": "0:09:50"}, {"t": "u", "v": "0:09:53"}, {"t": "u", "v": "0:09:56"}, {"t": "k", "v": "1757–1758", "v7": 312}]}, {"x": "امام صاحب کی دوسری رائے کی دلیل: ہم اپنی طرف سے تین کا عدد مقرر نہیں کر سکتے، شریعت میں کوئی تعداد منقول نہیں؛ اس لیے جو خود اس معاملے میں مبتلا ہے (شکاری) اس کی رائے کا اعتبار ہے۔ (کتاب: «لأن المقادير لا تُعرف اجتهاداً، بل نصاً وسماعاً، ولا سمع، فيُفوَّض إلى رأي المبتلى به»۔)", "s": [{"t": "u", "v": "0:10:20"}, {"t": "u", "v": "0:10:24"}, {"t": "u", "v": "0:10:29"}, {"t": "u", "v": "0:10:32"}, {"t": "k", "v": "1757–1758", "v7": 312}]}], "ikhtilaf": [{"x": "صاحبین (تیسرا شکار حرام): معلّم ہونے کا حکم تین پورے ہونے کے بعد لگے گا؛ تیسری دفعہ میں وہ ابھی جاہل کتا تھا۔ جیسے غلام آقا کے سامنے خرید و فروخت کرے اور آقا خاموش رہے تو یہ اجازت کی علامت ہے، مگر اجازت اس کے بعد کے لیے ہے؛ وہ پہلا تصرف نافذ نہیں۔ (کتاب: «وصار كالتصرف المباشر في سكوت المولى»۔)", "s": [{"t": "u", "v": "0:11:06"}, {"t": "u", "v": "0:11:12"}, {"t": "u", "v": "0:11:16"}, {"t": "u", "v": "0:11:27"}, {"t": "u", "v": "0:11:33"}, {"t": "u", "v": "0:11:36"}, {"t": "u", "v": "0:11:42"}, {"t": "u", "v": "0:11:47"}, {"t": "u", "v": "0:12:00"}, {"t": "u", "v": "0:12:05"}, {"t": "u", "v": "0:12:08"}, {"t": "k", "v": "1758", "v7": 313}, {"t": "s", "v": "البناية ١١/٤٧٩"}]}, {"x": "امام ابو حنیفہ (تیسرا شکار حلال): تیسری دفعہ نہ کھانا اس کے معلّم ہونے کی دلیل ہے؛ معلوم ہوا کہ وہ شروع سے معلّم تھا، ہمیں پتہ نہیں تھا اس لیے تین کا انتظار کیا۔ غلام والے مسئلے میں فرق: اجازت تو بتانا (اعلام) ہے، غلام کو اجازت کا پتہ اس تصرف کے بعد آقا کی خاموشی سے چلا، اس لیے پہلا تصرف نافذ نہیں۔ (کتاب: «لأن الإذن إعلام، ولا يتحقق دون علم العبد، وذلك بعد المباشرة»۔)", "s": [{"t": "u", "v": "0:12:11"}, {"t": "u", "v": "0:12:14"}, {"t": "u", "v": "0:12:17"}, {"t": "u", "v": "0:12:35"}, {"t": "u", "v": "0:12:39"}, {"t": "u", "v": "0:12:43"}, {"t": "u", "v": "0:12:52"}, {"t": "u", "v": "0:12:59"}, {"t": "u", "v": "0:13:03"}, {"t": "u", "v": "0:13:07"}, {"t": "u", "v": "0:13:12"}, {"t": "k", "v": "1758", "v7": 313}, {"t": "s", "v": "البناية ١١/٤٨٠"}]}], "faida": [{"x": "حاشیہ (مبسوط): تین کی اصل موسیٰؑ اور خضرؑ کا قصہ ہے کہ تیسری دفعہ کہا «هذا فراق بيني وبينك»؛ شریعت نے خیار کی مدت تین دن رکھی؛ حدیث: «إذا استأذن أحدكم ثلاثاً فلم يُؤذن له فليرجع»؛ اور حضرت عمرؓ: کسی کو تجارت میں تین دفعہ نفع نہ ہو تو دوسری تجارت اختیار کرے۔", "s": [{"t": "s", "v": "الكفاية ٩/٤٧"}]}, {"x": "حاشیہ: «كما هو أصله في جنسها»: امام صاحب کا مقداروں میں یہی اصول ہے، جیسے قرض دار کو قید کرنے کی مدت، حد میں تقادم، اور کنویں سے پانی نکالنے کی مقدار (مبتلیٰ بہ کی رائے پر)۔ (استاد نے یہ نہیں بتایا۔)", "s": [{"t": "k", "v": "1757–1758", "v7": 312}, {"t": "s", "v": "الكفاية ٩/٤٧"}]}, {"x": "حاشیہ: ابن عباسؓ والا اثر (تعلیم کی تحدید) «غریب» ہے؛ بخاری میں ابن عباسؓ کا قول: کتا کھا لے تو اس نے شکار خراب کر دیا، اس نے اپنے لیے روکا؛ اللہ فرماتا ہے «تعلِّمونهنّ مما علَّمكم الله»، تو اسے مارا اور سکھایا جائے یہاں تک کہ (کھانا) چھوڑ دے۔", "s": [{"t": "s", "v": "نصب الراية ٤/٣١٤"}]}, {"x": "کتاب: باز کا بدن مار برداشت نہیں کرتا، کتے کا کرتا ہے، اس لیے کتے کو مار کر کھانا چھڑایا جاتا ہے؛ حاشیہ: باز میں کھانا چھڑانا ممکن نہیں، تو بلانے پر آنا اس کے قائم مقام کیا گیا۔", "s": [{"t": "k", "v": "1757", "v7": 311}, {"t": "s", "v": "البناية ١١/٤٧٦"}]}, {"x": "حاشیہ: «الرواية الأولى» یعنی تین والی، جو قدوری کی روایت ہے؛ پہلی، دوسری اور تیسری دفعہ نہ کھایا تو امام صاحب کے ہاں تیسرے کا کھانا حلال؛ صاحبین کے ہاں تیسرا حلال نہیں، اس کے بعد والا حلال۔", "s": [{"t": "s", "v": "البناية"}, {"t": "s", "v": "البناية ١١/٤٧٩"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}], "lughat": [{"ar": "يترك الأكل ثلاث مرات", "ur": "تین دفعہ کھانا چھوڑ دے", "s": [{"t": "u", "v": "0:08:36"}]}, {"ar": "يرجع ويُجيب إذا دعوته", "ur": "جب آپ بلائیں تو لوٹ آئے اور جواب دے", "s": [{"t": "u", "v": "0:08:37"}]}, {"ar": "متوحِّش متنفِّر", "ur": "وحشی، (انسان سے) بدکنے والا؛ پالتو جانوروں کی طرح عادی نہیں", "s": [{"t": "a", "v": ""}, {"t": "u", "v": "0:07:26"}, {"t": "u", "v": "0:07:32"}, {"t": "k", "v": "1757–1758", "v7": 312}]}, {"ar": "أَلُوف يعتاد الانتهاب", "ur": "مانوس، چھینا جھپٹی کا عادی", "s": [{"t": "a", "v": ""}, {"t": "k", "v": "1757–1758", "v7": 312}]}, {"ar": "شِبَعاً", "ur": "پیٹ بھرا ہونے (شکم سیری) کی وجہ سے", "s": [{"t": "u", "v": "0:07:57"}, {"t": "u", "v": "0:09:06"}]}, {"ar": "إبلاء الأعذار", "ur": "عذر کا موقع پورا دینا", "s": [{"t": "a", "v": ""}]}, {"ar": "رأي المبتلى به", "ur": "جو خود اس معاملے سے دوچار ہے (شکاری) اس کی رائے", "s": [{"t": "u", "v": "0:10:24"}]}, {"ar": "التصرف المباشر في سكوت المولى", "ur": "آقا کی خاموشی میں (غلام کا) کیا ہوا پہلا تصرف", "s": [{"t": "u", "v": "0:11:27"}, {"t": "u", "v": "0:11:47"}]}]}, {"unit": "u1", "pages": [1758, 1759], "lesson": "2025-10-05", "ts": "0:13:24", "label": null, "title": "معلّم کتا یا باز بسم اللہ پڑھ کر بھیجا، اس نے زخمی کر کے مار دیا تو حلال؛ تسمیہ اور زخم شرط (امام ابو یوسف کے ہاں زخم شرط نہیں)؛ کتا کھا لے تو حرام، باز کھا لے تو حلال", "start": "قال: وإذا أرسل كلبه المعلم، أو بازيه، وذكر اسم الله تعالى عند إرساله", "start_note": "عبارت 0:13:24 پر پڑھی، تشریح کے بعد 0:16:08–0:16:35 دوبارہ پڑھ کر ترجمہ کیا۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٧ ص 313–315", "tamheed": [{"x": "شکار کے لیے ضروری نہیں کہ اسے ذبح کیا جائے: کسی نے کتا یا باز بھیجا اور بھیجتے ہوئے اللہ کا نام لیا؛ اس نے جا کر شکار کو پکڑا، زخمی کیا، اور آدمی کے پہنچتے پہنچتے وہ مر گیا۔", "s": [{"t": "u", "v": "0:13:27"}, {"t": "u", "v": "0:13:42"}, {"t": "u", "v": "0:13:44"}, {"t": "u", "v": "0:13:50"}, {"t": "u", "v": "0:13:55"}, {"t": "u", "v": "0:13:58"}]}], "masala": [{"x": "اس کا کھانا حلال ہے۔ (کتاب: «فأخذ الصيد وجرحه، فمات: حلّ أكله»۔)", "s": [{"t": "u", "v": "0:14:03"}, {"t": "u", "v": "0:16:21"}, {"t": "u", "v": "0:16:28"}, {"t": "u", "v": "0:16:31"}, {"t": "u", "v": "0:16:33"}, {"t": "k", "v": "1758", "v7": 313}]}, {"x": "بھیجتے وقت بسم اللہ کہنا ضروری ہے؛ نہ پڑھی تو وہی (ذبائح والا) حکم: بھول کر نہ پڑھی تو حلال، جان بوجھ کر نہ پڑھی تو حرام۔", "s": [{"t": "u", "v": "0:14:40"}, {"t": "u", "v": "0:14:46"}, {"t": "u", "v": "0:14:51"}, {"t": "u", "v": "0:14:55"}, {"t": "u", "v": "0:14:57"}, {"t": "k", "v": "1758", "v7": 313}]}, {"x": "زخمی کرنا ضروری ہے (ظاہر الروایہ)؛ امام ابو یوسف کے ہاں زخمی کرنا ضروری نہیں، بس مردہ حالت میں مل گیا یا وہ لے آیا تو ٹھیک۔", "s": [{"t": "u", "v": "0:15:05"}, {"t": "u", "v": "0:15:47"}, {"t": "u", "v": "0:15:57"}, {"t": "u", "v": "0:16:02"}, {"t": "k", "v": "1758", "v7": 313}, {"t": "k", "v": "1758–1759", "v7": 314}]}, {"x": "اگر کتے (یا چیتے) نے اس میں سے کھا لیا تو نہیں کھایا جائے گا؛ باز کھا لے تو کھایا جائے گا۔", "s": [{"t": "u", "v": "0:16:34"}, {"t": "u", "v": "0:16:35"}, {"t": "u", "v": "0:16:48"}, {"t": "u", "v": "0:17:16"}, {"t": "k", "v": "1758–1759", "v7": 314}]}], "dalil": [{"x": "حلال ہونے کی دلیل: حدیثِ عدیؓ؛ استاد: حضور ﷺ نے فرمایا کہ زندہ مل جائے تو ذبح کر لو، مردہ مل جائے تو کھا لو۔ (کتاب: «لما روينا من حديث عدي»۔)", "s": [{"t": "u", "v": "0:14:05"}, {"t": "u", "v": "0:14:16"}, {"t": "k", "v": "1758", "v7": 313}]}, {"x": "تسمیہ کیوں: کتا یا باز آلۂ ذبح ہے، اور آلے کو استعمال کرنا پڑتا ہے؛ یہاں استعمال کا مطلب بھیجتے ہوئے بسم اللہ کہنا، جیسے تیر پھینکتے اور چھری پھیرتے ہوئے کہا جاتا ہے۔ (کتاب: «والذبح لا يحصل بمجرد الآلة إلا بالاستعمال، وذلك فيهما بالإرسال، فنزل منزلة الرمي وإمرار السكين»۔)", "s": [{"t": "u", "v": "0:14:18"}, {"t": "u", "v": "0:14:22"}, {"t": "u", "v": "0:14:25"}, {"t": "u", "v": "0:14:32"}, {"t": "u", "v": "0:14:35"}, {"t": "k", "v": "1758", "v7": 313}]}, {"x": "زخم کیوں (استاد): زخم کی علامت نہ ہو تو امکان ہے کہ اس نے پہلے سے مردہ جانور اٹھا لیا ہو یا گلا گھونٹا ہو اور وہ اس سے مر گیا ہو؛ اور قرآن کے «جوارح» میں زخم کا معنی بھی ہے، اس سے بھی زخم کا پتہ چلتا ہے۔ (کتاب: تاکہ ذکاتِ اضطراری پائی جائے، یعنی بدن کے کسی بھی حصے میں زخم؛ اور آیت میں جرح بمعنی جراحت کا اشارہ ہے۔)", "s": [{"t": "u", "v": "0:15:08"}, {"t": "u", "v": "0:15:18"}, {"t": "u", "v": "0:15:22"}, {"t": "u", "v": "0:15:25"}, {"t": "u", "v": "0:15:29"}, {"t": "u", "v": "0:15:33"}, {"t": "u", "v": "0:15:40"}, {"t": "u", "v": "0:15:42"}, {"t": "k", "v": "1758–1759", "v7": 314}]}, {"x": "کتے اور باز میں فرق: کتے کا کھانا علامت ہے کہ وہ جاہل ہے، معلّم نہیں؛ باز کی تعلیم میں کھانے نہ کھانے کا دخل نہیں، اس کی تعلیم بلانے پر آنا اور چھوڑنے پر جانا ہے۔ (کتاب: «والفرق ما بيناه في دلالة التعليم، وهو مؤيد بما رويناه من حديث عدي»۔)", "s": [{"t": "u", "v": "0:16:38"}, {"t": "u", "v": "0:16:42"}, {"t": "u", "v": "0:16:48"}, {"t": "u", "v": "0:16:57"}, {"t": "u", "v": "0:17:01"}, {"t": "k", "v": "1758–1759", "v7": 314}]}], "ikhtilaf": [{"x": "امام ابو یوسف: زخم شرط نہیں (کتاب: پہلی تاویل «الجوارح: الكواسب» کی طرف رجوع کرتے ہوئے)۔ جواب (کتاب): جارح کو دونوں صفتوں (زخمی کرنے والا اور کمانے والا) پر محمول کیا جائے، اس میں یقین پر عمل ہے۔", "s": [{"t": "u", "v": "0:15:47"}, {"t": "u", "v": "0:16:02"}, {"t": "k", "v": "1758–1759", "v7": 314}, {"t": "s", "v": "البناية ١١/٤٨٣"}]}, {"x": "امام مالک اور امام شافعی (کتاب: «وعلى الشافعي في قوله القديم»): کتا کھا لے تو بھی شکار حرام نہیں۔ استاد: ان کے ہاں ایک دفعہ معلّم ہو گیا تو پھر خود کھا لے تب بھی حرام نہیں؛ ہمارے ہاں ضروری ہے کہ کتا نہ کھائے، کھایا تو حلال نہیں۔ حدیثِ عدیؓ ان کے خلاف حجت ہے۔", "s": [{"t": "u", "v": "0:17:21"}, {"t": "u", "v": "0:17:35"}, {"t": "u", "v": "0:17:38"}, {"t": "k", "v": "1758–1759", "v7": 314}, {"t": "k", "v": "1759", "v7": 315}]}], "faida": [{"x": "حاشیہ: «ظاہر الروایہ» سے مراد «الزیادات» کی روایت ہے کہ کتا یا باز بغیر زخم کے مار دے تو حلال نہیں؛ «الاصل» میں اشارہ ہے کہ حلال ہے؛ فتویٰ ظاہر الروایہ پر ہے۔", "s": [{"t": "s", "v": "العناية ٩/٤٧"}]}, {"x": "حاشیہ: استعمال ضروری ہے، اسی لیے اگر شکار یا بکری خود چھری پر گر پڑے اور ذبح کی جگہ کٹ جائے تو حلال نہیں۔", "s": [{"t": "s", "v": "البناية"}]}, {"x": "حاشیہ: دونوں معنی (کمانا، زخمی کرنا) میں منافات نہیں، تو جمع کرنا یقین پر عمل ہے (فخر الاسلام: جیسے «ما خلق الله في أرحامهن» میں حمل اور حیض دونوں)۔", "s": [{"t": "s", "v": "الكفاية ٩/٤٩"}]}, {"x": "حاشیہ: امام شافعی کے قولِ قدیم کی طرح ربیعہ کا قول بھی ہے۔", "s": [{"t": "s", "v": "البناية"}]}, {"x": "استاد: تسمیہ بھول کر چھوڑنے کا مسئلہ (اور یہ کہ کتا کھا لے تو حرام) پہلے بھی گزر چکا۔ (کتاب: «على ما بيناه… في الذبائح»۔)", "s": [{"t": "u", "v": "0:14:46"}, {"t": "u", "v": "0:17:41"}, {"t": "k", "v": "1758", "v7": 313}]}], "lughat": [{"ar": "عند إرساله", "ur": "اسے بھیجتے وقت", "s": [{"t": "u", "v": "0:16:15"}]}, {"ar": "فأخذ الصيد وجرحه", "ur": "اس نے شکار کو پکڑا اور زخمی کیا", "s": [{"t": "u", "v": "0:16:21"}, {"t": "u", "v": "0:16:28"}]}, {"ar": "آلة", "ur": "آلۂ ذبح (جیسے تیر، چھری)", "s": [{"t": "u", "v": "0:14:18"}]}, {"ar": "إمرار السكين", "ur": "چھری پھیرنا", "s": [{"t": "u", "v": "0:14:35"}]}, {"ar": "تركه ناسياً / عامداً", "ur": "بھول کر / جان بوجھ کر (بسم اللہ) چھوڑ دی", "s": [{"t": "u", "v": "0:14:51"}, {"t": "u", "v": "0:14:55"}, {"t": "k", "v": "1758", "v7": 313}]}, {"ar": "الذكاة الاضطراري", "ur": "مجبوری کا ذبح: بدن کے کسی بھی حصے میں زخم", "s": [{"t": "a", "v": ""}, {"t": "k", "v": "1758–1759", "v7": 314}]}, {"ar": "أُخِذ باليقين", "ur": "یقینی بات پر عمل (دونوں معنی جمع کرنا)", "s": [{"t": "a", "v": ""}, {"t": "s", "v": "الكفاية ٩/٤٩"}]}]}, {"unit": "u1", "pages": [1759], "lesson": "2025-10-05", "ts": "0:17:46", "label": null, "title": "کتے نے کئی شکار بغیر کھائے کیے، پھر ایک میں سے کھا لیا: یہ اور بعد والے حرام؛ پہلے کے کھائے جا چکے کا حساب نہیں، جنگل میں پڑے حرام، گھر میں محفوظ امام صاحب کے ہاں حرام، صاحبین کے ہاں حلال", "start": "ولو أنه صاد صيوداً، ولم يأكل منها، ثم أكل من صيد: لا يؤكل هذا الصيد", "start_note": "عبارت 0:17:46 پر پڑھی؛ 0:21:32–0:21:59 پورے مسئلے کا خلاصہ ترجمہ۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٧ ص 315–316", "tamheed": [{"x": "مثال: معلّم ہونے کے بعد کتے نے تین (یا دو چار) شکار کیے اور کسی میں سے نہیں کھایا: پرسوں بھی نہیں کھایا، کل بھی نہیں؛ آج ایک شکار میں سے کھا لیا۔", "s": [{"t": "u", "v": "0:17:58"}, {"t": "u", "v": "0:18:13"}, {"t": "u", "v": "0:18:16"}, {"t": "u", "v": "0:18:24"}]}], "masala": [{"x": "آج والا شکار نہیں کھایا جائے گا، کیونکہ پتہ چل گیا کہ اس کی تعلیم ختم ہو گئی، وہ دوبارہ جاہل ہو گیا۔", "s": [{"t": "u", "v": "0:18:31"}, {"t": "u", "v": "0:21:42"}, {"t": "k", "v": "1759", "v7": 315}]}, {"x": "اس کے بعد والے شکار بھی حرام، یہاں تک کہ دوبارہ معلّم بن جائے: آقا اسے تنبیہ کرے، پھر (صاحبین کے ہاں) تین دفعہ نہ کھائے تو معلّم ہوگا؛ کتاب: «حتى يصير معلماً على اختلاف الروايات» (امام صاحب کی روایتِ اصل پر شکاری کا غالب گمان)۔", "s": [{"t": "u", "v": "0:18:46"}, {"t": "u", "v": "0:21:59"}, {"t": "u", "v": "0:22:03"}, {"t": "u", "v": "0:22:08"}, {"t": "k", "v": "1759", "v7": 315}]}, {"x": "پہلے والے شکار، جو کوئی کھا چکا: ان کا حساب نہیں؛ کھائی ہوئی چیز کو حلال یا حرام نہیں کہہ سکتے۔", "s": [{"t": "u", "v": "0:18:49"}, {"t": "u", "v": "0:18:54"}, {"t": "u", "v": "0:18:58"}, {"t": "u", "v": "0:19:03"}, {"t": "k", "v": "1759", "v7": 315}]}, {"x": "جو ابھی جنگل میں پڑے ہیں، مالک نے لیے نہیں: وہ بھی حرام (کتاب: بالاتفاق)، کیونکہ ابھی من وجہٍ شکار ہیں۔", "s": [{"t": "u", "v": "0:19:06"}, {"t": "u", "v": "0:19:11"}, {"t": "u", "v": "0:19:16"}, {"t": "u", "v": "0:19:33"}, {"t": "k", "v": "1759", "v7": 315}]}, {"x": "جو لا کر مالک کو دے دیے اور اس نے گھر میں رکھے، ابھی کھائے نہیں: امام ابو حنیفہ کے ہاں یہ بھی حرام، صاحبین کے ہاں حلال۔", "s": [{"t": "u", "v": "0:19:37"}, {"t": "u", "v": "0:19:43"}, {"t": "u", "v": "0:20:01"}, {"t": "u", "v": "0:20:08"}, {"t": "u", "v": "0:21:59"}, {"t": "k", "v": "1759", "v7": 315}]}], "dalil": [{"x": "کتاب: (آج کا) کھانا جہالت کی علامت ہے؛ کھائے ہوئے میں حرمت ظاہر نہیں ہوتی کیونکہ محل ہی نہیں رہا («لانعدام المحلية»)؛ حاشیہ: حرمت کا حکم موجود محل میں ہی ہو سکتا ہے، کھانے سے محل فوت ہو گیا۔", "s": [{"t": "k", "v": "1759", "v7": 315}, {"t": "s", "v": "البناية ١١/٤٨٤"}]}], "ikhtilaf": [{"x": "صاحبین: آج کھا لینے کا مطلب یہ نہیں کہ وہ شروع سے جاہل تھا؛ شروع سے اسے تعلیم تھی، بس آج بھول گیا (کتاب: «لأن الحرفة قد تنسى»)۔ اور جب ایک دفعہ شکار کر کے آپ کو دے دیا اور آپ نے حلال سمجھ کر لے لیا تو اب دوبارہ حرام نہیں کہا جائے گا (کتاب: محفوظ کیے ہوئے میں اجتہاد سے حکم نافذ ہو چکا، تو مثل اجتہاد سے نہیں ٹوٹے گا، مقصد حاصل ہو چکا)۔", "s": [{"t": "u", "v": "0:20:14"}, {"t": "u", "v": "0:20:19"}, {"t": "u", "v": "0:20:24"}, {"t": "k", "v": "1759", "v7": 315}, {"t": "k", "v": "1759", "v7": 316}, {"t": "s", "v": "الكفاية ٩/٥٠"}]}, {"x": "صاحبین: جو ابھی لیا ہی نہیں، ہاتھ ہی نہیں آیا، وہ ایک طرح سے ابھی شکار ہے؛ اسے لینے سے پہلے کتا غیر معلّم بن گیا، تو وہ احتیاطاً حرام۔ (کتاب: «لبقائه صيداً من وجه؛ لعدم الإحراز، فحرمناه احتياطاً»۔)", "s": [{"t": "u", "v": "0:20:31"}, {"t": "u", "v": "0:20:37"}, {"t": "u", "v": "0:20:42"}, {"t": "k", "v": "1759", "v7": 316}]}, {"x": "امام ابو حنیفہ: کھا لینے کا مطلب ہے کہ وہ شروع سے ہی جاہل تھا، کیونکہ پیشہ آدمی بھولتا نہیں؛ پہلے جو نہیں کھایا تھا وہ شکم سیری کی وجہ سے تھا، تعلیم کی وجہ سے نہیں۔ اس لیے جو ابھی اس کے پاس موجود ہے اور کھایا نہیں، وہ بھی حرام۔ (کتاب: «لأن الحرفة لا يُنسى أصلها، فإذا أكل تبيّن أنه كان ترك الأكل للشبع، لا للعلم»۔)", "s": [{"t": "u", "v": "0:21:01"}, {"t": "u", "v": "0:21:03"}, {"t": "u", "v": "0:21:07"}, {"t": "u", "v": "0:21:11"}, {"t": "u", "v": "0:21:22"}, {"t": "u", "v": "0:21:29"}, {"t": "k", "v": "1759", "v7": 316}]}, {"x": "امام صاحب کی طرف سے صاحبین کے «اجتہاد» والے جواب کا رد (کتاب): یہ مقصد حاصل ہونے سے پہلے اجتہاد کا بدلنا ہے، کیونکہ مقصد کھانا ہے؛ جیسے قاضی کا اجتہاد فیصلے سے پہلے بدل جائے۔ (استاد نے یہ نہیں بتایا۔)", "s": [{"t": "k", "v": "1759", "v7": 316}, {"t": "s", "v": "الكفاية ٩/٥١"}]}], "faida": [{"x": "استاد کا خلاصہ: جو کھا لیا اس کا حساب نہیں؛ جس میں سے کھایا وہ اور بعد والا نہیں کھایا جائے گا؛ جو جنگل میں ہے وہ بھی نہیں؛ جو گھر میں لے لیا اس میں اختلاف ہے۔", "s": [{"t": "u", "v": "0:21:32"}, {"t": "u", "v": "0:21:33"}, {"t": "u", "v": "0:21:34"}, {"t": "u", "v": "0:21:44"}, {"t": "u", "v": "0:21:45"}, {"t": "u", "v": "0:21:59"}]}, {"x": "حاشیہ: اگر مالک نے پہلے والے شکاروں میں سے کچھ بیچ دیا ہو تو صاحبین کے قول پر بیع نہیں ٹوٹے گی؛ امام صاحب کے قول پر ٹوٹنی چاہیے، اگر بائع اور مشتری دونوں کتے کے جاہل ہونے پر متفق ہوں۔", "s": [{"t": "s", "v": "الكفاية ٩/٥٠"}]}, {"x": "حاشیہ: یہ مسئلہ قدوری کے مسئلے پر تفریع ہے اور «الاصل» کے مسائل میں سے ہے۔", "s": [{"t": "s", "v": "البناية"}]}], "lughat": [{"ar": "صاد صيوداً", "ur": "اس نے کئی شکار کیے", "s": [{"t": "u", "v": "0:17:58"}]}, {"ar": "لانعدام المحلية", "ur": "محل نہ رہنے کی وجہ سے (کھائی ہوئی چیز کو حلال یا حرام نہیں کہہ سکتے)", "s": [{"t": "u", "v": "0:19:03"}, {"t": "s", "v": "البناية ١١/٤٨٤"}]}, {"ar": "ما ليس بمحرز… في المفازة", "ur": "جو ابھی قبضے میں نہیں آیا، جنگل میں پڑا ہے", "s": [{"t": "u", "v": "0:19:11"}, {"t": "u", "v": "0:19:16"}]}, {"ar": "محرز في بيته", "ur": "جو گھر میں محفوظ رکھا ہے", "s": [{"t": "u", "v": "0:19:37"}]}, {"ar": "الحِرْفة قد تُنسى", "ur": "پیشہ (ہنر) بھول بھی جاتا ہے", "s": [{"t": "u", "v": "0:20:19"}, {"t": "k", "v": "1759", "v7": 315}]}, {"ar": "الحِرْفة لا يُنسى أصلها", "ur": "پیشے کی اصل نہیں بھولتی (استاد: پیشہ آدمی بھولتا نہیں)", "s": [{"t": "u", "v": "0:21:01"}]}, {"ar": "أمضى الحكم فيه بالاجتهاد", "ur": "اس میں اجتہاد سے حکم نافذ کر دیا گیا", "s": [{"t": "a", "v": ""}, {"t": "s", "v": "الكفاية ٩/٥٠"}]}]}, {"unit": "u1", "pages": [1759, 1760], "lesson": "2025-10-05", "ts": "0:22:14", "label": null, "title": "باز مالک سے بھاگ کر کچھ عرصہ بلانے پر نہ آئے تو اس کا شکار حرام؛ کتا صرف خون پیے تو شکار حلال؛ مالک کے قبضے کے بعد کتا اس میں سے کھائے تو باقی حلال", "start": "ولو أن صقراً فر من صاحبه، فمكث حيناً، ثم صاد: لا يؤكل صيده", "start_note": "0:22:14 سے باز والا مسئلہ، ترجمہ 0:23:00؛ خون پینا 0:23:26؛ مالک کے قبضے کے بعد کھانا 0:24:15، ترجمہ 0:25:40–0:25:57۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٧ ص 316–317", "tamheed": [{"x": "باز کی تعلیم یہ بتائی تھی کہ آقا کے بلانے پر آئے اور چھوڑنے پر جائے۔", "s": [{"t": "u", "v": "0:22:14"}]}], "masala": [{"x": "باز (کتاب: صَقر) مالک سے بھاگ گیا، کچھ عرصہ اسی حالت میں رہا، آقا کے بلانے کے باوجود نہیں آیا؛ پھر اس نے شکار کیا تو اس کا یہ شکار نہیں کھایا جائے گا۔", "s": [{"t": "u", "v": "0:22:24"}, {"t": "u", "v": "0:22:30"}, {"t": "u", "v": "0:23:00"}, {"t": "u", "v": "0:23:02"}, {"t": "u", "v": "0:23:04"}, {"t": "u", "v": "0:23:08"}, {"t": "u", "v": "0:23:15"}, {"t": "u", "v": "0:23:20"}, {"t": "k", "v": "1759–1760", "v7": 316}]}, {"x": "کتے نے جانور کو زخمی کیا، اس کا خون پی لیا اور گوشت نہیں کھایا: شکار کھایا جائے گا۔", "s": [{"t": "u", "v": "0:23:26"}, {"t": "u", "v": "0:23:33"}, {"t": "u", "v": "0:23:36"}, {"t": "u", "v": "0:23:38"}, {"t": "u", "v": "0:24:02"}, {"t": "u", "v": "0:24:06"}, {"t": "u", "v": "0:24:09"}, {"t": "k", "v": "1759–1760", "v7": 316}]}, {"x": "کتا ہرن لایا، آقا کے حوالے کیا، پھر آقا نے (مثلاً) اس کا ایک ہاتھ کاٹ کر کتے کو دے دیا اور اس نے کھا لیا: باقی جانور کھایا جائے گا۔", "s": [{"t": "u", "v": "0:24:26"}, {"t": "u", "v": "0:24:32"}, {"t": "u", "v": "0:25:41"}, {"t": "u", "v": "0:25:48"}, {"t": "u", "v": "0:25:52"}, {"t": "u", "v": "0:25:55"}, {"t": "u", "v": "0:25:57"}, {"t": "k", "v": "1759–1760", "v7": 316}]}, {"x": "اسی طرح کتا ہرن لایا، آقا کو دیا، کچھ نہیں کھایا؛ پھر خود جا کر حملہ کر کے (آقا سے لے کر) اس میں سے کھا لیا: یہ بھی (حلال، کیونکہ) شکار ہونے سے نکل چکا۔ (کتاب: «وكذا إذا وثب الكلب، فأخذه منه، وأكل منه»۔)", "s": [{"t": "u", "v": "0:25:00"}, {"t": "u", "v": "0:25:06"}, {"t": "u", "v": "0:25:11"}, {"t": "k", "v": "1760", "v7": 317}]}, {"x": "کھانے کی شرط کا مطلب: جب تک وہ شکار ہے، آقا کے حوالے کرنے سے پہلے نہ کھائے۔ (کتاب: مالک کے قبضے سے پہلے یہی کرے تو حکم مختلف، کیونکہ اس میں ابھی شکار ہونے کی جہت باقی ہے۔)", "s": [{"t": "u", "v": "0:24:15"}, {"t": "k", "v": "1760", "v7": 317}, {"t": "s", "v": "البناية"}]}], "dalil": [{"x": "باز کیوں حرام: جس چیز کی وجہ سے ہم نے اسے معلّم قرار دیا تھا (بلانے پر آنا) وہ اس نے چھوڑ دی، تو اسے جاہل سمجھا جائے گا۔ (کتاب: «لأنه ترك ما صار به عالماً، فيُحكم بجهله كالكلب إذا أكل من الصيد»۔)", "s": [{"t": "u", "v": "0:22:32"}, {"t": "u", "v": "0:22:35"}, {"t": "u", "v": "0:22:51"}, {"t": "u", "v": "0:23:23"}, {"t": "k", "v": "1759–1760", "v7": 316}, {"t": "s", "v": "البناية ١١/٤٨٧"}]}, {"x": "خون پینے والا کیوں حلال: اس نے شکار کو آقا کے لیے روکا؛ بلکہ وہ تو اور زیادہ معلّم ہے کہ جانتا ہے کون سی چیز (آقا کے لیے) جائز ہے تو اسے چھوڑ دیا، اور کون سی ناجائز؛ یہ تعلیم کی اگلی کیٹیگری ہے۔ (کتاب: «وهذا من غاية علمه حيث شرب ما لا يصلح لصاحبه، وأمسك عليه ما يصلح له»۔)", "s": [{"t": "u", "v": "0:23:38"}, {"t": "u", "v": "0:23:45"}, {"t": "u", "v": "0:23:49"}, {"t": "u", "v": "0:24:09"}, {"t": "k", "v": "1759–1760", "v7": 316}]}, {"x": "قبضے کے بعد کیوں حلال: وہ شکار ہونے سے نکل چکا، اب یہ بندہ اس کا مالک ہے؛ یہ ایسا ہے جیسے مالک اپنے کتے کو گوشت یا روٹی پھینک دے۔ شرط یہ ہے کہ شکار میں سے نہ کھائے، اور یہاں اس نے آقا کے مال میں سے کھایا ہے۔ (کتاب: «لأنه لم يبق صيداً، فصار كما إذا ألقى إليه طعاماً غيره… والشرط ترك الأكل من الصيد»۔)", "s": [{"t": "u", "v": "0:24:32"}, {"t": "u", "v": "0:24:41"}, {"t": "u", "v": "0:24:47"}, {"t": "u", "v": "0:25:11"}, {"t": "u", "v": "0:25:17"}, {"t": "u", "v": "0:25:22"}, {"t": "k", "v": "1760", "v7": 317}]}], "ikhtilaf": [], "faida": [{"x": "حاشیہ: «ثم صاد» یعنی وہ مالک کے پاس لوٹ آیا پھر شکار کیا تو نہیں کھایا جائے گا؛ لوٹنے سے پہلے شکار کیا تو بلاشبہ نہیں کھایا جائے گا، کیونکہ بھیجا ہی نہیں گیا (ارسال نہیں)۔", "s": [{"t": "s", "v": "البناية ١١/٤٨٦"}]}, {"x": "حاشیہ: صید اس جنگلی جانور کا نام ہے جو قبضے میں نہ ہو؛ قتل سے وحشت ختم ہوئی اور قبضے سے غیر محرز ہونا، تو یہ مالک کے باقی کھانوں کی طرح ہو گیا، اور باقی کھانوں میں سے کھانا جہالت کی دلیل نہیں۔", "s": [{"t": "s", "v": "الكفاية ٩/٥١"}]}, {"x": "کتاب: کتے کا آقا سے چھین کر کھانا ایسا ہے جیسے وہ مالک کی بکری پھاڑ کھائے («كما إذا افترس شاته»)۔ (استاد نے یہ مثال نہیں دی۔)", "s": [{"t": "k", "v": "1760", "v7": 317}]}], "lughat": [{"ar": "صَقْر", "ur": "شکاری پرندہ (استاد: باز)", "s": [{"t": "a", "v": ""}, {"t": "u", "v": "0:22:24"}]}, {"ar": "فرّ من صاحبه", "ur": "اپنے مالک سے بھاگ گیا", "s": [{"t": "u", "v": "0:22:24"}, {"t": "u", "v": "0:23:02"}]}, {"ar": "فمكث حيناً", "ur": "کچھ عرصہ (اسی حالت میں) رہا", "s": [{"t": "u", "v": "0:23:04"}]}, {"ar": "من غاية علمه", "ur": "اس کی انتہائی تعلیم (سمجھ) کی وجہ سے", "s": [{"t": "u", "v": "0:23:45"}, {"t": "u", "v": "0:24:09"}]}, {"ar": "وثب الكلب", "ur": "کتا جھپٹا (حملہ کر کے لے لیا)", "s": [{"t": "u", "v": "0:25:06"}, {"t": "s", "v": "البناية ١١/٤٨٨"}]}, {"ar": "لم يبق صيداً", "ur": "وہ شکار نہیں رہا", "s": [{"t": "u", "v": "0:24:41"}]}, {"ar": "جهة الصيدية", "ur": "شکار ہونے کی جہت", "s": [{"t": "a", "v": ""}, {"t": "k", "v": "1760", "v7": 317}]}]}, {"unit": "u1", "pages": [1760], "lesson": "2025-10-05", "ts": "0:26:05", "label": null, "title": "کتے نے شکار سے ٹکڑا کاٹ کر شکار کے دوران کھا لیا تو شکار حرام؛ ٹکڑا پھینک دیا اور مالک کے لینے کے بعد کھایا تو شکار حلال", "start": "ولو نَهَسَ الصيدَ، فقطع منه بضعة فأكلها، ثم أدرك الصيد فقتله", "start_note": "0:26:05 سے سمجھانا شروع کیا؛ پہلی صورت کا ترجمہ 0:27:43–0:28:04، دوسری کا 0:28:07–0:28:50؛ 0:29:38–0:30:18 دوبارہ پڑھا۔ آخر میں (0:30:32–0:30:53) بتایا کہ ذبح کی تفصیل اگلی کلاس میں، پھر تیروں کے احکام۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٧ ص 317", "tamheed": [{"x": "کتا شکار کے پیچھے بھاگ رہا تھا، بھاگ کر اس نے شکار کو پاؤں سے پکڑا اور اس میں سے گوشت کا ایک ٹکڑا لے لیا۔", "s": [{"t": "u", "v": "0:26:05"}, {"t": "u", "v": "0:26:12"}]}], "masala": [{"x": "پہلی صورت: شکار کے دوران وہ ٹکڑا کھا بھی لیا، پھر شکار کو جا گھیرا، مار دیا اور اس میں سے نہیں کھایا، آقا کے پاس لایا: یہ شکار نہیں کھایا جائے گا۔", "s": [{"t": "u", "v": "0:26:17"}, {"t": "u", "v": "0:26:23"}, {"t": "u", "v": "0:27:43"}, {"t": "u", "v": "0:27:51"}, {"t": "u", "v": "0:27:54"}, {"t": "u", "v": "0:27:56"}, {"t": "u", "v": "0:28:01"}, {"t": "u", "v": "0:28:02"}, {"t": "u", "v": "0:28:04"}, {"t": "k", "v": "1760", "v7": 317}]}, {"x": "دوسری صورت: گوشت منہ میں لیا اور پھینک دیا، شکار کے پیچھے گیا، اسے مار دیا اور اس میں سے نہیں کھایا، مالک نے اسے لے لیا؛ پھر اس ٹکڑے پر سے گزرا (یا اس طرف گیا) اور اسے کھا لیا: شکار کھایا جائے گا۔", "s": [{"t": "u", "v": "0:26:43"}, {"t": "u", "v": "0:26:47"}, {"t": "u", "v": "0:26:49"}, {"t": "u", "v": "0:27:04"}, {"t": "u", "v": "0:27:14"}, {"t": "u", "v": "0:28:07"}, {"t": "u", "v": "0:28:11"}, {"t": "u", "v": "0:28:14"}, {"t": "u", "v": "0:28:36"}, {"t": "u", "v": "0:28:40"}, {"t": "u", "v": "0:30:00"}, {"t": "u", "v": "0:30:05"}, {"t": "u", "v": "0:30:10"}, {"t": "u", "v": "0:30:13"}, {"t": "u", "v": "0:30:18"}, {"t": "k", "v": "1760", "v7": 317}]}], "dalil": [{"x": "پہلی صورت میں حرام کیوں: اس نے شکار کے دوران کھایا، تو یہ جاہل کتے کی طرح ہے، معلّم نہیں سمجھا جائے گا۔ (کتاب: «لأنه صيد كلب جاهل حيث أكل من الصيد… لأنه أكل في حالة الاصطياد، فكان جاهلاً ممسكاً لنفسه»۔)", "s": [{"t": "u", "v": "0:26:30"}, {"t": "u", "v": "0:26:33"}, {"t": "u", "v": "0:26:35"}, {"t": "u", "v": "0:29:57"}, {"t": "u", "v": "0:30:00"}, {"t": "k", "v": "1760", "v7": 317}]}, {"x": "دوسری صورت میں حلال کیوں: اس نے آقا کو پورا صحیح سالم جانور دے دیا، پھر بچے ہوئے ٹکڑے کے پاس آیا، تو یہ اس کی تعلیم کی علامت ہے، اسے معلّم ہی سمجھا جائے گا۔ (کتاب: اس حالت میں (قبضے کے بعد) خود شکار میں سے کھاتا تو بھی نقصان نہ تھا، تو جو ٹکڑا الگ ہو گیا اور مالک کے لیے حلال بھی نہیں، اسے کھانا بدرجۂ اولیٰ مضر نہیں۔)", "s": [{"t": "u", "v": "0:30:21"}, {"t": "u", "v": "0:30:24"}, {"t": "u", "v": "0:30:29"}, {"t": "k", "v": "1760", "v7": 317}]}, {"x": "دوسری وجہ: کتا ٹکڑا کبھی کھانے کے لیے کاٹتا ہے، اور کبھی شکار کو کمزور کرنے کے لیے تاکہ پھر اسے جا پکڑے؛ پکڑنے سے پہلے ٹکڑا لے کر کھا لے تو مطلب وہ معلّم نہیں، چھوڑ دے اور بعد میں جا کر کھائے تو کوئی فرق نہیں۔ (کتاب: «ولأن نَهْسَ البضعة قد يكون ليأكلها، وقد يكون حيلة في الاصطياد؛ ليُضعِفَه… فالأكل قبل الأخذ يدل على الوجه الأول، وبعده على الوجه الثاني»۔)", "s": [{"t": "u", "v": "0:28:54"}, {"t": "u", "v": "0:29:03"}, {"t": "u", "v": "0:29:11"}, {"t": "u", "v": "0:29:17"}, {"t": "u", "v": "0:29:22"}, {"t": "u", "v": "0:29:28"}, {"t": "k", "v": "1760", "v7": 317}]}], "ikhtilaf": [], "faida": [{"x": "استاد کا خلاصہ: شکار کے دوران کھائے تو کلبِ جاہل ہے؛ شکار (مکمل کر کے آقا کو دینے) کے بعد کھائے تو جاہل نہیں سمجھا جائے گا۔", "s": [{"t": "u", "v": "0:27:16"}, {"t": "u", "v": "0:27:23"}, {"t": "u", "v": "0:27:26"}, {"t": "u", "v": "0:27:30"}, {"t": "u", "v": "0:27:33"}, {"t": "u", "v": "0:27:36"}, {"t": "u", "v": "0:27:40"}]}, {"x": "استاد: یہ کتے کے بارے میں کچھ تفصیلات تھیں؛ آگے ذبح کی تفصیلات (کس صورت میں ذبح ضروری ہے اور کس میں نہیں) اگلی کلاس میں، پھر تیروں کے احکام۔", "s": [{"t": "u", "v": "0:30:32"}, {"t": "u", "v": "0:30:35"}, {"t": "u", "v": "0:30:41"}, {"t": "u", "v": "0:30:46"}, {"t": "u", "v": "0:30:51"}, {"t": "u", "v": "0:30:53"}]}, {"x": "حاشیہ: «في هذه الحالة» یعنی مالک کے قبضے اور لینے کے بعد؛ مالک کے لینے سے پہلے کا کھانا پہلی صورت (جہالت) پر دلالت کرتا ہے، بعد کا دوسری صورت (شکار کو کمزور کرنے کی تدبیر) پر۔", "s": [{"t": "s", "v": "البناية ١١/٤٨٨"}, {"t": "s", "v": "البناية"}, {"t": "s", "v": "البناية ١١/٤٨٩"}]}], "lughat": [{"ar": "نَهَسَ الصيدَ", "ur": "شکار سے (گوشت کا) ٹکڑا کاٹ لیا", "s": [{"t": "u", "v": "0:26:12"}, {"t": "u", "v": "0:29:03"}]}, {"ar": "بَضْعة", "ur": "گوشت کا ٹکڑا", "s": [{"t": "u", "v": "0:27:51"}]}, {"ar": "ثم أدرك الصيد", "ur": "پھر شکار کو جا پایا", "s": [{"t": "u", "v": "0:27:56"}]}, {"ar": "اتبع الصيد", "ur": "شکار کے پیچھے گیا", "s": [{"t": "u", "v": "0:30:05"}]}, {"ar": "مرّ بتلك البضعة", "ur": "اس ٹکڑے پر سے گزرا", "s": [{"t": "u", "v": "0:30:13"}]}, {"ar": "ما بان منه", "ur": "جو (ٹکڑا) اس سے الگ ہو گیا", "s": [{"t": "a", "v": ""}, {"t": "k", "v": "1760", "v7": 317}]}, {"ar": "حيلة في الاصطياد ليُضعِفه", "ur": "شکار کی تدبیر، تاکہ ٹکڑا کاٹ کر اسے کمزور کرے", "s": [{"t": "u", "v": "0:29:11"}]}]}], "gaps": [{"unit": "u0", "pages": "1756", "page_list": [1756], "v7": "بشریٰ ج٧ ص 308", "text": "حدیثِ عدیؓ کا متن («وإن أكل منه فلا تأكل… وإن شارك كلبك كلب آخر فلا تأكل؛ فإنما سميت على كلبك…») استاد نے نہیں پڑھا، صرف عدیؓ کا ذکر کیا (0:01:00–0:01:08)؛ کارڈ 1 فائدہ نصب الراية سے۔ «إذا حللتم» کا حصہ بھی نہیں پڑھا، صرف «فاصطادوا» کا لفظ (0:00:46)۔"}, {"unit": "u0", "pages": "1756", "page_list": [1756], "v7": "بشریٰ ج٧ ص 309", "text": "«وفيه استبقاء المكلف، وتمكينه من إقامة التكاليف… بمنزلة الاحتطاب» استاد نے لفظاً نہیں بتایا؛ صرف عمومی عقلی دلیل (0:01:12–0:01:35)۔"}, {"unit": "u1", "pages": "1756–1757", "page_list": [1756, 1757], "v7": "بشریٰ ج٧ ص 310", "text": "«فيتناول الكل بعمومه، دل عليه ما روينا من حديث عدي» میں حدیث سے استدلال نہیں بتایا۔"}, {"unit": "u1", "pages": "1757", "page_list": [1757], "v7": "بشریٰ ج٧ ص 311", "text": "«ولأن بدن البازي لا يتحمل الضرب، وبدن الكلب يتحمله، فيضرب ليتركه»: استاد نے صرف کتے کو مارنے کا ذکر کیا (0:08:11)، باز کا مار برداشت نہ کرنا نہیں؛ کارڈ 3 فائدہ متن سے۔"}, {"unit": "u1", "pages": "1757–1758", "page_list": [1757, 1758], "v7": "بشریٰ ج٧ ص 312", "text": "«كما هو أصله في جنسها» استاد نے نہیں بتایا؛ کارڈ 3 فائدہ الكفاية سے۔"}, {"unit": "u1", "pages": "1758–1759", "page_list": [1758, 1759], "v7": "بشریٰ ج٧ ص 314", "text": "ذکاتِ اضطراری کی تعریف، «وفيه أُخِذ باليقين» (دونوں معنی جمع کرنا) اور امام ابو یوسف کا «رجوعاً إلى التأويل الأول» استاد نے نہیں بتایا؛ زخم کی شرط کی اپنی وجہ بتائی (0:15:08–0:15:29)؛ کارڈ 4 میں متن/حاشیے سے۔"}, {"unit": "u1", "pages": "1759", "page_list": [1759], "v7": "بشریٰ ج٧ ص 315", "text": "«وعلى الشافعي في قوله القديم»: استاد نے امام شافعی کا نام بغیر «قولِ قدیم» کے لیا (0:17:21)۔"}, {"unit": "u1", "pages": "1759–1760", "page_list": [1759, 1760], "v7": "بشریٰ ج٧ ص 316", "text": "«وتبدل الاجتهاد قبل حصول المقصود؛ لأنه بالأكل، فصار كتبدل اجتهاد القاضي قبل القضاء» استاد نے نہیں سمجھایا؛ کارڈ 5 اختلاف میں متن سے۔"}, {"unit": "u1", "pages": "1760", "page_list": [1760], "v7": "بشریٰ ج٧ ص 317", "text": "«فصار كما إذا افترس شاته» کی مثال استاد نے نہیں دی؛ کارڈ 6 فائدہ متن سے۔"}, {"unit": "u1", "pages": "1760", "page_list": [1760], "v7": "بشریٰ ج٧ ص 317", "text": "«لأنه لو أكل من نفس الصيد في هذه الحالة لم يضره، فإذا أكل ما بان منه، وهو لا يحل لصاحبه أولى» (بدرجۂ اولیٰ والی دلیل) استاد نے نہیں بتائی؛ صرف تعلیم کی علامت (0:30:21–0:30:29)؛ کارڈ 7 دلیل متن سے۔"}], "kitabs": [{"title": "كتاب الشفعة", "from": 1597, "to": 1625, "href": "shufa.html"}, {"title": "كتاب القسمة", "from": 1626, "to": 1643, "href": "qisma.html"}, {"title": "كتاب المزارعة", "from": 1644, "to": 1651, "href": "muzaraa.html"}, {"title": "كتاب المساقاة", "from": 1652, "to": 1656, "href": "musaqat.html"}, {"title": "كتاب الذبائح", "from": 1657, "to": 1671, "href": "dhabaih.html"}, {"title": "كتاب الأضحية", "from": 1672, "to": 1683, "href": "udhiya.html"}, {"title": "كتاب الكراهية", "from": 1684, "to": 1723, "href": "karahiya.html"}, {"title": "كتاب إحياء الموات", "from": 1724, "to": 1741, "href": "ihya.html"}, {"title": "كتاب الأشربة", "from": 1742, "to": 1755, "href": "ashriba.html"}, {"title": "كتاب الصيد", "from": 1756, "to": 1772, "href": "sayd.html"}, {"title": "كتاب الرهن", "from": 1773, "to": 1822, "href": null}, {"title": "كتاب الجنايات", "from": 1823, "to": 1855, "href": null}, {"title": "كتاب الديات", "from": 1856, "to": 1929, "href": null}, {"title": "كتاب المعاقل", "from": 1930, "to": 1938, "href": null}, {"title": "كتاب الوصايا", "from": 1939, "to": 1996, "href": null}, {"title": "كتاب الخنثى", "from": 1997, "to": 2000, "href": null}, {"title": "مسائل شتى", "from": 2001, "to": 2004, "href": null}], "sections": [["tamheed", "تمہید"], ["masala", "مسئلہ"], ["dalil", "دلیل"], ["ikhtilaf", "اختلاف"], ["faida", "فائدہ"]], "quick": ["tamheed", "masala"], "footer": ["صفحہ نمبر ساتھیوں والے نسخے (مسلسل صفحات) کے ہیں۔ ص 1609–1611 کتاب سے ملا کر لکھے گئے ہیں؛ باقی بشریٰ کے آٹھ جلدی نسخے (جلد ٧) سے حساب لگا کر، اس لیے کہیں ایک صفحہ آگے پیچھے ہو سکتا ہے۔ اصل جگہ کارڈ کی پہلی عربی سطر سے پہچانیں؛ بشریٰ کا صفحہ ہر کارڈ پر ساتھ لکھا ہے۔", "ٹرانسکرپٹ ریکارڈنگ سے Gemini نے بنایا اور اس کے وقت آواز سے ملا کر درست کیے گئے۔ کارڈ اسی ٹرانسکرپٹ، کتاب کے متن اور حاشیے سے بنے ہیں؛ ہر سطر کے آخر میں اس کا ماخذ ہے۔", "پیلی (AI) علامت والی سطریں خود جانچیں۔ امتحان میں مسئلہ، اختلاف اور دلیل سبز، نیلی یا سرمئی علامت والی سطروں سے لکھیں۔", "استاد کلاس میں اپنے نسخے کے صفحے بولتے ہیں (مثلاً كتاب المساقاة 1700)؛ وہ اس نسخے سے مختلف ہیں۔"]};
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const secs = (ts) => ts.split(":").map(Number).reduce((a, n) => a * 60 + n, 0);
+const B = DATA.book, LES = DATA.lessons, UNITS = DATA.units || [], CARDS = DATA.cards, GAPS = DATA.gaps || [];
+const PAGED = CARDS.some((c) => c.pages && c.pages.length);
+const ONE = B.unitOne || "کارڈ";
+const audio = $("audio");
+const OPUS_OK = (() => { try { return audio.canPlayType('audio/ogg; codecs="opus"') !== ""; } catch (e) { return false; } })();
+const ICON = {
+  play: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0v10l9-5z"/></svg>',
+  down: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M5 1h2v5h2.5L6 9.5 2.5 6H5zM1 10.5h10V12H1z"/></svg>',
+};
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+const KEY = DATA.store || "cards";
+const toLatin = (v) => String(v).replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).trim();
+const LRI = "\u2066", PDI = "\u2069";
+const range = (a, b) => (a === b ? `${a}` : `${LRI}${a}–${b}${PDI}`);
+const iso = (s) => String(s ?? "").replace(/(\d+)\s*[–-]\s*(\d+)/g, `${LRI}$1–$2${PDI}`);
+const sizeMB = (x) => `${LRI}${x >= 10 ? Math.round(x) : Math.round(x * 10) / 10} MB${PDI}`;
+const pagesLabel = (ps) => `ص ${range(ps[0], ps[ps.length - 1])}`;
+
+// ---------- header
+document.title = `${B.kitab} · ${B.book}`;
+if (DATA.home) { $("homeLink").href = DATA.home; $("homeLink").textContent = `→ ${DATA.homeLabel || B.book}`; $("homeLink").hidden = false; }
+$("kitab").textContent = B.kitab;
+const usedLessons = [...new Set(CARDS.map((c) => c.lesson).filter(Boolean))].sort();
+$("meta").innerHTML = (PAGED && B.from ? `صفحات <b class="ltr num">${range(B.from, B.to)}</b>، ` : "") +
+  `<b>${CARDS.length}</b> ${esc(B.unit || "کارڈ")}، <b>${usedLessons.length}</b> اسباق کی ریکارڈنگ سے`;
+
+// ---------- units
+const unitByKey = Object.fromEntries(UNITS.map((u) => [u.key, u]));
+const cardsOf = (k) => CARDS.filter((c) => c.unit === k);
+const pagesOf = (k) => [...new Set(cardsOf(k).flatMap((c) => c.pages || []))].sort((a, b) => a - b);
+const gapsOf = (k) => GAPS.filter((g) => g.unit === k);
+const parentOf = (u) => {
+  const i = UNITS.indexOf(u);
+  for (let j = i - 1; j >= 0; j--) if (UNITS[j].level < u.level) return UNITS[j];
+  return null;
+};
+
+$("toc").innerHTML = UNITS.map((u) => {
+  const n = cardsOf(u.key).length, ps = pagesOf(u.key);
+  const pr = PAGED && u.page ? `<span class="pp">${range(u.page, u.page_to || u.page)}</span>` : "";
+  const ex = cardsOf(u.key).reduce((a, c) => a + (c.exam || []).length, 0);
+  const sub = n
+    ? `<span class="n">${n} ${esc(ONE)}</span>` + (ex ? `<span class="exn" title="استاد نے اہم کہا">★ ${ex}</span>` : "") + (PAGED ? ps.map((p) => `<a class="pchip" href="#${u.key}-${p}" aria-label="صفحہ ${p}">${p}</a>`).join("") : "")
+    : `<span class="none">${gapsOf(u.key).length ? "ریکارڈنگ نہیں ملی" : "ابھی کارڈ نہیں"}</span>`;
+  return `<li class="lv${u.level}" id="toc-${u.key}"><a class="row" href="#${u.key}"><span class="tt" lang="ar">${esc(u.title)}</span><span class="dots"></span>${pr}</a>
+    <div class="sub">${sub}</div></li>`;
+}).join("");
+if (!PAGED) document.querySelectorAll("form.jump").forEach((f) => { f.hidden = true; });
+
+// ---------- cards (rendered once; views show and hide them)
+function chip(s, lesson) {
+  if (s.t === "u") return `<button type="button" class="chip u" data-ts="${s.v}" data-l="${s.l || lesson || ""}" title="یہاں سے سنیں">استاد ${s.v}</button>`;
+  if (s.t === "k") return `<span class="chip k"${s.v7 ? ` title="بشریٰ ج٧ ص ${s.v7}"` : ""}>کتاب ص ${iso(esc(s.v))}</span>`;
+  if (s.t === "s") return `<span class="chip s">شرح: ${esc(s.v)}</span>`;
+  return `<span class="chip a">AI · تصدیق طلب</span>`;
+}
+const chips = (arr, l) => `<span class="srcs">${arr.map((s) => chip(s, l)).join("")}</span>`;
+const QUICK = DATA.quick || ["tamheed", "masala"];
+$("cards").innerHTML = CARDS.map((c, i) => {
+  const l = c.lesson;
+  const sec = ([key, label]) => {
+    const items = c[key] || [];
+    if (!items.length) return "";
+    return `<div class="sec ${key}"><h4>${label}</h4><ul>${items.map((it) => `<li>${esc(it.x)} ${chips(it.s, l)}</li>`).join("")}</ul></div>`;
+  };
+  const quick = DATA.sections.filter(([k]) => QUICK.includes(k)).map(sec).join("");
+  const examSecs = DATA.sections.filter(([k]) => !QUICK.includes(k) && (c[k] || []).length);
+  const n = examSecs.reduce((a, [k]) => a + c[k].length, 0);
+  const exam = n ? `<details class="more"><summary>${examSecs.map(([, lb]) => lb).join("، ")} <span class="hint">${n} نکات، امتحان کی تیاری کے لیے</span></summary><div class="inner">${examSecs.map(sec).join("")}</div></details>` : "";
+  const words = (c.lughat || []).length ? `<div class="sec lughat"><h4>مشکل الفاظ</h4><div class="words">${c.lughat.map((w) =>
+    `<div class="word"><span class="ar" lang="ar">${esc(w.ar)}</span><span class="ur">${esc(w.ur)}</span>${chips(w.s, l)}</div>`).join("")}</div></div>` : "";
+  const head = l && c.ts
+    ? `<span class="les">${esc(LES[l].label)}</span><button type="button" class="play" data-ts="${c.ts}" data-l="${l}" aria-label="${esc(LES[l].label)}، ${c.ts} سے سنیں">${ICON.play}${c.ts}</button>`
+    : `<span class="norec-chip">ریکارڈنگ نہیں</span>`;
+  const badges = (c.badges || []).map((b) => `<span class="badge">${esc(b)}</span>`).join("")
+    + (c.exam || []).map((x) => x.k === "t"
+      ? `<button type="button" class="badge exam" data-ts="${x.ts}" data-l="${x.l}" title="استاد (${x.ts}): «${esc(x.said)}»" aria-label="استاد نے ${esc(x.kind)} کہا، ${x.ts} سے سنیں">★ استاد: ${esc(x.kind)}</button>`
+      : `<span class="badge exam paper" title="${esc(x.q || "")}">★ وفاق ${esc(x.year)}${x.n ? ` · س ${esc(x.n)}` : ""}</span>`).join("");
+  const pg = PAGED && c.pages && c.pages.length ? `<span class="pg">${pagesLabel(c.pages)}</span>` : (c.group ? `<span class="pg">${esc(c.group)}</span>` : "");
+  return `<article class="card" id="c${i + 1}" data-unit="${esc(c.unit || "")}" data-pages="${(c.pages || []).join("|")}" hidden>
+    <div class="card-head">${pg}${c.v7 ? `<span class="v7">${iso(esc(c.v7))}</span>` : ""}<span class="cnum">${esc(ONE)} ${i + 1}</span>${badges}${head}</div>
+    ${c.label ? `<p class="label" lang="ar">(${esc(c.label)})</p>` : ""}
+    <h3 class="title">${esc(c.title)}</h3>
+    <p class="start" lang="ar">«${esc(c.start)}»</p>
+    ${c.ref ? `<p class="ref">${esc(c.ref)}</p>` : ""}
+    ${c.start_note ? `<p class="start-note">${esc(c.start_note)}</p>` : ""}
+    <button type="button" class="ctoggle" aria-expanded="true" aria-controls="cb${i + 1}">تفصیل بند کریں</button>
+    <div class="cbody" id="cb${i + 1}">
+    ${c.norec ? `<p class="norec"><b>توجہ:</b> ${esc(c.norec)}</p>` : ""}
+    ${quick}${words}${exam}
+    </div>
+  </article>`;
+}).join("");
+const ARTS = [...document.querySelectorAll("article.card")];
+const usedT = new Set();
+CARDS.forEach((c) => {
+  DATA.sections.forEach(([k]) => (c[k] || []).forEach((it) => it.s.forEach((x) => usedT.add(x.t))));
+  (c.lughat || []).forEach((w) => w.s.forEach((x) => usedT.add(x.t)));
+});
+document.querySelectorAll(".legend .lg").forEach((el) => { el.hidden = !usedT.has(el.dataset.t); });
+$("foot").innerHTML = (DATA.footer || []).map((p) => `<p>${esc(p)}</p>`).join("");
+
+// ---------- views
+function showToc(msg) {
+  $("tocView").hidden = false; $("unitView").hidden = true; document.body.classList.remove("unit");
+  $("tocMsg").hidden = !msg; if (msg) $("tocMsg").innerHTML = msg;
+  document.title = `${B.kitab} · ${B.book}`;
+  const last = store.get(`${KEY}-unit`, "");
+  const row = last && $(`toc-${last}`);
+  if (row && !msg) row.scrollIntoView({ block: "center" }); else window.scrollTo(0, 0);
+}
+function showUnit(key, page, msg) {
+  const u = unitByKey[key];
+  $("tocView").hidden = true; $("unitView").hidden = false; document.body.classList.add("unit");
+  const par = u.level > 1 ? parentOf(u) : null;
+  $("ubarTitle").textContent = u.title;
+  $("uParent").textContent = par ? par.title : "";
+  $("uParent").hidden = !par;
+  $("uTitle").textContent = u.title;
+  const ps = pagesOf(key), n = cardsOf(key).length;
+  $("uMeta").innerHTML = (PAGED && u.page ? `ص <span class="ltr num">${range(u.page, u.page_to || u.page)}</span>، ` : "") + (n ? `${n} ${esc(ONE)}` : "ابھی کارڈ نہیں");
+  $("pbar").innerHTML = (ps.length > 1 || page ? [`<a href="#${key}" aria-current="${!page}">سب</a>`, ...ps.map((p) =>
+    `<a href="#${key}-${p}" aria-current="${page === p}">${p}</a>`)].join("") : "");
+  $("pbar").hidden = !$("pbar").innerHTML;
+  const allView = !page && !$("pbar").hidden;   // the «سب» chip is selected: cards start folded
+  document.body.classList.toggle("allview", allView);
+  $("toggleAll").hidden = !allView;
+  let shown = 0;
+  ARTS.forEach((a) => {
+    const on = a.dataset.unit === key && (!page || a.dataset.pages.split("|").includes(String(page)));
+    a.hidden = !on; if (on) shown++;
+    setFold(a, allView);
+  });
+  syncToggleAll();
+  if (page && !shown && !msg) msg = `صفحہ ${page} کا کوئی ${esc(ONE)} ابھی نہیں بنا۔`;
+  $("uMsg").hidden = !msg; if (msg) $("uMsg").innerHTML = msg;
+  const gs = gapsOf(key).filter((g) => !page || (g.page_list || []).includes(page));
+  $("gaps").hidden = !gs.length;
+  $("gapsTitle").textContent = n ? "اس حصے کی وہ عبارت جو استاد نے نہیں سمجھائی" : "اس حصے کی ریکارڈنگ نہیں ملی";
+  $("gapsLead").textContent = n ? "یہ باتیں کارڈوں میں متن اور حاشیے سے لکھی گئی ہیں؛ ریکارڈنگ میں ان کی وضاحت نہیں۔"
+    : "کسی ساتھی کے پاس اس حصے کی ریکارڈنگ ہو تو بھیج دیں، اس کے کارڈ بھی بن جائیں گے۔";
+  $("gapList").innerHTML = gs.map((g) => `<li><span class="gp">${PAGED && g.pages ? "ص " + iso(esc(g.pages)) : ""}</span><span class="gt">${esc(g.text)}</span>${g.v7 ? `<span class="gv">${iso(esc(g.v7))}</span>` : ""}</li>`).join("");
+  const i = UNITS.indexOf(u), prev = UNITS[i - 1], next = UNITS[i + 1];
+  $("unav").innerHTML = (prev ? `<a class="prev" href="#${prev.key}"><span class="k">پچھلا حصہ</span><span class="t" lang="ar">${esc(prev.title)}</span></a>` : "") +
+    (next ? `<a class="next" href="#${next.key}"><span class="k">اگلا حصہ</span><span class="t" lang="ar">${esc(next.title)}</span></a>` : "");
+  document.title = `${u.title} · ${B.kitab}`;
+  store.set(`${KEY}-unit`, key);
+  window.scrollTo(0, 0);
+}
+function findPage(p) {
+  const withCards = UNITS.find((u) => pagesOf(u.key).includes(p));
+  if (withCards) return { unit: withCards.key, page: p };
+  const inRange = [...UNITS].reverse().find((u) => u.page && u.page <= p && p <= (u.page_to || u.page));
+  if (inRange) return { unit: inRange.key, page: p };
+  return null;
+}
+function outsideMsg(p) {
+  const k = (DATA.kitabs || []).find((x) => x.from <= p && p <= x.to);
+  if (!k) return `صفحہ ${p} اس کتاب میں نہیں۔`;
+  if (k.href) return `صفحہ ${p} <a href="${k.href}#p${p}">${esc(k.title)}</a> میں ہے۔`;
+  return `صفحہ ${p} «${esc(k.title)}» میں ہے؛ اس کے کارڈ ابھی نہیں بنے۔`;
+}
+function route() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  let m;
+  if ((m = h.match(/^p(\d+)$/))) {
+    const p = +m[1], f = findPage(p);
+    if (f) { history.replaceState(null, "", `#${f.unit}-${p}`); return showUnit(f.unit, p); }
+    return showToc(outsideMsg(p));
+  }
+  if ((m = h.match(/^(u\d+)(?:-(\d+))?$/)) && unitByKey[m[1]]) return showUnit(m[1], m[2] ? +m[2] : null);
+  if (!h && UNITS.length === 1) return showUnit(UNITS[0].key, null);   // nothing to choose from
+  showToc();
+}
+window.addEventListener("hashchange", route);
+document.addEventListener("submit", (e) => {
+  const f = e.target.closest("form[data-jump]");
+  if (!f) return;
+  e.preventDefault();
+  const v = toLatin(f.querySelector("input").value || "");
+  if (!/^\d+$/.test(v)) return;
+  const p = +v, hit = findPage(p);
+  if (hit) location.hash = `${hit.unit}-${p}`;
+  else showToc(outsideMsg(p));
+});
+// folding: «سب تفصیل» opens or folds every card shown; each card's دلیل/اختلاف (details.more) stays as the reader left it
+function setFold(a, fold) {
+  a.classList.toggle("folded", fold);
+  const t = a.querySelector(".ctoggle");
+  t.setAttribute("aria-expanded", String(!fold));
+  t.textContent = fold ? "تمہید اور تفصیل" : "تفصیل بند کریں";
+}
+function syncToggleAll() {
+  const anyFolded = ARTS.some((a) => !a.hidden && a.classList.contains("folded"));
+  $("toggleAll").setAttribute("aria-pressed", String(!anyFolded));
+  $("toggleAll").textContent = anyFolded ? "سب تفصیل کھولیں" : "سب تفصیل بند کریں";
+}
+$("toggleAll").addEventListener("click", () => {
+  const anyFolded = ARTS.some((a) => !a.hidden && a.classList.contains("folded"));
+  ARTS.forEach((a) => { if (!a.hidden) setFold(a, !anyFolded); });
+  syncToggleAll();
+});
+$("cards").addEventListener("click", (e) => {
+  const t = e.target.closest(".ctoggle");
+  if (!t) return;
+  const a = t.closest("article.card");
+  const wasOpen = !a.classList.contains("folded");
+  setFold(a, wasOpen);
+  if (wasOpen && a.getBoundingClientRect().top < 0) a.scrollIntoView({ block: "start" });   // folding a long card: keep it in view
+  syncToggleAll();
+});
+route();
+
+// ---------- recordings: light (Opus) copies on this site
+const hasWeb = (l) => !!(LES[l] && LES[l].web && LES[l].web.length);
+const webOk = (l) => hasWeb(l) && (OPUS_OK || !/\.ogg$/i.test(LES[l].web[0].src));
+const NO_OPUS = "یہ براؤزر یہاں کی ہلکی فائلیں (Opus) نہیں چلاتا۔ آئی فون پر iOS 18.4 یا نیا ورژن چاہیے؛ اینڈرائیڈ پر Chrome میں کھولیں۔";
+let current = null, sheetMode = null;
+const blobUrls = {}, triedBlob = {};
+let curPart = null, lastOffset = 0, pendingSeek = null;
+function webPart(l, sec) {
+  let p = LES[l].web[0];
+  for (const x of LES[l].web) if (x.start <= sec + 0.5) p = x;
+  return p;
+}
+function recRow(l) {
+  const L = LES[l], btns = [];
+  if (webOk(l)) btns.push(`<button type="button" class="btn" data-ts="0:00:00" data-l="${l}">${ICON.play}شروع سے سنیں</button>`);
+  if (hasWeb(l)) {   // one button per lesson, whatever the number of parts
+    const mb = L.web.reduce((a, p) => a + (p.mb || 0), 0);
+    btns.push(`<button type="button" class="btn ghost" data-dl="${l}">${ICON.down}ڈاؤن لوڈ${L.web.length > 1 ? ` (${L.web.length} حصے)` : ""}${mb ? ` ${sizeMB(mb)}` : ""}</button>`);
+  }
+  const mins = L.minutes ? `${Math.round(L.minutes)} منٹ` : "";
+  const state = webOk(l) ? `<span class="state on">یہیں چلتی ہے</span>` : (hasWeb(l) ? "" : `<span class="state off">ابھی نہیں لگی</span>`);
+  return `<div class="rec" id="rec-${l}"><div class="rec-top"><b>${esc(L.label)}</b><span class="sub">${mins}</span>${state}</div>
+    ${btns.length ? `<div class="btns">${btns.join("")}</div>` : ""}</div>`;
+}
+function sheetAll() {
+  sheetMode = "all";
+  const anyWeb = usedLessons.some(hasWeb);
+  const hint = anyWeb && !OPUS_OK ? NO_OPUS : "کسی سبز وقت پر ٹیپ کریں تو استاد کی آواز اسی صفحے پر وہیں سے چلتی ہے۔";
+  const missing = usedLessons.filter((l) => !hasWeb(l)).length;
+  const all = filesOf(usedLessons.filter(hasWeb));
+  const mb = all.reduce((a, f) => a + (f.mb || 0), 0);
+  const dlAll = all.length > 1 ? `<div class="dlall"><div class="btns"><button type="button" class="btn" data-dl="*">${ICON.down}سب ڈاؤن لوڈ کریں</button>
+      <span class="sub">${usedLessons.filter(hasWeb).length} اسباق، ${all.length} فائلیں، کل ${sizeMB(mb)}</span></div>
+      <span class="dlstat" id="dlstat" hidden></span></div>` : "";
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">ریکارڈنگز</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${hint}${missing ? ` ${missing} اسباق کی ریکارڈنگ ابھی اس صفحے پر نہیں لگی۔` : ""}</p>
+    ${dlAll}
+    <div>${usedLessons.map(recRow).join("")}</div>`;
+  if (dlBusy) markBusy();
+  $("backdrop").hidden = false;
+}
+function sheetOne(l, ts) {
+  sheetMode = "one";
+  const L = LES[l];
+  const why = hasWeb(l) && !OPUS_OK ? NO_OPUS : "اس سبق کی ریکارڈنگ ابھی اس صفحے پر نہیں لگی۔";
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">یہ حصہ ${esc(L.label)} کی ریکارڈنگ میں <span class="ltr">${ts}</span> پر ہے</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${why}</p>
+    <button type="button" class="linkbtn" data-allrecs style="margin-inline-start:0">سب ریکارڈنگز</button>`;
+  $("backdrop").hidden = false;
+  $("sheet").querySelector("[data-close]").focus();
+}
+function closeSheet() { $("backdrop").hidden = true; sheetMode = null; }
+
+// downloads: every part of a lesson, or every lesson of this kitab, one after another.
+// Phones ask once to allow several downloads from this site.
+function filesOf(ls) {
+  return ls.flatMap((l) => LES[l].web.map((p, i, all) => {
+    const ext = (p.src.match(/\.\w+$/) || [".ogg"])[0];
+    return { src: p.src, mb: p.mb, name: `${l} ${B.book}${all.length > 1 ? ` - حصہ ${i + 1}` : ""}${ext}` };
+  }));
+}
+let dlBusy = false;
+function markBusy() { $("sheet").querySelectorAll("[data-dl]").forEach((b) => { b.disabled = dlBusy; }); }
+function dlStatus(html) { const s = $("dlstat"); if (s) { s.hidden = !html; s.innerHTML = html || ""; } }
+async function runDownloads(files) {
+  if (dlBusy || !files.length) return;
+  dlBusy = true; markBusy();
+  const allow = files.length > 1 ? " براؤزر «کئی فائلیں ڈاؤن لوڈ کریں؟» پوچھے تو Allow دبائیں۔" : "";
+  for (let i = 0; i < files.length; i++) {
+    dlStatus(`فائل <span class="ltr num">${i + 1} / ${files.length}</span> ڈاؤن لوڈ کے لیے بھیجی جا رہی ہے…${allow}`);
+    const a = document.createElement("a");
+    a.href = files[i].src; a.download = files[i].name; a.hidden = true;
+    document.body.appendChild(a); a.click(); a.remove();
+    await new Promise((r) => setTimeout(r, 1200));
+  }
+  dlBusy = false; markBusy();
+  dlStatus(files.length > 1
+    ? `${files.length} فائلیں بھیج دی گئیں؛ فون کے Downloads میں دیکھیں۔ اگر کم آئیں تو براؤزر کی سیٹنگ میں اس سائٹ کو <span class="ltr">Automatic downloads</span> کی اجازت دے کر دوبارہ دبائیں۔`
+    : "");
+}
+$("recBtn").addEventListener("click", sheetAll);
+$("backdrop").addEventListener("click", (e) => {
+  if (e.target === $("backdrop") || e.target.closest("[data-close]")) closeSheet();
+  else if (e.target.closest("[data-allrecs]")) sheetAll();
+  else if (e.target.closest("[data-dl]")) {
+    const k = e.target.closest("[data-dl]").dataset.dl;
+    runDownloads(filesOf(k === "*" ? usedLessons.filter(hasWeb) : [k]));
+  }
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("backdrop").hidden) closeSheet(); });
+
+function playAt(l, ts) {
+  if (!l || !LES[l]) return;
+  const sec = secs(ts);
+  if (!webOk(l)) { sheetOne(l, ts); return; }
+  const p = webPart(l, sec), src = blobUrls[p.src] || p.src, offset = sec - p.start;
+  curPart = p;
+  closeSheet();
+  current = l; lastOffset = Math.max(0, offset);
+  $("player").hidden = false;
+  if (audio.dataset.src !== src) { audio.dataset.src = src; audio.src = src; pendingSeek = lastOffset; }
+  else if (audio.readyState >= 1) {
+    if (!blobUrls[curPart.src] && !canSeekTo(lastOffset)) { pendingSeek = lastOffset; useBlob(); return; }
+    try { audio.currentTime = lastOffset; } catch (e) {}
+  } else pendingSeek = lastOffset;
+  audio.play().catch(() => {});
+  $("now").innerHTML = `${esc(LES[l].label)} · <span class="ltr">${ts}</span>`;
+}
+function canSeekTo(o) { const r = audio.seekable; return o < 1 || (r && r.length && r.end(r.length - 1) >= o - 1); }
+audio.addEventListener("loadedmetadata", () => {
+  const on = document.querySelector("#speeds button[aria-pressed='true']");
+  if (on) audio.playbackRate = +on.dataset.rate;
+  if (pendingSeek === null) return;
+  const o = pendingSeek;
+  if (curPart && !blobUrls[curPart.src] && !canSeekTo(o)) { useBlob(); return; }
+  pendingSeek = null;
+  try { audio.currentTime = o; } catch (e) {}
+  audio.play().catch(() => {});
+});
+audio.addEventListener("error", () => useBlob());
+async function useBlob() {   // the server can't jump to the time (or the stream failed): fetch the light copy whole
+  const p = curPart;
+  if (!p || blobUrls[p.src] || triedBlob[p.src]) return;
+  triedBlob[p.src] = true;
+  const label = $("now").innerHTML;
+  $("now").textContent = "آواز لوڈ ہو رہی ہے…";
+  try {
+    const r = await fetch(p.src);
+    if (!r.ok) throw new Error(r.status);
+    blobUrls[p.src] = URL.createObjectURL(await r.blob());
+    if (curPart !== p) return;
+    audio.dataset.src = blobUrls[p.src]; audio.src = blobUrls[p.src]; pendingSeek = lastOffset;
+    audio.play().catch(() => {});
+    $("now").innerHTML = label;
+  } catch (e) { $("now").textContent = "یہ آواز نہیں چل سکی؛ انٹرنیٹ دیکھ کر دوبارہ ٹیپ کریں۔"; }
+}
+$("pclose").addEventListener("click", () => { audio.pause(); $("player").hidden = true; });
+
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-ts]");
+  if (!b) return;
+  playAt(b.dataset.l, b.dataset.ts);
+  const card = b.closest("article.card");
+  if (card) { card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash"); }
+});
+$("speeds").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-rate]");
+  if (!b) return;
+  audio.playbackRate = +b.dataset.rate;
+  document.querySelectorAll("#speeds button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+});
+// files people picked on earlier versions of this page: free the space on their phone
+try { if (window.indexedDB) indexedDB.deleteDatabase(`${KEY}-audio`); } catch (e) {}
+try { localStorage.removeItem(`${KEY}-remember`); } catch (e) {}
+</script>
+
+</body>
+</html>

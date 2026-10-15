@@ -121,11 +121,16 @@ def headings():
         p, t, cp = h[:3]
         off = pm.heading_offset(p, t, h[3] if len(h) > 3 else None)
         pts.append((off, cp))
-    by_page = {cp: off for off, cp in pts}
+    by_page = {}
+    for off, cp in pts:                      # 15 Oct: several headings can share a colleague page (كتاب الصيد + فصل في الجوارح on 1756)
+        by_page.setdefault(cp, []).append(off)
+    used = {}
     out = []
     for level, title, cp in h4_toc.TOC:
         if cp in by_page and title not in ("مقدمة", "منهج عملنا في هذا الكتاب"):
-            out.append((by_page[cp], level, title, cp))
+            k = used.get(cp, 0); used[cp] = k + 1
+            offs = by_page[cp]
+            out.append((offs[min(k, len(offs) - 1)] if len(offs) > 1 else offs[0], level, title, cp))
     return sorted(out)
 
 
