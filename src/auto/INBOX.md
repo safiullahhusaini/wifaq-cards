@@ -16,6 +16,8 @@ Copied here from the control panel by each run (newest first). The panel is wher
 
 ## Notes
 
+- 16 Oct 2026, 8:39 am (panel note): "secrets added. i usually run notebooks at 6:00am when traffic is less. But whatever you think better." → 17 Oct run: noted; `eng-github-pipeline` moved from blocked to todo (secrets are in); the Daily notebook time is the user's choice (the GitHub pipeline, once built, would run in the afternoon at 1:20 pm PKT, outside the 12:50 am card run).
+- 16 Oct 2026, 8:51 am (panel note): "added photos in automation/from-me. there is no content page in baydawi" → 17 Oct run: noted; Baydawi has no contents page, so its kitab/bab structure will come from the lessons and the book itself. New photos in `from-me/` not yet catalogued (not needed until Baydawi starts).
 - 15 Oct 2026 run: the "wifaq-data ready" note below is resolved: the run had the repo in its scope, cloned it and read transcripts, OCR and audio from it (marked done on the panel).
 - 13 Oct 2026, 9:21 pm (panel note): "wifaq-data ready". → 14 Oct run: tried to read `safiullahhusaini/wifaq-data`; this scheduled session has GitHub access only to `wifaq-cards` and no `add_repo` tool, so the data repo could not be attached; Drive used as before. Queued: the run needs `add_repo` (or the repo added to the task's repository list) before `eng-data-repo` can finish.
 - 13 Oct 2026 (chat, after the 1:10 am run): photo of Bushra vol 7 pp. 223–224 (asked on the panel). Applied: card 3 of 08-31 now follows the printed «ولا بأس ببيع السرقين، ويكره بيع العذرة» (مکروہ; teacher said جائز نہیں) with K7(224) tags; فصل في البيع heading frac 0.3; also confirms «المكاعمة» on 223.
