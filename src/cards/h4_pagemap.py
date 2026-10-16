@@ -57,7 +57,7 @@ RUNNING = {norm(x) for x in ["كتاب الذبائح", "كتاب الأضحية
                              "باب ما تبطل به الشفعة", "الهداية", "كتاب المساقاة", "كتاب الكراهية", "كتاب إحياء الموات", "كتاب الأشربة", "كتاب الصيد"]}
 
 
-MAX_OCR_PDF = 335               # raise together with LAST_PAGE when cards reach further
+MAX_OCR_PDF = 345               # raise together with LAST_PAGE when cards reach further
 
 
 def load_pages():
@@ -91,7 +91,7 @@ def page_body(p):
 
 
 TEXT, START, W = {}, {}, {}   # page -> normalized matn; cumulative weight at page start; page weight
-LAST_PAGE = 334                # pages with neither OCR nor cached letters get the median weight
+LAST_PAGE = 344                # pages with neither OCR nor cached letters get the median weight
 for p in range(0, LAST_PAGE + 1):
     body, _ = page_body(p)
     TEXT[p] = norm(" ".join(body))
@@ -193,7 +193,7 @@ HEADINGS = [
     (179, "كتاب الكراهية", 1684), (187, "فصل في اللبس", 1688, 0.5), (195, "فصل في الوطء والنظر والمس", 1693, 0.55), (213, "فصل في الاستبراء وغيره", 1702, 0.45),
     (224, "فصل في البيع", 1708, 0.3), (238, "مسائل متفرقة", 1716, 0.0), (251, "كتاب إحياء الموات", 1724, 0.0),
     (267, "فصل في المياه", 1732), (272, "فصل في كري الأنهار", 1735), (276, "فصل في الدعوى والاختلاف والتصرف فيه", 1737),
-    (285, "كتاب الأشربة", 1742), (305, "فصل في طبخ العصير", 1754, 0.12), (308, "كتاب الصيد", 1756, 0.0), (309, "فصل في الجوارح", 1756, 0.3),
+    (285, "كتاب الأشربة", 1742), (305, "فصل في طبخ العصير", 1754, 0.12), (308, "كتاب الصيد", 1756, 0.0), (309, "فصل في الجوارح", 1756, 0.3), (326, "فصل في الرمي", 1765, 0.14),
 ]
 # exact: these words open the colleague page
 EXACT = [(29, "أخذها بمثله", 1610), (31, "إنما يثبت بالبيع", 1611)]
