@@ -32,9 +32,11 @@ AUDIO_DIR = os.path.join(REPO, "hidaya4", "audio")
 LESSON_FILES = {"2025-08-09-udhiya": "1MVGVDm7Qpu6vo48Z8hPGfxgiBRH_T26e",     # "2025-08-09 المشكاة … اكتاب الأضحية.m4a", 38 min (Hidaya, misnamed)
                 "2025-08-09-udhiya-2": "1T8bKxus3AK9NQgTdbUnB5KMuHbzZZIkm",   # "2025-08-09 … كتاب الأضحية 2.m4a", 7 min
                 "2025-09-27-ihya": "1TkhTK_moN3XrqBVySZe4yvDZl93LFmp7",       # "2025-09-27 … احياء الموات .m4a", 18.5 min
-                "2025-09-27-ashriba": "1Xosff4Ced_kkvpkjRtN4ytN-rvdG6-gF"}    # "2025-09-27 … الأشربة.m4a", 24.6 min
+                "2025-09-27-ashriba": "1Xosff4Ced_kkvpkjRtN4ytN-rvdG6-gF",    # "2025-09-27 … الأشربة.m4a", 24.6 min
+                "2025-10-18-sayd": "1OBv0P29jQb7jlsQ2xUzHg0Omutz5eIpy"}       # "2025-10-18 … كتاب الصيد.mp4", 16.1 min
 LESSON_SUFFIX = {"2025-08-09-udhiya": "پہلی ریکارڈنگ", "2025-08-09-udhiya-2": "دوسری ریکارڈنگ",
-                 "2025-09-27-ihya": "احیاء الموات", "2025-09-27-ashriba": "کتاب الأشربة"}
+                 "2025-09-27-ihya": "احیاء الموات", "2025-09-27-ashriba": "کتاب الأشربة",
+                 "2025-10-18-sayd": "کتاب الصید"}
 
 
 def web_parts(date):
