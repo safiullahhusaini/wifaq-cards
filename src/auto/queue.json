@@ -481,12 +481,11 @@
    "file": "2025-10-11 الهدايه الرابع كتاب الصيد.mp4",
    "minutes": 40.9,
    "repair": "fixed 87%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-16T19:52Z",
-    "by": "https://claude.ai/code/session_01SG9XbgvqFoeBTDpsMT2hFC"
-   }
+   "claim": null,
+   "cards": 10,
+   "qa": "full(trial): 441 ts real; 0 wrong rulings, 1 scope (title), 8 nits fixed"
   },
   {
    "id": "h4-2025-10-12",

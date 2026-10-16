@@ -57,7 +57,7 @@ RUNNING = {norm(x) for x in ["كتاب الذبائح", "كتاب الأضحية
                              "باب ما تبطل به الشفعة", "الهداية", "كتاب المساقاة", "كتاب الكراهية", "كتاب إحياء الموات", "كتاب الأشربة", "كتاب الصيد"]}
 
 
-MAX_OCR_PDF = 325               # raise together with LAST_PAGE when cards reach further
+MAX_OCR_PDF = 335               # raise together with LAST_PAGE when cards reach further
 
 
 def load_pages():
@@ -91,7 +91,7 @@ def page_body(p):
 
 
 TEXT, START, W = {}, {}, {}   # page -> normalized matn; cumulative weight at page start; page weight
-LAST_PAGE = 324                # pages with neither OCR nor cached letters get the median weight
+LAST_PAGE = 334                # pages with neither OCR nor cached letters get the median weight
 for p in range(0, LAST_PAGE + 1):
     body, _ = page_body(p)
     TEXT[p] = norm(" ".join(body))
