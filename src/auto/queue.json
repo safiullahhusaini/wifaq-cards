@@ -551,12 +551,11 @@
    "file": "2026-01-04 الهدايه الرابع كتاب الرهن.m4a",
    "minutes": 50.0,
    "repair": "fixed 94%, 2026-10-10 08:50 AM",
-   "state": "ready",
+   "state": "done",
    "note": "repair: text missing (95% matched) · re-transcribed + repaired 2026-10-10 08:50 AM (94%), ready",
-   "claim": {
-    "run": "2026-10-17T20:25:00Z",
-    "by": "https://claude.ai/code/session_01PnFwhjRP1me4JgFciKTeqf"
-   }
+   "claim": null,
+   "cards": 14,
+   "qa": "full (trial): 650 stamps on right lines, 110 K7 + 74 S tags found; 0 wrong imam attributions; 4 substantive fixes (قبض subject, father-liability cap, wasi scope, unlabelled/misscoped teacher examples) + 3 scope/label fixes, all from drafting"
   },
   {
    "id": "h4-2026-01-07",
