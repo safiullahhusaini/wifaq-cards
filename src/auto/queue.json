@@ -523,12 +523,11 @@
    "file": "2025-12-29 الهدايه الرابع كتاب الرهن.m4a",
    "minutes": 29.3,
    "repair": "fixed 98%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-17T19:55:00Z",
-    "by": "https://claude.ai/code/session_01PnFwhjRP1me4JgFciKTeqf"
-   }
+   "claim": null,
+   "cards": 6,
+   "qa": "full (trial): 292 stamps real; 0 wrong rulings; 1 teacher-slip stated as fact + 2 wrong scopes + 3 misread attributions + 1 wrong end bound (my prep said v7 348, true end 350 line 1) fixed"
   },
   {
    "id": "h4-2026-01-03",
@@ -538,9 +537,11 @@
    "file": "2026-01-03 الهدايه الرابع كتاب الرهن.m4a",
    "minutes": 35.9,
    "repair": "fixed 90%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": null
+   "claim": null,
+   "cards": 11,
+   "qa": "full (trial): 360 stamps on right lines; 0 wrong rulings; 1 teacher slip stated as fact (ring), 1 unlabelled teacher example, 1 ambiguous Zufar line, 1 unsupported gloss tag fixed; page numbering by position confirmed"
   },
   {
    "id": "h4-2026-01-04",
