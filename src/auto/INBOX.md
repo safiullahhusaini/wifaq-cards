@@ -16,6 +16,7 @@ Copied here from the control panel by each run (newest first). The panel is wher
 
 ## Notes
 
+- 17 Oct 2026, 1:28 pm (panel note): "I just uploaded three photos for tibyan. Please follow the page sequence of this edition." → 18 Oct run: noted; Tibyan comes late in the book order, so the three photos (in `automation/from-me/`, not yet viewed) will be catalogued when `eng-other-books` starts; the card order and page numbers for Tibyan will follow the edition shown in them. Panel note answered.
 - 16 Oct 2026, 8:39 am (panel note): "secrets added. i usually run notebooks at 6:00am when traffic is less. But whatever you think better." → 17 Oct run: noted; `eng-github-pipeline` moved from blocked to todo (secrets are in); the Daily notebook time is the user's choice (the GitHub pipeline, once built, would run in the afternoon at 1:20 pm PKT, outside the 12:50 am card run).
 - 16 Oct 2026, 8:51 am (panel note): "added photos in automation/from-me. there is no content page in baydawi" → 17 Oct run: noted; Baydawi has no contents page, so its kitab/bab structure will come from the lessons and the book itself. New photos in `from-me/` not yet catalogued (not needed until Baydawi starts).
 - 15 Oct 2026 run: the "wifaq-data ready" note below is resolved: the run had the repo in its scope, cloned it and read transcripts, OCR and audio from it (marked done on the panel).

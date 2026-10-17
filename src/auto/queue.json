@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-16 (run 12:50 am PKT)",
+ "updated": "2026-10-18 (run 12:50 am PKT)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 2,
@@ -1232,7 +1232,7 @@
    "title": "Pages + briefs for بیضاوی, تیسیر مصطلح الحدیث, شرح نخبۃ الفکر, التبیان, آئینہ قادیانیت (Urdu book: adjust the brief)",
    "needs": "editions/contents pages from the user; transcripts (still being made by the daily transcription)",
    "done_when": "each book has a contents page and its lessons are in the queue",
-   "note": "11 Oct: title/contents photos catalogued in src/auto/from-me.md: Taysir (Bushra, 224 pp, full contents), Tibyan (Bushra, contents), Nuzhat al-Nazar (Bushra/Rahili, contents minus pp. 260–261), Baydawi (Bushra, title + 3 text pages, no contents), Aina (title only; IMG_…151219 OCR empty). Missing: Baydawi + Aina contents."
+   "note": "11 Oct: title/contents photos catalogued in src/auto/from-me.md: Taysir (Bushra, 224 pp, full contents), Tibyan (Bushra, contents), Nuzhat al-Nazar (Bushra/Rahili, contents minus pp. 260–261), Baydawi (Bushra, title + 3 text pages, no contents), Aina (title only; IMG_…151219 OCR empty). Missing: Baydawi + Aina contents. 17 Oct: user uploaded 3 more Tibyan photos (panel note): follow the page sequence of that edition; catalogue them in from-me.md when starting Tibyan."
   },
   {
    "id": "eng-past-papers",
