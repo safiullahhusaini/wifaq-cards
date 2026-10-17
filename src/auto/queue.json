@@ -553,7 +553,10 @@
    "repair": "fixed 94%, 2026-10-10 08:50 AM",
    "state": "ready",
    "note": "repair: text missing (95% matched) · re-transcribed + repaired 2026-10-10 08:50 AM (94%), ready",
-   "claim": null
+   "claim": {
+    "run": "2026-10-17T20:25:00Z",
+    "by": "https://claude.ai/code/session_01PnFwhjRP1me4JgFciKTeqf"
+   }
   },
   {
    "id": "h4-2026-01-07",
