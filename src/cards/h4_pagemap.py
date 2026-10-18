@@ -57,7 +57,7 @@ RUNNING = {norm(x) for x in ["كتاب الذبائح", "كتاب الأضحية
                              "باب ما تبطل به الشفعة", "الهداية", "كتاب المساقاة", "كتاب الكراهية", "كتاب إحياء الموات", "كتاب الأشربة", "كتاب الصيد"]}
 
 
-MAX_OCR_PDF = 381               # raise together with LAST_PAGE when cards reach further
+MAX_OCR_PDF = 430               # raise together with LAST_PAGE when cards reach further
 
 
 def load_pages():
@@ -91,7 +91,7 @@ def page_body(p):
 
 
 TEXT, START, W = {}, {}, {}   # page -> normalized matn; cumulative weight at page start; page weight
-LAST_PAGE = 377                # pages with neither OCR nor cached letters get the median weight
+LAST_PAGE = 425                # pages with neither OCR nor cached letters get the median weight
 for p in range(0, LAST_PAGE + 1):
     body, _ = page_body(p)
     TEXT[p] = norm(" ".join(body))
@@ -194,6 +194,7 @@ HEADINGS = [
     (224, "فصل في البيع", 1708, 0.3), (238, "مسائل متفرقة", 1716, 0.0), (251, "كتاب إحياء الموات", 1724, 0.0),
     (267, "فصل في المياه", 1732), (272, "فصل في كري الأنهار", 1735), (276, "فصل في الدعوى والاختلاف والتصرف فيه", 1737),
     (285, "كتاب الأشربة", 1742), (305, "فصل في طبخ العصير", 1754, 0.12), (308, "كتاب الصيد", 1756, 0.0), (309, "فصل في الجوارح", 1756, 0.3), (326, "فصل في الرمي", 1765, 0.14), (341, "كتاب الرهن", 1773), (362, "باب ما يجوز ارتهانه والارتهان به", 1783),
+    (387, "فصل", 1796, 0.62), (393, "باب الرهن الذي يوضع على يد العدل", 1798), (404, "باب التصرف في الرهن والجناية عليه وجنايته على غيره", 1803),
 ]
 # exact: these words open the colleague page
 EXACT = [(29, "أخذها بمثله", 1610), (31, "إنما يثبت بالبيع", 1611)]

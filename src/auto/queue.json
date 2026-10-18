@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18 (run 12:50 am PKT)",
+ "updated": "2026-10-19 (run 12:50 am PKT)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 2,
@@ -565,12 +565,11 @@
    "file": "2026-01-07 الهدايه الرابع كتاب الرهن.m4a",
    "minutes": 45.0,
    "repair": "fixed 96%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-18T19:51:45.286634Z",
-    "by": "https://claude.ai/code/session_01Qnqtqgru1cWgP2rupn4Aar"
-   }
+   "claim": null,
+   "cards": 8,
+   "qa": "full (trial): 297 stamps real, 75 K7 + 64 S tags found; 0 wrong imam names; 3 wrong scopes/attributions (آدھا آدھا قرضہ, Muhammad omitted in istihsan, Abu Yusuf vs Zufar level) + 5 tag fixes, all from drafting; recording starts late (v7 376.22-379.11 GAP)"
   },
   {
    "id": "h4-2026-01-08",
@@ -580,12 +579,11 @@
    "file": "2026-01-08 الهدايه الرابع كتاب الرهن.m4a",
    "minutes": 34.5,
    "repair": "fixed 97%, 2026-10-10 08:53 AM",
-   "state": "ready",
+   "state": "done",
    "note": "transcript not repaired (too few timestamped lines) · re-transcribed + repaired 2026-10-10 08:53 AM (97%), ready",
-   "claim": {
-    "run": "2026-10-18T19:51:45.286634Z",
-    "by": "https://claude.ai/code/session_01Qnqtqgru1cWgP2rupn4Aar"
-   }
+   "claim": null,
+   "cards": 8,
+   "qa": "full (trial): 429 stamps real, 74 K7 + 59 S tags found; 0 wrong imam names; 2 wrong lines (muwakkil vs claimant) + 2 tag fixes, all from drafting"
   },
   {
    "id": "h4-2026-01-10-rahn-2",
@@ -595,9 +593,11 @@
    "file": "2026-01-10 الهدايه الرابع كتاب الرهن 2.m4a",
    "minutes": 7.6,
    "repair": "fixed 98%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": null
+   "claim": null,
+   "cards": 2,
+   "qa": "full (trial): 69 stamps real, 20 K7 + 18 S found; OCR «ابن المرهن» corrected to ابن الراهن; 3 wrong tags/lines fixed"
   },
   {
    "id": "h4-2026-01-10-rahn",
@@ -607,12 +607,11 @@
    "file": "2026-01-10 الهدايه الرابع كتاب الرهن.m4a",
    "minutes": 42.0,
    "repair": "fixed 92%, 2026-10-10 08:53 AM",
-   "state": "ready",
+   "state": "done",
    "note": "repair: text missing (93% matched) · re-transcribed + repaired 2026-10-10 08:53 AM (92%), ready",
-   "claim": {
-    "run": "2026-10-18T19:51:45.286634Z",
-    "by": "https://claude.ai/code/session_01Qnqtqgru1cWgP2rupn4Aar"
-   }
+   "claim": null,
+   "cards": 11,
+   "qa": "full (trial): 365 stamps real, 99 K7 + 56 S tags found; 0 wrong imam names; 5 wrong lines/tags + exam flag 0:17:41 on card 4 verified, all from drafting"
   },
   {
    "id": "h4-2026-01-11",

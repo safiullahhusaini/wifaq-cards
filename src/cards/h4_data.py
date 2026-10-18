@@ -33,17 +33,20 @@ LESSON_FILES = {"2025-08-09-udhiya": "1MVGVDm7Qpu6vo48Z8hPGfxgiBRH_T26e",     # 
                 "2025-08-09-udhiya-2": "1T8bKxus3AK9NQgTdbUnB5KMuHbzZZIkm",   # "2025-08-09 … كتاب الأضحية 2.m4a", 7 min
                 "2025-09-27-ihya": "1TkhTK_moN3XrqBVySZe4yvDZl93LFmp7",       # "2025-09-27 … احياء الموات .m4a", 18.5 min
                 "2025-09-27-ashriba": "1Xosff4Ced_kkvpkjRtN4ytN-rvdG6-gF",    # "2025-09-27 … الأشربة.m4a", 24.6 min
-                "2025-10-18-sayd": "1OBv0P29jQb7jlsQ2xUzHg0Omutz5eIpy"}       # "2025-10-18 … كتاب الصيد.mp4", 16.1 min
+                "2025-10-18-sayd": "1OBv0P29jQb7jlsQ2xUzHg0Omutz5eIpy",
+                "2026-01-10-rahn": "1yUjBeqZ7JwyhBj59cKolR8WpERuUbxFd",       # "2026-01-10 … كتاب الرهن.m4a", 42 min, audio parts -p1/-p2
+                "2026-01-10-rahn-2": "1L7hZ-BM1lo-frY-ukOlrrWV4Bt3ZvT3g"}   # "2026-01-10 … كتاب الرهن 2.m4a", 7.6 min       # "2025-10-18 … كتاب الصيد.mp4", 16.1 min
 LESSON_SUFFIX = {"2025-08-09-udhiya": "پہلی ریکارڈنگ", "2025-08-09-udhiya-2": "دوسری ریکارڈنگ",
                  "2025-09-27-ihya": "احیاء الموات", "2025-09-27-ashriba": "کتاب الأشربة",
-                 "2025-10-18-sayd": "کتاب الصید"}
+                 "2025-10-18-sayd": "کتاب الصید",
+                 "2026-01-10-rahn": "پہلی ریکارڈنگ", "2026-01-10-rahn-2": "دوسری ریکارڈنگ"}
 
 
 def web_parts(date):
     one = os.path.join(AUDIO_DIR, f"{date}.ogg")
     if os.path.exists(one):
         return [(f"{date}.ogg", 0.0, one)]
-    pat = re.compile(re.escape(date) + r"-(\d+)\.ogg$")
+    pat = re.compile(re.escape(date) + r"-p?(\d+)\.ogg$")   # 19 Oct: "-pN" parts for a key whose "-2" is another recording
     others = {f"{k}.ogg" for k in LESSON_FILES if k != date}   # another lesson's own file is never a part of this one
     parts = sorted((p for p in glob.glob(os.path.join(AUDIO_DIR, f"{date}-*.ogg"))
                     if pat.search(os.path.basename(p)) and os.path.basename(p) not in others),
