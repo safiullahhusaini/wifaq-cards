@@ -567,7 +567,10 @@
    "repair": "fixed 96%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-18T19:51:45.286634Z",
+    "by": "https://claude.ai/code/session_01Qnqtqgru1cWgP2rupn4Aar"
+   }
   },
   {
    "id": "h4-2026-01-08",
@@ -579,7 +582,10 @@
    "repair": "fixed 97%, 2026-10-10 08:53 AM",
    "state": "ready",
    "note": "transcript not repaired (too few timestamped lines) · re-transcribed + repaired 2026-10-10 08:53 AM (97%), ready",
-   "claim": null
+   "claim": {
+    "run": "2026-10-18T19:51:45.286634Z",
+    "by": "https://claude.ai/code/session_01Qnqtqgru1cWgP2rupn4Aar"
+   }
   },
   {
    "id": "h4-2026-01-10-rahn-2",
@@ -603,7 +609,10 @@
    "repair": "fixed 92%, 2026-10-10 08:53 AM",
    "state": "ready",
    "note": "repair: text missing (93% matched) · re-transcribed + repaired 2026-10-10 08:53 AM (92%), ready",
-   "claim": null
+   "claim": {
+    "run": "2026-10-18T19:51:45.286634Z",
+    "by": "https://claude.ai/code/session_01Qnqtqgru1cWgP2rupn4Aar"
+   }
   },
   {
    "id": "h4-2026-01-11",
