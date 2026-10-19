@@ -623,7 +623,10 @@
    "repair": "fixed 93%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-19T19:53:03Z",
+    "by": "https://claude.ai/code/session_01GPqySZQWjv6vrGBbUykYNm"
+   }
   },
   {
    "id": "h4-2025-02-22",
@@ -1214,7 +1217,11 @@
    "title": "Extend the page map past Bushra vol 7 (find where vol 7 ends; map (volume, page) → colleagues' page for vol 8)",
    "needs": "nothing (OCR is in Drive)",
    "done_when": "build covers the kitabs in vol 8; pages of existing cards unchanged; HANDOVER section 6 updated",
-   "before": "the first lesson whose passage lies in vol 8"
+   "before": "the first lesson whose passage lies in vol 8",
+   "claim": {
+    "run": "2026-10-19T19:53:03Z",
+    "by": "https://claude.ai/code/session_01GPqySZQWjv6vrGBbUykYNm"
+   }
   },
   {
    "id": "eng-audio-host",
