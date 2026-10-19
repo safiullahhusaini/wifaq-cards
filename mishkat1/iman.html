@@ -364,7 +364,7 @@ if (!PAGED) document.querySelectorAll("form.jump").forEach((f) => { f.hidden = t
 // ---------- cards (rendered once; views show and hide them)
 function chip(s, lesson) {
   if (s.t === "u") return `<button type="button" class="chip u" data-ts="${s.v}" data-l="${s.l || lesson || ""}" title="یہاں سے سنیں">استاد ${s.v}</button>`;
-  if (s.t === "k") return `<span class="chip k"${s.v7 ? ` title="بشریٰ ج٧ ص ${s.v7}"` : ""}>کتاب ص ${iso(esc(s.v))}</span>`;
+  if (s.t === "k") return `<span class="chip k"${s.v7 ? ` title="بشریٰ ج${s.v7 >= 1000 ? "٨" : "٧"} ص ${s.v7 >= 1000 ? s.v7 - 1000 : s.v7}"` : ""}>کتاب ص ${iso(esc(s.v))}</span>`;
   if (s.t === "s") return `<span class="chip s">شرح: ${esc(s.v)}</span>`;
   return `<span class="chip a">AI · تصدیق طلب</span>`;
 }

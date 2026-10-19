@@ -104,7 +104,11 @@ def recordings():
 
 def v7_label(a, b):
     a, b = int(a), int(b)
-    return f"بشریٰ ج٧ ص {a}" if a == b else f"بشریٰ ج٧ ص {a}–{b}"
+    if a >= pm.V8:           # vol 8 pages are numbered 1000 + printed page
+        a, b, vol = a - pm.V8, b - pm.V8, "٨"
+    else:
+        vol = "٧"
+    return f"بشریٰ ج{vol} ص {a}" if a == b else f"بشریٰ ج{vol} ص {a}–{b}"
 
 
 def pages_from(lo, hi, floor_page=None):
@@ -200,7 +204,7 @@ def lesson_cards():
             if not rng.strip().startswith("v7"):     # «ٹرانسکرپٹ: …» entries are about the recording, not a book range
                 continue
             plain = re.sub(r"\([^)]*\)", " ", re.sub(r"^\s*v7\s*", "", rng))   # drop "(frac ≈0.2–0.3)" and "(آخر)"
-            nums = [int(x) for x in re.findall(r"(?<![\d.])\d{1,3}(?![\d.])", plain)]
+            nums = [int(x) for x in re.findall(r"(?<![\d.])\d{1,4}(?![\d.])", plain)]
             if nums:
                 a, b = nums[0], nums[-1]
                 lo_, hi_ = pm.START[a], pm.START[b] + pm.W[b]

@@ -637,7 +637,10 @@
    "repair": "fixed 91%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-19T20:16:11Z",
+    "by": "https://claude.ai/code/session_01GPqySZQWjv6vrGBbUykYNm"
+   }
   },
   {
    "id": "h4-2025-02-23",
@@ -649,7 +652,10 @@
    "repair": "fixed 94%, 2026-10-10 08:53 AM",
    "state": "ready",
    "note": "repair matched only 40% · re-transcribed + repaired 2026-10-10 08:53 AM (94%), ready",
-   "claim": null
+   "claim": {
+    "run": "2026-10-19T20:16:11Z",
+    "by": "https://claude.ai/code/session_01GPqySZQWjv6vrGBbUykYNm"
+   }
   },
   {
    "id": "h4-2025-03-02",
@@ -1212,15 +1218,13 @@
   {
    "id": "eng-vol8-pagemap",
    "kind": "eng",
-   "state": "todo",
+   "state": "done",
    "title": "Extend the page map past Bushra vol 7 (find where vol 7 ends; map (volume, page) → colleagues' page for vol 8)",
    "needs": "nothing (OCR is in Drive)",
    "done_when": "build covers the kitabs in vol 8; pages of existing cards unchanged; HANDOVER section 6 updated",
    "before": "the first lesson whose passage lies in vol 8",
-   "claim": {
-    "run": "2026-10-19T19:53:03Z",
-    "by": "https://claude.ai/code/session_01GPqySZQWjv6vrGBbUykYNm"
-   }
+   "claim": null,
+   "note": "20 Oct: vol-8 pages are keyed 1000+printed page (V8) in h4_pagemap (OCR8 loader from .cache/v8ocr, HEADINGS for vol 8 incl. Wasaya/Khuntha, zero-weight blank pages 444/1000-1002); no existing card changed fasl"
   },
   {
    "id": "eng-audio-host",
