@@ -621,12 +621,11 @@
    "file": "2026-01-11 الهدايه الرابع كتاب الرهن.m4a",
    "minutes": 49.1,
    "repair": "fixed 93%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-19T19:53:03Z",
-    "by": "https://claude.ai/code/session_01GPqySZQWjv6vrGBbUykYNm"
-   }
+   "claim": null,
+   "cards": 11,
+   "qa": "focused QA: 0 wrong imam attributions; 1 wrong scope (surplus after slave-creditor case), 1 teacher arithmetic slip, 1 wrong ts, 5 wrong tags, nits; all from drafting, fixed"
   },
   {
    "id": "h4-2025-02-22",
