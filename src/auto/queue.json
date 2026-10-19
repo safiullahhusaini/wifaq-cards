@@ -635,12 +635,11 @@
    "file": "2025-02-22 الهدايه الرابع كتاب الجنايات.mp4",
    "minutes": 34.4,
    "repair": "fixed 91%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-19T20:16:11Z",
-    "by": "https://claude.ai/code/session_01GPqySZQWjv6vrGBbUykYNm"
-   }
+   "claim": null,
+   "cards": 7,
+   "qa": "focused QA: 0 wrong rulings/attributions; 2 slip-as-fact (teacher claim «مشہور», «قاتل»), 1 wrong tag, nits; all from drafting, fixed"
   },
   {
    "id": "h4-2025-02-23",
@@ -650,12 +649,11 @@
    "file": "2025-02-23 الهدايه الرابع كتاب الجنايات.mp4",
    "minutes": 43.9,
    "repair": "fixed 94%, 2026-10-10 08:53 AM",
-   "state": "ready",
+   "state": "done",
    "note": "repair matched only 40% · re-transcribed + repaired 2026-10-10 08:53 AM (94%), ready",
-   "claim": {
-    "run": "2026-10-19T20:16:11Z",
-    "by": "https://claude.ai/code/session_01GPqySZQWjv6vrGBbUykYNm"
-   }
+   "claim": null,
+   "cards": 9,
+   "qa": "focused QA: 0 wrong rulings/attributions; 1 wrong ts (teacher slip), 4 wrong/unnamed tags, teacher additions unlabelled, GAPS overstatement; all from drafting, fixed"
   },
   {
    "id": "h4-2025-03-02",
