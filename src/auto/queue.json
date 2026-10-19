@@ -1139,8 +1139,8 @@
    "book": "h4",
    "kind": "retime",
    "date": "2025-06-22",
-   "state": "redo",
-   "note": "already carded; transcript has few timestamps or missing text. After re-transcription + repair, re-time its cards (a small agent re-checks)",
+   "state": "done",
+   "note": "20 Oct: re-timed against the re-transcribed + repaired transcript (06-22 85%, 07-07 91%, repaired 13 Oct); every U tag content-checked by an independent Opus agent, 0 wrong",
    "claim": null
   },
   {
@@ -1148,8 +1148,8 @@
    "book": "h4",
    "kind": "retime",
    "date": "2025-07-07",
-   "state": "redo",
-   "note": "already carded; transcript has few timestamps or missing text. After re-transcription + repair, re-time its cards (a small agent re-checks)",
+   "state": "done",
+   "note": "20 Oct: re-timed against the re-transcribed + repaired transcript (06-22 85%, 07-07 91%, repaired 13 Oct); every U tag content-checked by an independent Opus agent, 0 wrong",
    "claim": null
   },
   {
@@ -1211,7 +1211,7 @@
     "Tell the panel 'secrets added' (a note). From then on, stop running Colab; the GitHub pipeline runs every day at 1:20 pm."
    ],
    "design": "workflow .github/workflows/daily.yml, cron '20 8 * * *' (1:20 pm PKT, after the quota reset in both summer and winter time); rclone mount of 'gdrive:' at /content/drive/MyDrive (fuse3), the same code as the Daily notebook (retx_core.py, tsfix, cell 7) with Whisper on CPU (model chosen from the 8 Oct probe on branch ci-probe: probe/whisper.txt); one job for re-transcription + Opus, a matrix of jobs for repair; MAX 5 h per job; writes automation/daily_done.md like the notebook. Also take over the bulk transcription that v2.5 does (port its queue order: Hidaya 3 last/skipped) only after the user agrees.",
-   "note": "16 Oct: user added the secrets (panel note); ready to build."
+   "note": "16 Oct: user added the secrets (panel note); ready to build. · 20 Oct: user asked on the panel whether it was tried; answered: not started, first eng item of the next run."
   },
   {
    "id": "eng-vol8-pagemap",
