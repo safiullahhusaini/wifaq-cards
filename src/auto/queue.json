@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-19 (run 12:50 am PKT)",
+ "updated": "2026-10-21 (run 12:50 am PKT)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 2,
@@ -663,12 +663,11 @@
    "file": "2025-03-02 الهدايه الرابع كتاب الجنايات.mp4",
    "minutes": 35.1,
    "repair": "fixed 94%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-20T19:52:04.569657+00:00",
-    "by": "https://claude.ai/code/session_01A9cnD8qSKF9dYB3AUQL1qS"
-   }
+   "claim": null,
+   "cards": 9,
+   "qa": "focused QA: 0 wrong rulings; 4 slip/scope + 3 tag fixes, all from drafting"
   },
   {
    "id": "h4-2025-03-08",
@@ -678,12 +677,11 @@
    "file": "2025-03-08 الهدايه الرابع كتاب الجنايات.mp4",
    "minutes": 40.7,
    "repair": "fixed 86%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-20T19:52:04.569657+00:00",
-    "by": "https://claude.ai/code/session_01A9cnD8qSKF9dYB3AUQL1qS"
-   }
+   "claim": null,
+   "cards": 8,
+   "qa": "focused QA: 3 wrong attributions/scope (Abu Yusuf riwaya, mabsut source, shibh amd), 2 more fixes, all from drafting"
   },
   {
    "id": "h4-2025-03-09",
@@ -693,12 +691,11 @@
    "file": "2025-03-09 الهدايه الرابع كتاب الجنايات.mp4",
    "minutes": 42.8,
    "repair": "fixed 89%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-20T19:52:04.569657+00:00",
-    "by": "https://claude.ai/code/session_01A9cnD8qSKF9dYB3AUQL1qS"
-   }
+   "claim": null,
+   "cards": 10,
+   "qa": "focused QA: 0 wrong rulings; 3 unlabelled teacher lines, tags fixed"
   },
   {
    "id": "h4-2025-04-12",
