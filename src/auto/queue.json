@@ -731,12 +731,11 @@
    "file": "2025-04-20 الهدايه الرابع كتاب الجنايات.m4a",
    "minutes": 16.2,
    "repair": "fixed 93%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-21T20:05Z",
-    "by": "https://claude.ai/code/session_014LDq9vf7nq8EnnBGL4PKRa"
-   }
+   "claim": null,
+   "cards": 3,
+   "qa": "focused: 143 ts real; 0 wrong imam attributions; 4 overstated/slip-like lines (Sahibain's reason, 'only dispute' claim), 3 tag fixes, all from drafting; ends end of printed v8 68 (باب اعتبار حالة القتل complete); next: كتاب الديات v8 1069"
   },
   {
    "id": "h4-2025-04-20-jinayat-mp4",
@@ -746,8 +745,8 @@
    "file": "2025-04-20 الهدايه الرابع كتاب الجنايات.mp4",
    "minutes": 34.4,
    "repair": "fixed 93%",
-   "state": "ready",
-   "note": "check the transcript name first: this .mp4 shares its stem with the .m4a; its transcript may be saved as \"… (mp4).md\" or missing",
+   "state": "skip",
+   "note": "duplicate of the m4a lesson pair: this mp4 holds the whole class (Jinayat 16 min + Diyat start); carded from the .m4a jinayat transcript (has audio). Its transcript (mp4).md may help for the Diyat first 10 min (text missing in the diyat m4a transcript); no separate audio.",
    "claim": null
   },
   {
