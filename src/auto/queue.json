@@ -705,12 +705,11 @@
    "file": "2025-04-12 الهدايه الرابع كتاب الجنايات.mp4",
    "minutes": 41.8,
    "repair": "fixed 92%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-21T19:52Z",
-    "by": "https://claude.ai/code/session_014LDq9vf7nq8EnnBGL4PKRa"
-   }
+   "claim": null,
+   "cards": 5,
+   "qa": "focused: 269 ts real; 0 wrong imam attributions; 3 over-broad lines (khata' third limit), 1 mislabelled reply, 1 scope, ~5 tag fixes, all from drafting"
   },
   {
    "id": "h4-2025-04-19",
