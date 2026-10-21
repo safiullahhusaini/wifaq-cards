@@ -769,12 +769,11 @@
    "file": "2025-04-26 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 50.7,
    "repair": "fixed 90%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-21T20:13Z",
-    "by": "https://claude.ai/code/session_014LDq9vf7nq8EnnBGL4PKRa"
-   }
+   "claim": null,
+   "cards": 13,
+   "qa": "focused: 458 ts real; 0 wrong rulings/numbers/attributions; teacher slip stated as fact (qisas only in mudiha), 3 scope/limit gaps, ~8 tag fixes, all from drafting; v8 1079 → 1094 frac 0.18 (ends before «فصل» + «وفي أصابع اليد نصف الدية»); new page diyat.html"
   },
   {
    "id": "h4-2025-04-27",

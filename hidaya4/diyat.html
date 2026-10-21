@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>كتاب الديات · ہدایہ جلد رابع</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+<style>
+/* One kitab of a book. Two views on one page:
+   فہرست (contents, styled like the book's own contents page: title … page) and a unit view (one bab/fasl,
+   its cards, page chips). Recordings live in a bottom sheet behind the header button. */
+:root {
+  --paper: #FDFCFB; --surface: #FFFFFF; --ink: #1F1A1B; --muted: #6E6566; --rule: #E9E3E2;
+  --matn: #A3211A; --matn-tint: #FBEDEB; --teacher: #17624C; --teacher-tint: #E3F2EC;
+  --book: #2B4B7E; --book-tint: #E8EEF8; --note: #545A68; --note-tint: #EDEEF2;
+  --ai: #8A5A00; --ai-tint: #FBF0DA; --focus: #2B4B7E;
+  --shadow: 0 1px 2px rgba(31,26,27,.05), 0 4px 16px rgba(31,26,27,.05);
+  --urdu: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Urdu Typesetting", "Noto Naskh Arabic", serif;
+  --ui: "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+  --arabic: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+    --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+    --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+    --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+  --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+  --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+  --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--ui); font-size: 15px; padding-inline: 16px; padding-block: 0 110px; }
+.wrap { max-width: 760px; margin: 0 auto; }
+[lang="ar"] { font-family: var(--arabic); }
+button, input, a.btn { font: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* header */
+header.top { padding-block: 14px 8px; display: grid; gap: 4px; }
+.topbar { display: flex; align-items: center; gap: 10px; min-height: 40px; }
+.homelink { color: var(--book); font-size: 13.5px; font-weight: 600; text-decoration: none; padding-block: 6px; }
+.homelink:hover { text-decoration: underline; }
+.recbtn { margin-inline-start: auto; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--rule);
+  background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 14px; font-size: 13.5px; font-weight: 600; }
+.recbtn svg { width: 15px; height: 15px; fill: none; stroke: var(--teacher); stroke-width: 1.7; stroke-linecap: round; }
+.recbtn:hover { border-color: var(--teacher); }
+h1 { margin: 6px 0 0; font-family: var(--arabic); font-weight: 700; color: var(--matn); font-size: clamp(36px, 8vw, 50px); line-height: 1.25; }
+.meta { color: var(--muted); font-size: 13.5px; line-height: 1.9; margin: 0; }
+.meta b { color: var(--ink); font-weight: 600; }
+
+/* contents (فہرست) */
+.tochead { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-block: 14px 4px; }
+.tochead h2 { margin: 0; font-size: 15px; font-weight: 700; color: var(--muted); }
+form.jump { display: flex; gap: 4px; margin-inline-start: auto; }
+form.jump input { inline-size: 92px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px;
+  padding: 5px 12px; font-size: 14px; font-variant-numeric: tabular-nums; direction: ltr; text-align: center; }
+form.jump button { cursor: pointer; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 999px; padding: 5px 13px; font-size: 13.5px; }
+.msg { margin: 8px 0 0; color: var(--ink); background: var(--ai-tint); border-radius: 8px; padding: 7px 12px; font-size: 13.5px; line-height: 1.9; }
+.msg a { color: var(--book); font-weight: 600; }
+ol.toc { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.toc li { border-bottom: 1px solid var(--rule); padding-block: 10px 9px; display: grid; gap: 4px; }
+.toc li.lv3 { padding-inline-start: 22px; }
+.toc a.row { display: flex; align-items: baseline; gap: 8px; text-decoration: none; color: inherit; }
+.toc .tt { font-family: var(--arabic); line-height: 1.6; }
+.toc li.lv1 .tt { font-size: 23px; color: var(--matn); font-weight: 700; }
+.toc li.lv2 .tt { font-size: 20px; font-weight: 700; }
+.toc li.lv3 .tt { font-size: 18.5px; }
+.toc .dots { flex: 1 1 24px; min-inline-size: 24px; border-bottom: 2px dotted var(--rule); transform: translateY(-5px); }
+.toc .pp { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.toc a.row:hover .tt, .toc a.row:focus-visible .tt { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.toc .sub { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.toc .sub .n { margin-inline-end: 4px; }
+.toc .sub .none { color: var(--ai); }
+.toc .sub .exn { color: var(--matn); font-weight: 600; margin-inline-end: 4px; }
+a.pchip { text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 0 9px;
+  font-size: 12.5px; line-height: 1.9; font-variant-numeric: tabular-nums; }
+a.pchip:hover { border-color: var(--ink); }
+
+/* unit view */
+.ubar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); margin-inline: -16px; padding: 8px 16px 8px;
+  border-bottom: 1px solid var(--rule); display: grid; gap: 6px; }
+.ubar-top { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.back { flex: none; cursor: pointer; text-decoration: none; color: var(--book); font-size: 13.5px; font-weight: 600; border: 1px solid var(--rule); border-radius: 999px; padding: 3px 12px; background: var(--surface); }
+.utitle { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--arabic); font-size: 19px; font-weight: 700; line-height: 1.6; }
+.pbar { display: flex; gap: 6px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+.pbar::-webkit-scrollbar { display: none; }
+.pbar a { flex: none; text-decoration: none; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 3px 13px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.pbar a[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.ubar form.jump input { inline-size: 70px; padding: 3px 8px; }
+.ubar form.jump button { padding: 3px 10px; }
+.ubar form.jump { flex: none; }
+body.unit h1 { font-size: 26px; margin-top: 0; }
+body.unit header .meta { display: none; }
+.uhead { padding-block: 16px 0; display: grid; gap: 2px; }
+.uhead .parent { margin: 0; font-family: var(--arabic); color: var(--muted); font-size: 16px; }
+.uhead h2 { margin: 0; font-family: var(--arabic); color: var(--matn); font-size: clamp(26px, 6vw, 32px); line-height: 1.5; }
+.uhead p.meta { margin: 0; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; padding-block: 12px 0; color: var(--muted); font-size: 12.5px; align-items: center; }
+.lg { display: inline-flex; align-items: center; gap: 6px; }
+.linkbtn { cursor: pointer; background: none; border: 0; color: var(--book); font-weight: 600; font-size: 13px; padding: 4px 0; margin-inline-start: auto; }
+
+main { display: grid; gap: 18px; padding-block: 14px; }
+article.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; box-shadow: var(--shadow); padding: 18px 18px 14px; display: grid; gap: 12px; }
+.card-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.pg { font-size: 12.5px; font-weight: 600; color: var(--matn); background: var(--matn-tint); border-radius: 6px; padding: 2px 8px; font-variant-numeric: tabular-nums; }
+.v7 { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.cnum { color: var(--muted); font-size: 12.5px; }
+.badge { font-size: 12px; font-weight: 600; color: var(--book); background: var(--book-tint); border-radius: 999px; padding: 1px 9px; }
+.badge.exam { color: var(--matn); background: var(--matn-tint); border: 0; font-family: inherit; line-height: inherit; }
+button.badge.exam { cursor: pointer; }
+.les { color: var(--muted); font-size: 12.5px; margin-inline-start: auto; }
+.play { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--teacher); color: var(--teacher); background: transparent;
+  border-radius: 999px; padding: 3px 11px; font-size: 13px; font-variant-numeric: tabular-nums; direction: ltr; }
+.play svg { width: 10px; height: 10px; fill: currentColor; }
+.norec-chip { margin-inline-start: auto; color: var(--ai); background: var(--ai-tint); border-radius: 999px; padding: 2px 10px; font-size: 12.5px; font-weight: 600; }
+.label { margin: 0; font-family: var(--arabic); color: var(--book); font-size: 15px; line-height: 1.7; }
+h3.title { margin: 0; font-size: 19px; font-weight: 700; line-height: 1.7; text-wrap: balance; }
+.start { margin: 0; font-family: var(--arabic); font-size: 21px; line-height: 1.9; color: var(--matn); border-inline-start: 3px solid var(--matn); padding-inline-start: 12px; }
+.ref { margin: -4px 0 0; color: var(--book); font-size: 13px; line-height: 1.9; }
+.start-note { margin: -6px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.8; }
+.norec { margin: 0; background: var(--ai-tint); color: var(--ink); border-radius: 8px; padding: 6px 12px; font-size: 13.5px; line-height: 1.9; }
+.norec b { color: var(--ai); }
+.sec { display: grid; gap: 6px; }
+.sec h4 { margin: 0; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.sec ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.sec li { font-family: var(--urdu); font-size: 16px; line-height: 2.35; }
+.sec.tamheed li { font-size: 16.5px; }
+.sec.masala li { font-weight: 600; }
+.srcs { display: inline-flex; flex-wrap: wrap; gap: 4px; vertical-align: middle; margin-inline-start: 4px; }
+.chip { font-family: var(--ui); font-size: 11.5px; line-height: 1.6; border-radius: 5px; padding: 0 6px; white-space: nowrap; font-variant-numeric: tabular-nums; border: 0; font-weight: 600; }
+.chip.u { background: var(--teacher-tint); color: var(--teacher); cursor: pointer; }
+.chip.k { background: var(--book-tint); color: var(--book); }
+.chip.s { background: var(--note-tint); color: var(--note); }
+.chip.a { background: var(--ai-tint); color: var(--ai); }
+/* in the "سب" view a card opens folded: head, title, Arabic start and the note under it; the rest behind .ctoggle */
+.ctoggle { display: none; cursor: pointer; align-items: center; gap: 6px 10px; inline-size: 100%; background: none; border: 0; border-top: 1px dashed var(--rule);
+  padding: 8px 0 2px; color: var(--book); font-weight: 600; font-size: 13.5px; text-align: start; }
+.ctoggle::before { content: "−"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+.ctoggle[aria-expanded="false"]::before { content: "+"; }
+body.allview .ctoggle { display: flex; }
+.cbody { display: grid; gap: 12px; }
+article.card.folded .cbody { display: none; }
+article.card { scroll-margin-top: 112px; }
+.dlall { display: grid; gap: 6px; padding: 10px 12px; border-radius: 10px; background: var(--teacher-tint); }
+.dlall .btns { align-items: center; }
+.dlall .sub { color: var(--muted); font-size: 12.5px; }
+.dlall .dlstat { font-size: 12.5px; color: var(--ink); line-height: 1.9; }
+.btn[disabled] { opacity: .55; cursor: default; }
+details.more { border-top: 1px dashed var(--rule); padding-top: 8px; }
+details.more > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; color: var(--book); font-weight: 600; font-size: 13.5px; padding-block: 2px; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::before { content: "+"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+details.more[open] > summary::before { content: "−"; }
+details.more > summary .hint { color: var(--muted); font-weight: 400; font-size: 12.5px; }
+details.more > .inner { display: grid; gap: 12px; padding-top: 10px; }
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 14px; }
+.word { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; padding-block: 4px; border-bottom: 1px solid var(--rule); }
+.word .ar { font-family: var(--arabic); font-size: 19px; color: var(--matn); }
+.word .ur { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; flex: 1 1 auto; }
+.word .chip { font-size: 10.5px; }
+
+section.gaps { display: grid; gap: 8px; margin-block-start: 6px; border: 1px dashed var(--rule); border-radius: 12px; padding: 12px 14px; }
+section.gaps h3 { margin: 0; font-size: 14.5px; }
+section.gaps p.lead { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.9; }
+.glist { margin: 0; padding: 0; list-style: none; display: grid; }
+.glist li { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: start; padding-block: 8px; border-top: 1px solid var(--rule); }
+.glist .gp { font-size: 12px; font-weight: 600; color: var(--ai); background: var(--ai-tint); border-radius: 6px; padding: 1px 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.glist .gt { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; }
+.glist .gv { grid-column: 2; color: var(--muted); font-size: 12px; }
+
+nav.unav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-block-start: 18px; }
+nav.unav a { display: grid; gap: 2px; text-decoration: none; color: inherit; border: 1px solid var(--rule); border-radius: 12px; padding: 10px 14px; background: var(--surface); }
+nav.unav a:hover { border-color: var(--ink); }
+nav.unav .k { color: var(--muted); font-size: 12px; }
+nav.unav .t { font-family: var(--arabic); font-size: 17px; line-height: 1.6; }
+nav.unav a.next { text-align: left; grid-column: 2; }
+
+footer { margin-block-start: 28px; color: var(--muted); font-size: 13px; line-height: 2; border-top: 1px solid var(--rule); padding-block-start: 14px; }
+footer p { margin: 0 0 6px; }
+
+/* sheet */
+.backdrop { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.38); display: flex; align-items: flex-end; justify-content: center; }
+.sheet { background: var(--surface); color: var(--ink); inline-size: 100%; max-inline-size: 600px; max-block-size: 88vh; overflow-y: auto; border-radius: 16px 16px 0 0;
+  padding: 16px 18px calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 12px; box-shadow: 0 -8px 30px rgba(0,0,0,.2); }
+.sheet-head { display: flex; align-items: center; gap: 10px; }
+.sheet h3 { margin: 0; font-size: 17px; line-height: 1.7; }
+.sheet .x { margin-inline-start: auto; cursor: pointer; border: 1px solid var(--rule); background: transparent; color: var(--ink); border-radius: 999px; inline-size: 34px; block-size: 34px; font-size: 18px; line-height: 1; }
+.sheet p { margin: 0; font-size: 13.5px; line-height: 1.95; color: var(--muted); }
+.sheet p b { color: var(--ink); }
+.rec { display: grid; gap: 6px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.rec-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.rec-top b { font-size: 14.5px; }
+.rec-top .sub { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.state { font-size: 12px; font-weight: 600; border-radius: 5px; padding: 0 7px; }
+.state.on { color: var(--teacher); background: var(--teacher-tint); }
+.state.off { color: var(--muted); border: 1px solid var(--rule); }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; text-decoration: none; padding: 6px 13px; border-radius: 999px; border: 1px solid var(--teacher);
+  background: var(--teacher); color: var(--surface); font-weight: 600; font-size: 13.5px; line-height: 1.6; }
+.btn.ghost { background: transparent; color: var(--teacher); }
+.btn svg { width: 12px; height: 12px; fill: currentColor; flex: none; }
+
+/* player */
+.player { position: fixed; inset-inline: 0; bottom: 0; z-index: 10; background: var(--surface); border-top: 1px solid var(--rule); padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; justify-content: center; }
+.player audio { flex: 1 1 280px; max-width: 520px; height: 36px; }
+.speeds { display: flex; gap: 4px; direction: ltr; }
+.speeds button, .pclose { cursor: pointer; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 6px; padding: 3px 8px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.speeds button[aria-pressed="true"] { background: var(--teacher); color: var(--surface); border-color: var(--teacher); }
+.now { font-size: 12.5px; color: var(--muted); }
+.flash { animation: flash 1.2s ease-out; }
+@keyframes flash { from { box-shadow: 0 0 0 3px var(--teacher); } to { box-shadow: var(--shadow); } }
+@media (prefers-reduced-motion: reduce) { .flash { animation: none; } }
+@media (max-width: 460px) {
+  article.card { padding: 14px 14px 10px; }
+  .start { font-size: 19px; }
+  .sec li { font-size: 15.5px; }
+  .toc li.lv3 { padding-inline-start: 14px; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap" dir="rtl" lang="ur">
+  <header class="top">
+    <div class="topbar">
+      <a class="homelink" id="homeLink" href="./" hidden></a>
+      <button type="button" class="recbtn" id="recBtn" aria-haspopup="dialog">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 10V8a5.5 5.5 0 0 1 11 0v2"/><path d="M2.5 10h2v4h-2zM11.5 10h2v4h-2z"/></svg><span>ریکارڈنگز</span>
+      </button>
+    </div>
+    <h1 lang="ar" id="kitab"></h1>
+    <p class="meta" id="meta"></p>
+  </header>
+
+  <section id="tocView">
+    <div class="tochead">
+      <h2>فہرست</h2>
+      <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ نمبر" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form>
+    </div>
+    <p class="msg" id="tocMsg" hidden></p>
+    <ol class="toc" id="toc"></ol>
+  </section>
+
+  <section id="unitView" hidden>
+    <div class="ubar">
+      <div class="ubar-top"><a class="back" href="#">فہرست</a><span class="utitle" lang="ar" id="ubarTitle"></span>
+        <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form></div>
+      <nav class="pbar" id="pbar" aria-label="صفحات"></nav>
+    </div>
+    <div class="uhead">
+      <p class="parent" lang="ar" id="uParent"></p>
+      <h2 lang="ar" id="uTitle"></h2>
+      <p class="meta" id="uMeta"></p>
+    </div>
+    <p class="msg" id="uMsg" hidden></p>
+    <div class="legend" id="legend" aria-label="ماخذ کی علامتیں">
+      <span class="lg" data-t="u"><span class="chip u">استاد</span><span>ریکارڈنگ کا وقت</span></span>
+      <span class="lg" data-t="k"><span class="chip k">کتاب ص</span><span>متن</span></span>
+      <span class="lg" data-t="s"><span class="chip s">شرح</span><span>حاشیہ یا بین السطور</span></span>
+      <span class="lg" data-t="a"><span class="chip a">AI</span><span>خود جانچیں</span></span>
+      <button type="button" class="linkbtn" id="toggleAll" aria-pressed="false">سب تفصیل کھولیں</button>
+    </div>
+    <main id="cards"></main>
+    <section class="gaps" id="gaps" hidden>
+      <h3 id="gapsTitle"></h3>
+      <p class="lead" id="gapsLead"></p>
+      <ul class="glist" id="gapList"></ul>
+    </section>
+    <nav class="unav" id="unav" aria-label="پچھلا اور اگلا حصہ"></nav>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<div class="backdrop" id="backdrop" dir="rtl" lang="ur" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" id="sheet"></div>
+</div>
+
+<div class="player" id="player" dir="rtl" lang="ur" hidden>
+  <audio id="audio" controls preload="metadata"></audio>
+  <div class="speeds" id="speeds" role="group" aria-label="رفتار">
+    <button type="button" data-rate="1" aria-pressed="true">1×</button>
+    <button type="button" data-rate="1.25" aria-pressed="false">1.25×</button>
+    <button type="button" data-rate="1.5" aria-pressed="false">1.5×</button>
+  </div>
+  <span class="now" id="now"></span>
+  <button type="button" class="pclose" id="pclose" aria-label="آواز بند کریں">✕</button>
+</div>
+
+<script>
+const DATA = {"book": {"book": "ہدایہ جلد رابع", "kitab": "كتاب الديات", "from": 1856, "to": 1929, "unit": "کارڈ", "unitOne": "کارڈ"}, "home": "./", "homeLabel": "ہدایہ جلد رابع", "store": "h4", "lessons": {"2025-04-26": {"file": "2025-04-26 الهدايه الرابع كتاب الديات.mp4", "minutes": 50.7, "id": "1zz087arXkZQbHIbpBuNBAvI1kkkuXBwn", "size_mb": 48.4, "label": "26 اپریل 2025", "web": [{"src": "audio/2025-04-26-1.ogg", "start": 0.0, "mb": 3.2}, {"src": "audio/2025-04-26-2.ogg", "start": 1521.2, "mb": 3.1}], "web_mb": 6.3}}, "units": [{"key": "u0", "level": 1, "title": "كتاب الديات", "page": 1856, "page_to": 1860}, {"key": "u1", "level": 3, "title": "فصل فيما دون النفس", "page": 1861, "page_to": 1864}, {"key": "u2", "level": 3, "title": "فصل في الشجاج", "page": 1865, "page_to": 1867}, {"key": "u3", "level": 3, "title": "فصل [في المسائل المتفرقة]", "page": 1868, "page_to": 1875}, {"key": "u4", "level": 3, "title": "فصل في الجنين", "page": 1876, "page_to": 1878}, {"key": "u5", "level": 2, "title": "باب ما يحدثه الرجل في الطريق", "page": 1879, "page_to": 1885}, {"key": "u6", "level": 3, "title": "فصل في الحائط المائل", "page": 1886, "page_to": 1888}, {"key": "u7", "level": 2, "title": "باب جناية البهيمة والجناية عليها", "page": 1889, "page_to": 1897}, {"key": "u8", "level": 2, "title": "باب جناية المملوك والجناية عليه", "page": 1898, "page_to": 1906}, {"key": "u9", "level": 3, "title": "فصل [في الجناية على العبد]", "page": 1907, "page_to": 1910}, {"key": "u10", "level": 3, "title": "فصل في جناية المدبر وأم الولد", "page": 1911, "page_to": 1912}, {"key": "u11", "level": 2, "title": "باب غصب العبد والمدبر والصبي والجناية في ذلك", "page": 1913, "page_to": 1917}, {"key": "u12", "level": 2, "title": "باب القسامة", "page": 1918, "page_to": 1929}], "cards": [{"unit": "u1", "pages": [1861], "lesson": "2025-04-26", "ts": "0:00:31", "label": null, "title": "جان سے کم کی دیت کا قاعدہ: جو عضو جسم میں ایک ہو، یا کسی جنسِ منفعت کو پورا ختم کر دے، یا مقصود خوبصورتی پوری ختم کر دے تو پوری دیت؛ ناک، اس کا نرم حصہ (مارن) یا سرا (ارنبہ) کاٹنے میں پوری دیت، مارن ہڈی (قصبہ) سمیت کاٹا تو بھی ایک ہی دیت", "start": "قال: وفي النفس الدية، وقد ذكرناه، قال وفي المارن الدية،", "start_note": "فصل کا عنوان «فصل فيما دون النفس» = بشریٰ ج٨ ص 79 سرِ صفحہ (PDF 80)۔ استاد نے اسے 0:00:00 پر پڑھا اور 0:00:00–0:00:02 پر تعارف کیا (ان سطروں کے وقت قابلِ اعتماد نہیں، موسیقی/تمہید)، اس لیے کارڈ کا ts پہلی معتبر سطر 0:00:31۔ متن کی عبارت 0:01:49–0:01:58 پڑھی۔ OCR «المارين» = المارن۔ کارڈ «وكذا اللسان لفوات منفعة مقصودة» (ص 80، ≈0.8) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٨ ص 79–80", "tamheed": [{"x": "پوری جان (نفس) کی دیت پڑھ چکے؛ اب جان سے کم: کسی کا عضو کاٹ دیا یا اس کی خوبصورتی پر فرق ڈالا۔ پہلی قسم وہ اعضا جو جسم میں ایک ہیں، جیسے ناک، زبان، ذکر: ان میں پوری دیت ہے۔", "s": [{"t": "u", "v": "0:00:31"}, {"t": "u", "v": "0:00:41"}]}, {"x": "ایسا عضو جو جسم میں ایک ہو اسے کاٹنے سے پوری دیت؛ اس کی منفعت ختم کر دی (جیسے کسی کو نامرد کر دیا) تب بھی پوری دیت؛ کسی چیز کی خوبصورتی مکمل ختم کر دی تب بھی پوری دیت۔", "s": [{"t": "u", "v": "0:01:14"}, {"t": "u", "v": "0:01:25"}, {"t": "u", "v": "0:01:34"}]}], "masala": [{"x": "جان میں دیت؛ ناک کے نرم حصے (مارن) میں دیت؛ زبان میں دیت؛ ذکر میں دیت۔ (کتاب: «وفي النفس الدية … وفي المارن الدية، وفي اللسان الدية، وفي الذكر الدية»۔)", "s": [{"t": "u", "v": "0:01:49"}, {"t": "u", "v": "0:01:56"}, {"t": "u", "v": "0:01:58"}, {"t": "k", "v": "1861", "v7": 1079}]}, {"x": "قاعدہ: اطراف میں جب کسی جنسِ منفعت کو پورا ختم کر دے، یا آدمی کی مقصود خوبصورتی پوری ختم کر دے تو پوری دیت۔ استاد: نفع جیسے سونگھنے یا بولنے کی طاقت؛ مقصود خوبصورتی جیسے چہرہ، کان، بال۔ (کتاب: «إذا فوّت جنس منفعته على الكمال، أو أزال جمالاً مقصوداً في الآدمي على الكمال: يجب كل الدية»۔)", "s": [{"t": "u", "v": "0:02:02"}, {"t": "u", "v": "0:02:29"}, {"t": "u", "v": "0:02:41"}, {"t": "k", "v": "1861", "v7": 1080}]}, {"x": "ناک: پوری ناک کاٹ دی تو پوری دیت، کیونکہ کامل خوبصورتی ختم ہو گئی؛ صرف نرم حصہ (مارن) یا ناک کا سرا (ارنبہ) کاٹا تب بھی پوری دیت۔ (کتاب: «في الأنف الدية؛ لأنه أزال الجمال على الكمال، وهو مقصود، وكذا إذا قطع المارن أو الأرنبة»؛ استاد کے «ایک طرف سے حصہ» کے لیے NOTES دیکھیں۔)", "s": [{"t": "u", "v": "0:00:54"}, {"t": "u", "v": "0:03:02"}, {"t": "k", "v": "1861", "v7": 1080}, {"t": "s", "v": "الكفاية ٢١٢/٩"}]}, {"x": "نرم حصہ ہڈی (قصبہ) سمیت کاٹ دیا تو یہ نہیں کہ نرم حصے کی الگ دیت اور ہڈی کی الگ؛ پورا ایک ہی عضو ہے، ایک ہی دیت۔ (کتاب: «ولو قطع المارن مع القصبة لا يزاد على دية واحدة؛ لأنه عضو واحد»۔)", "s": [{"t": "u", "v": "0:03:16"}, {"t": "u", "v": "0:03:25"}, {"t": "u", "v": "0:03:48"}, {"t": "k", "v": "1861", "v7": 1080}]}], "dalil": [{"x": "حدیث: سعید بن المسیب کی روایت «في النفس الدية، وفي اللسان الدية، وفي المارن الدية»؛ اور یہی حضور ﷺ کے اس خط میں ہے جو عمرو بن حزم کو لکھا تھا، جس میں تفصیل تھی کہ کس میں پوری دیت ہے کس میں آدھی۔", "s": [{"t": "u", "v": "0:02:02"}, {"t": "k", "v": "1861", "v7": 1079}, {"t": "k", "v": "1861", "v7": 1080}]}, {"x": "قاعدے کی وجہ (کتاب): ایسا کرنے والے نے ایک لحاظ سے جان ہی ضائع کر دی، اور آدمی کی تعظیم کے لیے اسے پوری طرح ضائع کرنے کے ساتھ ملا دیا گیا؛ اس کی اصل یہ ہے کہ حضور ﷺ نے زبان اور ناک میں پوری دیت کا فیصلہ فرمایا۔ (کتاب: «لإتلافه النفس من وجه … تعظيماً للآدمي، أصله قضاء رسول الله ﷺ بالدية كلها في اللسان والأنف»۔)", "s": [{"t": "u", "v": "0:02:50"}, {"t": "k", "v": "1861", "v7": 1080}]}], "ikhtilaf": [], "faida": [{"x": "حاشیہ: سعید بن المسیب تابعی ہیں، ان کی حضور ﷺ سے روایت مرسل ہے، «وهو حجة بالإجماع»؛ اور فصل کے شروع میں جان کا ذکر بعد والے کی تمہید کے لیے دوبارہ کیا۔", "s": [{"t": "s", "v": "الكفاية ٢١٢/٩"}, {"t": "s", "v": "العناية ٢١٢/٩"}]}, {"x": "حاشیہ (نصب الراية): سعید کی حدیث نہیں ملی؛ عمرو بن حزم کا خط نسائی وغیرہ میں ہے: «وفي الأنف إذا أوعب جدعه الدية، وفي اللسان الدية … وفي الذكر الدية»۔", "s": [{"t": "s", "v": "نصب الراية ٣٦٩/٤، ٣٧٠"}]}, {"x": "حاشیہ: «على الكمال» کی قید اس لیے کہ کمال نہ ہو تو پوری دیت نہیں، چاہے عضو کاٹا ہو: جیسے گونگے کی زبان، خصی کا آلہ، لنگڑی ٹانگ، کانی آنکھ، کالا دانت؛ ان میں نہ عمد میں قصاص نہ خطا میں دیت، بلکہ حکومتِ عدل۔", "s": [{"t": "s", "v": "العناية ٢١٢/٩"}]}], "lughat": [{"ar": "المارن", "ur": "ناک کا نرم حصہ", "s": [{"t": "u", "v": "0:01:49"}, {"t": "s", "v": "الكفاية"}]}, {"ar": "القصبة", "ur": "ناک کی ہڈی (سخت حصہ)", "s": [{"t": "u", "v": "0:03:16"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "الأرنبة", "ur": "ناک کا سرا", "s": [{"t": "a", "v": ""}]}, {"ar": "فوّت جنس منفعته على الكمال", "ur": "کسی عضو کا (پورا) فائدہ مکمل ختم کر دیا", "s": [{"t": "u", "v": "0:02:02"}, {"t": "u", "v": "0:02:29"}]}, {"ar": "أزال جمالاً مقصوداً", "ur": "مقصود خوبصورتی ختم کر دی", "s": [{"t": "u", "v": "0:02:29"}]}, {"ar": "عضو واحد", "ur": "ایک ہی اندام", "s": [{"t": "u", "v": "0:03:48"}]}]}, {"unit": "u1", "pages": [1861, 1862], "lesson": "2025-04-26", "ts": "0:03:51", "label": null, "title": "زبان کاٹی یا اتنی کاٹی کہ بولنے سے قاصر ہو گیا تو پوری دیت؛ کچھ حروف بول سکے تو تین «قیل»؛ ذکر اور حشفہ میں پوری دیت؛ مار سے عقل، سننے، دیکھنے، سونگھنے یا چکھنے کی طاقت چلی جائے تو ہر ایک میں پوری دیت (حضرت عمر کا ایک ضرب میں چار دیتوں کا فیصلہ)", "start": "وكذا اللسان لفوات منفعة مقصودة، وهو النطق،", "start_note": "0:03:51 «اسی طرح زبان کا بھی یہ حکم ہے» سے شروع؛ زبان اور ذکر کی عربی نہیں پڑھی، صرف اردو میں سمجھایا؛ 0:07:33 «وفي العقل» پڑھا۔ کارڈ «قال: وفي اللحية» (ص 82، ≈0.27) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٨ ص 80–82", "tamheed": [{"x": "زبان کاٹ دی تو پوری دیت؛ زبان آدھی کاٹی تو کیا حکم ہے؟", "s": [{"t": "u", "v": "0:03:51"}]}, {"x": "ذکر کٹنے سے آدمی وطی نہیں کر سکتا، بچہ پیدا نہیں کر سکتا، پیشاب نہ روک سکتا ہے نہ پھینک سکتا ہے، منی جوش سے رحم تک نہیں پہنچا سکتا۔", "s": [{"t": "u", "v": "0:06:26"}, {"t": "u", "v": "0:06:30"}]}, {"x": "یہ تو اعضا کی بات تھی؛ اب طاقتیں (معانی): انسان کی پانچ طاقتیں: عقل، سننا، دیکھنا، سونگھنا، چکھنا۔", "s": [{"t": "u", "v": "0:07:33"}, {"t": "u", "v": "0:07:45"}]}], "masala": [{"x": "زبان کا کچھ حصہ کاٹا اور وہ بولنے سے بالکل قاصر ہو گیا تو پوری دیت، چاہے زبان (آلہ) موجود ہو؛ کیونکہ مقصود منفعت (نطق) ختم ہو گئی۔ (کتاب: «وكذا في قطع بعضه إذا مُنع الكلام … وإن كانت الآلة قائمة»۔)", "s": [{"t": "u", "v": "0:03:58"}, {"t": "k", "v": "1861", "v7": 1080}, {"t": "k", "v": "1861–1862", "v7": 1081}]}, {"x": "کچھ حروف بول سکے تو تین قول (کتاب میں تینوں «قيل»): (1) سب حروف پر دیت تقسیم ہوگی، جتنے نہ بول سکے اتنی دیت؛ استاد: آدھے بول سکے تو آدھی، ایک تہائی بول سکے تو دو تہائی دیت۔ (2) صرف ان حروف پر جو زبان سے ادا ہوتے ہیں۔ (3) اکثر حروف ادا کر سکے تو حکومتِ عدل، اکثر سے عاجز ہو تو پوری دیت۔ (کتاب: «قيل: تقسم على عدد الحروف، وقيل: على عدد حروف تتعلق باللسان … وقيل: إن قدر على أداء أكثرها: تجب حكومة عدل … وإن عجز عن أداء الأكثر: يجب كل الدية»۔)", "s": [{"t": "u", "v": "0:04:09"}, {"t": "u", "v": "0:04:22"}, {"t": "u", "v": "0:04:25"}, {"t": "u", "v": "0:04:41"}, {"t": "u", "v": "0:04:45"}, {"t": "u", "v": "0:04:52"}, {"t": "u", "v": "0:05:52"}, {"t": "u", "v": "0:06:02"}, {"t": "k", "v": "1861–1862", "v7": 1081}]}, {"x": "ذکر میں پوری دیت؛ صرف حشفہ (اوپر والا حصہ) کاٹا تب بھی پوری دیت۔ استاد: ذکر موجود ہو مگر جماع کی صلاحیت ختم کر دی جائے تب بھی پوری دیت۔ (کتاب: «وكذا الذكر … وكذا في الحشفة الدية كاملة»۔)", "s": [{"t": "u", "v": "0:06:26"}, {"t": "u", "v": "0:06:57"}, {"t": "u", "v": "0:07:19"}, {"t": "u", "v": "0:07:27"}, {"t": "k", "v": "1861–1862", "v7": 1081}]}, {"x": "مار سے عقل چلی گئی تو پوری دیت؛ اسی طرح سننے، دیکھنے، سونگھنے یا چکھنے کی طاقت چلی جائے۔ (کتاب: «وفي العقل إذا ذهب بالضرب الدية … وكذا إذا ذهب سمعه، أو بصره، أو شمّه، أو ذوقه»۔)", "s": [{"t": "u", "v": "0:07:45"}, {"t": "u", "v": "0:08:09"}, {"t": "k", "v": "1861–1862", "v7": 1081}, {"t": "k", "v": "1862", "v7": 1082}]}, {"x": "ایک ضرب سے ایک سے زیادہ طاقتیں ختم ہوئیں تو ہر ایک کی الگ دیت: حضرت عمرؓ نے ایک ضرب میں، جس سے عقل، بولنا، سننا اور دیکھنا ختم ہوئے، چار دیتوں کا فیصلہ کیا۔ (کتاب: «وقد روي أن عمر قضى بأربع ديات في ضربة واحدة ذهب بها العقل والكلام والسمع والبصر»۔)", "s": [{"t": "u", "v": "0:08:09"}, {"t": "u", "v": "0:08:41"}, {"t": "k", "v": "1862", "v7": 1082}]}], "dalil": [{"x": "تیسرے قول کی وجہ: اکثر بول سکے تو بات سمجھ آ جاتی ہے، مگر خلل ہے؛ اکثر سے عاجز ہو تو دو چار حروف سے بات سمجھ نہیں آتی، گویا پوری منفعت زائل۔ (کتاب: «لحصول الإفهام مع الاختلال … لأن الظاهر أنه لا تحصل منفعة الكلام»۔)", "s": [{"t": "u", "v": "0:04:52"}, {"t": "u", "v": "0:06:02"}, {"t": "k", "v": "1861–1862", "v7": 1081}]}, {"x": "ذکر: اس سے وطی، بچہ پیدا کرنا، پیشاب روکنا اور پھینکنا، منی کا جوش سے نکلنا اور ایلاج کی منفعت فوت ہوتی ہے۔ حشفہ ایلاج اور دفق میں اصل ہے اور پیچھے والا حصہ (قصبہ) اس کا تابع۔", "s": [{"t": "u", "v": "0:06:30"}, {"t": "u", "v": "0:07:03"}, {"t": "u", "v": "0:07:14"}, {"t": "k", "v": "1861–1862", "v7": 1081}]}, {"x": "عقل: ادراک کی منفعت فوت ہوئی، جس سے آدمی دنیا اور آخرت میں فائدہ اٹھاتا ہے؛ باقی حواس میں ہر ایک مستقل مقصود منفعت ہے۔ (کتاب: «لفوات منفعة الإدراك؛ إذ به ينتفع بنفسه في معاشه ومعاده … لأن كل واحد منها منفعة مقصودة»۔)", "s": [{"t": "u", "v": "0:08:09"}, {"t": "k", "v": "1861–1862", "v7": 1081}, {"t": "k", "v": "1862", "v7": 1082}]}], "ikhtilaf": [], "faida": [{"x": "حکومتِ عدل (استاد کی مثال): اس آدمی کو غلام فرض کریں؛ ماہرین بتائیں کہ ٹھیک ٹھاک ہو تو قیمت ایک لاکھ، اور توتلا بولتا ہو (ت، ط نہ کہہ سکے) تو اسّی ہزار؛ قیمت میں پانچواں حصہ کمی ہوئی تو دیت کا پانچواں حصہ واجب۔", "s": [{"t": "u", "v": "0:04:52"}, {"t": "u", "v": "0:05:15"}, {"t": "u", "v": "0:05:28"}]}, {"x": "زبان والے حروف: استاد: میم، با اور حلقی حروف میں زبان استعمال نہیں ہوتی، ت، ط، د میں ہوتی ہے۔ حاشیہ: شفوی (میم، با)، حلقی اور ہوائی حروف تقسیم میں داخل نہیں؛ اصل حضرت علیؓ کا فیصلہ: کسی نے کسی کی زبان کا سرا کاٹا تو انہوں نے اس سے «ا ب ت ث» پڑھوایا، جو حرف پڑھ لیا اس کے حساب سے دیت کم کی اور جو نہ پڑھا اس کے حساب سے واجب کی۔", "s": [{"t": "u", "v": "0:04:25"}, {"t": "s", "v": "الكفاية ٢١٣/٩"}]}, {"x": "حاشیہ: جان کے قتل میں ایک ہی دیت ہوتی ہے کیونکہ اطراف جان کے تابع ہیں، مگر ایک منفعت دوسری کے تابع نہیں، اس لیے ہر ایک کا الگ اعتبار۔", "s": [{"t": "s", "v": "الكفاية ٢١٤/٩"}]}, {"x": "حاشیہ: ذکر میں دیت بلا خلاف۔", "s": [{"t": "s", "v": "البناية ١٧٧/١٣"}]}], "lughat": [{"ar": "النطق", "ur": "بولنا", "s": [{"t": "u", "v": "0:02:29"}]}, {"ar": "وإن كانت الآلة قائمة", "ur": "چاہے زبان موجود ہو", "s": [{"t": "u", "v": "0:03:58"}]}, {"ar": "لحصول الإفهام مع الاختلال", "ur": "بات سمجھا تو دیتا ہے مگر خلل کے ساتھ", "s": [{"t": "u", "v": "0:04:52"}]}, {"ar": "الإيلاد / استمساك البول", "ur": "بچہ پیدا کرنا / پیشاب روکنا", "s": [{"t": "u", "v": "0:06:30"}]}, {"ar": "دفق الماء", "ur": "منی کا جوش سے نکلنا", "s": [{"t": "u", "v": "0:06:30"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "الحشفة", "ur": "ذکر کا اوپر والا حصہ", "s": [{"t": "u", "v": "0:06:57"}]}, {"ar": "معاشه ومعاده", "ur": "اس کی دنیا اور آخرت", "s": [{"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}]}, {"unit": "u1", "pages": [1862], "lesson": "2025-04-26", "ts": "0:08:45", "label": null, "title": "داڑھی مونڈ دی اور نہ اگی، یا سر کے بال اس طرح ختم کیے کہ دوبارہ نہ اگیں تو پوری دیت (امام مالک، اور یہی امام شافعی کا قول: حکومتِ عدل)؛ غلام کی داڑھی میں امام ابو حنیفہ سے روایت: پوری قیمت", "start": "قال: وفي اللحية إذا حُلِقَت فلم تنبت الدية؛", "start_note": "0:08:45 «تیسرا مسئلہ … وفي اللحية» سے شروع؛ عبارت 0:11:52–0:12:08 پڑھی۔ 0:09:50–0:10:03 نیٹ کٹ گیا، 0:10:03 پر امام شافعی کی دلیل دوبارہ شروع کی (0:10:03 اور 0:10:55 کے درمیان ٹرانسکرپٹ میں کچھ نہیں)۔ OCR «خُلِقَت» = حُلِقَت۔ کارڈ «قال: وفي الشارب» (ص 83، ≈0.35) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٨ ص 82–83", "tamheed": [{"x": "خوبصورتی مکمل ختم کی تو پوری دیت، کچھ ختم کی تو حکومتِ عدل؛ سب سے پہلے داڑھی۔", "s": [{"t": "u", "v": "0:08:51"}, {"t": "u", "v": "0:08:54"}]}, {"x": "داڑھی کاٹ دی اور دوبارہ آ گئی تو نہ قصاص نہ دیت، قاضی کی صوابدید پر تادیبی سزا؛ لیکن اس طرح کاٹی کہ اگنے کی جگہ (منبت) ختم ہو گئی اور دوبارہ آئی ہی نہیں تو؟", "s": [{"t": "u", "v": "0:09:11"}, {"t": "u", "v": "0:09:12"}, {"t": "u", "v": "0:09:15"}]}], "masala": [{"x": "داڑھی اس طرح مونڈ دی کہ دوبارہ نہ اگی تو پوری دیت؛ اسی طرح سر کے بال اس طرح اکھیڑ دیے کہ اگنے کی صلاحیت ختم ہو گئی تو بھی پوری دیت۔ (کتاب: «وفي اللحية إذا حُلقت فلم تنبت الدية؛ لأنه يفوت به منفعة الجمال … وفي شعر الرأس الدية»۔)", "s": [{"t": "u", "v": "0:09:32"}, {"t": "u", "v": "0:09:45"}, {"t": "u", "v": "0:11:52"}, {"t": "u", "v": "0:12:00"}, {"t": "u", "v": "0:12:08"}, {"t": "k", "v": "1862", "v7": 1082}]}], "dalil": [{"x": "ہماری دلیل: داڑھی اپنے وقت میں مرد کے لیے خوبصورتی ہے، مونڈنے سے یہ پوری ختم؛ جیسے کان کا باہر والا حصہ: کاٹنے سے سننا متاثر نہیں ہوتا، پھر بھی دیت ہے کیونکہ اس کا تعلق خوبصورتی سے ہے۔ سر کے بال بھی خوبصورتی ہیں، اسی لیے بالکل گنجا آدمی چھپانے کی کوشش کرتا ہے؛ سینے اور پنڈلی کے بالوں کا خوبصورتی سے تعلق نہیں، وہ تو چھپے رہتے ہیں، اس لیے ان پر قیاس نہیں۔ (کتاب: «ولنا: أن اللحية في وقتها جمال … كما في الأذنين الشاخصين، وكذا شعر الرأس جمال، ألا ترى أن من عدمه خلقةً يتكلف في ستره، بخلاف شعر الصدر والساق»۔)", "s": [{"t": "u", "v": "0:12:11"}, {"t": "u", "v": "0:12:17"}, {"t": "u", "v": "0:12:37"}, {"t": "u", "v": "0:12:47"}, {"t": "u", "v": "0:12:54"}, {"t": "k", "v": "1862", "v7": 1082}, {"t": "k", "v": "1862", "v7": 1083}]}, {"x": "غلام والی دلیل کا جواب: امام ابو حنیفہ سے ایک روایت یہ ہے کہ غلام کی داڑھی میں بھی پوری قیمت (حاشیہ: یہ حسن کی روایت ہے)؛ اور ظاہر (روایت) پر توجیہ یہ کہ غلام سے مقصود کام لینا ہے، اس کا بالوں سے تعلق نہیں، اس لیے اس میں صرف قیمت کی کمی؛ آزاد میں مقصود خوبصورتی ہے۔ (کتاب: «وأما لحية العبد فعن أبي حنيفة: أنه يجب فيها كمال القيمة، والتخريج على الظاهر أن المقصود بالعبد المنفعة بالاستعمال دون الجمال بخلاف الحر»۔)", "s": [{"t": "u", "v": "0:12:54"}, {"t": "u", "v": "0:13:25"}, {"t": "u", "v": "0:13:32"}, {"t": "u", "v": "0:13:38"}, {"t": "k", "v": "1862", "v7": 1083}, {"t": "s", "v": "العناية"}]}], "ikhtilaf": [{"x": "امام مالک، اور یہی امام شافعی کا قول: داڑھی اور سر کے بالوں میں حکومتِ عدل۔ وجہ: یہ بنیادی چیز نہیں، آدمی میں اضافی ہے؛ اسی لیے کچھ لوگ (بعض علاقوں میں) پورا سر اور داڑھی کا کچھ حصہ منڈواتے ہیں؛ یہ سینے یا پنڈلی کے بالوں جیسے ہیں؛ اور غلام کے بال کاٹے تو پوری قیمت نہیں، صرف قیمت کی کمی دی جاتی ہے۔ (کتاب: «وقال مالك وهو قول الشافعي: تجب فيهما حكومة عدل؛ لأن ذلك زيادة في الآدمي … ولهذا يجب في شعر العبد نقصان القيمة»۔)", "s": [{"t": "u", "v": "0:09:49"}, {"t": "u", "v": "0:10:59"}, {"t": "u", "v": "0:11:14"}, {"t": "u", "v": "0:11:18"}, {"t": "u", "v": "0:11:25"}, {"t": "u", "v": "0:12:11"}, {"t": "k", "v": "1862", "v7": 1082}]}], "faida": [{"x": "استاد: «دلیل میں اصل بات سمجھ لیں»: مراد بالوں کو اس طرح ختم کرنا ہے کہ دوبارہ نہ اگیں؛ ٹنڈ کروا دی اور بال دوبارہ آ گئے تو دیت نہیں۔", "s": [{"t": "u", "v": "0:11:25"}]}, {"x": "حاشیہ: ایک سال کی مہلت دی جائے گی؛ اگ آئے تو دیت نہیں، اور سال پورا ہونے سے پہلے مر گیا تو (بھی) کچھ نہیں۔ تمرتاشی «قالوا»: سر مونڈا اور نہ اگا تو دیت، اس میں مرد، عورت، چھوٹا، بڑا برابر۔ (الکفایہ: صاحبین کے ہاں اس صورت میں حکومتِ عدل)", "s": [{"t": "s", "v": "البناية ١٧٧/١٣"}, {"t": "s", "v": "الكفاية ٢١٤/٩"}]}], "lughat": [{"ar": "حُلِقت فلم تنبت", "ur": "مونڈ دی گئی اور دوبارہ نہ اگی", "s": [{"t": "u", "v": "0:11:52"}, {"t": "u", "v": "0:12:00"}]}, {"ar": "المنبت", "ur": "بال اگنے کی جگہ", "s": [{"t": "u", "v": "0:09:15"}]}, {"ar": "زيادة في الآدمي", "ur": "آدمی میں اضافی چیز", "s": [{"t": "u", "v": "0:11:18"}]}, {"ar": "الأذنين الشاخصين", "ur": "ابھرے ہوئے (باہر والے) کان", "s": [{"t": "u", "v": "0:12:37"}, {"t": "s", "v": "العناية"}]}, {"ar": "من عدمه خلقةً يتكلف في ستره", "ur": "جو پیدائشی گنجا ہو وہ اسے چھپانے کی کوشش کرتا ہے", "s": [{"t": "u", "v": "0:12:54"}]}, {"ar": "نقصان القيمة", "ur": "قیمت میں کمی", "s": [{"t": "u", "v": "0:11:25"}]}]}, {"unit": "u1", "pages": [1862, 1863], "lesson": "2025-04-26", "ts": "0:14:05", "label": null, "title": "مونچھ میں (اصح قول) حکومتِ عدل؛ کوسج کی ٹھوڑی پر چند بال: کچھ نہیں، رخسار اور ٹھوڑی پر بال مگر جڑے نہیں: حکومتِ عدل، جڑے ہوئے: پوری دیت؛ یہ سب تب جب منبت خراب ہو، پہلے جیسی اگ آئی تو کچھ نہیں (صرف تادیب)؛ سفید اگی تو امام ابو حنیفہ سے روایت: آزاد میں کچھ نہیں، غلام میں حکومتِ عدل — صاحبین: حکومتِ عدل", "start": "قال: وفي الشارب حكومة عدل، وهو الأصح؛", "start_note": "0:14:05 «وفي الشارب حكومة عدل» پڑھا؛ کوسج کی عبارت 0:17:07–0:17:28 پڑھی۔ «ويستوي العمد والخطأ على هذا الجمهور» (ص 84 پہلی سطر) نہ پڑھا نہ سمجھایا (GAPS)۔ کارڈ «وفي الحاجبين الدية» (ص 84، ≈0.07) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٨ ص 83–84", "tamheed": [{"x": "مونچھیں کاٹ دیں اور دوبارہ آ گئیں تو مسئلہ نہیں؛ دوبارہ نہیں آئیں اور مونچھیں ختم ہو گئیں تو؟", "s": [{"t": "u", "v": "0:14:10"}]}, {"x": "کوسج وہ جس کی داڑھی نہیں آتی (جسے کوسا کہتے ہیں)؛ اس کی تین صورتیں ہیں۔", "s": [{"t": "u", "v": "0:14:31"}, {"t": "u", "v": "0:14:41"}]}], "masala": [{"x": "مونچھ: صحیح (کتاب: «الأصح») قول یہ کہ حکومتِ عدل، کیونکہ داڑھی کے تابع ہے؛ جیسے کوئی پوری نہیں بلکہ ایک طرف سے آدھی داڑھی کاٹ دے۔ (کتاب: «لأنه تابع للحية، فصار كبعض أطرافها»۔)", "s": [{"t": "u", "v": "0:14:10"}, {"t": "u", "v": "0:14:21"}, {"t": "k", "v": "1862–1863", "v7": 1083}]}, {"x": "کوسج (1): ٹھوڑی پر دو چار (گنے چنے) بال ہوں اور کسی نے منڈوا دیے، دوبارہ نہیں اگے تو کچھ نہیں؛ وہ بال تو اور برے لگتے ہیں۔ (کتاب: «إن كان على ذقنه شعرات معدودة: فلا شيء في حلقه؛ لأن وجوده يشينه ولا يزينه»۔)", "s": [{"t": "u", "v": "0:14:41"}, {"t": "u", "v": "0:17:07"}, {"t": "u", "v": "0:17:14"}, {"t": "k", "v": "1862–1863", "v7": 1083}]}, {"x": "کوسج (2): اس سے زیادہ ہوں، ٹھوڑی اور رخسار دونوں پر، مگر آپس میں جڑے ہوئے نہیں، بیچ میں خالی جگہ ہے تو حکومتِ عدل، کیونکہ اس میں کچھ خوبصورتی ہے۔ (3): جڑے ہوئے ہوں (کنپٹی سے ٹھوڑی تک ملی ہوئی) تو پوری دیت؛ یہ کوسج نہیں، بال کم ہیں مگر خوبصورتی ہے۔", "s": [{"t": "u", "v": "0:15:05"}, {"t": "u", "v": "0:15:13"}, {"t": "u", "v": "0:15:21"}, {"t": "u", "v": "0:15:27"}, {"t": "u", "v": "0:15:38"}, {"t": "u", "v": "0:17:17"}, {"t": "u", "v": "0:17:24"}, {"t": "u", "v": "0:17:28"}, {"t": "k", "v": "1862–1863", "v7": 1083}]}, {"x": "یہ ساری تفصیل تب ہے جب (منبت خراب ہو کر) دوبارہ نہ اگیں؛ داڑھی دوبارہ اگ کر پہلے جیسی ہو گئی تو کچھ واجب نہیں، کیونکہ جنایت کا اثر نہ رہا؛ البتہ ناجائز کام کرنے پر تادیبی سزا (استاد: مثلاً کوڑے، جیل)۔ (کتاب: «وهذا كله إذا فسد المنبت، فإن نبت حتى استوفى كما كان: لا يجب شيء … ويؤدب على ارتكابه ما لا يحل»۔)", "s": [{"t": "u", "v": "0:15:44"}, {"t": "k", "v": "1862–1863", "v7": 1083}]}, {"x": "داڑھی دوبارہ اگی مگر ساری سفید: امام ابو حنیفہ سے روایت: آزاد میں کچھ واجب نہیں، کیونکہ سفید داڑھی خوبصورتی ہے؛ غلام میں حکومتِ عدل، کیونکہ اس کی قیمت کم ہوتی ہے (اسے نوجوان نہیں سمجھا جاتا)۔ صاحبین: حکومتِ عدل، کیونکہ بے وقت (جوانی میں) سفیدی عیب ہے، اسی لیے لوگ سفید بالوں کا علاج کرتے ہیں۔ (کتاب: «وإن نبت بيضاء، فعن أبي حنيفة أنه لا يجب شيء في الحر؛ لأنه يزيده جمالاً، وفي العبد تجب حكومة عدل؛ لأنه ينقص قيمته، وعندهما: تجب حكومة عدل؛ لأنه في غير أوانه يشينه، ولا يزينه»۔)", "s": [{"t": "u", "v": "0:16:11"}, {"t": "u", "v": "0:16:19"}, {"t": "u", "v": "0:16:24"}, {"t": "u", "v": "0:16:30"}, {"t": "u", "v": "0:16:43"}, {"t": "k", "v": "1862–1863", "v7": 1083}]}], "dalil": [], "ikhtilaf": [{"x": "سفید اگنے والی داڑھی: امام ابو حنیفہ سے روایت («فعن أبي حنيفة»): آزاد میں کچھ نہیں، غلام میں حکومتِ عدل؛ صاحبین («وعندهما»): حکومتِ عدل۔", "s": [{"t": "u", "v": "0:16:19"}, {"t": "u", "v": "0:16:43"}, {"t": "k", "v": "1862–1863", "v7": 1083}]}, {"x": "حاشیہ: «وهو الأصح» اس قول سے احتراز ہے جو بعض مشایخ نے کہا کہ مونچھ میں پوری دیت، کیونکہ یہ الگ عضو ہے اور اس سے خوبصورتی فوت ہوتی ہے۔", "s": [{"t": "s", "v": "العناية ٢١٤/٩"}]}], "faida": [{"x": "حاشیہ: داڑھی کا کچھ حصہ مونڈا اور نہ اگا تو «قیل»: حکومتِ عدل۔", "s": [{"t": "s", "v": "البناية ١٧٩/١٣"}]}, {"x": "حاشیہ («ويستوي العمد والخطأ»، استاد نے نہیں پڑھا): سر اور داڑھی کے بال عمداً مونڈے تب بھی دیت ہے، قصاص نہیں، کیونکہ بالوں میں قصاص نہیں۔", "s": [{"t": "k", "v": "1863", "v7": 1084}, {"t": "s", "v": "الكفاية ٢١٤/٩-٢١٥"}]}], "lughat": [{"ar": "الشارب", "ur": "مونچھیں", "s": [{"t": "u", "v": "0:14:10"}]}, {"ar": "الكوسج", "ur": "جس کی داڑھی نہ آئے (کوسا)", "s": [{"t": "u", "v": "0:14:31"}]}, {"ar": "شعرات معدودة", "ur": "گنے چنے چند بال", "s": [{"t": "u", "v": "0:14:41"}, {"t": "u", "v": "0:17:07"}]}, {"ar": "الخد والذقن", "ur": "رخسار اور ٹھوڑی", "s": [{"t": "u", "v": "0:17:17"}]}, {"ar": "غير متصل", "ur": "آپس میں جڑے ہوئے نہیں", "s": [{"t": "u", "v": "0:17:24"}]}, {"ar": "يشينه ولا يزينه", "ur": "اسے عیب دار بناتا ہے، خوبصورت نہیں", "s": [{"t": "u", "v": "0:14:41"}, {"t": "u", "v": "0:16:43"}]}, {"ar": "فسد المنبت", "ur": "اگنے کی جگہ خراب ہو گئی", "s": [{"t": "u", "v": "0:09:15"}]}, {"ar": "في غير أوانه", "ur": "بے وقت (جوانی میں)", "s": [{"t": "u", "v": "0:16:43"}]}]}, {"unit": "u1", "pages": [1863, 1864], "lesson": "2025-04-26", "ts": "0:17:30", "label": null, "title": "جو اعضا جسم میں دو ہیں (ابرو، آنکھیں، ہاتھ، پاؤں، ہونٹ، کان، خصیے) دونوں میں پوری دیت، ایک میں آدھی (ابرو میں امام مالک و شافعی: حکومتِ عدل)؛ عورت کے دونوں پستانوں میں پوری دیت، ایک میں عورت کی آدھی دیت؛ مرد کے پستان میں حکومتِ عدل؛ عورت کی دونوں حلموں میں پوری، ایک میں آدھی", "start": "وفي الحاجبين الديةُ، وفي إحداهما نصفُ الدية،", "start_note": "0:17:30 «وفي الحاجبين الدية» پڑھا؛ عبارت 0:18:22–0:18:40 اور 0:19:20 پڑھی۔ کارڈ «قال: وفي أشفار العينين» (ص 85، ≈0.3) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٨ ص 84–85", "tamheed": [{"x": "دوسرے نمبر پر وہ اعضا جو جسم میں دو ہیں: ایک میں آدھی دیت، دونوں میں پوری؛ جیسے دونوں ہاتھ کاٹ دیے تو پوری دیت، ایک کاٹا تو آدھی۔", "s": [{"t": "u", "v": "0:17:30"}, {"t": "u", "v": "0:17:42"}]}], "masala": [{"x": "ابرو: کسی نے دوسرے کے ابرو اس طرح کاٹے کہ دوبارہ نہ اگے تو دونوں میں پوری دیت، ایک میں آدھی۔ (کتاب: «وفي الحاجبين الدية، وفي إحداهما نصف الدية»۔)", "s": [{"t": "u", "v": "0:17:54"}, {"t": "u", "v": "0:18:18"}, {"t": "u", "v": "0:18:21"}, {"t": "u", "v": "0:18:23"}, {"t": "k", "v": "1863", "v7": 1084}]}, {"x": "دونوں آنکھوں، دونوں ہاتھوں، دونوں پاؤں، دونوں ہونٹوں، دونوں کانوں اور دونوں خصیوں میں پوری دیت؛ ان میں سے ایک میں آدھی دیت۔ (کتاب: «وفي العينين الدية، وفي اليدين الدية وفي الرجلين الدية، وفي الشفتين الدية، وفي الأذنين الدية، وفي الأنثيين الدية … وفي كل واحد من هذه الأشياء نصف الدية»۔)", "s": [{"t": "u", "v": "0:18:24"}, {"t": "u", "v": "0:18:39"}, {"t": "u", "v": "0:18:40"}, {"t": "u", "v": "0:18:42"}, {"t": "k", "v": "1863", "v7": 1084}]}, {"x": "عورت کے دونوں پستان کاٹ دیے تو پوری دیت؛ ایک میں آدھی (کتاب: عورت کی دیت کا آدھا)۔ (کتاب: «وفي ثديي المرأة الدية … وفي إحداهما نصف دية المرأة»۔)", "s": [{"t": "u", "v": "0:19:20"}, {"t": "u", "v": "0:19:21"}, {"t": "k", "v": "1863", "v7": 1084}]}, {"x": "مرد کے پستان میں دیت نہیں، حکومتِ عدل۔ (کتاب: «بخلاف ثديي الرجل حيث تجب حكومة عدل»۔)", "s": [{"t": "u", "v": "0:19:41"}, {"t": "k", "v": "1863–1864", "v7": 1085}]}, {"x": "عورت کے پستان کا اوپر والا سرا (حلمہ): دونوں کاٹ دیے تو پوری دیت، ایک میں آدھی۔ (کتاب: «وفي حلمتي المرأة الدية كاملة … وفي إحداهما نصفها»۔)", "s": [{"t": "u", "v": "0:20:10"}, {"t": "u", "v": "0:20:21"}, {"t": "k", "v": "1863–1864", "v7": 1085}]}], "dalil": [{"x": "حدیث: سعید بن المسیب کی روایت میں یہی ہے؛ اور حضور ﷺ نے عمرو بن حزم کو جو خط لکھا اس میں تھا «وفي العينين الدية، وفي إحداهما نصف الدية»۔", "s": [{"t": "u", "v": "0:18:42"}, {"t": "k", "v": "1863", "v7": 1084}]}, {"x": "عقلی دلیل: دونوں کو ختم کرنے سے جنسِ منفعت یا کمالِ جمال ختم ہوتا ہے، اس لیے پوری دیت؛ ایک میں آدھا، اس لیے آدھی۔ استاد: ایک ہاتھ کاٹا تو آدھا فائدہ ختم، دونوں کاٹے تو پورا؛ دونوں ہونٹ کاٹے تو چہرے کی خوبصورتی ختم۔ (کتاب: «ولأن في تفويت الاثنين من هذه الأشياء تفويت جنس المنفعة، أو كمال الجمال … وفي تفويت إحداهما تفويت النصف»۔)", "s": [{"t": "u", "v": "0:19:00"}, {"t": "u", "v": "0:19:09"}, {"t": "k", "v": "1863", "v7": 1084}]}, {"x": "پستان اور حلمہ: عورت بچے کو دودھ پلاتی ہے، یہ جنسِ منفعت فوت ہوئی؛ سرا کاٹ دیا تو نہ دودھ پلا سکتی ہے نہ دودھ رکتا ہے۔ مرد کے پستان سے نہ کوئی فائدہ متعلق ہے نہ خوبصورتی۔ (کتاب: «لما فيه من تفويت جنس المنفعة … لأنه ليس فيه تفويت جنس المنفعة والجمال … لفوات جنس منفعة الإرضاع، وإمساك اللبن»۔)", "s": [{"t": "u", "v": "0:19:21"}, {"t": "u", "v": "0:19:41"}, {"t": "u", "v": "0:20:10"}, {"t": "k", "v": "1863", "v7": 1084}, {"t": "k", "v": "1863–1864", "v7": 1085}]}], "ikhtilaf": [{"x": "ابرو: امام مالک اور امام شافعی: حکومتِ عدل (جیسے داڑھی اور بالوں کو اضافی چیز کہا تھا)؛ ہمارے ہاں یہ مقصود خوبصورتی ہے، پوری دیت۔ (کتاب: «وعند مالك والشافعي: تجب حكومة عدل، وقد مر الكلام فيه في اللحية»؛ حاشیہ: ان کے ہاں بالوں میں دیت نہیں، اور قصاص بالاتفاق نہیں۔)", "s": [{"t": "u", "v": "0:17:54"}, {"t": "u", "v": "0:18:18"}, {"t": "k", "v": "1863", "v7": 1084}, {"t": "s", "v": "البناية"}]}], "faida": [{"x": "استاد: پچھلی چیزیں مرد و عورت میں مشترک ہیں؛ پستان کا تعلق صرف عورت سے ہے۔", "s": [{"t": "u", "v": "0:19:21"}]}], "lughat": [{"ar": "الحاجبين", "ur": "دونوں ابرو", "s": [{"t": "u", "v": "0:17:54"}]}, {"ar": "الشفتين", "ur": "دونوں ہونٹ", "s": [{"t": "u", "v": "0:18:39"}]}, {"ar": "الأنثيين", "ur": "دونوں خصیے", "s": [{"t": "u", "v": "0:18:40"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "ثديي المرأة", "ur": "عورت کے دونوں پستان", "s": [{"t": "u", "v": "0:19:21"}]}, {"ar": "حلمتي المرأة", "ur": "عورت کے پستانوں کے سرے", "s": [{"t": "u", "v": "0:20:10"}]}, {"ar": "الإرضاع وإمساك اللبن", "ur": "دودھ پلانا اور دودھ روکنا", "s": [{"t": "u", "v": "0:20:10"}]}]}, {"unit": "u1", "pages": [1864], "lesson": "2025-04-26", "ts": "0:20:31", "label": null, "title": "آنکھوں کی چاروں پلکوں (کے بال) اس طرح ختم کیے کہ نہ اگیں تو پوری دیت، ایک میں چوتھائی، تین میں تین چوتھائی؛ «اشفار» سے مراد مجازاً بال (اہداب)؛ پلکیں بالوں سمیت کاٹیں تو ایک ہی دیت", "start": "قال: وفي أشفار العينين الدية، وفي إحداهما ربع الدية،", "start_note": "0:20:31 «وفي أشفار العينين الدية» پڑھا؛ 0:21:35 اور 0:23:16–0:23:25 دوبارہ پڑھا۔ کارڈ «قال: وفي كل أصبع» (ص 86، ≈0.3) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٨ ص 85–86", "tamheed": [{"x": "آنکھوں کے اوپر نیچے پلکیں ہیں؛ ان میں دو چیزیں ہیں: ایک پلکیں جو چار ہیں، دوسری پلکوں کے بال، وہ بھی چار ہیں۔", "s": [{"t": "u", "v": "0:20:39"}, {"t": "u", "v": "0:20:43"}, {"t": "u", "v": "0:20:47"}]}], "masala": [{"x": "چاروں (اوپر نیچے کے) بال اس طرح کاٹ دیے کہ دوبارہ نہ آئیں تو پوری دیت؛ ایک میں چوتھائی دیت؛ (کتاب) تین میں تین چوتھائی۔ (کتاب: «وفي أشفار العينين الدية، وفي إحداها ربع الدية … وفي ثلاثة منها ثلاثة أرباعها»۔)", "s": [{"t": "u", "v": "0:21:00"}, {"t": "u", "v": "0:21:11"}, {"t": "u", "v": "0:21:21"}, {"t": "u", "v": "0:23:16"}, {"t": "k", "v": "1864", "v7": 1085}, {"t": "k", "v": "1864", "v7": 1086}]}, {"x": "پلکیں بالوں سمیت (گوشت سمیت) کاٹ دیں تو یہ نہیں کہ بالوں کی الگ دیت اور پلکوں کی الگ؛ پورا ایک ہی عضو ہے، ایک دیت؛ جیسے ناک کا نرم حصہ ہڈی سمیت۔ (کتاب: «ولو قطع الجفون بأهدابها، ففيه دية واحدة؛ لأن الكل كشيء واحد، وصار كالمارن مع القصبة»۔)", "s": [{"t": "u", "v": "0:22:38"}, {"t": "u", "v": "0:23:00"}, {"t": "u", "v": "0:23:05"}, {"t": "u", "v": "0:23:22"}, {"t": "u", "v": "0:23:25"}, {"t": "k", "v": "1864", "v7": 1086}]}], "dalil": [{"x": "مراد کیا ہے: پلکوں کو اشفار اور ان کے بالوں کو اہداب کہتے ہیں؛ یہاں «اشفار» بول کر مجازاً بال مراد ہیں، کیونکہ دونوں ساتھ ساتھ ہیں۔ مصنف: احتمال ہے کہ مراد اہداب ہوں، جیسا امام محمد نے «الأصل» میں ذکر کیا، پڑوس کی وجہ سے؛ جیسے راویہ اصل میں پانی ڈھونے والا اونٹ ہے، مگر مشکیزے کو بھی راویہ کہتے ہیں۔ (کتاب: «يحتمل أن مراده: الأهداب مجازاً كما ذكره محمد في الأصل للمجاورة كالراوية للقربة، وهي حقيقة في البعير»۔)", "s": [{"t": "u", "v": "0:21:24"}, {"t": "u", "v": "0:21:35"}, {"t": "u", "v": "0:21:36"}, {"t": "u", "v": "0:21:58"}, {"t": "k", "v": "1864", "v7": 1085}]}, {"x": "پوری دیت کیوں: ان سے کامل خوبصورتی اور جنسِ منفعت فوت ہوتی ہے: آنکھ سے دھول، مٹی اور تنکے دور رکھنا۔ چار ہیں اور سب میں پوری دیت، تو ایک میں چوتھائی۔ (کتاب: «لأنه يفوت به الجمال على الكمال، وجنس المنفعة، وهي منفعة دفع الأذى والقذى عن العين … وإذا كان الواجب في الكل كل الدية، وهي أربعة كان في إحداها ربع الدية»؛ «پوری دیت» 0:22:34، «چوتھائی» 0:21:21۔)", "s": [{"t": "u", "v": "0:22:28"}, {"t": "u", "v": "0:22:34"}, {"t": "u", "v": "0:21:21"}, {"t": "k", "v": "1864", "v7": 1085}]}, {"x": "مصنف کا دوسرا احتمال (استاد نے نہیں بتایا): مراد بال اگنے کی جگہ (پلکیں) ہو، تب بھی حکم یہی۔ (کتاب: «ويحتمل أن يكون مراده: منبت الشعر، والحكم فيه هكذا»۔)", "s": [{"t": "k", "v": "1864", "v7": 1086}]}], "ikhtilaf": [], "faida": [{"x": "حاشیہ: مصنف نے «یحتمل» اس لیے کہا کہ بعض نے امام محمد کو اشفار کو اہداب پر بولنے میں غلط کہا؛ «قالوا»: اشفار بال اگنے کی جگہ (آنکھ کے کنارے) ہیں اور ان پر کے بال اہداب؛ تو یہ محل بول کر حال مراد لینے کا مجاز ہے۔", "s": [{"t": "s", "v": "العناية ٢١٥/٩"}]}, {"x": "حاشیہ: کل میں دیت اور ہر ایک میں چوتھائی؛ برابر ہے کہ اہداب اکھاڑے اور منبت خراب کر دیا، یا پلکیں بالوں سمیت کاٹ دیں۔", "s": [{"t": "s", "v": "الكفاية ٢١٥/٩-٢١٦"}]}], "lughat": [{"ar": "أشفار العينين", "ur": "آنکھوں کی پلکیں (جن پر بال اگتے ہیں)", "s": [{"t": "u", "v": "0:21:24"}]}, {"ar": "الأهداب", "ur": "پلکوں کے بال", "s": [{"t": "u", "v": "0:21:24"}]}, {"ar": "الجفون بأهدابها", "ur": "پلکیں ان کے بالوں سمیت", "s": [{"t": "u", "v": "0:23:22"}, {"t": "u", "v": "0:23:24"}]}, {"ar": "مجازاً للمجاورة", "ur": "ساتھ ساتھ ہونے کی وجہ سے مجازاً", "s": [{"t": "u", "v": "0:21:36"}]}, {"ar": "الراوية / القربة", "ur": "پانی ڈھونے والا اونٹ / مشکیزہ", "s": [{"t": "u", "v": "0:21:58"}]}, {"ar": "الأذى والقذى", "ur": "تکلیف دہ چیز اور آنکھ میں پڑنے والا تنکا کچرا", "s": [{"t": "u", "v": "0:22:28"}, {"t": "s", "v": "البناية ١٨٣/١٣"}]}]}, {"unit": "u1", "pages": [1864, 1865], "lesson": "2025-04-26", "ts": "0:23:37", "label": null, "title": "ہاتھ پاؤں کی ہر انگلی میں دیت کا دسواں حصہ (دس اونٹ)، سب انگلیاں برابر؛ تین جوڑ والی انگلی کے ایک جوڑ میں انگلی کی دیت کا تہائی، دو جوڑ والی میں آدھی؛ ہر دانت میں پانچ اونٹ، سب دانت برابر؛ یہ خطا میں، عمد میں قصاص", "start": "قال: وفي كل أصبع من أصابع اليدين، والرجلين عُشْرُ الدية؛", "start_note": "0:23:37 «نمبر چار وہ اندام جو کہ دس ہیں» سے شروع؛ عبارت 0:24:14، 0:25:46–0:25:59 اور 0:26:02 («وفي كل سن») پڑھی۔ کارڈ «قال: ومن ضرب عضواً، فأذهب منفعته» (ص 88، ≈0.2) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٨ ص 86–88", "tamheed": [{"x": "چوتھی قسم: وہ اعضا جو دس ہیں، یعنی انگلیاں؛ ہاتھ اور پاؤں کی انگلیاں الگ الگ شمار ہوں گی، دونوں کا کام الگ ہے۔ پوری دیت سو اونٹ، تو ایک انگلی میں دس اونٹ (دیت کا دسواں حصہ)، دو میں بیس، تین میں تیس، دس میں سو۔", "s": [{"t": "u", "v": "0:23:37"}, {"t": "u", "v": "0:23:41"}, {"t": "u", "v": "0:24:00"}, {"t": "u", "v": "0:24:05"}]}, {"x": "پانچویں قسم: وہ اعضا جو دس سے زیادہ ہیں، جیسے دانت جو بتیس ہیں؛ اونٹ بتیس پر تقسیم نہیں ہوں گے، بلکہ حدیث میں ہر دانت کی دیت مقرر ہے۔", "s": [{"t": "u", "v": "0:26:02"}, {"t": "u", "v": "0:26:10"}, {"t": "u", "v": "0:26:14"}]}], "masala": [{"x": "ہاتھوں اور پاؤں کی ہر انگلی میں دیت کا دسواں حصہ (دس اونٹ)۔ (کتاب: «وفي كل أصبع من أصابع اليدين، والرجلين عشر الدية»۔)", "s": [{"t": "u", "v": "0:24:14"}, {"t": "u", "v": "0:24:17"}, {"t": "k", "v": "1864", "v7": 1086}]}, {"x": "سب انگلیاں برابر: یہ نہیں کہ انگوٹھے میں زیادہ ہو اور شہادت یا چھوٹی انگلی میں کم۔ (کتاب: «والأصابع كلها سواء»۔)", "s": [{"t": "u", "v": "0:24:25"}, {"t": "k", "v": "1864", "v7": 1086}]}, {"x": "جوڑ: جس انگلی میں تین جوڑ ہیں، اس کے ایک جوڑ میں انگلی کی دیت کا تہائی (استاد: تین اونٹ اور ایک اونٹ کا تہائی؛ دو جوڑ میں چھ اونٹ اور ایک اونٹ کے دو تہائی)؛ جس میں دو جوڑ ہیں (انگوٹھا) اس کے ایک جوڑ میں انگلی کی آدھی دیت (پانچ اونٹ)، دونوں میں دس۔ (کتاب: «وفي كل إصبع فيها ثلاثة مفاصل، ففي أحدها ثلث دية الإصبع، وما فيها مفصلان، ففي أحدهما نصف دية الإصبع»۔)", "s": [{"t": "u", "v": "0:25:15"}, {"t": "u", "v": "0:25:21"}, {"t": "u", "v": "0:25:28"}, {"t": "u", "v": "0:25:33"}, {"t": "u", "v": "0:25:46"}, {"t": "u", "v": "0:25:50"}, {"t": "u", "v": "0:25:52"}, {"t": "u", "v": "0:25:57"}, {"t": "u", "v": "0:25:59"}, {"t": "k", "v": "1864", "v7": 1086}, {"t": "k", "v": "1864–1865", "v7": 1087}]}, {"x": "ہر دانت میں پانچ اونٹ، یعنی دیت کا بیسواں حصہ؛ دو میں دس، اسی طرح آگے۔ سب دانت برابر، چاہے سامنے والے ہوں یا داڑھیں۔ (کتاب: «وفي كل سنّ خمس من الإبل … والأسنان والأضراس كلها سواء»۔)", "s": [{"t": "u", "v": "0:26:14"}, {"t": "u", "v": "0:26:33"}, {"t": "u", "v": "0:26:41"}, {"t": "u", "v": "0:26:50"}, {"t": "k", "v": "1864–1865", "v7": 1087}]}, {"x": "دانتوں میں یہ دیت تب ہے جب خطا ہو؛ عمداً ہو تو قصاص، جو (کتاب الجنایات میں) گزر چکا۔ (کتاب: «وهذا إذا كان خطأ، فإن كان عمداً ففيه القصاص، وقد مر في الجنايات»؛ استاد نے عمد میں «پوری دیت» کہا، NOTES دیکھیں۔)", "s": [{"t": "u", "v": "0:27:12"}, {"t": "k", "v": "1865", "v7": 1088}]}], "dalil": [{"x": "انگلیاں (کتاب): حدیث «في كل إصبع عشر من الإبل»؛ اور سب کاٹنے سے جنسِ منفعت فوت ہوتی ہے جس میں پوری دیت ہے، اور یہ دس ہیں، تو دیت ان پر تقسیم ہوگی (استاد: سارے کاٹ دیے تو پورا فائدہ ختم، دیت دس پر تقسیم)۔", "s": [{"t": "u", "v": "0:24:25"}, {"t": "k", "v": "1864", "v7": 1086}]}, {"x": "برابری: حدیث مطلق ہے (استاد: حدیث میں برابر رکھا گیا)؛ اور اصل فائدے میں سب برابر ہیں، زیادہ فائدے کا اعتبار نہیں؛ جیسے دایاں ہاتھ زیادہ کام کا ہے، پھر بھی دائیں کی دیت بھی پچاس اونٹ اور بائیں کی بھی۔ (کتاب: «لإطلاق الحديث، ولأنها سواء في أصل المنفعة، فلا تعتبر الزيادة فيه كاليمين مع الشمال»۔)", "s": [{"t": "u", "v": "0:24:25"}, {"t": "u", "v": "0:24:45"}, {"t": "k", "v": "1864", "v7": 1086}]}, {"x": "پاؤں کی انگلیاں: ان کے ذریعے بندہ چلتا ہے؛ سب کاٹنے سے چلنے کی منفعت فوت، تو پوری دیت، اور یہ دس ہیں۔ جوڑوں پر تقسیم ایسے ہی ہے جیسے ہاتھ کی دیت انگلیوں پر تقسیم ہوتی ہے۔", "s": [{"t": "u", "v": "0:24:59"}, {"t": "k", "v": "1864", "v7": 1086}, {"t": "k", "v": "1864–1865", "v7": 1087}]}, {"x": "دانت: حدیث (کتاب: حضرت ابو موسیٰ اشعری کی) «وفي كل سن خمس من الإبل»؛ بعض روایات میں «والأسنان كلها سواء»؛ اور اصل منفعت میں سب برابر، جیسے ہاتھ اور انگلیاں۔", "s": [{"t": "u", "v": "0:26:26"}, {"t": "u", "v": "0:27:02"}, {"t": "u", "v": "0:27:06"}, {"t": "k", "v": "1864–1865", "v7": 1087}, {"t": "k", "v": "1865", "v7": 1088}]}], "ikhtilaf": [{"x": "استاد: دانتوں میں کچھ فقہاء کے ہاں فرق ہے، راجح یہ کہ سب برابر۔ حاشیہ: بعض لوگوں نے زیادہ منفعت کی وجہ سے طواحن (داڑھوں) کو ضواحک پر فضیلت دی، اور یہ نص کے خلاف ہے۔", "s": [{"t": "u", "v": "0:26:33"}, {"t": "s", "v": "العناية"}]}], "faida": [{"x": "حاشیہ: سارے (بتیس) دانت اکھاڑ دیے تو سولہ ہزار درہم، ہر دانت میں پانچ سو؛ بدن میں دانتوں کے سوا کوئی جنسِ عضو نہیں جس میں دیت سے زیادہ واجب ہو؛ کوسج کے سب دانت (اٹھائیس) اکھاڑے تو چودہ ہزار۔", "s": [{"t": "s", "v": "الكفاية ٢١٦/٩"}]}, {"x": "حاشیہ (نصب الراية): دانت والے الفاظ حضرت ابو موسیٰ کی حدیث میں نہیں، ابو داود اور ابن ماجہ میں ابن عباسؓ سے ہیں: «الأصابع سواء، والأسنان سواء»؛ بخاری: «هذه وهذه سواء» یعنی چھنگلی اور انگوٹھا۔", "s": [{"t": "s", "v": "نصب الراية ٣٧٣/٤"}]}, {"x": "حاشیہ: «الأسنان والأضراس» پر اعتراض: سن اسم جنس ہے جس میں بتیس داخل ہیں: چار ثنایا، چار رباعیات، چار انیاب، چار ضواحک، بارہ طواحن، اور (چار) ضرس الحلم۔", "s": [{"t": "s", "v": "العناية ٢١٦/٩"}]}], "lughat": [{"ar": "عشر الدية", "ur": "دیت کا دسواں حصہ (دس اونٹ)", "s": [{"t": "u", "v": "0:24:17"}, {"t": "u", "v": "0:24:05"}]}, {"ar": "مفاصل", "ur": "جوڑ", "s": [{"t": "u", "v": "0:25:46"}]}, {"ar": "خمس من الإبل", "ur": "پانچ اونٹ (دیت کا بیسواں حصہ)", "s": [{"t": "u", "v": "0:26:14"}]}, {"ar": "الأضراس", "ur": "داڑھیں (جن سے چباتا ہے)", "s": [{"t": "u", "v": "0:26:50"}]}, {"ar": "الثنايا", "ur": "بالکل سامنے کے دانت", "s": [{"t": "u", "v": "0:26:41"}]}, {"ar": "كاليمين مع الشمال", "ur": "جیسے دایاں اور بایاں ہاتھ", "s": [{"t": "u", "v": "0:24:45"}]}]}, {"unit": "u1", "pages": [1865], "lesson": "2025-04-26", "ts": "0:27:22", "label": null, "title": "کسی عضو کو مارا اور اس کی منفعت ختم ہو گئی (ہاتھ شل، آنکھ کی روشنی گئی) تو پوری دیت؛ کمر پر مارا اور منی ختم ہو گئی یا کبڑا کر دیا تو پوری دیت؛ کبڑا پن ختم ہو گیا تو کچھ نہیں", "start": "قال: ومن ضرب عضوًا، فأذهب منفعته: ففيه دية كاملة", "start_note": "0:27:22 «ومن ضرب عضوا فأذهب منفعته» پڑھا اور 0:27:23 «آخری مسئلہ اس باب کا» کہا؛ عبارت 0:27:57–0:28:36 پڑھی۔ کارڈ «فصل في الشجاج» (ص 88، ≈0.75) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٨ ص 88", "tamheed": [{"x": "کسی نے دوسرے کے عضو کو مارا؛ عضو اپنی جگہ ہے مگر اس کا نفع ختم ہو گیا؛ جیسے آنکھ پر یا سر پر ایسا مارا کہ آنکھ کی بینائی ختم ہو گئی۔", "s": [{"t": "u", "v": "0:27:29"}, {"t": "u", "v": "0:27:34"}, {"t": "u", "v": "0:27:38"}, {"t": "u", "v": "0:27:42"}, {"t": "u", "v": "0:27:45"}]}], "masala": [{"x": "عضو کو مارا اور اس کی منفعت ختم ہو گئی تو پوری دیت؛ جیسے ہاتھ شل ہو جائے (سوکھ جائے)، آنکھ کی روشنی چلی جائے۔ (کتاب: «ففيه دية كاملة كاليد إذا شلت، والعين إذا ذهب ضوءها»۔)", "s": [{"t": "u", "v": "0:27:49"}, {"t": "u", "v": "0:27:57"}, {"t": "u", "v": "0:28:05"}, {"t": "u", "v": "0:28:10"}, {"t": "u", "v": "0:28:15"}, {"t": "k", "v": "1865", "v7": 1088}]}, {"x": "کسی کی کمر پر ایسا مارا کہ اس کی منی ختم ہو گئی تو دیت، کیونکہ نسل کا فائدہ ختم ہو گیا۔ (کتاب: «ومن ضرب صلب غيره، فانقطع ماؤه تجب الدية؛ لتفويت جنس المنفعة»۔)", "s": [{"t": "u", "v": "0:28:21"}, {"t": "u", "v": "0:28:22"}, {"t": "u", "v": "0:28:31"}, {"t": "k", "v": "1865", "v7": 1088}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"x": "کبڑا کر دیا کہ کمر ہمیشہ جھکی رہے اور سیدھا نہ ہو سکے تو پوری دیت، کیونکہ قد کا سیدھا ہونا خوبصورتی ہے جو پوری ختم ہو گئی۔ (کتاب: «وكذا لو أحدبه؛ لأنه فوت جمالاً على الكمال، وهو استواء القامة»۔)", "s": [{"t": "u", "v": "0:28:36"}, {"t": "u", "v": "0:28:43"}, {"t": "u", "v": "0:28:57"}, {"t": "k", "v": "1865", "v7": 1088}]}, {"x": "کبڑا پن ختم ہو گیا (کمر ٹھیک، منی کا مسئلہ نہیں، ٹیڑھا نہیں چلتا) تو اس پر کچھ نہیں، کیونکہ اثر ختم ہو گیا۔ استاد: قاضی صوابدیدی سزا دے گا۔ (کتاب: «فلو زالت الحدوبة؛ لا شيء عليه لزوالها لا عن أثر»۔)", "s": [{"t": "u", "v": "0:29:01"}, {"t": "k", "v": "1865", "v7": 1088}]}], "dalil": [{"x": "صورت موجود ہے مگر فنکشن ختم ہو گیا؛ پوری دیت کا تعلق جنسِ منفعت کے فوت ہونے سے ہے، صورت کے فوت ہونے سے نہیں۔ (کتاب: «لأن المتعلق تفويت جنس المنفعة، لا فوات الصورة»۔)", "s": [{"t": "u", "v": "0:27:52"}, {"t": "u", "v": "0:28:15"}, {"t": "k", "v": "1865", "v7": 1088}]}], "ikhtilaf": [], "faida": [{"x": "حاشیہ: کبڑا پن ختم ہو گیا مگر ضرب کا اثر باقی رہا تو حکومتِ عدل۔", "s": [{"t": "s", "v": "البناية"}]}, {"x": "حاشیہ: «لقد خلقنا الإنسان في أحسن تقويم» کی ایک تفسیر: سیدھی قامت والا؛ اور یہ کبڑا پن سے ختم ہو جاتی ہے۔", "s": [{"t": "s", "v": "العناية ٢١٩/٩"}]}, {"x": "استاد کا خلاصہ: یہ اطراف (اعضا) کا حکم تھا: کاٹ دے تو کیا حکم، نفع ختم ہو جائے تو کیا حکم۔", "s": [{"t": "u", "v": "0:29:18"}, {"t": "u", "v": "0:29:24"}]}], "lughat": [{"ar": "شُلَّت", "ur": "شل ہو گیا، سوکھ گیا", "s": [{"t": "u", "v": "0:28:10"}]}, {"ar": "ذهب ضوءها", "ur": "اس کی بینائی چلی گئی", "s": [{"t": "u", "v": "0:28:15"}]}, {"ar": "صُلب", "ur": "کمر", "s": [{"t": "u", "v": "0:28:22"}]}, {"ar": "فانقطع ماؤه", "ur": "اس کی منی ختم ہو گئی", "s": [{"t": "u", "v": "0:28:22"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "أحدبه", "ur": "اسے کبڑا کر دیا", "s": [{"t": "u", "v": "0:28:36"}]}, {"ar": "استواء القامة", "ur": "قد کا سیدھا ہونا", "s": [{"t": "u", "v": "0:28:43"}]}]}, {"unit": "u2", "pages": [1865], "lesson": "2025-04-26", "ts": "0:29:29", "label": null, "title": "سر اور چہرے کے زخم (شجاج) دس ہیں: حارصہ، دامعہ، دامیہ، باضعہ، متلاحمہ، سمحاق، موضحہ، ہاشمہ، منقلہ، آمہ (گیارہواں دامغہ: کتاب/امام محمد نے ذکر نہیں کیا)", "start": "فصل في الشِّجاج قال: الشِّجاج عشرة: الحارصة:", "start_note": "0:29:29 «دوسرے نمبر پر سر کے زخم ہیں» سے شروع۔ تعریفوں کی عربی صرف جزوی پڑھی (0:31:47 «والسمحاق»، 0:33:06 «والهاشمة»، 0:33:09 «والمنقلة»)، باقی اردو میں۔ 0:31:57–0:32:15 آواز کٹی، سمحاق 0:32:19 پر دوبارہ سمجھایا۔ کارڈ «قال: ففي الموضحة القصاص» (ص 89، ≈0.7) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٨ ص 88–89", "tamheed": [{"x": "دوسرے نمبر پر سر کے زخم، جنہیں شجاج کہتے ہیں؛ یہ دس ہیں، اور ان کے مختلف مراحل ہیں: کوئی کسی کے سر پر مارتا ہے تو کبھی ہلکی سی خراش آتی ہے، کبھی اس سے آگے۔", "s": [{"t": "u", "v": "0:29:29"}, {"t": "u", "v": "0:29:31"}, {"t": "u", "v": "0:29:48"}, {"t": "u", "v": "0:30:00"}, {"t": "u", "v": "0:30:04"}]}], "masala": [{"x": "(1) حارصہ: سر میں خراش آ جائے، خون نہ نکلے نہ ظاہر ہو۔ (2) دامعہ: خون (سرخی) ظاہر ہو مگر بہے نہیں، جیسے آنکھ میں آنسو نظر آتے ہیں مگر بہتے نہیں۔ (3) دامیہ: خون بہہ جائے۔ (کتاب: «الحارصة: وهي التي تحرص الجلد أي: تخدشه، ولا تخرج الدم، والدامعة: وهي التي تظهر الدم، ولا تسيله كالدمع في العين، والدامية: وهي التي تسيل الدم»۔)", "s": [{"t": "u", "v": "0:30:15"}, {"t": "u", "v": "0:30:24"}, {"t": "u", "v": "0:30:48"}, {"t": "u", "v": "0:31:02"}, {"t": "u", "v": "0:31:07"}, {"t": "k", "v": "1865", "v7": 1088}, {"t": "k", "v": "1865", "v7": 1089}]}, {"x": "(4) باضعہ: چمڑا کاٹ دے۔ (5) متلاحمہ: چمڑے کے بعد گوشت بھی کاٹ دے (گوشت میں چلا جائے)۔ (کتاب: «والباضعة: وهي التي تبضع الجلد أي تقطعه، والمتلاحمة: وهي التي تأخذ في اللحم»۔)", "s": [{"t": "u", "v": "0:31:14"}, {"t": "u", "v": "0:31:19"}, {"t": "u", "v": "0:31:25"}, {"t": "u", "v": "0:31:30"}, {"t": "u", "v": "0:31:33"}, {"t": "k", "v": "1865", "v7": 1089}]}, {"x": "(6) سمحاق: گوشت اور ہڈی کے درمیان ایک باریک جھلی ہوتی ہے جسے سمحاق کہتے ہیں؛ زخم اس جھلی تک پہنچ جائے مگر وہ نہ کٹے۔ (7) موضحہ: وہ جھلی بھی کٹ جائے اور ہڈی مکمل نظر آ جائے۔ (کتاب: «والسمحاق: وهي التي تصل إلى السمحاق، وهي جلدة رقيقة بين اللحم وعظم الرأس، والموضحة: وهي التي توضح العظم أي تبينه»۔)", "s": [{"t": "u", "v": "0:31:49"}, {"t": "u", "v": "0:32:19"}, {"t": "u", "v": "0:32:27"}, {"t": "u", "v": "0:32:38"}, {"t": "u", "v": "0:32:49"}, {"t": "u", "v": "0:32:56"}, {"t": "k", "v": "1865", "v7": 1089}]}, {"x": "(8) ہاشمہ: ہڈی توڑ دے۔ (9) منقلہ: ہڈی ٹوٹنے کے بعد اپنی جگہ سے آگے پیچھے ہو جائے۔ (10) آمہ: ام الرأس (سر کا وہ حصہ جس میں دماغ ہے) تک پہنچ جائے؛ دماغ پر جو ہلکی سی جھلی ہے وہ نہ کٹے۔ (کتاب: «والهاشمة: وهي التي تكسر العظم، والمنقلة: وهي التي تنقل العظم بعد الكسر أي تحوله، والآمة وهي التي تصل إلى أم الرأس، وهو الذي فيه الدماغ»۔)", "s": [{"t": "u", "v": "0:33:01"}, {"t": "u", "v": "0:33:06"}, {"t": "u", "v": "0:33:09"}, {"t": "u", "v": "0:33:16"}, {"t": "u", "v": "0:33:24"}, {"t": "u", "v": "0:33:37"}, {"t": "u", "v": "0:33:42"}, {"t": "u", "v": "0:33:54"}, {"t": "k", "v": "1865", "v7": 1089}]}, {"x": "ایک اور قسم دامغہ: دماغ کی جھلی بھی کٹ جائے؛ استاد: فقہاء عموماً اس کی بات نہیں کرتے، کیونکہ اس کے بعد آدمی کا زندہ رہنا تقریباً ناممکن ہوتا ہے؛ اس کے بغیر دس ہیں۔ (کتاب، ص 92: «وبعد هذا شجة أخرى تسمى الدامغة، وهي التي تصل إلى الدماغ، وإنما لم يذكرها؛ لأنها تقع قتلاً في الغالب»؛ حاشیہ: آمہ دسویں ہے، اور «ولم يذكرها محمد»۔)", "s": [{"t": "u", "v": "0:34:02"}, {"t": "u", "v": "0:34:35"}, {"t": "u", "v": "0:44:04"}, {"t": "k", "v": "1866–1867", "v7": 1092}, {"t": "s", "v": "العناية ٢١٨/٩"}, {"t": "s", "v": "البناية ١٩٣/١٣"}]}], "dalil": [], "ikhtilaf": [], "faida": [{"x": "استاد: «اس کو غور سے دیکھیں، اس کے سارے احکامات آگے آ رہے ہیں»۔", "s": [{"t": "u", "v": "0:29:54"}]}, {"x": "استاد: «یہ بات ذہن میں رہے» کہ شجاج صرف سر اور چہرے کے زخموں کو کہتے ہیں، جسم کے باقی حصے کے زخم جراح کہلاتے ہیں، ان کا حکم آگے۔ (حاشیہ: لغت میں شجہ چہرے اور سر کے ساتھ خاص، باقی جراحہ۔)", "s": [{"t": "u", "v": "0:30:29"}, {"t": "u", "v": "0:30:33"}, {"t": "u", "v": "0:30:43"}, {"t": "s", "v": "الدر المختار"}]}, {"x": "استاد کی ترتیب سے دہرائی: خراش، خون ظاہر، خون بہے، چمڑا کٹے، گوشت کٹے، ہڈی کے اوپر والی جھلی سامنے آئے، ہڈی سامنے آئے، ہڈی ٹوٹے، ٹوٹ کر ہٹ جائے، دماغ والے حصے تک پہنچے۔", "s": [{"t": "u", "v": "0:31:36"}, {"t": "u", "v": "0:31:39"}, {"t": "u", "v": "0:34:01"}, {"t": "u", "v": "0:34:02"}]}, {"x": "حاشیہ (رد المحتار): طوری نے باضعہ کی اس تعریف پر اعتراض کیا کہ زیلعی کے مطابق دسوں میں چمڑا کٹتا ہے؛ «المحیط» اور «البدائع» میں باضعہ وہ ہے جو گوشت کاٹے، اور متلاحمہ وہ جو باضعہ سے زیادہ گوشت میں جائے۔", "s": [{"t": "s", "v": "رد المحتار"}]}], "lughat": [{"ar": "الشجاج", "ur": "سر اور چہرے کے زخم", "s": [{"t": "u", "v": "0:29:31"}]}, {"ar": "تحرص الجلد / تخدشه", "ur": "کھال کو کرید دے، خراش ڈالے", "s": [{"t": "u", "v": "0:30:15"}]}, {"ar": "كالدمع في العين", "ur": "جیسے آنکھ میں آنسو (نظر آئیں، بہیں نہیں)", "s": [{"t": "u", "v": "0:30:48"}]}, {"ar": "تبضع الجلد", "ur": "چمڑا کاٹ دے", "s": [{"t": "u", "v": "0:31:14"}]}, {"ar": "السمحاق", "ur": "گوشت اور ہڈی کے درمیان باریک جھلی", "s": [{"t": "u", "v": "0:32:19"}]}, {"ar": "توضح العظم", "ur": "ہڈی کو ظاہر کر دے", "s": [{"t": "u", "v": "0:32:49"}]}, {"ar": "تنقل العظم بعد الكسر", "ur": "ٹوٹنے کے بعد ہڈی کو جگہ سے ہٹا دے", "s": [{"t": "u", "v": "0:33:16"}]}, {"ar": "أم الرأس", "ur": "سر کا وہ حصہ جس میں دماغ ہے", "s": [{"t": "u", "v": "0:33:24"}]}]}, {"unit": "u2", "pages": [1865, 1866], "lesson": "2025-04-26", "ts": "0:34:40", "label": null, "title": "موضحہ عمداً ہو تو قصاص؛ موضحہ سے اوپر (ہاشمہ، منقلہ، آمہ) میں قصاص نہیں؛ موضحہ سے پہلے والوں میں: امام ابو حنیفہ سے ایک روایت: قصاص نہیں — امام محمد «الأصل» میں (ظاہر الروایہ): قصاص ہے؛ موضحہ سے کم میں (دیت مقرر نہیں) حکومتِ عدل", "start": "قال: ففي الموضحة القصاصُ إن كانت عمداً؛", "start_note": "0:34:42 «ففي الموضحة» پڑھا، پھر 0:34:48 «ہولڈ کریں»؛ 0:34:53 سے دہرائی اور 0:35:05–0:35:47 شجاج کو الگ رکھنے کی وجہ؛ حکم 0:36:03 سے۔ عبارت 0:36:08 («ففي الموضحة القصاص إن كانت عمدا») اور 0:38:46 («وفيما دون الموضحة حكومة عدل») پڑھی۔ 0:38:58–0:39:43 آواز کٹی، 0:39:43–0:40:31 قصاص والی بات دہرائی۔ کارڈ ص 90 کے آخر تک۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٨ ص 89–90", "tamheed": [{"x": "شجاج (سر کے زخم) کو الگ کیوں رکھا جاتا ہے: باقی جسم میں داغ دھبا اتنا بدنما نہیں، سر اور چہرے میں بہت بدنما ہوتا ہے؛ نیز موت یا کسی فنکشن کے ختم ہونے جیسی حساس چیزیں سر اور چہرے میں ہیں، باقی جسم میں موت کا امکان کم۔", "s": [{"t": "u", "v": "0:35:05"}, {"t": "u", "v": "0:35:15"}, {"t": "u", "v": "0:35:25"}, {"t": "u", "v": "0:35:29"}, {"t": "u", "v": "0:35:43"}, {"t": "u", "v": "0:35:49"}]}, {"x": "استاد: ان میں قصاص (یقینی طور پر) موضحہ میں ہے، کیونکہ اسی میں برابری ممکن ہے؛ موضحہ سے پہلے والوں میں دو روایتیں ہیں (نیچے)۔", "s": [{"t": "u", "v": "0:36:03"}, {"t": "u", "v": "0:36:08"}]}], "masala": [{"x": "موضحہ جان بوجھ کر ہو تو قصاص: کسی نے سر کو اتنا زخمی کیا کہ ہڈی تک پہنچ گیا اور اوپر کی جھلی بھی کاٹ دی، تو مجرم کے ساتھ بھی ایسا ہی کیا جا سکتا ہے۔ (کتاب: «ففي الموضحة القصاص إن كانت عمداً»۔)", "s": [{"t": "u", "v": "0:36:08"}, {"t": "u", "v": "0:36:33"}, {"t": "k", "v": "1865–1866", "v7": 1089}]}, {"x": "موضحہ سے اوپر والے (ہاشمہ، منقلہ، آمہ) جن میں ہڈی ٹوٹتی، ہٹتی یا دماغ تک پہنچتی ہے: ان میں قصاص نہیں، برابری ممکن نہیں۔ (کتاب: «ولأن فيما فوق الموضحة كسر العظم، ولا قصاص فيه»؛ حاشیہ: یعنی ہاشمہ، منقلہ، آمہ۔)", "s": [{"t": "u", "v": "0:36:42"}, {"t": "u", "v": "0:36:59"}, {"t": "u", "v": "0:37:02"}, {"t": "u", "v": "0:38:19"}, {"t": "k", "v": "1866", "v7": 1090}, {"t": "s", "v": "الكفاية"}]}, {"x": "موضحہ سے پہلے والے (حارصہ سے سمحاق تک چھ) میں دو روایتیں: (1) قصاص نہیں — «وهذه رواية عن أبي حنيفة»؛ (2) امام محمد نے «الأصل» میں کہا، اور یہی ظاہر الروایہ ہے: قصاص ہے۔ (کتاب: «ولا قصاص في بقية الشجاج … وهذه رواية عن أبي حنيفة، وقال محمد في الأصل: وهو ظاهر الرواية، يجب القصاص فيما قبل الموضحة»؛ حاشیہ: «قبل الموضحة» = حارصہ سے سمحاق تک چھ۔)", "s": [{"t": "u", "v": "0:37:02"}, {"t": "u", "v": "0:38:19"}, {"t": "u", "v": "0:40:12"}, {"t": "k", "v": "1866", "v7": 1090}, {"t": "s", "v": "الكفاية"}]}, {"x": "جس قول پر موضحہ سے پہلے قصاص نہیں، اس پر موضحہ سے کم (زخموں) میں حکومتِ عدل؛ جہاں دیت مقرر نہیں (نہ پوری نہ آدھی وغیرہ) وہاں حکومتِ عدل۔ (یہ عمد میں؛ خطا میں دونوں روایتوں پر حکومتِ عدل) (کتاب: «وفيما دون الموضحة حكومة العدل؛ لأنه ليس فيها أرش مقدَّر، ولا يمكن إهداره، فوجب اعتباره بحكم العدل»؛ حاشیہ: حکومتِ عدل غیر «الأصل» کی روایت پر ہے۔)", "s": [{"t": "u", "v": "0:38:25"}, {"t": "u", "v": "0:38:28"}, {"t": "u", "v": "0:38:39"}, {"t": "u", "v": "0:38:46"}, {"t": "k", "v": "1866", "v7": 1090}, {"t": "s", "v": "العناية ٢١٨/٩"}, {"t": "a", "v": ""}]}], "dalil": [{"x": "موضحہ میں قصاص: حدیث میں ہے کہ حضور ﷺ نے موضحہ میں قصاص کا فیصلہ کیا؛ اور چھری ہڈی تک پہنچ کر رک سکتی ہے، تو دونوں برابر ہو جاتے ہیں۔ (کتاب: «لما روي: أنه عليه السلام قضى بالقصاص في الموضحة، ولأنه يمكن أن ينتهي السكين إلى العظم، فيتساويان»۔)", "s": [{"t": "u", "v": "0:36:08"}, {"t": "k", "v": "1865–1866", "v7": 1089}, {"t": "k", "v": "1866", "v7": 1090}]}, {"x": "پہلی روایت: باقی میں برابری کا اعتبار ممکن نہیں، کیونکہ کوئی حد نہیں جہاں چھری رکے؛ اور اوپر والوں میں ہڈی ٹوٹتی ہے، جس میں قصاص نہیں۔ (کتاب: «لأنه لا يمكن اعتبار المساواة فيها؛ لأنه لا حد ينتهي السكين إليه»۔)", "s": [{"t": "u", "v": "0:36:41"}, {"t": "u", "v": "0:36:42"}, {"t": "u", "v": "0:37:02"}, {"t": "k", "v": "1866", "v7": 1090}]}, {"x": "ظاہر الروایہ: موضحہ سے پہلے میں برابری ممکن ہے، نہ ہڈی ٹوٹتی ہے نہ ہلاکت کا غالب خطرہ؛ زخم کی گہرائی آلے سے ناپ کر اتنی ہی لوہے کی پتی بنائی جائے اور اتنا ہی کاٹا جائے۔ استاد کی مثال: زخم ایک سینٹی میٹر گہرا اور ایک انچ چوڑا ہو تو بلیڈ ایک سینٹی میٹر اندر اور ایک انچ لمبائی میں۔ (کتاب: «إذ ليس فيه كسر العظم، ولا خوف هلاك غالب، فيسبر غورها بمسبار، ثم يتخذ حديدة بقدر ذلك، فيقطع بها مقدار ما قطع»۔)", "s": [{"t": "u", "v": "0:37:02"}, {"t": "u", "v": "0:37:35"}, {"t": "u", "v": "0:37:38"}, {"t": "u", "v": "0:37:41"}, {"t": "u", "v": "0:37:45"}, {"t": "u", "v": "0:37:53"}, {"t": "k", "v": "1866", "v7": 1090}]}, {"x": "حکومتِ عدل کیوں (کتاب): ان میں مقرر ارش نہیں، اور انہیں رائیگاں بھی نہیں چھوڑا جا سکتا؛ یہ ابراہیم نخعی اور عمر بن عبد العزیز سے منقول ہے۔", "s": [{"t": "u", "v": "0:38:39"}, {"t": "k", "v": "1866", "v7": 1090}]}], "ikhtilaf": [{"x": "موضحہ سے پہلے والے زخم: امام ابو حنیفہ سے (ایک) روایت: قصاص نہیں، حکومتِ عدل؛ امام محمد «الأصل» میں (ظاہر الروایہ): قصاص۔", "s": [{"t": "u", "v": "0:37:02"}, {"t": "u", "v": "0:38:19"}, {"t": "u", "v": "0:40:12"}, {"t": "k", "v": "1866", "v7": 1090}]}], "faida": [{"x": "حاشیہ (نصب الراية): «قضى بالقصاص في الموضحة» غریب ہے؛ بیہقی میں طاؤس سے مرسلاً (قال رسول الله ﷺ): «ولا قصاص فيما دون الموضحة من الجراحات»؛ عبد الرزاق: حضور ﷺ نے موضحہ سے کم میں کوئی فیصلہ نہیں کیا؛ نخعی: «فيما دون الموضحة حكومة»۔", "s": [{"t": "s", "v": "نصب الراية ٣٧٤/٤"}]}, {"x": "حاشیہ: «فيما فوق الموضحة» = زخم کے اثر میں موضحہ سے زیادہ، یعنی ہاشمہ، منقلہ، آمہ؛ «قبل الموضحة» اور «دون الموضحة» ایک ہی چیز: ذکر میں پہلے اور اثر میں کم، یعنی حارصہ سے سمحاق تک۔", "s": [{"t": "s", "v": "الكفاية"}, {"t": "s", "v": "الكفاية ٢١٨/٩"}]}], "lughat": [{"ar": "فيتساويان", "ur": "دونوں برابر ہو جاتے ہیں", "s": [{"t": "u", "v": "0:36:08"}]}, {"ar": "لا حد ينتهي السكين إليه", "ur": "کوئی حد نہیں جہاں چھری رک جائے", "s": [{"t": "u", "v": "0:36:42"}]}, {"ar": "يسبر غورها بمسبار", "ur": "اس کی گہرائی (سلائی جیسے) آلے سے ناپی جائے", "s": [{"t": "u", "v": "0:37:45"}]}, {"ar": "حديدة بقدر ذلك", "ur": "اتنی ہی (گہرائی کی) لوہے کی پتی", "s": [{"t": "u", "v": "0:37:53"}]}, {"ar": "أرش مقدر", "ur": "مقرر (فکس) تاوان", "s": [{"t": "u", "v": "0:38:28"}]}, {"ar": "ولا يمكن إهداره", "ur": "اور اسے رائیگاں نہیں چھوڑا جا سکتا", "s": [{"t": "a", "v": ""}]}, {"ar": "ظاهر الرواية", "ur": "امام محمد کی بنیادی کتابوں (یہاں «الأصل») کی روایت", "s": [{"t": "a", "v": ""}]}]}, {"unit": "u2", "pages": [1866, 1867], "lesson": "2025-04-26", "ts": "0:38:48", "label": null, "title": "خطا میں: موضحہ میں دیت کا بیسواں حصہ (پانچ اونٹ)، ہاشمہ میں دسواں (دس)، منقلہ میں دسواں اور بیسواں (پندرہ)، آمہ میں تہائی؛ جائفہ (جوف تک پہنچنے والا زخم) میں تہائی، آر پار ہو تو دو جائفے، دو تہائی؛ باقی جراح میں حکومتِ عدل", "start": "قال: وفي الموضحة إن كانت خطأً نصفُ عُشْر الدية،", "start_note": "0:38:48 «إن كانت خطأ» پڑھا اور سمجھانا شروع کیا، 0:38:58–0:39:43 آواز کٹی؛ 0:40:31 سے دوبارہ سمجھایا، عبارت 0:40:53–0:41:41 اور جائفہ 0:43:32–0:43:42 پڑھی۔ کارڈ «وعن محمد: أنه جعل المتلاحمة قبل الباضعة» (ص 92، ≈0.16) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٨ ص 91–92", "tamheed": [{"x": "موضحہ میں تو قصاص ہے، لیکن غلطی سے ہو (قصاص ممکن نہ ہو) تو دیت ہے؛ موضحہ سے اوپر والوں میں بھی دیت ہے؛ اس کی تفصیل حدیث میں ہے۔", "s": [{"t": "u", "v": "0:38:49"}, {"t": "u", "v": "0:40:31"}, {"t": "u", "v": "0:40:36"}]}], "masala": [{"x": "موضحہ خطا ہو تو دیت کا بیسواں حصہ (نصف العشر) = پانچ اونٹ۔", "s": [{"t": "u", "v": "0:40:39"}, {"t": "u", "v": "0:41:03"}, {"t": "u", "v": "0:41:07"}, {"t": "k", "v": "1866", "v7": 1091}]}, {"x": "ہاشمہ (ہڈی ٹوٹ جائے): دیت کا دسواں حصہ = دس اونٹ۔", "s": [{"t": "u", "v": "0:40:43"}, {"t": "u", "v": "0:41:14"}, {"t": "u", "v": "0:41:17"}, {"t": "k", "v": "1866", "v7": 1091}]}, {"x": "منقلہ (ہڈی ہٹ جائے): دیت کا دسواں اور بیسواں حصہ، دس اور پانچ فیصد مل کر پندرہ فیصد = پندرہ اونٹ۔", "s": [{"t": "u", "v": "0:40:43"}, {"t": "u", "v": "0:41:20"}, {"t": "u", "v": "0:41:23"}, {"t": "u", "v": "0:41:26"}, {"t": "k", "v": "1866", "v7": 1091}]}, {"x": "آمہ (دماغ تک پہنچ جائے): دیت کا تہائی = تینتیس اونٹ اور ایک اونٹ کا تہائی۔ (کتاب: «وفي الموضحة إن كانت خطأً نصف عشر الدية، وفي الهاشمة عشر الدية، وفي المنقلة عشر الدية، ونصف عشر الدية، وفي الآمة ثلث الدية»۔)", "s": [{"t": "u", "v": "0:40:43"}, {"t": "u", "v": "0:41:41"}, {"t": "k", "v": "1866", "v7": 1091}]}, {"x": "جائفہ میں دیت کا تہائی؛ اگر زخم آر پار ہو گیا (مثلاً پیٹھ کی طرف سے اندر جا کر آگے سے نکل گیا) تو یہ دو جائفے ہیں، ان میں دیت کے دو تہائی۔ (کتاب: «وفي الجائفة ثلث الدية، فإن نفذت فهما جائفتان، ففيهما ثلثا الدية»۔)", "s": [{"t": "u", "v": "0:43:18"}, {"t": "u", "v": "0:43:26"}, {"t": "u", "v": "0:43:32"}, {"t": "u", "v": "0:43:33"}, {"t": "u", "v": "0:43:40"}, {"t": "u", "v": "0:43:41"}, {"t": "u", "v": "0:43:42"}, {"t": "k", "v": "1866", "v7": 1091}]}, {"x": "جسم کے باقی زخم (جراح) جو جائفہ نہ ہوں: ان میں حکومتِ عدل، دیت کی کوئی مقرر مقدار نہیں۔ (حاشیہ، شریح: «وفي غير ذلك من الجراحات حكومة عدل»؛ کتاب، ص 92: «حتى لو تحققت في غيرهما نحو الساق واليد … وإنما تجب حكومة العدل»۔)", "s": [{"t": "u", "v": "0:44:17"}, {"t": "u", "v": "0:44:24"}, {"t": "k", "v": "1866–1867", "v7": 1092}, {"t": "s", "v": "نصب الراية ٣٧٤/٤"}]}], "dalil": [{"x": "حدیث: عمرو بن حزم کے خط میں: «وفي الموضحة خمس من الإبل، وفي الهاشمة عشر، وفي المنقلة خمسة عشر، وفي الآمة (ويروى المأمومة) ثلث الدية»؛ اور فرمایا: «في الجائفة ثلث الدية»۔", "s": [{"t": "u", "v": "0:40:36"}, {"t": "u", "v": "0:40:53"}, {"t": "u", "v": "0:43:42"}, {"t": "k", "v": "1866", "v7": 1091}]}, {"x": "آر پار جائفہ میں دو تہائی: حضرت ابوبکرؓ نے دوسری طرف نکل جانے والے جائفہ میں دو تہائی کا فیصلہ کیا؛ اور آر پار ہو تو یہ دو جائفوں کے درجے میں ہے: ایک پیٹ کی طرف سے، دوسرا پیٹھ کی طرف سے، ہر ایک میں تہائی۔ (کتاب: «وعن أبي بكر أنه حكم في جائفة نفذت إلى الجانب الآخر بثلثي الدية، ولأنها إذا نفذت نزلت منزلة جائفتين: إحداهما من جانب البطن، والأخرى من جانب الظهر»۔)", "s": [{"t": "u", "v": "0:43:18"}, {"t": "u", "v": "0:43:26"}, {"t": "u", "v": "0:43:42"}, {"t": "k", "v": "1866", "v7": 1091}, {"t": "k", "v": "1866–1867", "v7": 1092}]}], "ikhtilaf": [], "faida": [{"x": "استاد: «ایک بات یہ ذہن میں رہے»: سر اور چہرے کے زخم شجاج، جسم کے باقی زخم (پاؤں، ہاتھ، پیٹ، پیٹھ کے) جراح؛ جراح دو طرح کے: جائفہ اور غیر جائفہ۔", "s": [{"t": "u", "v": "0:41:48"}, {"t": "u", "v": "0:41:55"}, {"t": "u", "v": "0:41:59"}, {"t": "u", "v": "0:42:03"}, {"t": "u", "v": "0:42:11"}]}, {"x": "جائفہ: استاد: جو جسم کے اندرونی حصے تک پہنچ جائے، سینے سے ناف تک کے حصے میں، سینے، پیٹھ یا پہلو کی طرف سے؛ پاؤں اور ہاتھ میں جائفہ نہیں ہو سکتا، ان کے اندر خالی جگہ نہیں۔ حاشیہ («الإيضاح»): جو سینے، پیٹ، پیٹھ اور دونوں پہلوؤں سے جوف تک پہنچے۔", "s": [{"t": "u", "v": "0:42:11"}, {"t": "u", "v": "0:42:26"}, {"t": "u", "v": "0:42:37"}, {"t": "u", "v": "0:42:47"}, {"t": "s", "v": "العناية ٢١٩/٩"}]}, {"x": "جائفہ شجاج میں سے نہیں؛ استاد: سر کے زخموں کے بیچ تبعاً ذکر کیا کیونکہ اس میں بھی (آمہ کی طرح) تہائی دیت ہے۔ حاشیہ (العینی): جائفہ دس میں داخل نہیں، آمہ کے ساتھ حکم برابر ہونے کی وجہ سے ذکر کیا۔", "s": [{"t": "u", "v": "0:42:49"}, {"t": "s", "v": "رد المحتار"}]}], "lughat": [{"ar": "نصف عشر الدية", "ur": "دیت کا بیسواں حصہ (پانچ اونٹ)", "s": [{"t": "u", "v": "0:41:07"}]}, {"ar": "عشر الدية ونصف عشر الدية", "ur": "دسواں اور بیسواں حصہ (پندرہ فیصد)", "s": [{"t": "u", "v": "0:41:23"}, {"t": "u", "v": "0:41:26"}]}, {"ar": "الآمة / المأمومة", "ur": "دماغ والے حصے تک پہنچنے والا زخم", "s": [{"t": "u", "v": "0:41:41"}, {"t": "k", "v": "1866", "v7": 1091}]}, {"ar": "الجائفة", "ur": "جسم کے اندر (جوف) تک پہنچنے والا زخم", "s": [{"t": "u", "v": "0:42:11"}, {"t": "u", "v": "0:43:33"}]}, {"ar": "فإن نفذت", "ur": "اگر (زخم) آر پار ہو گیا", "s": [{"t": "u", "v": "0:43:40"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "ثلثا الدية", "ur": "دیت کے دو تہائی", "s": [{"t": "u", "v": "0:43:42"}]}]}, {"unit": "u2", "pages": [1867], "lesson": "2025-04-26", "ts": "0:44:29", "label": null, "title": "امام محمد سے روایت: متلاحمہ باضعہ سے پہلے (صرف عبارت کا اختلاف، حکم میں فرق نہیں)؛ شجاج کا مقرر ارش صرف سر اور چہرے میں، ہاتھ پنڈلی میں ہڈی کھل جائے تو حکومتِ عدل؛ جبڑے (لحیان) ہمارے ہاں چہرے میں شامل (قیل، اور امام مالک: نہیں)", "start": "وعن محمد رحمة الله: أنه جعل المتلاحمة قبل الباضعة،", "start_note": "0:44:29 دس قسموں کی دہرائی سے شروع، 0:44:41 «امام محمد نے یہاں پہ تھوڑی سی ترتیب الٹی کی ہے»؛ اس حصے کی عربی نہیں پڑھی، اردو میں سمجھایا۔ «وقالوا: الجائفة تختص بالجوف …» (ص 93) نہیں پڑھا (GAPS)۔ کارڈ «وتفسير حكومة العدل» (ص 93، ≈0.57) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٨ ص 92–93", "tamheed": [{"x": "ترتیب: حارصہ، دامعہ، دامیہ، باضعہ، متلاحمہ، سمحاق؛ امام محمد نے یہاں ترتیب تھوڑی سی الٹی کی ہے: متلاحمہ پہلے، باضعہ بعد میں؛ تو ظاہر ہے تشریح میں بھی فرق کریں گے۔", "s": [{"t": "u", "v": "0:44:29"}, {"t": "u", "v": "0:44:35"}, {"t": "u", "v": "0:44:41"}, {"t": "u", "v": "0:44:58"}, {"t": "u", "v": "0:45:04"}]}], "masala": [{"x": "امام محمد سے (روایت): متلاحمہ وہ جس میں خون اور گوشت آپس میں مل جائیں اور خون کالا ہو جائے، گوشت نہ کٹے؛ باضعہ وہ جس میں گوشت کٹ جائے۔ کتاب: اور جو ترتیب ہم نے پہلے ذکر کی وہ امام ابو یوسف سے مروی ہے (استاد نے نام نہیں لیا)۔ (کتاب: «وعن محمد: أنه جعل المتلاحمة قبل الباضعة، وقال هي التي يتلاحم فيها الدم، ويسود، وما ذكرناه بدءاً مروي عن أبي يوسف»۔)", "s": [{"t": "u", "v": "0:45:04"}, {"t": "u", "v": "0:45:14"}, {"t": "u", "v": "0:45:22"}, {"t": "u", "v": "0:45:35"}, {"t": "k", "v": "1867", "v7": 1092}, {"t": "s", "v": "العناية ٢١٩/٩"}]}, {"x": "یہ صرف الفاظ (عبارت) کا اختلاف ہے، معنی اور حکم میں کوئی فرق نہیں۔ استاد: کیونکہ ان دونوں میں دیت کا مقرر حصہ نہیں، حکومتِ عدل ہے یا ایک قول پر قصاص۔ (کتاب: «وهذا اختلاف عبارة لا يعود إلى معنى وحكم»؛ حاشیہ: یعنی ایسے معنی کی طرف نہیں لوٹتا جس پر حکم کا اختلاف مبنی ہو۔)", "s": [{"t": "u", "v": "0:45:35"}, {"t": "u", "v": "0:45:46"}, {"t": "u", "v": "0:45:52"}, {"t": "u", "v": "0:45:55"}, {"t": "k", "v": "1867", "v7": 1092}, {"t": "s", "v": "الكفاية ٢١٩/٩"}]}, {"x": "شجاج لغت میں سر اور چہرے کے ساتھ خاص ہیں، باقی جسم کے زخم کو جراحہ کہتے ہیں؛ اور صحیح قول میں حکم اسی حقیقت پر ہے: اگر پنڈلی یا ہاتھ پر ایسا زخم ہو کہ ہڈی نظر آ جائے تو وہ (لفظاً) موضحہ ہے مگر سر والا حکم (پانچ اونٹ) نہیں، بلکہ حکومتِ عدل۔ (کتاب: «ثم هذه الشجاج تختص بالوجه والرأس لغة … والحكم مرتب على الحقيقة في الصحيح، حتى لو تحققت في غيرهما نحو الساق واليد: لا يكون لها أرش مقدر، وإنما تجب حكومة العدل»۔)", "s": [{"t": "u", "v": "0:45:59"}, {"t": "u", "v": "0:46:20"}, {"t": "u", "v": "0:46:25"}, {"t": "k", "v": "1867", "v7": 1092}]}, {"x": "چہرے سے کیا مراد: سر پورا، چہرہ سامنے والا؛ دانتوں والی ہڈی (جبڑے، لحیان) کے بارے میں ایک قول (کتاب: «قيل») یہ کہ یہ چہرے میں نہیں، اس کا حکم ہاتھ پاؤں کی طرح، یہی امام مالک کا قول؛ تو یہاں ہڈی نظر آ جائے تو موضحہ کے پانچ اونٹ نہیں، حکومتِ عدل۔ ہمارے ہاں (استاد: راجح) یہ چہرے کا حصہ ہیں۔ (کتاب: «وأما اللحيان: فقد قيل: ليسا من الوجه، وهو قول مالك: حتى لو وجد فيهما ما فيه أرش مقدر لا يجب المقدر … إلا أن عندنا هما من الوجه»۔)", "s": [{"t": "u", "v": "0:47:01"}, {"t": "u", "v": "0:47:13"}, {"t": "u", "v": "0:47:16"}, {"t": "u", "v": "0:47:45"}, {"t": "u", "v": "0:47:52"}, {"t": "k", "v": "1867", "v7": 1093}]}], "dalil": [{"x": "سر اور چہرے کے ساتھ خاص کیوں: (1) استاد: حدیث میں شجاج ہی کا ذکر آیا، اور شجاج کہتے ہی سر کے زخم کو ہیں؛ کتاب: مقدار کا تعین توقیف (شریعت کے بتانے) سے ہوتا ہے، اور وہ انہی کے بارے میں آیا۔ (2) حکم اس عیب (شین) کی وجہ سے ہے جو زخم کا اثر باقی رہنے سے لگتا ہے، اور عیب غالباً انہی دو عضووں میں ظاہر ہوتا ہے؛ استاد: سر میں داغ دھبا برا لگتا ہے، باقی حصے میں نہیں۔ (کتاب: «لأن التقدير بالتوقيف، وهو إنما ورد فيما يختص بهما، ولأنه إنما ورد الحكم فيها لمعنى الشين … والشين يختص بما يظهر منها في الغالب، وهو العضوان هذان لا سواهما»۔)", "s": [{"t": "u", "v": "0:45:59"}, {"t": "u", "v": "0:46:25"}, {"t": "u", "v": "0:46:46"}, {"t": "u", "v": "0:46:57"}, {"t": "k", "v": "1867", "v7": 1092}]}, {"x": "امام مالک (اور «قیل»): وجہ (چہرہ) مواجہہ سے ہے، یعنی سامنے نظر آنا؛ آدمی سامنے آئے تو یہ جگہ نظر نہیں آتی۔ ہم: یہ چہرے سے بغیر فاصلے کے جڑے ہوئے ہیں، اور ان میں بھی سامنے نظر آنا پایا جاتا ہے۔ (کتاب: «لأن الوجه مشتق من المواجهة، ولا مواجهة للناظر فيهما … لاتصالهما به من غير فاصلة، وقد يتحقق فيه معنى المواجهة أيضاً»۔)", "s": [{"t": "u", "v": "0:47:38"}, {"t": "u", "v": "0:47:45"}, {"t": "k", "v": "1867", "v7": 1093}]}], "ikhtilaf": [{"x": "لحیان: «قیل» اور امام مالک: چہرے میں نہیں (مقرر ارش نہیں)؛ ہمارے ہاں («عندنا») چہرے میں، مقرر ارش واجب۔ حاشیہ («الذخیرہ»): ٹھوڑی بلا اختلاف چہرے میں ہے؛ لحیان ہمارے ہاں چہرے میں، تو یہ (مقرر ارش والے) تین شجاج ان میں ہوں تو مقرر ارش، امام مالک کا اختلاف ہے۔", "s": [{"t": "u", "v": "0:47:16"}, {"t": "u", "v": "0:47:45"}, {"t": "k", "v": "1867", "v7": 1093}, {"t": "s", "v": "الكفاية ٢١٩/٩-٢٢٠"}]}], "faida": [{"x": "حاشیہ: امام محمد نے دامغہ اس لیے ذکر نہیں کیا کہ اس کے بعد عادتاً جان باقی نہیں رہتی، تو یہ قتل ہے، شجہ نہیں؛ اور حارصہ بھی ذکر نہیں کیا کیونکہ اس کا اثر غالباً باقی نہیں رہتا۔", "s": [{"t": "s", "v": "البناية ١٩٣/١٣"}]}, {"x": "حاشیہ («مبسوط شیخ الاسلام»): لحیان حقیقتاً چہرے میں ہیں، تو وضو میں ان کا دھونا فرض ہونا چاہیے تھا، مگر اجماع کی وجہ سے یہ حقیقت چھوڑ دی؛ یہاں اجماع نہیں، اس لیے حقیقت کا اعتبار۔", "s": [{"t": "s", "v": "الكفاية ٢١٩/٩-٢٢٠"}]}, {"x": "کتاب («وقالوا»، استاد نے نہیں پڑھا): جائفہ جوف کے ساتھ خاص ہے: سر کا جوف یا پیٹ کا جوف۔ حاشیہ: اتقانی نے اعتراض کیا کہ «مختصر الکرخی» میں جائفہ صرف سینے، پیٹھ، پیٹ اور پہلوؤں سے جوف تک ہوتا ہے۔", "s": [{"t": "k", "v": "1867", "v7": 1093}, {"t": "s", "v": "رد المحتار"}]}], "lughat": [{"ar": "يتلاحم فيها الدم ويسود", "ur": "خون (گوشت سے) مل جائے اور کالا ہو جائے", "s": [{"t": "u", "v": "0:45:14"}]}, {"ar": "اختلاف عبارة", "ur": "صرف الفاظ کا اختلاف", "s": [{"t": "u", "v": "0:45:35"}]}, {"ar": "جراحة", "ur": "سر اور چہرے کے علاوہ جسم کا زخم", "s": [{"t": "u", "v": "0:45:59"}]}, {"ar": "التوقيف", "ur": "شریعت کی طرف سے بتایا جانا", "s": [{"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}, {"t": "s", "v": "البناية ١٩٣/١٣"}]}, {"ar": "الشين", "ur": "عیب، بدنمائی (داغ دھبا)", "s": [{"t": "u", "v": "0:46:46"}]}, {"ar": "اللحيان", "ur": "ٹھوڑی کے نیچے کی ہڈی؛ دانتوں والی ہڈی (جبڑے)", "s": [{"t": "u", "v": "0:47:01"}, {"t": "s", "v": "العناية ٢٢٠/٩"}, {"t": "s", "v": "الكفاية ٢١٩/٩-٢٢٠"}]}, {"ar": "المواجهة", "ur": "سامنا، سامنے نظر آنا", "s": [{"t": "u", "v": "0:47:38"}]}]}, {"unit": "u2", "pages": [1867, 1868], "lesson": "2025-04-26", "ts": "0:47:56", "label": null, "title": "حکومتِ عدل کی تفسیر: امام طحاوی: زخمی کو غلام فرض کر کے اثر کے بغیر اور اثر کے ساتھ قیمت لگائیں، فرق جتنا (مثلاً بیسواں) اتنا ہی دیت کا؛ امام کرخی: دیکھیں یہ زخم موضحہ کا کتنا حصہ ہے، اتنا ہی موضحہ کے ارش (دیت کے بیسویں حصے) میں سے", "start": "وتفسير حكومة العدل على ما قاله الطحاوي رحمة الله:", "start_note": "0:47:56 «اچھا پھر حکومتِ عدل کہتے کس کو ہیں؟» سے شروع؛ عربی نہیں پڑھی۔ کارڈ «لأن ما لا نص فيه يرد إلى المنصوص عليه.» (ص 94 متن کی دوسری سطر کا آخر، ≈0.18) پر ختم؛ اس کے بعد «فصل: قال: وفي أصابع اليد نصف الدية» اگلے سبق (2025-04-27) میں۔ 0:49:55–0:50:30 استاد کا خلاصہ اور آگے کے مسائل کی خبر۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٨ ص 93–94", "tamheed": [{"x": "حکومتِ عدل کہتے کس کو ہیں؟ اس کی تین تشریحات ہیں: ایک امام طحاوی کی، ایک امام کرخی کی (تیسری یہاں ذکر نہیں)۔", "s": [{"t": "u", "v": "0:47:56"}, {"t": "u", "v": "0:48:00"}, {"t": "u", "v": "0:49:40"}]}], "masala": [{"x": "امام طحاوی: زخمی آدمی کو غلام فرض کر کے اس اثر کے بغیر قیمت لگائی جائے اور اس اثر کے ساتھ قیمت لگائی جائے؛ دونوں قیمتوں کا فرق اگر قیمت کا بیسواں حصہ ہو تو دیت کا بیسواں، چالیسواں ہو تو چالیسواں۔ استاد کی مثال: بغیر زخم قیمت ایک لاکھ، زخم ٹھیک ہونے کے بعد اثر باقی ہے اور قیمت نوے ہزار، یعنی دسواں حصہ کم ہوئی؛ یہ آزاد ہے تو دیت کا دسواں حصہ واجب۔ (کتاب: «أن يقوم مملوكاً بدون الأثر، ويقوم وبه هذا الأثر، ثم ينظر إلى تفاوت ما بين القيمتين، فإن كان نصف عشر القيمة يجب نصف عشر الدية، وإن كان ربع عشر، فربع عشر»۔)", "s": [{"t": "u", "v": "0:48:08"}, {"t": "u", "v": "0:48:12"}, {"t": "u", "v": "0:48:29"}, {"t": "u", "v": "0:48:42"}, {"t": "k", "v": "1867–1868", "v7": 1093}]}, {"x": "امام کرخی: دیکھا جائے کہ یہ زخم موضحہ کا کتنا حصہ ہے، اتنا ہی موضحہ کے ارش (دیت کا بیسواں حصہ، پانچ اونٹ) میں سے واجب۔ استاد کی مثال: گوشت ہڈی تک تین سینٹی میٹر تھا اور ایک سینٹی میٹر کاٹا تو موضحہ کا تہائی، ڈیڑھ کاٹا تو آدھا (ڈھائی اونٹ کی قیمت)؛ پانچ اونٹوں کی قیمت دس لاکھ ہو تو آدھے میں پانچ لاکھ، تہائی میں تین لاکھ تینتیس ہزار۔ (کتاب: «ينظر كم مقدار هذه الشجة من الموضحة، فيجب بقدر ذلك من نصف عشر الدية»۔)", "s": [{"t": "u", "v": "0:48:42"}, {"t": "u", "v": "0:48:48"}, {"t": "u", "v": "0:49:05"}, {"t": "u", "v": "0:49:13"}, {"t": "u", "v": "0:49:25"}, {"t": "k", "v": "1867–1868", "v7": 1093}, {"t": "k", "v": "1868", "v7": 1094}]}, {"x": "استاد (کتاب میں یہاں نہیں): تیسرا قول: یہ بندہ جتنا عرصہ بیمار رہا، اس کی بیماری، دواؤں اور ڈاکٹر پر جتنا خرچ آیا وہ حکومتِ عدل ہے، جو جنایت کرنے والے سے لیا جائے گا۔", "s": [{"t": "u", "v": "0:49:40"}]}], "dalil": [{"x": "امام کرخی: جس چیز میں نص نہ ہو اسے منصوص علیہ (یہاں موضحہ) کی طرف لوٹایا جاتا ہے۔ (کتاب: «لأن ما لا نص فيه يرد إلى المنصوص عليه»۔)", "s": [{"t": "u", "v": "0:49:25"}, {"t": "k", "v": "1868", "v7": 1094}]}], "ikhtilaf": [{"x": "کون سی تفسیر: استاد: عام طور پر فقہاء امام طحاوی والی تشریح لیتے ہیں۔ حاشیہ: شمس الائمہ حلوانی نے اسی کو لیا، اور «فتاویٰ قاضی خان» میں فتویٰ اسی پر؛ جبکہ امام کرخی والی کے بارے میں شیخ الاسلام نے کہا «هذا هو الأصح» («الذخیرہ»)۔", "s": [{"t": "u", "v": "0:48:08"}, {"t": "s", "v": "الكفاية"}, {"t": "s", "v": "الكفاية ٢٢٠/٩"}]}], "faida": [{"x": "حاشیہ (طحاوی کی مثال): بغیر زخم قیمت ہزار اور زخم کے ساتھ نو سو تو قیمت کا دسواں حصہ کم ہوا، تو دیت کا دسواں حصہ، کیونکہ آزاد کی قیمت اس کی دیت ہے۔", "s": [{"t": "s", "v": "الكفاية"}]}, {"x": "حاشیہ (کرخی کی مثال): مثلاً باضعہ موضحہ کا تہائی ہو تو موضحہ کے ارش کا تہائی، چوتھائی ہو تو چوتھائی، تین چوتھائی ہو تو تین چوتھائی۔", "s": [{"t": "s", "v": "الكفاية ٢٢٠/٩"}]}, {"x": "استاد کا خلاصہ: اعضا کے مسائل (جو جسم میں ایک ہیں، دو ہیں…)، سر کے زخم اور جسم کے باقی زخم پڑھ لیے؛ آگے متفرق مسائل (ہتھیلی، دانت)، پھر جنین کے احکام، پھر قتل بالسبب۔", "s": [{"t": "u", "v": "0:49:55"}, {"t": "u", "v": "0:50:08"}, {"t": "u", "v": "0:50:17"}, {"t": "u", "v": "0:50:21"}]}], "lughat": [{"ar": "يقوَّم مملوكاً", "ur": "غلام فرض کر کے اس کی قیمت لگائی جائے", "s": [{"t": "u", "v": "0:48:12"}]}, {"ar": "بدون الأثر / وبه هذا الأثر", "ur": "زخم کے اثر کے بغیر / اس اثر کے ساتھ", "s": [{"t": "u", "v": "0:48:12"}]}, {"ar": "تفاوت ما بين القيمتين", "ur": "دونوں قیمتوں کا فرق", "s": [{"t": "u", "v": "0:48:29"}]}, {"ar": "ربع عشر", "ur": "چالیسواں حصہ", "s": [{"t": "a", "v": ""}]}, {"ar": "كم مقدار هذه الشجة من الموضحة", "ur": "یہ زخم موضحہ کا کتنا حصہ ہے", "s": [{"t": "u", "v": "0:48:48"}, {"t": "u", "v": "0:49:25"}]}, {"ar": "ما لا نص فيه يرد إلى المنصوص عليه", "ur": "جس میں نص نہ ہو اسے منصوص چیز کی طرف لوٹایا جائے", "s": [{"t": "a", "v": ""}]}]}], "gaps": [{"unit": "u1", "pages": "1861", "page_list": [1861], "v7": "بشریٰ ج٨ ص 80", "text": "قاعدے کی عقلی وجہ «لإتلافه النفس من وجه، وهو ملحق بالإتلاف من كل وجه تعظيماً للآدمي» استاد نے نہیں بتائی (صرف حضور ﷺ کے فیصلے کا ذکر، 0:02:50)؛ کارڈ 1 دلیل میں کتاب سے۔"}, {"unit": "u1", "pages": "1863", "page_list": [1863], "v7": "بشریٰ ج٨ ص 84", "text": "«ويستوي العمد والخطأ على هذا الجمهور» (بالوں میں عمد و خطا برابر، دیت ہی ہے) نہ پڑھا نہ سمجھایا؛ کارڈ 4 فائدہ میں حاشیہ الكفاية ٢١٤/٩-٢١٥ سے۔"}, {"unit": "u1", "pages": "1863–1864", "page_list": [1863, 1864], "v7": "بشریٰ ج٨ ص 85–86", "text": "«وفي ثلاثة منها ثلاثة أرباعها» اور مصنف کا دوسرا احتمال «ويحتمل أن يكون مراده: منبت الشعر، والحكم فيه هكذا» استاد نے نہیں بتائے؛ کارڈ 6 میں کتاب سے۔"}, {"unit": "u2", "pages": "1866", "page_list": [1866], "v7": "بشریٰ ج٨ ص 90", "text": "«وهو مأثور عن النخعي وعمر بن عبد العزيز» (حکومتِ عدل کا ماخذ) استاد نے ذکر نہیں کیا؛ کارڈ 10 دلیل میں کتاب سے۔"}, {"unit": "u2", "pages": "1866–1867", "page_list": [1866, 1867], "v7": "بشریٰ ج٨ ص 92", "text": "«وما ذكرناه بدءاً مروي عن أبي يوسف» (پہلی ترتیب امام ابو یوسف سے) استاد نے نہیں بتایا؛ کارڈ 12 میں کتاب سے۔"}, {"unit": "u2", "pages": "1867–1868", "page_list": [1867, 1868], "v7": "بشریٰ ج٨ ص 93", "text": "«وقالوا: الجائفة تختص بالجوف جوف الرأس، أو جوف البطن» نہیں پڑھا؛ استاد نے جائفہ کو صرف دھڑ (سینے سے ناف تک) کا بتایا (0:42:11)؛ کارڈ 12 فائدہ میں کتاب سے۔"}], "kitabs": [{"title": "كتاب الشفعة", "from": 1597, "to": 1625, "href": "shufa.html"}, {"title": "كتاب القسمة", "from": 1626, "to": 1643, "href": "qisma.html"}, {"title": "كتاب المزارعة", "from": 1644, "to": 1651, "href": "muzaraa.html"}, {"title": "كتاب المساقاة", "from": 1652, "to": 1656, "href": "musaqat.html"}, {"title": "كتاب الذبائح", "from": 1657, "to": 1671, "href": "dhabaih.html"}, {"title": "كتاب الأضحية", "from": 1672, "to": 1683, "href": "udhiya.html"}, {"title": "كتاب الكراهية", "from": 1684, "to": 1723, "href": "karahiya.html"}, {"title": "كتاب إحياء الموات", "from": 1724, "to": 1741, "href": "ihya.html"}, {"title": "كتاب الأشربة", "from": 1742, "to": 1755, "href": "ashriba.html"}, {"title": "كتاب الصيد", "from": 1756, "to": 1772, "href": "sayd.html"}, {"title": "كتاب الرهن", "from": 1773, "to": 1822, "href": "rahn.html"}, {"title": "كتاب الجنايات", "from": 1823, "to": 1855, "href": "jinayat.html"}, {"title": "كتاب الديات", "from": 1856, "to": 1929, "href": "diyat.html"}, {"title": "كتاب المعاقل", "from": 1930, "to": 1938, "href": null}, {"title": "كتاب الوصايا", "from": 1939, "to": 1996, "href": null}, {"title": "كتاب الخنثى", "from": 1997, "to": 2000, "href": null}, {"title": "مسائل شتى", "from": 2001, "to": 2004, "href": null}], "sections": [["tamheed", "تمہید"], ["masala", "مسئلہ"], ["dalil", "دلیل"], ["ikhtilaf", "اختلاف"], ["faida", "فائدہ"]], "quick": ["tamheed", "masala"], "footer": ["صفحہ نمبر ساتھیوں والے نسخے (مسلسل صفحات) کے ہیں۔ ص 1609–1611 کتاب سے ملا کر لکھے گئے ہیں؛ باقی بشریٰ کے آٹھ جلدی نسخے (جلد ٧) سے حساب لگا کر، اس لیے کہیں ایک صفحہ آگے پیچھے ہو سکتا ہے۔ اصل جگہ کارڈ کی پہلی عربی سطر سے پہچانیں؛ بشریٰ کا صفحہ ہر کارڈ پر ساتھ لکھا ہے۔", "ٹرانسکرپٹ ریکارڈنگ سے Gemini نے بنایا اور اس کے وقت آواز سے ملا کر درست کیے گئے۔ کارڈ اسی ٹرانسکرپٹ، کتاب کے متن اور حاشیے سے بنے ہیں؛ ہر سطر کے آخر میں اس کا ماخذ ہے۔", "پیلی (AI) علامت والی سطریں خود جانچیں۔ امتحان میں مسئلہ، اختلاف اور دلیل سبز، نیلی یا سرمئی علامت والی سطروں سے لکھیں۔", "استاد کلاس میں اپنے نسخے کے صفحے بولتے ہیں (مثلاً كتاب المساقاة 1700)؛ وہ اس نسخے سے مختلف ہیں۔"]};
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const secs = (ts) => ts.split(":").map(Number).reduce((a, n) => a * 60 + n, 0);
+const B = DATA.book, LES = DATA.lessons, UNITS = DATA.units || [], CARDS = DATA.cards, GAPS = DATA.gaps || [];
+const PAGED = CARDS.some((c) => c.pages && c.pages.length);
+const ONE = B.unitOne || "کارڈ";
+const audio = $("audio");
+const OPUS_OK = (() => { try { return audio.canPlayType('audio/ogg; codecs="opus"') !== ""; } catch (e) { return false; } })();
+const ICON = {
+  play: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0v10l9-5z"/></svg>',
+  down: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M5 1h2v5h2.5L6 9.5 2.5 6H5zM1 10.5h10V12H1z"/></svg>',
+};
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+const KEY = DATA.store || "cards";
+const toLatin = (v) => String(v).replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).trim();
+const LRI = "\u2066", PDI = "\u2069";
+const range = (a, b) => (a === b ? `${a}` : `${LRI}${a}–${b}${PDI}`);
+const iso = (s) => String(s ?? "").replace(/(\d+)\s*[–-]\s*(\d+)/g, `${LRI}$1–$2${PDI}`);
+const sizeMB = (x) => `${LRI}${x >= 10 ? Math.round(x) : Math.round(x * 10) / 10} MB${PDI}`;
+const pagesLabel = (ps) => `ص ${range(ps[0], ps[ps.length - 1])}`;
+
+// ---------- header
+document.title = `${B.kitab} · ${B.book}`;
+if (DATA.home) { $("homeLink").href = DATA.home; $("homeLink").textContent = `→ ${DATA.homeLabel || B.book}`; $("homeLink").hidden = false; }
+$("kitab").textContent = B.kitab;
+const usedLessons = [...new Set(CARDS.map((c) => c.lesson).filter(Boolean))].sort();
+$("meta").innerHTML = (PAGED && B.from ? `صفحات <b class="ltr num">${range(B.from, B.to)}</b>، ` : "") +
+  `<b>${CARDS.length}</b> ${esc(B.unit || "کارڈ")}، <b>${usedLessons.length}</b> اسباق کی ریکارڈنگ سے`;
+
+// ---------- units
+const unitByKey = Object.fromEntries(UNITS.map((u) => [u.key, u]));
+const cardsOf = (k) => CARDS.filter((c) => c.unit === k);
+const pagesOf = (k) => [...new Set(cardsOf(k).flatMap((c) => c.pages || []))].sort((a, b) => a - b);
+const gapsOf = (k) => GAPS.filter((g) => g.unit === k);
+const parentOf = (u) => {
+  const i = UNITS.indexOf(u);
+  for (let j = i - 1; j >= 0; j--) if (UNITS[j].level < u.level) return UNITS[j];
+  return null;
+};
+
+$("toc").innerHTML = UNITS.map((u) => {
+  const n = cardsOf(u.key).length, ps = pagesOf(u.key);
+  const pr = PAGED && u.page ? `<span class="pp">${range(u.page, u.page_to || u.page)}</span>` : "";
+  const ex = cardsOf(u.key).reduce((a, c) => a + (c.exam || []).length, 0);
+  const sub = n
+    ? `<span class="n">${n} ${esc(ONE)}</span>` + (ex ? `<span class="exn" title="استاد نے اہم کہا">★ ${ex}</span>` : "") + (PAGED ? ps.map((p) => `<a class="pchip" href="#${u.key}-${p}" aria-label="صفحہ ${p}">${p}</a>`).join("") : "")
+    : `<span class="none">${gapsOf(u.key).length ? "ریکارڈنگ نہیں ملی" : "ابھی کارڈ نہیں"}</span>`;
+  return `<li class="lv${u.level}" id="toc-${u.key}"><a class="row" href="#${u.key}"><span class="tt" lang="ar">${esc(u.title)}</span><span class="dots"></span>${pr}</a>
+    <div class="sub">${sub}</div></li>`;
+}).join("");
+if (!PAGED) document.querySelectorAll("form.jump").forEach((f) => { f.hidden = true; });
+
+// ---------- cards (rendered once; views show and hide them)
+function chip(s, lesson) {
+  if (s.t === "u") return `<button type="button" class="chip u" data-ts="${s.v}" data-l="${s.l || lesson || ""}" title="یہاں سے سنیں">استاد ${s.v}</button>`;
+  if (s.t === "k") return `<span class="chip k"${s.v7 ? ` title="بشریٰ ج${s.v7 >= 1000 ? "٨" : "٧"} ص ${s.v7 >= 1000 ? s.v7 - 1000 : s.v7}"` : ""}>کتاب ص ${iso(esc(s.v))}</span>`;
+  if (s.t === "s") return `<span class="chip s">شرح: ${esc(s.v)}</span>`;
+  return `<span class="chip a">AI · تصدیق طلب</span>`;
+}
+const chips = (arr, l) => `<span class="srcs">${arr.map((s) => chip(s, l)).join("")}</span>`;
+const QUICK = DATA.quick || ["tamheed", "masala"];
+$("cards").innerHTML = CARDS.map((c, i) => {
+  const l = c.lesson;
+  const sec = ([key, label]) => {
+    const items = c[key] || [];
+    if (!items.length) return "";
+    return `<div class="sec ${key}"><h4>${label}</h4><ul>${items.map((it) => `<li>${esc(it.x)} ${chips(it.s, l)}</li>`).join("")}</ul></div>`;
+  };
+  const quick = DATA.sections.filter(([k]) => QUICK.includes(k)).map(sec).join("");
+  const examSecs = DATA.sections.filter(([k]) => !QUICK.includes(k) && (c[k] || []).length);
+  const n = examSecs.reduce((a, [k]) => a + c[k].length, 0);
+  const exam = n ? `<details class="more"><summary>${examSecs.map(([, lb]) => lb).join("، ")} <span class="hint">${n} نکات، امتحان کی تیاری کے لیے</span></summary><div class="inner">${examSecs.map(sec).join("")}</div></details>` : "";
+  const words = (c.lughat || []).length ? `<div class="sec lughat"><h4>مشکل الفاظ</h4><div class="words">${c.lughat.map((w) =>
+    `<div class="word"><span class="ar" lang="ar">${esc(w.ar)}</span><span class="ur">${esc(w.ur)}</span>${chips(w.s, l)}</div>`).join("")}</div></div>` : "";
+  const head = l && c.ts
+    ? `<span class="les">${esc(LES[l].label)}</span><button type="button" class="play" data-ts="${c.ts}" data-l="${l}" aria-label="${esc(LES[l].label)}، ${c.ts} سے سنیں">${ICON.play}${c.ts}</button>`
+    : `<span class="norec-chip">ریکارڈنگ نہیں</span>`;
+  const badges = (c.badges || []).map((b) => `<span class="badge">${esc(b)}</span>`).join("")
+    + (c.exam || []).map((x) => x.k === "t"
+      ? `<button type="button" class="badge exam" data-ts="${x.ts}" data-l="${x.l}" title="استاد (${x.ts}): «${esc(x.said)}»" aria-label="استاد نے ${esc(x.kind)} کہا، ${x.ts} سے سنیں">★ استاد: ${esc(x.kind)}</button>`
+      : `<span class="badge exam paper" title="${esc(x.q || "")}">★ وفاق ${esc(x.year)}${x.n ? ` · س ${esc(x.n)}` : ""}</span>`).join("");
+  const pg = PAGED && c.pages && c.pages.length ? `<span class="pg">${pagesLabel(c.pages)}</span>` : (c.group ? `<span class="pg">${esc(c.group)}</span>` : "");
+  return `<article class="card" id="c${i + 1}" data-unit="${esc(c.unit || "")}" data-pages="${(c.pages || []).join("|")}" hidden>
+    <div class="card-head">${pg}${c.v7 ? `<span class="v7">${iso(esc(c.v7))}</span>` : ""}<span class="cnum">${esc(ONE)} ${i + 1}</span>${badges}${head}</div>
+    ${c.label ? `<p class="label" lang="ar">(${esc(c.label)})</p>` : ""}
+    <h3 class="title">${esc(c.title)}</h3>
+    <p class="start" lang="ar">«${esc(c.start)}»</p>
+    ${c.ref ? `<p class="ref">${esc(c.ref)}</p>` : ""}
+    ${c.start_note ? `<p class="start-note">${esc(c.start_note)}</p>` : ""}
+    <button type="button" class="ctoggle" aria-expanded="true" aria-controls="cb${i + 1}">تفصیل بند کریں</button>
+    <div class="cbody" id="cb${i + 1}">
+    ${c.norec ? `<p class="norec"><b>توجہ:</b> ${esc(c.norec)}</p>` : ""}
+    ${quick}${words}${exam}
+    </div>
+  </article>`;
+}).join("");
+const ARTS = [...document.querySelectorAll("article.card")];
+const usedT = new Set();
+CARDS.forEach((c) => {
+  DATA.sections.forEach(([k]) => (c[k] || []).forEach((it) => it.s.forEach((x) => usedT.add(x.t))));
+  (c.lughat || []).forEach((w) => w.s.forEach((x) => usedT.add(x.t)));
+});
+document.querySelectorAll(".legend .lg").forEach((el) => { el.hidden = !usedT.has(el.dataset.t); });
+$("foot").innerHTML = (DATA.footer || []).map((p) => `<p>${esc(p)}</p>`).join("");
+
+// ---------- views
+function showToc(msg) {
+  $("tocView").hidden = false; $("unitView").hidden = true; document.body.classList.remove("unit");
+  $("tocMsg").hidden = !msg; if (msg) $("tocMsg").innerHTML = msg;
+  document.title = `${B.kitab} · ${B.book}`;
+  const last = store.get(`${KEY}-unit`, "");
+  const row = last && $(`toc-${last}`);
+  if (row && !msg) row.scrollIntoView({ block: "center" }); else window.scrollTo(0, 0);
+}
+function showUnit(key, page, msg) {
+  const u = unitByKey[key];
+  $("tocView").hidden = true; $("unitView").hidden = false; document.body.classList.add("unit");
+  const par = u.level > 1 ? parentOf(u) : null;
+  $("ubarTitle").textContent = u.title;
+  $("uParent").textContent = par ? par.title : "";
+  $("uParent").hidden = !par;
+  $("uTitle").textContent = u.title;
+  const ps = pagesOf(key), n = cardsOf(key).length;
+  $("uMeta").innerHTML = (PAGED && u.page ? `ص <span class="ltr num">${range(u.page, u.page_to || u.page)}</span>، ` : "") + (n ? `${n} ${esc(ONE)}` : "ابھی کارڈ نہیں");
+  $("pbar").innerHTML = (ps.length > 1 || page ? [`<a href="#${key}" aria-current="${!page}">سب</a>`, ...ps.map((p) =>
+    `<a href="#${key}-${p}" aria-current="${page === p}">${p}</a>`)].join("") : "");
+  $("pbar").hidden = !$("pbar").innerHTML;
+  const allView = !page && !$("pbar").hidden;   // the «سب» chip is selected: cards start folded
+  document.body.classList.toggle("allview", allView);
+  $("toggleAll").hidden = !allView;
+  let shown = 0;
+  ARTS.forEach((a) => {
+    const on = a.dataset.unit === key && (!page || a.dataset.pages.split("|").includes(String(page)));
+    a.hidden = !on; if (on) shown++;
+    setFold(a, allView);
+  });
+  syncToggleAll();
+  if (page && !shown && !msg) msg = `صفحہ ${page} کا کوئی ${esc(ONE)} ابھی نہیں بنا۔`;
+  $("uMsg").hidden = !msg; if (msg) $("uMsg").innerHTML = msg;
+  const gs = gapsOf(key).filter((g) => !page || (g.page_list || []).includes(page));
+  $("gaps").hidden = !gs.length;
+  $("gapsTitle").textContent = n ? "اس حصے کی وہ عبارت جو استاد نے نہیں سمجھائی" : "اس حصے کی ریکارڈنگ نہیں ملی";
+  $("gapsLead").textContent = n ? "یہ باتیں کارڈوں میں متن اور حاشیے سے لکھی گئی ہیں؛ ریکارڈنگ میں ان کی وضاحت نہیں۔"
+    : "کسی ساتھی کے پاس اس حصے کی ریکارڈنگ ہو تو بھیج دیں، اس کے کارڈ بھی بن جائیں گے۔";
+  $("gapList").innerHTML = gs.map((g) => `<li><span class="gp">${PAGED && g.pages ? "ص " + iso(esc(g.pages)) : ""}</span><span class="gt">${esc(g.text)}</span>${g.v7 ? `<span class="gv">${iso(esc(g.v7))}</span>` : ""}</li>`).join("");
+  const i = UNITS.indexOf(u), prev = UNITS[i - 1], next = UNITS[i + 1];
+  $("unav").innerHTML = (prev ? `<a class="prev" href="#${prev.key}"><span class="k">پچھلا حصہ</span><span class="t" lang="ar">${esc(prev.title)}</span></a>` : "") +
+    (next ? `<a class="next" href="#${next.key}"><span class="k">اگلا حصہ</span><span class="t" lang="ar">${esc(next.title)}</span></a>` : "");
+  document.title = `${u.title} · ${B.kitab}`;
+  store.set(`${KEY}-unit`, key);
+  window.scrollTo(0, 0);
+}
+function findPage(p) {
+  const withCards = UNITS.find((u) => pagesOf(u.key).includes(p));
+  if (withCards) return { unit: withCards.key, page: p };
+  const inRange = [...UNITS].reverse().find((u) => u.page && u.page <= p && p <= (u.page_to || u.page));
+  if (inRange) return { unit: inRange.key, page: p };
+  return null;
+}
+function outsideMsg(p) {
+  const k = (DATA.kitabs || []).find((x) => x.from <= p && p <= x.to);
+  if (!k) return `صفحہ ${p} اس کتاب میں نہیں۔`;
+  if (k.href) return `صفحہ ${p} <a href="${k.href}#p${p}">${esc(k.title)}</a> میں ہے۔`;
+  return `صفحہ ${p} «${esc(k.title)}» میں ہے؛ اس کے کارڈ ابھی نہیں بنے۔`;
+}
+function route() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  let m;
+  if ((m = h.match(/^p(\d+)$/))) {
+    const p = +m[1], f = findPage(p);
+    if (f) { history.replaceState(null, "", `#${f.unit}-${p}`); return showUnit(f.unit, p); }
+    return showToc(outsideMsg(p));
+  }
+  if ((m = h.match(/^(u\d+)(?:-(\d+))?$/)) && unitByKey[m[1]]) return showUnit(m[1], m[2] ? +m[2] : null);
+  if (!h && UNITS.length === 1) return showUnit(UNITS[0].key, null);   // nothing to choose from
+  showToc();
+}
+window.addEventListener("hashchange", route);
+document.addEventListener("submit", (e) => {
+  const f = e.target.closest("form[data-jump]");
+  if (!f) return;
+  e.preventDefault();
+  const v = toLatin(f.querySelector("input").value || "");
+  if (!/^\d+$/.test(v)) return;
+  const p = +v, hit = findPage(p);
+  if (hit) location.hash = `${hit.unit}-${p}`;
+  else showToc(outsideMsg(p));
+});
+// folding: «سب تفصیل» opens or folds every card shown; each card's دلیل/اختلاف (details.more) stays as the reader left it
+function setFold(a, fold) {
+  a.classList.toggle("folded", fold);
+  const t = a.querySelector(".ctoggle");
+  t.setAttribute("aria-expanded", String(!fold));
+  t.textContent = fold ? "تمہید اور تفصیل" : "تفصیل بند کریں";
+}
+function syncToggleAll() {
+  const anyFolded = ARTS.some((a) => !a.hidden && a.classList.contains("folded"));
+  $("toggleAll").setAttribute("aria-pressed", String(!anyFolded));
+  $("toggleAll").textContent = anyFolded ? "سب تفصیل کھولیں" : "سب تفصیل بند کریں";
+}
+$("toggleAll").addEventListener("click", () => {
+  const anyFolded = ARTS.some((a) => !a.hidden && a.classList.contains("folded"));
+  ARTS.forEach((a) => { if (!a.hidden) setFold(a, !anyFolded); });
+  syncToggleAll();
+});
+$("cards").addEventListener("click", (e) => {
+  const t = e.target.closest(".ctoggle");
+  if (!t) return;
+  const a = t.closest("article.card");
+  const wasOpen = !a.classList.contains("folded");
+  setFold(a, wasOpen);
+  if (wasOpen && a.getBoundingClientRect().top < 0) a.scrollIntoView({ block: "start" });   // folding a long card: keep it in view
+  syncToggleAll();
+});
+route();
+
+// ---------- recordings: light (Opus) copies on this site
+const hasWeb = (l) => !!(LES[l] && LES[l].web && LES[l].web.length);
+const webOk = (l) => hasWeb(l) && (OPUS_OK || !/\.ogg$/i.test(LES[l].web[0].src));
+const NO_OPUS = "یہ براؤزر یہاں کی ہلکی فائلیں (Opus) نہیں چلاتا۔ آئی فون پر iOS 18.4 یا نیا ورژن چاہیے؛ اینڈرائیڈ پر Chrome میں کھولیں۔";
+let current = null, sheetMode = null;
+const blobUrls = {}, triedBlob = {};
+let curPart = null, lastOffset = 0, pendingSeek = null;
+function webPart(l, sec) {
+  let p = LES[l].web[0];
+  for (const x of LES[l].web) if (x.start <= sec + 0.5) p = x;
+  return p;
+}
+function recRow(l) {
+  const L = LES[l], btns = [];
+  if (webOk(l)) btns.push(`<button type="button" class="btn" data-ts="0:00:00" data-l="${l}">${ICON.play}شروع سے سنیں</button>`);
+  if (hasWeb(l)) {   // one button per lesson, whatever the number of parts
+    const mb = L.web.reduce((a, p) => a + (p.mb || 0), 0);
+    btns.push(`<button type="button" class="btn ghost" data-dl="${l}">${ICON.down}ڈاؤن لوڈ${L.web.length > 1 ? ` (${L.web.length} حصے)` : ""}${mb ? ` ${sizeMB(mb)}` : ""}</button>`);
+  }
+  const mins = L.minutes ? `${Math.round(L.minutes)} منٹ` : "";
+  const state = webOk(l) ? `<span class="state on">یہیں چلتی ہے</span>` : (hasWeb(l) ? "" : `<span class="state off">ابھی نہیں لگی</span>`);
+  return `<div class="rec" id="rec-${l}"><div class="rec-top"><b>${esc(L.label)}</b><span class="sub">${mins}</span>${state}</div>
+    ${btns.length ? `<div class="btns">${btns.join("")}</div>` : ""}</div>`;
+}
+function sheetAll() {
+  sheetMode = "all";
+  const anyWeb = usedLessons.some(hasWeb);
+  const hint = anyWeb && !OPUS_OK ? NO_OPUS : "کسی سبز وقت پر ٹیپ کریں تو استاد کی آواز اسی صفحے پر وہیں سے چلتی ہے۔";
+  const missing = usedLessons.filter((l) => !hasWeb(l)).length;
+  const all = filesOf(usedLessons.filter(hasWeb));
+  const mb = all.reduce((a, f) => a + (f.mb || 0), 0);
+  const dlAll = all.length > 1 ? `<div class="dlall"><div class="btns"><button type="button" class="btn" data-dl="*">${ICON.down}سب ڈاؤن لوڈ کریں</button>
+      <span class="sub">${usedLessons.filter(hasWeb).length} اسباق، ${all.length} فائلیں، کل ${sizeMB(mb)}</span></div>
+      <span class="dlstat" id="dlstat" hidden></span></div>` : "";
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">ریکارڈنگز</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${hint}${missing ? ` ${missing} اسباق کی ریکارڈنگ ابھی اس صفحے پر نہیں لگی۔` : ""}</p>
+    ${dlAll}
+    <div>${usedLessons.map(recRow).join("")}</div>`;
+  if (dlBusy) markBusy();
+  $("backdrop").hidden = false;
+}
+function sheetOne(l, ts) {
+  sheetMode = "one";
+  const L = LES[l];
+  const why = hasWeb(l) && !OPUS_OK ? NO_OPUS : "اس سبق کی ریکارڈنگ ابھی اس صفحے پر نہیں لگی۔";
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">یہ حصہ ${esc(L.label)} کی ریکارڈنگ میں <span class="ltr">${ts}</span> پر ہے</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${why}</p>
+    <button type="button" class="linkbtn" data-allrecs style="margin-inline-start:0">سب ریکارڈنگز</button>`;
+  $("backdrop").hidden = false;
+  $("sheet").querySelector("[data-close]").focus();
+}
+function closeSheet() { $("backdrop").hidden = true; sheetMode = null; }
+
+// downloads: every part of a lesson, or every lesson of this kitab, one after another.
+// Phones ask once to allow several downloads from this site.
+function filesOf(ls) {
+  return ls.flatMap((l) => LES[l].web.map((p, i, all) => {
+    const ext = (p.src.match(/\.\w+$/) || [".ogg"])[0];
+    return { src: p.src, mb: p.mb, name: `${l} ${B.book}${all.length > 1 ? ` - حصہ ${i + 1}` : ""}${ext}` };
+  }));
+}
+let dlBusy = false;
+function markBusy() { $("sheet").querySelectorAll("[data-dl]").forEach((b) => { b.disabled = dlBusy; }); }
+function dlStatus(html) { const s = $("dlstat"); if (s) { s.hidden = !html; s.innerHTML = html || ""; } }
+async function runDownloads(files) {
+  if (dlBusy || !files.length) return;
+  dlBusy = true; markBusy();
+  const allow = files.length > 1 ? " براؤزر «کئی فائلیں ڈاؤن لوڈ کریں؟» پوچھے تو Allow دبائیں۔" : "";
+  for (let i = 0; i < files.length; i++) {
+    dlStatus(`فائل <span class="ltr num">${i + 1} / ${files.length}</span> ڈاؤن لوڈ کے لیے بھیجی جا رہی ہے…${allow}`);
+    const a = document.createElement("a");
+    a.href = files[i].src; a.download = files[i].name; a.hidden = true;
+    document.body.appendChild(a); a.click(); a.remove();
+    await new Promise((r) => setTimeout(r, 1200));
+  }
+  dlBusy = false; markBusy();
+  dlStatus(files.length > 1
+    ? `${files.length} فائلیں بھیج دی گئیں؛ فون کے Downloads میں دیکھیں۔ اگر کم آئیں تو براؤزر کی سیٹنگ میں اس سائٹ کو <span class="ltr">Automatic downloads</span> کی اجازت دے کر دوبارہ دبائیں۔`
+    : "");
+}
+$("recBtn").addEventListener("click", sheetAll);
+$("backdrop").addEventListener("click", (e) => {
+  if (e.target === $("backdrop") || e.target.closest("[data-close]")) closeSheet();
+  else if (e.target.closest("[data-allrecs]")) sheetAll();
+  else if (e.target.closest("[data-dl]")) {
+    const k = e.target.closest("[data-dl]").dataset.dl;
+    runDownloads(filesOf(k === "*" ? usedLessons.filter(hasWeb) : [k]));
+  }
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("backdrop").hidden) closeSheet(); });
+
+function playAt(l, ts) {
+  if (!l || !LES[l]) return;
+  const sec = secs(ts);
+  if (!webOk(l)) { sheetOne(l, ts); return; }
+  const p = webPart(l, sec), src = blobUrls[p.src] || p.src, offset = sec - p.start;
+  curPart = p;
+  closeSheet();
+  current = l; lastOffset = Math.max(0, offset);
+  $("player").hidden = false;
+  if (audio.dataset.src !== src) { audio.dataset.src = src; audio.src = src; pendingSeek = lastOffset; }
+  else if (audio.readyState >= 1) {
+    if (!blobUrls[curPart.src] && !canSeekTo(lastOffset)) { pendingSeek = lastOffset; useBlob(); return; }
+    try { audio.currentTime = lastOffset; } catch (e) {}
+  } else pendingSeek = lastOffset;
+  audio.play().catch(() => {});
+  $("now").innerHTML = `${esc(LES[l].label)} · <span class="ltr">${ts}</span>`;
+}
+function canSeekTo(o) { const r = audio.seekable; return o < 1 || (r && r.length && r.end(r.length - 1) >= o - 1); }
+audio.addEventListener("loadedmetadata", () => {
+  const on = document.querySelector("#speeds button[aria-pressed='true']");
+  if (on) audio.playbackRate = +on.dataset.rate;
+  if (pendingSeek === null) return;
+  const o = pendingSeek;
+  if (curPart && !blobUrls[curPart.src] && !canSeekTo(o)) { useBlob(); return; }
+  pendingSeek = null;
+  try { audio.currentTime = o; } catch (e) {}
+  audio.play().catch(() => {});
+});
+audio.addEventListener("error", () => useBlob());
+async function useBlob() {   // the server can't jump to the time (or the stream failed): fetch the light copy whole
+  const p = curPart;
+  if (!p || blobUrls[p.src] || triedBlob[p.src]) return;
+  triedBlob[p.src] = true;
+  const label = $("now").innerHTML;
+  $("now").textContent = "آواز لوڈ ہو رہی ہے…";
+  try {
+    const r = await fetch(p.src);
+    if (!r.ok) throw new Error(r.status);
+    blobUrls[p.src] = URL.createObjectURL(await r.blob());
+    if (curPart !== p) return;
+    audio.dataset.src = blobUrls[p.src]; audio.src = blobUrls[p.src]; pendingSeek = lastOffset;
+    audio.play().catch(() => {});
+    $("now").innerHTML = label;
+  } catch (e) { $("now").textContent = "یہ آواز نہیں چل سکی؛ انٹرنیٹ دیکھ کر دوبارہ ٹیپ کریں۔"; }
+}
+$("pclose").addEventListener("click", () => { audio.pause(); $("player").hidden = true; });
+
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-ts]");
+  if (!b) return;
+  playAt(b.dataset.l, b.dataset.ts);
+  const card = b.closest("article.card");
+  if (card) { card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash"); }
+});
+$("speeds").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-rate]");
+  if (!b) return;
+  audio.playbackRate = +b.dataset.rate;
+  document.querySelectorAll("#speeds button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+});
+// files people picked on earlier versions of this page: free the space on their phone
+try { if (window.indexedDB) indexedDB.deleteDatabase(`${KEY}-audio`); } catch (e) {}
+try { localStorage.removeItem(`${KEY}-remember`); } catch (e) {}
+</script>
+
+</body>
+</html>
