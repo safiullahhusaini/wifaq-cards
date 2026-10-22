@@ -811,12 +811,11 @@
    "file": "2025-05-04 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 31.5,
    "repair": "fixed 87% (11 Oct)",
-   "state": "ready",
+   "state": "done",
    "note": "repair matched only 62%",
-   "claim": {
-    "run": "2026-10-22T20:45:00Z",
-    "by": "https://claude.ai/code/session_01JxiDihaLBpEg5KuVNX7xxs"
-   }
+   "claim": null,
+   "cards": 9,
+   "qa": "focused: 370 ts real; 0 wrong rulings/imam attributions; 5 misleading-scope/misrepresentation lines (Muhammad inside «وقيل», Zufar footnote order, teacher addition «غذا», Malik-only limit, «احناف» vs Abu Yusuf) + 11 tag nits, all from drafting, fixed"
   },
   {
    "id": "h4-2025-10-18-diyat",
