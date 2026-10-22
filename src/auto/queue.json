@@ -785,7 +785,10 @@
    "repair": "fixed 91%, 2026-10-10 08:43 AM",
    "state": "ready",
    "note": "repair matched only 64% · re-transcribed + repaired 2026-10-10 08:43 AM (91%), ready",
-   "claim": null
+   "claim": {
+    "run": "2026-10-22T20:05:00Z",
+    "by": "https://claude.ai/code/session_01JxiDihaLBpEg5KuVNX7xxs"
+   }
   },
   {
    "id": "h4-2025-05-03",
