@@ -783,12 +783,11 @@
    "file": "2025-04-27 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 39.2,
    "repair": "fixed 91%, 2026-10-10 08:43 AM",
-   "state": "ready",
+   "state": "done",
    "note": "repair matched only 64% · re-transcribed + repaired 2026-10-10 08:43 AM (91%), ready",
-   "claim": {
-    "run": "2026-10-22T20:05:00Z",
-    "by": "https://claude.ai/code/session_01JxiDihaLBpEg5KuVNX7xxs"
-   }
+   "claim": null,
+   "cards": 7,
+   "qa": "focused: 432 ts real; 0 wrong rulings/imam attributions; 3 over-broad/unscoped lines (mashayikh «ينبغي» as imams, objection as Sahibayn qiyas, whole-hand paralysis) + 9 tag nits, all from drafting, fixed"
   },
   {
    "id": "h4-2025-05-03",
