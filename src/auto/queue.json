@@ -797,12 +797,11 @@
    "file": "2025-05-03 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 45.3,
    "repair": "fixed 92%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-22T20:20:00Z",
-    "by": "https://claude.ai/code/session_01JxiDihaLBpEg5KuVNX7xxs"
-   }
+   "claim": null,
+   "cards": 11,
+   "qa": "focused: 299 ts real; 0 wrong rulings/imam attributions; 1 misleading scope (Hanafi compensation remark read as Shafi'i reason) + ~7 tag/wording nits, all from drafting, fixed"
   },
   {
    "id": "h4-2025-05-04",
@@ -814,7 +813,10 @@
    "repair": "fixed 87% (11 Oct)",
    "state": "ready",
    "note": "repair matched only 62%",
-   "claim": null
+   "claim": {
+    "run": "2026-10-22T20:45:00Z",
+    "by": "https://claude.ai/code/session_01JxiDihaLBpEg5KuVNX7xxs"
+   }
   },
   {
    "id": "h4-2025-10-18-diyat",
