@@ -839,12 +839,11 @@
    "file": "2025-10-19 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 49.9,
    "repair": "fixed 84%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-23T19:53Z",
-    "by": "https://claude.ai/code/session_01V7RaN1hFJ7MVEBTNZhUWrZ"
-   }
+   "claim": null,
+   "cards": 14,
+   "qa": "focused: 375 ts real; 0 wrong rulings; 0 wrong imam attributions; 3 misleading/unsupported lines (matn tagged as footnote, mashayikh «قالوا» unmarked, teacher analogy as book) + ~5 tag fixes, all from drafting, fixed"
   },
   {
    "id": "h4-2025-10-28",
