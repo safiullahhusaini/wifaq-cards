@@ -825,12 +825,11 @@
    "file": "2025-10-18 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 32.8,
    "repair": "fixed 86% (11 Oct)",
-   "state": "ready",
+   "state": "done",
    "note": "transcript not repaired (too few timestamped lines)",
-   "claim": {
-    "run": "2026-10-23T19:53Z",
-    "by": "https://claude.ai/code/session_01V7RaN1hFJ7MVEBTNZhUWrZ"
-   }
+   "claim": null,
+   "cards": 9,
+   "qa": "focused: 459 ts real; 0 wrong rulings/imam attributions; 42 S tags found as printed; 2 tag fixes (one ts at a model-chatter stamp, one missing S) , all from drafting"
   },
   {
    "id": "h4-2025-10-19",
