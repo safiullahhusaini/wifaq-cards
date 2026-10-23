@@ -853,12 +853,11 @@
    "file": "2025-10-28 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 33.1,
    "repair": "fixed 84% (11 Oct)",
-   "state": "ready",
+   "state": "done",
    "note": "transcript not repaired (too few timestamped lines)",
-   "claim": {
-    "run": "2026-10-23T19:53Z",
-    "by": "https://claude.ai/code/session_01V7RaN1hFJ7MVEBTNZhUWrZ"
-   }
+   "claim": null,
+   "cards": 9,
+   "qa": "focused: 344 ts real; 0 wrong rulings/imam attributions; 3 misleading lines (Quduri copies scope, «ورما»≠mostly, hadith label «مرسلاً» not printed) + 3 tag fixes; end frac of last card corrected 0.41→0.88 (p.145 matn has footnote text mixed in), all from drafting"
   },
   {
    "id": "h4-2025-11-01",
