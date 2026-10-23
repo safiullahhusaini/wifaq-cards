@@ -827,7 +827,10 @@
    "repair": "fixed 86% (11 Oct)",
    "state": "ready",
    "note": "transcript not repaired (too few timestamped lines)",
-   "claim": null
+   "claim": {
+    "run": "2026-10-23T19:53Z",
+    "by": "https://claude.ai/code/session_01V7RaN1hFJ7MVEBTNZhUWrZ"
+   }
   },
   {
    "id": "h4-2025-10-19",
@@ -839,7 +842,10 @@
    "repair": "fixed 84%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-23T19:53Z",
+    "by": "https://claude.ai/code/session_01V7RaN1hFJ7MVEBTNZhUWrZ"
+   }
   },
   {
    "id": "h4-2025-10-28",
@@ -851,7 +857,10 @@
    "repair": "fixed 84% (11 Oct)",
    "state": "ready",
    "note": "transcript not repaired (too few timestamped lines)",
-   "claim": null
+   "claim": {
+    "run": "2026-10-23T19:53Z",
+    "by": "https://claude.ai/code/session_01V7RaN1hFJ7MVEBTNZhUWrZ"
+   }
   },
   {
    "id": "h4-2025-11-01",
