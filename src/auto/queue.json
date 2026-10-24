@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-21 (run 12:50 am PKT)",
+ "updated": "2026-10-25 (run 12:50 am PKT)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 2,
@@ -867,12 +867,11 @@
    "file": "2025-11-01 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 45.4,
    "repair": "fixed 95%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-24T19:52:06Z",
-    "by": "https://claude.ai/code/session_01DRxEP3B5HQELLbVWsag23g"
-   }
+   "claim": null,
+   "cards": 10,
+   "qa": "focused QA: 0 wrong rulings/attributions; 2 missing teacher cues, 3 tag fixes, 1 scope; all from drafting"
   },
   {
    "id": "h4-2025-11-02",
@@ -882,12 +881,11 @@
    "file": "2025-11-02 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 41.3,
    "repair": "fixed 87% (11 Oct)",
-   "state": "ready",
+   "state": "done",
    "note": "repair matched only 73%",
-   "claim": {
-    "run": "2026-10-24T19:52:06Z",
-    "by": "https://claude.ai/code/session_01DRxEP3B5HQELLbVWsag23g"
-   }
+   "claim": null,
+   "cards": 7,
+   "qa": "focused QA: 0 wrong rulings/attributions; 1 title scope (Abu Yusuf riwaya), 1 wrong gloss tag, 2 nits; my end bound (1165) was wrong, true end 1169.05 found by drafter and QA"
   },
   {
    "id": "h4-2025-11-04",
@@ -897,12 +895,11 @@
    "file": "2025-11-04 الهدايه الرابع كتاب الديات.m4a",
    "minutes": 32.0,
    "repair": "fixed 95%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-24T19:52:06Z",
-    "by": "https://claude.ai/code/session_01DRxEP3B5HQELLbVWsag23g"
-   }
+   "claim": null,
+   "cards": 7,
+   "qa": "focused QA: 0 wrong rulings/attributions; 1 dalil labelled teacher/book, 5 nits"
   },
   {
    "id": "h4-2025-11-05",
