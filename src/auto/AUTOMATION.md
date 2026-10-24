@@ -45,6 +45,8 @@ The user is on the Pro plan; his own chats share the allowance with these runs, 
 
 ## 3. Refresh readiness
 
+0. Since 24 Oct the Daily work runs on GitHub (HANDOVER 0b), not in Colab. Look at the latest `daily` workflow run (`actions_list`, repo wifaq-cards): if it failed (for example `invalid_grant` = Drive login must be renewed by the user), put a note on the panel and tell the user in the summary.
+
 1. Download `timestamp_fix.csv` (Drive id `16X4zSGH-9Cxt5xl1HP5bwB3Jo-tUT04y`) and `transcribe_status.md` (`1ayakHwWBQneff0YEKHv_rQX5v7PvSvfB`) and decode them in python (base64 or saved-to-disk JSON; never retype).
 2. An item in state `redo` becomes `ready` when its transcript's latest row in `timestamp_fix.csv` is `fixed` (not "text missing") with `matched_pct` ≥ 75 **and** is newer than the time the item was set to `redo`. Record the new repair status in the item.
 3. Items in `wait_transcript` become `redo`-checked the same way once a transcript exists.
