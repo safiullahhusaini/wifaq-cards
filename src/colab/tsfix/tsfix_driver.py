@@ -98,9 +98,13 @@ def whisper_pipe():
     if _PIPE:
         return _PIPE[0]
     _preload_cuda_libs()
-    import torch
     from faster_whisper import WhisperModel, BatchedInferencePipeline
-    if torch.cuda.is_available():
+    try:
+        import torch
+        has_gpu = torch.cuda.is_available()
+    except ImportError:          # GitHub Actions installs no torch: CPU only
+        has_gpu = False
+    if has_gpu:
         name, dev, ctype, batch = WHISPER_MODEL, "cuda", "float16", 16
     else:
         print("⚠ No GPU in this runtime (Runtime → Change runtime type → T4 GPU). "

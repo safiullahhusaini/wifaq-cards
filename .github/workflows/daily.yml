@@ -1,0 +1,64 @@
+name: daily
+# Wifaq 1448 Daily on GitHub's machines (replaces running the Colab notebook by hand).
+# Every day 1:20 pm Pakistan time (08:20 UTC; the free Gemini quota resets at 1:00 pm from 1 Nov): the same steps as
+# src/colab/daily/Wifaq_1448_Daily.ipynb, built into src/colab/daily/daily_ci.py. Drive is mounted with rclone.
+# Secrets: RCLONE_CONF, GEMINI_API_KEY, VERTEX_API_KEY, WIFAQ_DATA_TOKEN (fine-grained token, Contents read/write on wifaq-data).
+on:
+  schedule:
+    - cron: '20 8 * * *'
+  workflow_dispatch:
+    inputs:
+      max_hours:
+        description: 'Stop repairing new lessons after this many hours (default: the daily_config.json value)'
+        required: false
+      skip_steps:
+        description: 'Test only: comma list of steps to skip (5 re-transcribe, 6 repair, 7 opus, 9 sync to wifaq-data)'
+        required: false
+  push:
+    branches: [ci-daily]
+permissions:
+  contents: read
+concurrency:
+  group: daily
+  cancel-in-progress: false
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      VERTEX_API_KEY: ${{ secrets.VERTEX_API_KEY }}
+      WIFAQ_DATA_TOKEN: ${{ secrets.WIFAQ_DATA_TOKEN }}
+      WIFAQ_CPU_MODEL: large-v3-turbo
+      WIFAQ_MAX_HOURS: ${{ github.event.inputs.max_hours || (github.event_name == 'push' && '0.5') || '' }}
+      WIFAQ_SKIP: ${{ github.event.inputs.skip_steps || (github.event_name == 'push' && '5,7,9') || '' }}
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install ffmpeg, fuse, rclone, Python packages
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y ffmpeg fuse3 >/dev/null
+          curl -s https://rclone.org/install.sh | sudo bash >/dev/null 2>&1 || true
+          rclone version | head -1
+          pip -q install faster-whisper==1.1.1 rapidfuzz numpy google-genai
+      - name: Mount Google Drive at /content/drive/MyDrive
+        run: |
+          mkdir -p ~/.config/rclone && printf '%s\n' "$RCLONE_CONF" > ~/.config/rclone/rclone.conf
+          sudo mkdir -p /content/drive/MyDrive && sudo chown -R "$USER" /content
+          rclone mount gdrive: /content/drive/MyDrive --daemon --vfs-cache-mode full --vfs-cache-max-size 12G \
+            --vfs-write-back 5s --dir-cache-time 30s --log-file /tmp/rclone-mount.log -v
+          for i in $(seq 1 30); do [ -d "/content/drive/MyDrive/Wifaq 1448" ] && break; sleep 2; done
+          ls "/content/drive/MyDrive/Wifaq 1448" | head -20 || { tail -30 /tmp/rclone-mount.log; exit 1; }
+      - name: Run the Daily steps
+        run: python3 src/colab/daily/daily_ci.py
+      - name: Unmount Drive (flushes pending writes)
+        if: always()
+        run: |
+          sync
+          fusermount -u /content/drive/MyDrive || true
+          sleep 10
+          tail -5 /tmp/rclone-mount.log || true
