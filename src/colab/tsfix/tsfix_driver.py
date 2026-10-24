@@ -105,9 +105,10 @@ def whisper_pipe():
     else:
         print("⚠ No GPU in this runtime (Runtime → Change runtime type → T4 GPU). "
               "Using the small model on the CPU — this is slow and less accurate.")
-        name, dev, ctype, batch = "small", "cpu", "int8", 4
+        # GitHub Actions (no GPU) sets WIFAQ_CPU_MODEL=large-v3-turbo: about 0.4x real time on 4 cores (probe, 8 Oct)
+        name, dev, ctype, batch = os.environ.get("WIFAQ_CPU_MODEL", "small"), "cpu", "int8", 4
     print(f"Loading Whisper {name} on {dev}…", flush=True)
-    model = WhisperModel(name, device=dev, compute_type=ctype)
+    model = WhisperModel(name, device=dev, compute_type=ctype, **({"cpu_threads": os.cpu_count() or 4} if dev == "cpu" else {}))
     _PIPE.append((BatchedInferencePipeline(model=model), batch, name))
     return _PIPE[0]
 

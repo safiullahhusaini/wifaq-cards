@@ -19,21 +19,47 @@ jobs:
         run: |
           mkdir -p probe
           { for n in RCLONE_CONF GEMINI_API_KEY VERTEX_API_KEY DATA_TOKEN; do v="${!n}"; echo "$n: ${#v} chars"; done; } | tee probe/secrets.txt
-      - name: Install rclone and list Drive
+      - name: Inspect rclone config shape (values masked) and try Drive
         env:
           RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
         run: |
           curl -s https://rclone.org/install.sh | sudo bash >/dev/null 2>&1 || true
           rclone version | head -1
           mkdir -p ~/.config/rclone && printf '%s\n' "$RCLONE_CONF" > ~/.config/rclone/rclone.conf
-          { rclone listremotes; echo ---; rclone lsf "gdrive:" --max-depth 1 | head -30; echo ---; rclone lsf "gdrive:Wifaq 1448" --max-depth 1 | head -40; } 2>&1 | tee probe/drive.txt
-      - name: Gemini and Vertex key check (list models, HTTP code only)
+          python3 - <<'PY' | tee probe/conf_shape.txt
+          import configparser, json, os
+          c = configparser.ConfigParser(); c.read(os.path.expanduser("~/.config/rclone/rclone.conf"))
+          for s in c.sections():
+              print("section", s)
+              for k, v in c[s].items():
+                  if k == "token":
+                      try:
+                          d = json.loads(v); print(" token keys", sorted(d), "expiry", d.get("expiry"), "refresh_len", len(d.get("refresh_token","")), "type", d.get("token_type"))
+                      except Exception as e:
+                          print(" token NOT JSON:", e, "len", len(v))
+                  elif k in ("client_secret", "client_id", "refresh_token", "access_token"):
+                      print(" ", k, "len", len(v))
+                  else:
+                      print(" ", k, "=", v[:40])
+          PY
+          date -u | tee -a probe/conf_shape.txt
+          rclone lsd gdrive: -vv 2>&1 | grep -v "^$" | cut -c1-300 | tail -15 | tee probe/drive.txt
+      - name: Gemini and Vertex through the genai library
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           VERTEX_API_KEY: ${{ secrets.VERTEX_API_KEY }}
         run: |
-          { echo "aistudio: $(curl -s -o /dev/null -w '%{http_code}' "https://generativelanguage.googleapis.com/v1beta/models?key=$GEMINI_API_KEY")"
-            echo "vertex-express: $(curl -s -o /dev/null -w '%{http_code}' "https://aiplatform.googleapis.com/v1/publishers/google/models/gemini-3.8-flash?key=$VERTEX_API_KEY")"; } | tee probe/keys.txt
+          pip -q install google-genai
+          python3 - <<'PY' | tee probe/keys.txt
+          import os
+          from google import genai
+          for label, cl in (("aistudio", genai.Client(api_key=os.environ["GEMINI_API_KEY"])), ("vertex", genai.Client(vertexai=True, api_key=os.environ["VERTEX_API_KEY"]))):
+              try:
+                  r = cl.models.generate_content(model="gemini-3.8-flash", contents="Reply with the single word: ok")
+                  print(label, "OK:", (r.text or "")[:40].strip())
+              except Exception as e:
+                  print(label, "ERROR:", str(e)[:200].replace("\n", " "))
+          PY
       - name: Save results
         if: always()
         run: |
