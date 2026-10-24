@@ -1,0 +1,8 @@
+section gdrive
+  type = drive
+  client_id len 72
+  client_secret len 35
+  scope = drive
+ token keys ['access_token', 'expires_in', 'expiry', 'refresh_token', 'token_type'] expiry 2026-10-16T09:29:26.961125768+05:00 refresh_len 103 type Bearer
+  team_drive = 
+Sat Oct 24 03:50:11 UTC 2026

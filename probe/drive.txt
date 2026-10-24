@@ -1,5 +1,7 @@
-gdrive:
----
-2026/10/24 03:44:20 CRITICAL: Failed to create file system for "gdrive:": couldn't find root directory ID: Get "https://www.googleapis.com/drive/v3/files/root?alt=json&fields=id&prettyPrint=false&supportsAllDrives=true": couldn't fetch token: invalid_grant: maybe token expired? - try refreshing with "rclone config reconnect gdrive:"
----
-2026/10/24 03:44:20 CRITICAL: Failed to create file system for "gdrive:Wifaq 1448": couldn't find root directory ID: Get "https://www.googleapis.com/drive/v3/files/root?alt=json&fields=id&prettyPrint=false&supportsAllDrives=true": couldn't fetch token: invalid_grant: maybe token expired? - try refreshing with "rclone config reconnect gdrive:"
+2026/10/24 03:50:11 DEBUG : rclone: Version "v1.75.2" starting with parameters ["rclone" "lsd" "gdrive:" "-vv"]
+2026/10/24 03:50:11 DEBUG : Creating backend with remote "gdrive:"
+2026/10/24 03:50:11 DEBUG : Using config file from "/home/runner/.config/rclone/rclone.conf"
+2026/10/24 03:50:11 DEBUG : gdrive: Token expired
+2026/10/24 03:50:11 DEBUG : gdrive: No updated token found in the config file
+2026/10/24 03:50:11 DEBUG : gdrive: got fatal oauth error: oauth2: "invalid_grant" "Token has been expired or revoked."
+2026/10/24 03:50:11 CRITICAL: Failed to create file system for "gdrive:": couldn't find root directory ID: Get "https://www.googleapis.com/drive/v3/files/root?alt=json&fields=id&prettyPrint=false&supportsAllDrives=true": couldn't fetch token: invalid_grant: maybe token expired? - try refreshing with
