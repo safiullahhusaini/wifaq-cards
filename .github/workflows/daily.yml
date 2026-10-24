@@ -11,11 +11,14 @@ on:
       max_hours:
         description: 'Stop repairing new lessons after this many hours (default: the daily_config.json value)'
         required: false
+      test_lesson:
+        description: 'Test only: <book>/<file>.md to repair as a scratch copy and compare with the Colab result'
+        required: false
       skip_steps:
         description: 'Test only: comma list of steps to skip (5 re-transcribe, 6 repair, 7 opus, 9 sync to wifaq-data)'
         required: false
   push:
-    branches: [ci-daily]
+    branches: [ci-daily]   # test branch: repairs a scratch copy of one lesson and compares it with Colab's result
 permissions:
   contents: read
 concurrency:
@@ -33,6 +36,7 @@ jobs:
       WIFAQ_CPU_MODEL: large-v3-turbo
       WIFAQ_MAX_HOURS: ${{ github.event.inputs.max_hours || (github.event_name == 'push' && '0.5') || '' }}
       WIFAQ_SKIP: ${{ github.event.inputs.skip_steps || (github.event_name == 'push' && '5,7,9') || '' }}
+      WIFAQ_TEST_LESSON: ${{ github.event.inputs.test_lesson || (github.event_name == 'push' && 'ہدایہ جلد رابع/2025-10-18 الهدايه الرابع كتاب الصيد.md') || '' }}
       PYTHONUNBUFFERED: '1'
     steps:
       - uses: actions/checkout@v4

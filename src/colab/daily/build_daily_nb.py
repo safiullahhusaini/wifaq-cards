@@ -284,12 +284,48 @@ if os.environ.get("WIFAQ_MAX_HOURS"):
     MAX_HOURS = float(os.environ["WIFAQ_MAX_HOURS"])
 SKIP = {s.strip() for s in os.environ.get("WIFAQ_SKIP", "").split(",") if s.strip()}
 print("steps skipped by test knob:", sorted(SKIP) or "none")
+
+# Test mode (WIFAQ_TEST_LESSON="<book>/<file>.md"): repair a scratch copy of that lesson's ORIGINAL transcript with this
+# machine's Whisper and compare it with the file the Colab GPU run repaired. Nothing on Drive is changed.
+TEST = os.environ.get("WIFAQ_TEST_LESSON", "")
+if TEST:
+    import glob, shutil
+    REAL_OUT = OUT_DIR
+    OUT_DIR = "/tmp/wifaq_test/Wifaq 1448"
+    TX_DIR = os.path.join(OUT_DIR, "transcripts")
+    AUTO_DIR = os.path.join(OUT_DIR, "automation")
+    os.makedirs(AUTO_DIR, exist_ok=True)
+    SKIP |= {"5", "7", "9"}
+    TEST_BOOK, TEST_FILE = TEST.split("/", 1)
+    found = glob.glob(f"{REAL_OUT}/transcripts/_original/**/{TEST_FILE}", recursive=True)
+    print("test lesson original:", found)
+    os.makedirs(os.path.join(TX_DIR, TEST_BOOK), exist_ok=True)
+    shutil.copyfile(found[0], os.path.join(TX_DIR, TEST_BOOK, TEST_FILE))
+    ONLY_BOOKS = [TEST_BOOK]
+    MAX_HOURS = 2.0
 """
 ci_c5 = ci_c5.replace("\nDONE_LOG = []\n", "\nDONE_LOG = []\nif '5' in SKIP:\n    CONFIG['redo'] = []\n", 1)
 ci_c6 = c6.replace("run_fix()", "if '6' not in SKIP:\n    run_fix()")
 ci_c7 = c7.replace("make_opus_audio()", "if '7' not in SKIP:\n    make_opus_audio()")
 ci_c9 = c9.replace("if not DATA_OK:\n", "if '9' in SKIP or not DATA_OK:\n", 1)
-ci_parts = [shim, ci_c2, ci_over, ci_c4, ci_c5, ci_c6, ci_c7, c8, ci_c9]
+ci_cmp = """
+if TEST:
+    import re, statistics
+    def _stamps(path):
+        out = []
+        for l in open(path, encoding="utf-8"):
+            m = re.match(r"\\[(\\d+):(\\d\\d):(\\d\\d)\\]", l)
+            if m:
+                out.append(int(m.group(1)) * 3600 + int(m.group(2)) * 60 + int(m.group(3)))
+        return out
+    mine = _stamps(os.path.join(TX_DIR, TEST_BOOK, TEST_FILE))
+    colab = _stamps(os.path.join(REAL_OUT, "transcripts", TEST_BOOK, TEST_FILE))
+    n = min(len(mine), len(colab))
+    d = [abs(a - b) for a, b in zip(mine[:n], colab[:n])]
+    print(f"TEST COMPARE: {len(mine)} lines here vs {len(colab)} from Colab; median |diff| {statistics.median(d) if d else None}s; "
+          f"within 2s {100 * sum(x <= 2 for x in d) / max(1, n):.0f}%; within 5s {100 * sum(x <= 5 for x in d) / max(1, n):.0f}%; max {max(d) if d else None}s")
+"""
+ci_parts = [shim, ci_c2, ci_over, ci_c4, ci_c5, ci_c6, ci_c7, c8, ci_c9, ci_cmp]
 ci_parts = [p.split("\n", 1)[1] if p.startswith("# @title") else p for p in ci_parts]
 script = "\n\n# " + "-" * 70 + "\n\n".join([""] + ci_parts)
 open("daily_ci.py", "w", encoding="utf-8").write(script)
