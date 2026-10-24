@@ -1,0 +1,5 @@
+gdrive:
+---
+2026/10/24 03:44:20 CRITICAL: Failed to create file system for "gdrive:": couldn't find root directory ID: Get "https://www.googleapis.com/drive/v3/files/root?alt=json&fields=id&prettyPrint=false&supportsAllDrives=true": couldn't fetch token: invalid_grant: maybe token expired? - try refreshing with "rclone config reconnect gdrive:"
+---
+2026/10/24 03:44:20 CRITICAL: Failed to create file system for "gdrive:Wifaq 1448": couldn't find root directory ID: Get "https://www.googleapis.com/drive/v3/files/root?alt=json&fields=id&prettyPrint=false&supportsAllDrives=true": couldn't fetch token: invalid_grant: maybe token expired? - try refreshing with "rclone config reconnect gdrive:"
