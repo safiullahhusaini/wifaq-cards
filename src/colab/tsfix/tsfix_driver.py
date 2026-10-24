@@ -98,16 +98,24 @@ def whisper_pipe():
     if _PIPE:
         return _PIPE[0]
     _preload_cuda_libs()
-    import torch
     from faster_whisper import WhisperModel, BatchedInferencePipeline
-    if torch.cuda.is_available():
+    try:
+        import torch
+        has_gpu = torch.cuda.is_available()
+    except ImportError:          # GitHub Actions installs no torch: CPU only
+        has_gpu = False
+    if has_gpu:
         name, dev, ctype, batch = WHISPER_MODEL, "cuda", "float16", 16
     else:
-        print("⚠ No GPU in this runtime (Runtime → Change runtime type → T4 GPU). "
-              "Using the small model on the CPU — this is slow and less accurate.")
-        name, dev, ctype, batch = "small", "cpu", "int8", 4
+        if os.environ.get("WIFAQ_CPU_MODEL"):
+            print(f"No GPU here (GitHub Actions): using Whisper {os.environ['WIFAQ_CPU_MODEL']} on the CPU.")
+        else:
+            print("⚠ No GPU in this runtime (Runtime → Change runtime type → T4 GPU). "
+                  "Using the small model on the CPU — this is slow and less accurate.")
+        # GitHub Actions (no GPU) sets WIFAQ_CPU_MODEL=large-v3-turbo: about 0.4x real time on 4 cores (probe, 8 Oct)
+        name, dev, ctype, batch = os.environ.get("WIFAQ_CPU_MODEL", "small"), "cpu", "int8", 4
     print(f"Loading Whisper {name} on {dev}…", flush=True)
-    model = WhisperModel(name, device=dev, compute_type=ctype)
+    model = WhisperModel(name, device=dev, compute_type=ctype, **({"cpu_threads": os.cpu_count() or 4} if dev == "cpu" else {}))
     _PIPE.append((BatchedInferencePipeline(model=model), batch, name))
     return _PIPE[0]
 
