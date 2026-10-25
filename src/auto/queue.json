@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25 (run 12:50 am PKT)",
+ "updated": "2026-10-26 (run 12:50 am PKT)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 2,
@@ -909,12 +909,11 @@
    "file": "2025-11-05 الهدايه الرابع كتاب الديات.m4a",
    "minutes": 30.3,
    "repair": "fixed 94%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-25T19:53:32Z",
-    "by": "https://claude.ai/code/session_015sj6eqWBcV2PUYkY4eBeDd"
-   }
+   "claim": null,
+   "cards": 6,
+   "qa": "focused QA: 0 wrong rulings/attributions; 4 wrong scopes, 2 wrong tags, 4 nits fixed (all drafting)"
   },
   {
    "id": "h4-2025-11-06",
@@ -924,12 +923,11 @@
    "file": "2025-11-06 الهدايه الرابع كتاب الديات.m4a",
    "minutes": 25.4,
    "repair": "fixed 88%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-25T19:53:32Z",
-    "by": "https://claude.ai/code/session_015sj6eqWBcV2PUYkY4eBeDd"
-   }
+   "claim": null,
+   "cards": 4,
+   "qa": "focused QA: 0 wrong rulings/attributions; 2 wrong scopes, 2 nits fixed (all drafting)"
   },
   {
    "id": "h4-2025-11-09",
@@ -939,12 +937,11 @@
    "file": "2025-11-09 الهدايه الرابع كتاب الديات.mp4",
    "minutes": 37.1,
    "repair": "fixed 85%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-25T19:53:32Z",
-    "by": "https://claude.ai/code/session_015sj6eqWBcV2PUYkY4eBeDd"
-   }
+   "claim": null,
+   "cards": 9,
+   "qa": "focused QA: 0 wrong rulings/attributions; 2 wrong scopes, 5 wrong tags, 5 nits fixed (all drafting)"
   },
   {
    "id": "h4-2025-11-16",
