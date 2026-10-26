@@ -2,7 +2,7 @@
  "updated": "2026-10-26 (run 12:50 am PKT)",
  "settings": {
   "paused": false,
-  "max_lessons_per_run": 2,
+  "max_lessons_per_run": 3,
   "stop_new_lesson_after": "4:30 am PKT (nightly runs only)",
   "draft_model": "opus",
   "qa": "focused",
@@ -953,7 +953,10 @@
    "repair": "fixed 95%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-26T19:53:39Z",
+    "by": "https://claude.ai/code/session_01XHJdEPb9zQ2tnRPBowHpzu"
+   }
   },
   {
    "id": "h4-2025-11-29-diyat-2",
@@ -965,7 +968,10 @@
    "repair": "fixed 84%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-26T19:53:39Z",
+    "by": "https://claude.ai/code/session_01XHJdEPb9zQ2tnRPBowHpzu"
+   }
   },
   {
    "id": "h4-2025-11-29-diyat",
@@ -977,7 +983,10 @@
    "repair": "fixed 84%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-26T19:53:39Z",
+    "by": "https://claude.ai/code/session_01XHJdEPb9zQ2tnRPBowHpzu"
+   }
   },
   {
    "id": "h4-2025-11-30",
