@@ -955,7 +955,7 @@
    "note": "",
    "claim": null,
    "cards": 6,
-   "qa": "focused QA: 0 wrong rulings/attributions; 1 wrong footnote tag (nuskha note), 1 teacher narration mixed with book, 1 Shafi'i scope omission, 3 nits fixed (all from drafting). AUDIO PENDING: copy was blocked"
+   "qa": "focused QA: 0 wrong rulings/attributions; 1 wrong footnote tag (nuskha note), 1 teacher narration mixed with book, 1 Shafi'i scope omission, 3 nits fixed (all from drafting). audio added"
   },
   {
    "id": "h4-2025-11-29-diyat-2",
@@ -969,7 +969,7 @@
    "note": "",
    "claim": null,
    "cards": 4,
-   "qa": "focused QA: 0 wrong rulings/attributions/tags; 6 nits fixed (untagged glosses, teacher additions, «لهما» = Tarafayn). AUDIO PENDING"
+   "qa": "focused QA: 0 wrong rulings/attributions/tags; 6 nits fixed (untagged glosses, teacher additions, «لهما» = Tarafayn). audio added"
   },
   {
    "id": "h4-2025-11-29-diyat",
@@ -983,7 +983,7 @@
    "note": "",
    "claim": null,
    "cards": 7,
-   "qa": "focused QA: 0 wrong rulings/attributions/tags; 7 nits fixed (Sahibayn vs «امام صاحب», teacher additions labelled, GAP ranges). AUDIO PENDING"
+   "qa": "focused QA: 0 wrong rulings/attributions/tags; 7 nits fixed (Sahibayn vs «امام صاحب», teacher additions labelled, GAP ranges). audio added"
   },
   {
    "id": "h4-2025-11-30",
@@ -1312,8 +1312,8 @@
   {
    "id": "eng-audio-2025-11",
    "book": "h4",
-   "state": "todo",
-   "note": "26-27 Oct run: copying Opus audio from wifaq-data into hidaya4/audio was denied by the sandbox permission check (private-source provenance). Needed: wifaq-data audio/ہدایہ جلد رابع/ '2025-11-16 الهدايه الرابع كتاب الديات.ogg' → hidaya4/audio/2025-11-16.ogg; '2025-11-29 … الديات.ogg' → 2025-11-29-diyat.ogg; '2025-11-29 … الديات 2.ogg' → 2025-11-29-diyat-2.ogg (one part each, no parts.json entry). Cards are live without audio.",
+   "state": "done",
+   "note": "26-27 Oct run: copying Opus audio from wifaq-data into hidaya4/audio was denied by the sandbox permission check (private-source provenance). Needed: wifaq-data audio/ہدایہ جلد رابع/ '2025-11-16 الهدايه الرابع كتاب الديات.ogg' → hidaya4/audio/2025-11-16.ogg; '2025-11-29 … الديات.ogg' → 2025-11-29-diyat.ogg; '2025-11-29 … الديات 2.ogg' → 2025-11-29-diyat-2.ogg (one part each, no parts.json entry). Cards are live without audio. DONE 27 Oct: user approved in chat, files copied.",
    "claim": null
   }
  ]
