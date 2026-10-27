@@ -993,12 +993,11 @@
    "file": "2025-11-30 الهدايه الرابع كتاب الديات.m4a",
    "minutes": 44.9,
    "repair": "fixed 83%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-27T19:54:17Z",
-    "by": "https://claude.ai/code/session_018ayvLozMSb4yx7aVVvW2pv"
-   }
+   "claim": null,
+   "cards": 10,
+   "qa": "focused QA: 521 timestamps real; 1 wrong ruling (woman killer shares diya, teacher slip) + wrong refs/tags fixed, all from drafting"
   },
   {
    "id": "h4-2025-12-01",
@@ -1008,12 +1007,11 @@
    "file": "2025-12-01 الهدايه الرابع كتاب الديات.m4a",
    "minutes": 30.8,
    "repair": "fixed 91%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-27T19:54:17Z",
-    "by": "https://claude.ai/code/session_018ayvLozMSb4yx7aVVvW2pv"
-   }
+   "claim": null,
+   "cards": 7,
+   "qa": "focused QA: 292 timestamps real; 0 wrong rulings; 1 wrong page tag, 1 teacher reversal (23:17) fixed, 3 nits"
   },
   {
    "id": "h4-2025-12-02",
@@ -1023,12 +1021,11 @@
    "file": "2025-12-02 الهدايه الرابع كتاب الديات.m4a",
    "minutes": 37.3,
    "repair": "fixed 87%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-27T19:54:17Z",
-    "by": "https://claude.ai/code/session_018ayvLozMSb4yx7aVVvW2pv"
-   }
+   "claim": null,
+   "cards": 5,
+   "qa": "focused QA: 326 timestamps real; teacher tasaduq slip leaked into 1 card (fixed), 2 wrong tags, ~5 nits"
   },
   {
    "id": "h4-2025-12-06",
