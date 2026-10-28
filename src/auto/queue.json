@@ -1037,7 +1037,10 @@
    "repair": "fixed 84% (11 Oct)",
    "state": "ready",
    "note": "repair: text missing (82% matched)",
-   "claim": null
+   "claim": {
+    "run": "2026-10-28T19:55:21Z",
+    "by": "https://claude.ai/code/session_018ayvLpk9CeT6TJMK6wRx5G"
+   }
   },
   {
    "id": "h4-2025-12-07",
@@ -1061,7 +1064,10 @@
    "repair": "fixed 93%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-28T19:55:21Z",
+    "by": "https://claude.ai/code/session_018ayvLpk9CeT6TJMK6wRx5G"
+   }
   },
   {
    "id": "h4-2025-12-13",
@@ -1073,7 +1079,10 @@
    "repair": "fixed 85%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-28T19:55:21Z",
+    "by": "https://claude.ai/code/session_018ayvLpk9CeT6TJMK6wRx5G"
+   }
   },
   {
    "id": "h4-2025-12-14",
