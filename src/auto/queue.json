@@ -1035,12 +1035,11 @@
    "file": "2025-12-06 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 35.3,
    "repair": "fixed 84% (11 Oct)",
-   "state": "ready",
-   "note": "repair: text missing (82% matched)",
-   "claim": {
-    "run": "2026-10-28T19:55:21Z",
-    "by": "https://claude.ai/code/session_018ayvLpk9CeT6TJMK6wRx5G"
-   }
+   "state": "done",
+   "note": "cards 29 Oct run; audio waiting for user approval (sandbox blocked copy from wifaq-data)",
+   "claim": null,
+   "cards": 8,
+   "qa": "focused QA 29 Oct: 0 wrong rulings/attributions; 1 teacher overstatement (قتل بالسبب), ~9 tag/wording fixes, all from drafting; bounds right"
   },
   {
    "id": "h4-2025-12-07",
@@ -1062,12 +1061,11 @@
    "file": "2025-12-08 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 27.7,
    "repair": "fixed 93%",
-   "state": "ready",
-   "note": "",
-   "claim": {
-    "run": "2026-10-28T19:55:21Z",
-    "by": "https://claude.ai/code/session_018ayvLpk9CeT6TJMK6wRx5G"
-   }
+   "state": "done",
+   "note": "cards 29 Oct run; audio waiting for user approval (sandbox blocked copy from wifaq-data)",
+   "claim": null,
+   "cards": 5,
+   "qa": "focused QA 29 Oct: 0 wrong rulings; end frac 1281 0.25→0.3, 5 label/tag fixes"
   },
   {
    "id": "h4-2025-12-13",
@@ -1077,12 +1075,11 @@
    "file": "2025-12-13 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 47.0,
    "repair": "fixed 85%",
-   "state": "ready",
-   "note": "",
-   "claim": {
-    "run": "2026-10-28T19:55:21Z",
-    "by": "https://claude.ai/code/session_018ayvLpk9CeT6TJMK6wRx5G"
-   }
+   "state": "done",
+   "note": "cards 29 Oct run; audio waiting for user approval (sandbox blocked copy from wifaq-data)",
+   "claim": null,
+   "cards": 7,
+   "qa": "focused QA 29 Oct: 0 wrong rulings; 2 imam-attribution precisions (ظاہر الروایہ, riwaya of Muhammad), 2 K7 fixes, 1 inexact flag quote; opening recap of 12-08 not carded (05-17 precedent)"
   },
   {
    "id": "h4-2025-12-14",
