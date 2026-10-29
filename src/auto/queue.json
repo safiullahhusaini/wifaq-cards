@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26 (run 12:50 am PKT)",
+ "updated": "2026-10-30 (run 12:52 am PKT)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 3,
@@ -1101,12 +1101,11 @@
    "file": "2025-12-15 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 22.9,
    "repair": "fixed 84%",
-   "state": "ready",
-   "note": "",
-   "claim": {
-    "run": "2026-10-29T19:55:00Z",
-    "by": "https://claude.ai/code/session_018ayvLnAd2w7mQqDiwDKXN8"
-   }
+   "state": "done",
+   "note": "cards 30 Oct run; audio waiting for user approval (sandbox blocked copy from wifaq-data)",
+   "claim": null,
+   "cards": 4,
+   "qa": "focused QA 30 Oct: 0 wrong rulings/attributions; ~8 wording/tag nits (unlabelled teacher examples, a muddled reason, 2 S tags), all from drafting, fixed; end bound 1312 line 5 (my prep said 1311: OCR labels in p0311-0320 are one low)"
   },
   {
    "id": "h4-2025-12-16",
@@ -1116,12 +1115,11 @@
    "file": "2025-12-16 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 26.9,
    "repair": "fixed 83%",
-   "state": "ready",
-   "note": "",
-   "claim": {
-    "run": "2026-10-29T19:55:00Z",
-    "by": "https://claude.ai/code/session_018ayvLnAd2w7mQqDiwDKXN8"
-   }
+   "state": "done",
+   "note": "cards 30 Oct run; audio waiting for user approval (sandbox blocked copy from wifaq-data)",
+   "claim": null,
+   "cards": 4,
+   "qa": "focused QA 30 Oct: 0 wrong rulings/attributions; 7 tag/wording nits fixed; bounds 1312 line 6 → 1320 line 4 (my prep said 1311/1318: OCR label offset), drafter and QA caught it"
   },
   {
    "id": "h4-2025-12-20",
@@ -1131,12 +1129,11 @@
    "file": "2025-12-20 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 33.9,
    "repair": "fixed 92%",
-   "state": "ready",
-   "note": "",
-   "claim": {
-    "run": "2026-10-29T19:55:00Z",
-    "by": "https://claude.ai/code/session_018ayvLnAd2w7mQqDiwDKXN8"
-   }
+   "state": "done",
+   "note": "cards 30 Oct run; audio waiting for user approval (sandbox blocked copy from wifaq-data)",
+   "claim": null,
+   "cards": 9,
+   "qa": "focused QA 30 Oct: 0 wrong rulings; 1 minor attribution («قيل» credited to the author, fixed), 5 wording/scope nits fixed; bounds right (1321 line 1 → 1335 end)"
   },
   {
    "id": "h4-2025-12-21",
