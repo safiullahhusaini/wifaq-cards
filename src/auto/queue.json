@@ -1145,7 +1145,10 @@
    "repair": "fixed 91% (11 Oct)",
    "state": "ready",
    "note": "repair matched only 53%",
-   "claim": null
+   "claim": {
+    "run": "2026-10-30T19:54:21.843363Z",
+    "by": "https://claude.ai/code/session_018ayvLnAd2w7mQqDiwDKXN8"
+   }
   },
   {
    "id": "h4-2025-12-24",
@@ -1157,7 +1160,10 @@
    "repair": "fixed 96%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-30T19:54:21.843363Z",
+    "by": "https://claude.ai/code/session_018ayvLnAd2w7mQqDiwDKXN8"
+   }
   },
   {
    "id": "h4-2025-12-27",
@@ -1169,7 +1175,10 @@
    "repair": "fixed 94%",
    "state": "ready",
    "note": "",
-   "claim": null
+   "claim": {
+    "run": "2026-10-30T19:54:21.843363Z",
+    "by": "https://claude.ai/code/session_018ayvLnAd2w7mQqDiwDKXN8"
+   }
   },
   {
    "id": "h4-2025-12-28",
