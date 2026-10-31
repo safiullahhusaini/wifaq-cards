@@ -1146,8 +1146,8 @@
    "state": "ready",
    "note": "repair matched only 53%",
    "claim": {
-    "run": "2026-10-30T19:54:21.843363Z",
-    "by": "https://claude.ai/code/session_018ayvLnAd2w7mQqDiwDKXN8"
+    "run": "2026-10-31T19:54:48Z",
+    "by": "https://claude.ai/code/session_018ayvLk6xTB2SKF1KsDiJFp"
    }
   },
   {
@@ -1161,8 +1161,8 @@
    "state": "ready",
    "note": "",
    "claim": {
-    "run": "2026-10-30T19:54:21.843363Z",
-    "by": "https://claude.ai/code/session_018ayvLnAd2w7mQqDiwDKXN8"
+    "run": "2026-10-31T19:54:48Z",
+    "by": "https://claude.ai/code/session_018ayvLk6xTB2SKF1KsDiJFp"
    }
   },
   {
@@ -1173,12 +1173,9 @@
    "file": "2025-12-27 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 38.0,
    "repair": "fixed 94%",
-   "state": "ready",
-   "note": "",
-   "claim": {
-    "run": "2026-10-30T19:54:21.843363Z",
-    "by": "https://claude.ai/code/session_018ayvLnAd2w7mQqDiwDKXN8"
-   }
+   "state": "blocked",
+   "note": "31 Oct: blocked on OCR. In wifaq-data/ocr/Al Hidayah Vol-8 the files for PDF 370-385 (printed 369-384, the rest of الوصايا and the start of الخنثى) hold the Vol-7 Rahn pages (md5 differs but text equals Vol-7 PDF 370-385). Need the real Vol-8 pages; OCR them again from the Vol-8 PDF. 12-27 covers v8 1367.4 to about 1384; 12-28 (الخنثى) starts about 1385.",
+   "claim": null
   },
   {
    "id": "h4-2025-12-28",
@@ -1188,8 +1185,8 @@
    "file": "2025-12-28 الهدايه الرابع كتاب الخنثى.m4a",
    "minutes": 30.8,
    "repair": "fixed 97%",
-   "state": "ready",
-   "note": "",
+   "state": "blocked",
+   "note": "31 Oct: blocked on the same Vol-8 OCR hole (kitab الخنثى opening is on PDF 385 or earlier, which holds Rahn text).",
    "claim": null
   },
   {
