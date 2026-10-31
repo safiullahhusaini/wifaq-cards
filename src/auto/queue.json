@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30 (run 12:52 am PKT)",
+ "updated": "2026-11-01 (run 12:52 am PKT)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 3,
@@ -1143,12 +1143,11 @@
    "file": "2025-12-21 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 44.5,
    "repair": "fixed 91% (11 Oct)",
-   "state": "ready",
+   "state": "done",
    "note": "repair matched only 53%",
-   "claim": {
-    "run": "2026-10-31T19:54:48Z",
-    "by": "https://claude.ai/code/session_018ayvLk6xTB2SKF1KsDiJFp"
-   }
+   "claim": null,
+   "cards": 10,
+   "qa": "focused: 203 lines; 0 wrong rulings/attributions; 2 scope, 4 tag, 2 nits fixed"
   },
   {
    "id": "h4-2025-12-24",
@@ -1158,12 +1157,11 @@
    "file": "2025-12-24 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 36.4,
    "repair": "fixed 96%",
-   "state": "ready",
+   "state": "done",
    "note": "",
-   "claim": {
-    "run": "2026-10-31T19:54:48Z",
-    "by": "https://claude.ai/code/session_018ayvLk6xTB2SKF1KsDiJFp"
-   }
+   "claim": null,
+   "cards": 9,
+   "qa": "focused: 186 lines; 0 wrong rulings; 1 teacher slip kept out of card 9, 3 scope, 2 tag fixes"
   },
   {
    "id": "h4-2025-12-27",
