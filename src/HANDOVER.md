@@ -236,3 +236,10 @@ Done (5 Oct): the 9 missing Opus files were pulled and pushed; every carded less
 ## 11. Open problem found 1 Nov 2026: Vol-8 OCR hole
 
 In `wifaq-data/ocr/Al Hidayah Vol-8` (and the Drive folder) the files for PDF 370–385 (p0371-0375 … p0381-0385, part of p0366-0370) contain the Vol-7 Rahn pages («باب ما يجوز ارتهانه»), not Vol-8. So v8 keys 1369–1384 (rest of كتاب الوصايا incl. فصل في الشهادة, and the start of كتاب الخنثى) have no OCR. Queue items h4-2025-12-27 and h4-2025-12-28 are `blocked` on it. Fix: re-OCR those Vol-8 PDF pages (user supplies the pages or the right PDF), then set both items to `ready`. 12-27 starts at «ومن أوصى بثلث ألف درهم» (v8 1367 frac 0.85).
+
+## 12. Hifz page (1 Nov 2026)
+
+`mishkat1/hifz.html` (home → پرچہ 3 → «حفظ الأحاديث»): the 38 syllabus hadith (كتاب الإيمان 2–10, الاعتصام 140–143, العلم 198–203, حفظ اللسان الفصل الأول 4812–4830; al-Albani's Mishkat numbering), sahabi + matn + takhrij as printed. «پڑھیں» / «زبانی سنائیں» (first words, rest blurred, «متن دکھائیں»), «یاد ہو گئی» → revision after 2, 7, 21 days (the tracker's rule), filters سب / باقی / آج دہرائیں. Progress lives in each phone's localStorage (`hifz38-v1`), nothing shared.
+- Data: `src/cards/m1_hifz_data.py`; page builder `src/cards/m1_hifz.py` (registered in `build_site.py` PAGES).
+- Text source: OpenITI `0741KhatibTabrizi.MishkatMasabih.Shamela0008360` (unvocalised); every hadith was diffed word-for-word against it after stripping harakat. Harakat for 2–203 from the sunnah.com vocalisation (AhmedBaset/hadith-json), typos fixed (أحدق، الحياة، ميتغ، أوعلم). **Harakat for 4812–4830 are Claude's** and shown with an amber «اعراب AI کے» note until the user checks them against his Mishkat. Takhrij "~" = none printed in the book (shown as «بخاری و مسلم» in Urdu).
+- Open: user to compare the 4812–4830 harakat (and the 4815 «كافر» / 4821 «أهلكهم» readings) with his edition; then set `ai` to False for checked ones.

@@ -29,6 +29,7 @@ def build(script, out_name, env_home="../"):
 PAGES = [
     # (folder, file, builder, built html, audio files {site path: source})
     ("mishkat1", "iman.html", "m1_build.py", "mishkat1_cards.html", {}),
+    ("mishkat1", "hifz.html", "m1_hifz.py", "mishkat1_hifz.html", {}),
 ]
 REMOVE = ["hidaya4/audio/2025-05-18.mp4"]   # superseded files
 
@@ -79,6 +80,7 @@ ul.links .d { color: var(--muted); font-size: 13px; }
 ul.links .tag { font-size: 12px; font-weight: 600; border-radius: 999px; padding: 0 8px; }
 .tag.sample { color: var(--ai); background: var(--ai-tint); }
 .tag.audio { color: var(--teacher); background: var(--teacher-tint); }
+.tag.hifz { color: var(--matn); background: #FBEDEB; }
 .soon { margin: 0; color: var(--muted); font-size: 13px; }
 section.how { margin-block-start: 26px; border-top: 1px solid var(--rule); padding-block-start: 14px; display: grid; gap: 6px; }
 section.how h2 { margin: 0; font-size: 15px; }
@@ -110,12 +112,13 @@ PAPERS = [
     ("1", "التبیان، تیسیر مصطلح الحدیث، شرح نخبۃ الفکر، آئینہ قادیانیت", "", []),
     ("2", "بیضاوی (ربع پارہ اول)", "", []),
     ("3", "مشکوٰۃ المصابیح جلد اول", "پیر 11 جنوری",
-     [("mishkat1/iman.html", "كتاب الإيمان", "الفصل الأول · 2 حدیثیں", ["sample"])]),
+     [("mishkat1/hifz.html", "حفظ الأحاديث", "نصاب کی 38 احادیث · یاد کرنے کی مشق اور دہرائی", ["hifz"]),
+      ("mishkat1/iman.html", "كتاب الإيمان", "الفصل الأول · 2 حدیثیں", ["sample"])]),
     ("4", "مشکوٰۃ المصابیح جلد دوم", "", []),
     ("5", "ہدایہ جلد ثالث", "", []),
     ("6", "ہدایہ جلد رابع", "", "__H4__"),
 ]
-TAGS = {"sample": "نمونہ", "audio": "آواز یہیں"}
+TAGS = {"sample": "نمونہ", "audio": "آواز یہیں", "hifz": "15 نمبر"}
 
 
 def home_html(h4_links):
