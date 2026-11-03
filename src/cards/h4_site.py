@@ -115,7 +115,7 @@ section.how ul { margin: 0; padding-inline-start: 18px; color: var(--muted); fon
 """
 
 
-PAPER_EXAMS = 12   # Hidaya 4 papers in «الجواب للموقوف علیہ»: 1430–1441
+PAPER_EXAMS = 13   # Hidaya 4 papers: 1430–1441 from «الجواب للموقوف علیہ», plus 1447 from the user's photo
 
 
 def paper_page(D):

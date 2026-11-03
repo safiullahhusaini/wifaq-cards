@@ -1,5 +1,5 @@
 {
-  "about": "Exam-importance marks for Hidaya 4. 'teacher' = places where the teacher himself stressed a masala in class (searched in all 84 Hidaya 4 transcripts on 8 Oct 2026; he never says a passage comes in the exam, so these are his «اہم / مشہور / بہت ضروری» flags). 'papers' = Wifaq past-paper questions 1430–1441 from the user's «الجواب للموقوف علیہ» (Maktaba Zakariya 2021 PDF, read page by page on 3 Nov 2026; `src` = its PDF page; `n` = question and shiq by order in that year's paper). `start` = the passage's opening words as found in the Bushra OCR, `v7` = OCR page key (vol 8 = 1000 + page). Entries without `v7` (the OCR lacks the passage) carry `fasl` and go on that fasl's first card. A paper mark goes on the card whose book span holds the passage; one that falls in no card is listed on the contents page. Tiers for all six papers: project doc claude/past-paper-tiers.md. The build attaches each entry to the card whose recording span contains (lesson, ts); entries whose lesson has no cards yet are listed per kitab on the contents page. When a lesson is re-transcribed or carded, re-check its entries' ts against the repaired transcript.",
+  "about": "Exam-importance marks for Hidaya 4. 'teacher' = places where the teacher himself stressed a masala in class (searched in all 84 Hidaya 4 transcripts on 8 Oct 2026; he never says a passage comes in the exam, so these are his «اہم / مشہور / بہت ضروری» flags). 'papers' = Wifaq past-paper questions 1430–1441 (plus the 1447 paper from the user's photo, 3 Nov) from the user's «الجواب للموقوف علیہ» (Maktaba Zakariya 2021 PDF, read page by page on 3 Nov 2026; `src` = its PDF page; `n` = question and shiq by order in that year's paper). `start` = the passage's opening words as found in the Bushra OCR, `v7` = OCR page key (vol 8 = 1000 + page). Entries without `v7` (the OCR lacks the passage) carry `fasl` and go on that fasl's first card. A paper mark goes on the card whose book span holds the passage; one that falls in no card is listed on the contents page. Tiers for all six papers: project doc claude/past-paper-tiers.md. The build attaches each entry to the card whose recording span contains (lesson, ts); entries whose lesson has no cards yet are listed per kitab on the contents page. When a lesson is re-transcribed or carded, re-check its entries' ts against the repaired transcript.",
   "teacher": [
     {
       "lesson": "2025-02-22",
@@ -862,6 +862,66 @@
       "src": "الجواب PDF ص 453",
       "start": "ومن اوصى بوصايا من حقوق الله تعالى",
       "v7": 1315,
+      "n": "3 ب"
+    },
+    {
+      "year": 1447,
+      "kitab": "كتاب الشفعة",
+      "topic": "شفعہ: کئی خریدار یا کئی بائع",
+      "text": "واذا اشترى خمسة نفر دارا من رجل فللشفيع ان ياخذ نصيب احدهم",
+      "src": "وفاق شعبان ۱۴۴۷ھ کا پرچہ (تصویر)",
+      "start": "واذا اشترى خمسة نفر دارا من رجل فللشفيع ان ياخذ نصيب احدهم",
+      "v7": 56,
+      "n": "1 الف"
+    },
+    {
+      "year": 1447,
+      "kitab": "كتاب الذبائح",
+      "topic": "متروک التسمیہ",
+      "text": "وان ترك الذابح التسمية عمدا",
+      "src": "وفاق شعبان ۱۴۴۷ھ کا پرچہ (تصویر)",
+      "start": "وان ترك الذابح التسمية عمدا",
+      "v7": 129,
+      "n": "1 ب"
+    },
+    {
+      "year": 1447,
+      "kitab": "كتاب الكراهية",
+      "topic": "بیوت مکہ کی بیع",
+      "text": "ولا باس ببيع بناء بيوت مكة",
+      "src": "وفاق شعبان ۱۴۴۷ھ کا پرچہ (تصویر)",
+      "start": "ولا باس ببيع بناء بيوت مكة",
+      "v7": 235,
+      "n": "2 الف"
+    },
+    {
+      "year": 1447,
+      "kitab": "كتاب الرهن",
+      "topic": "ضمان رہن",
+      "text": "وهو مضمون بالاقل من قيمته ومن الدين",
+      "src": "وفاق شعبان ۱۴۴۷ھ کا پرچہ (تصویر)",
+      "start": "وهو مضمون بالاقل من قيمته ومن الدين",
+      "v7": 350,
+      "n": "2 ب"
+    },
+    {
+      "year": 1447,
+      "kitab": "كتاب الجنايات",
+      "topic": "ایک نے جماعت کو قتل کیا",
+      "text": "واذا قتل واحد جماعة فحضر اولياء المقتولين",
+      "src": "وفاق شعبان ۱۴۴۷ھ کا پرچہ (تصویر)",
+      "start": "واذا قتل واحد جماعة فحضر اولياء المقتولين",
+      "v7": 1041,
+      "n": "3 الف"
+    },
+    {
+      "year": 1447,
+      "kitab": "كتاب الوصايا",
+      "topic": "وصیت بالثلث، بجمیع المال",
+      "text": "وان اوصى لاحدهما بجميع ماله ولآخر بثلث ماله",
+      "src": "وفاق شعبان ۱۴۴۷ھ کا پرچہ (تصویر)",
+      "start": "وان اوصى لاحدهما بجميع ماله ولآخر بثلث ماله",
+      "v7": 1276,
       "n": "3 ب"
     }
   ]
