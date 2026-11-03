@@ -26,7 +26,8 @@ AUTO_DIR = os.path.join(OUT_DIR, "automation")
 os.makedirs(AUTO_DIR, exist_ok=True)
 
 CONFIG = {"redo": [], "repair_books": ["ہدایہ جلد رابع"], "opus_books": ["ہدایہ جلد رابع"],
-          "skip_books": ["ہدایہ جلد ثالث"], "whisper_model": "large-v3", "max_hours": 3}
+          "skip_books": [], "whisper_model": "large-v3", "max_hours": 3,
+          "new_recordings": {"folders": ["input_audio"], "books": ["ہدایہ جلد ثالث"], "year": "1448"}, "opus_only": {}}
 
 # Claude's night runs keep the to-do in the private repo wifaq-data; Drive is the fallback.
 import shutil, subprocess
@@ -71,8 +72,9 @@ else:
     print("No daily_config.json yet — using the defaults.")
 
 # Settings used by the repair and Opus code below
-BOOK_ORDER = ["ہدایہ جلد رابع", "مشکوۃ المصابیح جلد اول", "مشکوۃ المصابیح جلد دوم", "تیسیر مصطلح الحدیث",
-              "شرح نخبۃ الفکر", "التبیان فی علوم القرآن", "بیضاوی", "آئینہ قادیانیت", "ہدایہ جلد ثالث"]
+BOOK_ORDER = ["ہدایہ جلد رابع", "ہدایہ جلد ثالث", "مشکوۃ المصابیح جلد اول", "مشکوۃ المصابیح جلد دوم",
+              "تیسیر مصطلح الحدیث", "شرح نخبۃ الفکر", "التبیان فی علوم القرآن", "بیضاوی", "آئینہ قادیانیت"]
+OPUS_ONLY = CONFIG.get("opus_only", {})
 ONLY_BOOKS = CONFIG["repair_books"]
 WHISPER_MODEL = CONFIG.get("whisper_model", "large-v3")
 MAX_HOURS = float(CONFIG.get("max_hours", 3))
@@ -86,6 +88,7 @@ for t in CONFIG["redo"]:
     print("     ", t["file"])
 print(f"2 · repair: {', '.join(ONLY_BOOKS) or 'all books'}")
 print(f"3 · Opus copies: {', '.join(WEB_BOOKS) or 'none'}")
+print(f"4 · new class recordings from: {', '.join(CONFIG.get('new_recordings', {}).get('folders', [])) or 'none'}")
 
 # Test knobs for the workflow (never set by the schedule): WIFAQ_MAX_HOURS, WIFAQ_SKIP (comma list of step numbers)
 if os.environ.get("WIFAQ_MAX_HOURS"):
@@ -684,6 +687,9 @@ def _opus_targets():
         rec = rec + [""] * (12 - len(rec))
         file, book, date, path = rec[0], rec[1], rec[10], rec[11]
         ranks = [i for i, b in enumerate(WEB_BOOKS) if _norm_name(b) and _norm_name(b) in _norm_name(book)]
+        only = next((v for k, v in globals().get("OPUS_ONLY", {}).items() if _norm_name(k) == _norm_name(book)), None)
+        if only is not None and not any(x in path for x in only):
+            continue   # e.g. Hidaya 3: only this year's recordings and the last-year lessons the cards use
         if path and ranks:
             out.append((ranks[0], date or "9999", file, book, path))
     return sorted(out)
@@ -773,6 +779,64 @@ else:
             rx.say("All models are out of quota for today; the rest waits for tomorrow.")
             break
     print(f"\n{sum(1 for x in DONE_LOG if x.startswith('✓'))} of {len(todo)} re-transcribed.")
+
+# This year's class recordings (since 3 Nov 2026): every audio file under new_recordings.folders (default input_audio)
+# whose book is in new_recordings.books gets a first transcript and a row in recordings_inventory.csv (so step 7 makes
+# its Opus copy). CONFIG["transcribe"] = [{"path": "<full path>", "book": "...", "date": "YYYY-MM-DD"}] adds named
+# recordings (e.g. a last-year vault lesson a night run needs for a gap). Nothing is ever deleted here.
+import csv
+NEW_CFG = CONFIG.get("new_recordings", {})
+NEW_DONE, NEW_ALL = [], []
+new_todo = []
+INV_PATH = os.path.join(OUT_DIR, "recordings_inventory.csv")
+
+def _inventory_row(t, minutes):
+    # add (or fix the book of) this recording's row, so step 7 makes its Opus copy
+    with open(INV_PATH, encoding="utf-8-sig") as f:
+        rows = list(csv.reader(f))
+    for r in rows[1:]:
+        if len(r) > 11 and r[11] == t["path"]:
+            if r[1] == t["book"]:
+                return
+            r[1], r[10] = t["book"], r[10] or t["date"]
+            break
+    else:
+        rows.append([os.path.basename(t["path"]), t["book"], "", "", minutes, "", "", "ہاں", "نہیں",
+                     f"{t['year']} class", t["date"], t["path"]])
+    with open(INV_PATH + ".part", "w", newline="", encoding="utf-8-sig") as f:
+        csv.writer(f).writerows(rows)
+    os.replace(INV_PATH + ".part", INV_PATH)
+if '5' not in globals().get("SKIP", set()):
+    for folder in NEW_CFG.get("folders", []):
+        for root, _, files in os.walk(os.path.join(DRIVE, folder)):
+            for fn in sorted(files):
+                src = os.path.join(root, fn)
+                got = rx.class_recording(src)
+                if got and got[0] in NEW_CFG.get("books", []):
+                    new_todo.append({"path": src, "book": got[0], "date": got[1], "year": NEW_CFG.get("year", "1448")})
+    new_todo += [dict(t, year=t.get("year", "1447")) for t in CONFIG.get("transcribe", [])]
+    new_todo = [t for t in new_todo if os.path.exists(t["path"])]
+    NEW_ALL = list(new_todo)
+    new_todo = [t for t in new_todo if not rx.transcript_for_audio(t["path"])]
+    new_todo.sort(key=lambda t: t["date"])
+if not new_todo:
+    print("No new class recordings to transcribe.")
+elif not (rx.LANES or rx.setup_lanes(_secret)):
+    print("No API key: new class recordings wait.")
+else:
+    rx.say(f"{len(new_todo)} new class recording(s) to transcribe")
+    for t in new_todo:
+        got = rx.transcribe_new(t["path"], t["book"], t["date"], t["year"])
+        NEW_DONE.append(("✓ " + got[0]) if got else ("✗ " + os.path.basename(t["path"])))
+        if got:
+            _inventory_row(t, got[1])
+        elif len(rx.DEAD) >= len(rx.COMBOS):
+            rx.say("All models are out of quota for today; the rest waits for tomorrow.")
+            break
+for t in NEW_ALL:   # the transcription notebook rewrites the inventory without these books: put them back
+    if t not in new_todo and rx.transcript_for_audio(t["path"]):
+        _inventory_row(t, "")
+DONE_LOG += [f"new: {x}" for x in NEW_DONE]
 
 if '6' not in SKIP:
     run_fix()

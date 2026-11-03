@@ -1,6 +1,6 @@
 # Automated card runs: protocol (read this first in every scheduled run)
 
-Written 8 Oct 2026. The user (Syed) asked for the remaining cards to be made automatically over the coming days, with as little manual work as possible, and to be asked only about important design decisions. **Hidaya 3 is skipped for now (user, 8 Oct).**
+Written 8 Oct 2026. The user (Syed) asked for the remaining cards to be made automatically over the coming days, with as little manual work as possible, and to be asked only about important design decisions. **Hidaya 3 is back (user, 3 Nov 2026): it comes right after Hidaya 4, from this year's recordings first (section 5a).**
 
 You are one scheduled run. You start cold: nothing from earlier runs is in your context except what is written in this repo, in the control panel, and in Drive. Work carefully and push often, because a run can be cut off by usage limits at any moment.
 
@@ -30,7 +30,7 @@ The user is on the Pro plan; his own chats share the allowance with these runs, 
 
 ## 1. Start
 
-1. Load tools in one ToolSearch call: `select:ArtifactData,SendUserMessage,mcp__Google_Drive__search_files,mcp__Google_Drive__read_file_content,mcp__Google_Drive__download_file_content,mcp__Google_Drive__create_file,mcp__Google_Drive__update_file`.
+1. Load tools in one ToolSearch call: `select:ArtifactData,SendUserMessage,mcp__Google_Drive__search_files,mcp__Google_Drive__read_file_content,mcp__Google_Drive__download_file_content,mcp__Google_Drive__create_file,mcp__Google_Drive__update_file,mcp__Google_Drive__trash_file`.
 2. Attach and clone the repo (HANDOVER section 3, steps 1–2), make the two symlinks the brief expects (`/home/claude/wifaq/cards` → `<repo>/src/cards`, `/home/claude/wifaq/v7ocr` → `<repo>/.cache/v7ocr`).
 3. Read `src/HANDOVER.md`, this file, `src/auto/queue.json`, `src/auto/INBOX.md`, and the top of `src/auto/runs.md`.
 4. Read the panel's `control/settings` (it overrides `queue.json → settings` for `paused` and `max_lessons_per_run`). If paused, or a `claim` in the queue is younger than 5 hours (another run is working), write one line in `runs.md`, push, and stop.
@@ -54,7 +54,7 @@ The user is on the Pro plan; his own chats share the allowance with these runs, 
 
 ## 4. Choose and claim work
 
-- Order: `settings.book_order`, and inside a book the queue order (book order of kitabs, then date). Prefer finishing a kitab before starting the next, but don't wait: if a lesson is blocked on re-transcription, card the next ready one and note the hole (`GAPS` already shows unrecorded/unexplained parts on the site).
+- Order: `settings.book_order` (h4, then h3 since 3 Nov: card Hidaya 3 whenever Hidaya 4 has nothing ready; blocked/redo Hidaya 4 lessons don't hold it up), and inside a book the queue order (book order of kitabs, then date). Prefer finishing a kitab before starting the next, but don't wait: if a lesson is blocked on re-transcription, card the next ready one and note the hole (`GAPS` already shows unrecorded/unexplained parts on the site).
 - At most `settings.max_lessons_per_run` lessons per run (and none started after `settings.stop_new_lesson_after` on a nightly run), plus at most one `eng` item whose `needs` are met. Do an `eng` item first when ready lessons depend on it (for example the vol-8 page map before الوصايا).
 - `retime` items (re-time an already carded lesson after its transcript was redone) are cheap: do them when ready, they don't count against the lesson limit.
 - Claim: set `claim: {"run": "<ISO time>", "by": "<session link if known>"}` on the chosen items, commit `queue: claim …`, `git fetch origin main && git rebase origin/main`, push. If the push conflicts on the queue, re-read it and choose again.
@@ -71,7 +71,17 @@ Follow HANDOVER section 5 exactly (it is the tested pipeline), with these rules 
 6. **Build, check, push**: `python3 build_site.py`, Playwright screenshots at 390×844 of the changed kitab page (contents view, one fasl, the recordings sheet), then commit and push. One commit per lesson, message `cards: <kitab> <date> (<n> cards)`.
 7. Set the item to `done` with `cards: <n>` and a one-line `qa` summary, clear its claim, push the queue. Then the next lesson.
 
-Hard rules (from the user, unchanged): every line traceable to the teacher or the book; never invent a timestamp; the teacher's own examples; quality over speed; colleagues' page numbers; Hidaya 3 not now; don't card a lesson whose transcript is not repaired.
+Hard rules (from the user): every line traceable to the teacher or the book; never invent a timestamp; the teacher's own examples; quality over speed; colleagues' page numbers; don't card a lesson whose transcript is not repaired; Hidaya 3 from this year's recordings first (5a).
+
+## 5a. Hidaya 3 (since 3 Nov 2026, the user's decision in a chat)
+
+**Sources.** The user puts this year's (1448) class recordings in Drive `My Drive/input_audio/` (now `input_audio/Hidayah salis/`, names like `Hidaya Saalis 20 Sep 2026.m4a`). The GitHub Daily finds them by itself (`daily_config.json → new_recordings`), writes a first transcript `transcripts/ہدایہ جلد ثالث/<date> ہدایہ جلد ثالث 1448.md` (header `- سال: 1448 (اس سال کی کلاس)`, `- راستہ:` the input_audio path), adds an inventory row, repairs it and makes its Opus copy (`opus_only` keeps Hidaya 3 Opus to this year's files plus the last-year files you list). `daily_done.md` shows them as `new:` lines.
+
+1. **This year's recording wins.** For any passage a this-year recording covers, card from it, never from last year's.
+2. **Last year's only for holes this year's class has already passed:** a passage before the end of the latest this-year recording that no this-year recording covers (the class was not recorded, or the user didn't upload it). Before carding such a passage from last year's vault (`سابعہ`, the old link), look in input_audio again (the user may have added the missing class). If the last-year lesson has no transcript yet, add `{"path": "/content/drive/MyDrive/سابعہ/…", "book": "ہدایہ جلد ثالث", "date": "YYYY-MM-DD"}` to `daily_config.json → transcribe` and its file name to `opus_only["ہدایہ جلد ثالث"]`, and card it once the Daily has transcribed and repaired it. Label such cards' lesson as last year's on the page.
+3. **Passages this year's class hasn't reached: wait** (the user's answer, 3 Nov). Don't card them from last year's, even if nothing else is ready. If the class stops recording for a long time or the exam gets close (from 15 Dec), ask on the panel whether to fill the rest from last year's.
+4. **Free the user's Drive.** When a this-year lesson is `done` (cards pushed), its transcript repaired, and its Opus part(s) are in wifaq-data `audio/ہدایہ جلد ثالث/` (check `audio/index.csv`), move its original recording from input_audio to the Drive trash with `mcp__Google_Drive__trash_file` (find the file id with `search_files` by name inside the input_audio folder `1d_0Fu9CVU2r_-_TShi-H8X8u1ocWQo1a` or its subfolders). Record `"trashed": "<date>"` on the queue item and mention it in the runs line. One lesson's recording only after that lesson is done; if one recording feeds two queue items, trash it after both. Never trash: anything outside input_audio, any last-year vault file (it isn't the user's), a recording no queue item uses (ask on the panel instead), or a file whose Opus copy you could not confirm. Trash empties itself after 30 days; the user can empty it sooner to free the space at once.
+5. Ids: `h3-<date>-1448` for this year's, `h3-<date>` for last year's. `eng-h3-setup`, `eng-h3-queue` and `eng-h3-audio` in the queue set up the pages, the lesson list and the audio; do them before the first Hidaya 3 lesson. Full QA for the first 3 Hidaya 3 lessons (`qa_rule`).
 
 ## 6. Engineering items
 
@@ -111,7 +121,7 @@ Then carry on with other work; never wait inside a run. Mention the question in 
 
 ## 10. Never
 
-- Never force-push, rewrite history, or delete anything in Drive. Drive writes only inside `Wifaq 1448/automation/`.
+- Never force-push, rewrite history, or delete anything in Drive, except moving consumed this-year recordings from input_audio to the trash (5a.4). Drive writes only inside `Wifaq 1448/automation/`.
 - Never publish transcripts or OCR text in the public repo (the repo is public; `.cache/` is gitignored for that reason).
 - Never add back what HANDOVER section 9 says was removed (original-file downloads, file picker, Drive time links).
 - Never change the scheduled tasks themselves; ask the user through the panel if the schedule should change.

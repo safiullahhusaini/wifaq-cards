@@ -20,6 +20,9 @@ def _opus_targets():
         rec = rec + [""] * (12 - len(rec))
         file, book, date, path = rec[0], rec[1], rec[10], rec[11]
         ranks = [i for i, b in enumerate(WEB_BOOKS) if _norm_name(b) and _norm_name(b) in _norm_name(book)]
+        only = next((v for k, v in globals().get("OPUS_ONLY", {}).items() if _norm_name(k) == _norm_name(book)), None)
+        if only is not None and not any(x in path for x in only):
+            continue   # e.g. Hidaya 3: only this year's recordings and the last-year lessons the cards use
         if path and ranks:
             out.append((ranks[0], date or "9999", file, book, path))
     return sorted(out)

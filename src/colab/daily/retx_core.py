@@ -177,6 +177,23 @@ def transcribe_part(path, part, parts, book, clip_sec):
     return None, None, f"part {part}: no answer"
 
 
+def transcribe_audio(src, book):
+    """Transcribe a whole recording in CHUNK_MIN parts. Returns (body, models, checks, chunks, seconds) or None."""
+    chunks, total = split_audio(src)
+    say(f"  {len(chunks)} parts of up to {CHUNK_MIN} min, {mmss(total)} in all")
+    texts, used, checks = [], [], []
+    for i, ch in enumerate(chunks):
+        clip = probe(ch)
+        text, who, note = transcribe_part(ch, i + 1, len(chunks), book, clip)
+        if text is None:
+            say(f"  ✗ stopped: part {i + 1} got no answer from any model (quota?).")
+            return None
+        off = i * CHUNK_MIN * 60
+        texts.append(TS_ANY.sub(lambda m: "[" + hms(off + seconds(m)) + "]", text))
+        used.append(who); checks.append(note)
+    return "\n".join(texts), used, checks, chunks, total
+
+
 def redo(name):
     say(f"▶ {name}")
     path = find_transcript(name)
@@ -188,19 +205,10 @@ def redo(name):
     src = field(head, "راستہ")
     if not src or not os.path.exists(src):
         say(f"  ✗ recording not found: {src or '(no راستہ line)'} — is the سابعہ shortcut in My Drive?"); return False
-    chunks, total = split_audio(src)
-    say(f"  {len(chunks)} parts of up to {CHUNK_MIN} min, {mmss(total)} in all")
-    texts, used, checks = [], [], []
-    for i, ch in enumerate(chunks):
-        clip = probe(ch)
-        text, who, note = transcribe_part(ch, i + 1, len(chunks), book, clip)
-        if text is None:
-            say(f"  ✗ stopped: part {i + 1} got no answer from any model (quota?). The old transcript is untouched.")
-            return False
-        off = i * CHUNK_MIN * 60
-        texts.append(TS_ANY.sub(lambda m: "[" + hms(off + seconds(m)) + "]", text))
-        used.append(who); checks.append(note)
-    body = "\n".join(texts)
+    got = transcribe_audio(src, book)
+    if got is None:
+        say("  The old transcript is untouched."); return False
+    body, used, checks, chunks, total = got
     last = max((seconds(m) for m in (TS_START.match(l) for l in body.split("\n")) if m), default=0)
     title = next((l for l in head if l.startswith("#")), f"# {os.path.splitext(name)[0]}")
     keep = [(k, field(head, k)) for k in ("کتاب", "سبق", "تاریخ", "موضوع", "دورانیہ")]
@@ -235,3 +243,76 @@ def already_redone(name, since):
     head, _ = split_header(open(path, encoding="utf-8").read(6000))
     made = field(head, "بنایا")
     return "دوبارہ" in made and made[:10] >= since
+
+
+# ------------------------------------------------------------ this year's class recordings (since 3 Nov 2026)
+# The user drops this year's recordings into My Drive/input_audio (e.g. "Hidaya Saalis 20 Sep 2026.m4a"). They get a
+# first transcript here, with the same prompt and checks as redo(). The card runs prefer them over last year's vault.
+AUDIO_EXT = (".mp3", ".m4a", ".mp4", ".wav", ".ogg", ".opus", ".aac", ".amr", ".webm", ".3gp", ".flac", ".mkv", ".mov")
+MONTHS = {m: i for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"], 1)}
+BOOK_WORDS = [("ہدایہ جلد ثالث", ("saalis", "salis", "salith", "thalith", "ثالث", "سالس")),
+              ("ہدایہ جلد رابع", ("rabi", "raabi", "رابع"))]
+
+
+def class_recording(path):
+    """(book, 'YYYY-MM-DD') for a class recording named like 'Hidaya Saalis 6 Sep 26.m4a', else None."""
+    low = nfc(path).lower()
+    if not low.endswith(AUDIO_EXT):
+        return None
+    name = os.path.basename(low)
+    book = next((b for b, words in BOOK_WORDS if any(w in low for w in words)), None)
+    if not book or not any(w in low for w in ("hidaya", "hedaya", "hidayah", "ہدایہ", "هدايه", "الهدايه")):
+        return None
+    m = re.search(r"(\d{4})-(\d{2})-(\d{2})", name)
+    if m:
+        return book, m.group(0)
+    m = re.search(r"(\d{1,2})[\s_.-]*([a-z]{3,9})[\s_.,-]*(\d{4}|\d{2})(?!\d)", name)
+    if not m or m.group(2)[:3] not in MONTHS:
+        return None
+    y = int(m.group(3)); y = y + 2000 if y < 100 else y
+    try:
+        return book, datetime.date(y, MONTHS[m.group(2)[:3]], int(m.group(1))).isoformat()
+    except ValueError:
+        return None
+
+
+def transcript_for_audio(src):
+    """Path of the transcript whose راستہ line is this recording, or None."""
+    key = nfc(src)
+    for p in glob.glob(os.path.join(TX_DIR, "*", "*.md")):
+        if os.path.basename(os.path.dirname(p)).startswith("_"):
+            continue
+        try:
+            head, _ = split_header(open(p, encoding="utf-8").read(4000))
+        except OSError:
+            continue
+        if nfc(field(head, "راستہ")) == key:
+            return p
+    return None
+
+
+def transcribe_new(src, book, date, year="1448"):
+    """First transcript of a new class recording. Returns (transcript file name, minutes), or None."""
+    say(f"▶ new recording: {os.path.basename(src)} ({book}, {date})")
+    got = transcribe_audio(src, book)
+    if got is None:
+        return None
+    body, used, checks, chunks, total = got
+    last = max((seconds(m) for m in (TS_START.match(l) for l in body.split("\n")) if m), default=0)
+    out_dir = os.path.join(TX_DIR, book)
+    os.makedirs(out_dir, exist_ok=True)
+    base = f"{date} {book} {year}"
+    name, n = base + ".md", 2
+    while os.path.exists(os.path.join(out_dir, name)):
+        name, n = f"{base} {n}.md", n + 1
+    head = [f"# {os.path.splitext(name)[0]}", "",
+            f"- کتاب: {book}", "- سبق: —", f"- تاریخ: {date}", f"- سال: {year} (اس سال کی کلاس)", "- موضوع: —",
+            f"- دورانیہ: {mmss(total)}", f"- ماڈل: {', '.join(dict.fromkeys(used))}", f"- حصے: {len(chunks)}",
+            f"- بنایا: {datetime.date.today().isoformat()} (نیا)", f"- راستہ: {src}",
+            f"- جانچ: last timestamp {mmss(last)} of {mmss(total)} · " + " · ".join(checks)]
+    path = os.path.join(out_dir, name)
+    with open(path + ".part", "w", encoding="utf-8") as f:
+        f.write("\n".join(head) + "\n\n---\n\n" + body + "\n")
+    os.replace(path + ".part", path)
+    say(f"  ✓ saved {book}/{name} ({len(body.splitlines())} lines)")
+    return name, round(total / 60, 1)

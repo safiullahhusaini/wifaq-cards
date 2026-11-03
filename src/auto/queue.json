@@ -8,6 +8,7 @@
   "qa": "focused",
   "book_order": [
    "h4",
+   "h3",
    "baydawi",
    "m1",
    "m2",
@@ -16,9 +17,7 @@
    "tibyan",
    "aina"
   ],
-  "skip_books": [
-   "h3"
-  ],
+  "skip_books": [],
   "panel_url": "https://claude.ai/artifact/GqWNYfh4ZBwfozCFqAwbSN",
   "schedule": "one run nightly at 12:50 am PKT (since 11 Oct); 13 Oct: up to max_lessons_per_run lessons per run, none started after 4:30 am",
   "draft_model_note": "Sonnet test 10 Oct (h4-2025-08-09-udhiya): full Opus check found 3 wrong rulings/attributions (teacher slips stated as fact, «وقيل» scope) + 17 tag fixes, against 0 wrong rulings in the three Opus-drafted batches. Back to inherit (Opus); user told on the panel.",
@@ -27,7 +26,8 @@
   "qa_full_until": "2026-10-18",
   "manager_model": "sonnet (scheduled task, 13 Oct); draft, QA and fix agents opus",
   "speed_note": "13 Oct (user, chat): go faster within Pro limits without lowering quality. 2 lessons/night; manager on Sonnet, all drafting/QA/fixes on Opus; full QA for the nights of 14 and 15 Oct; user raises to 3 on the panel if a night uses < ~10% of his weekly allowance. Token-saving eng items: eng-lesson-pack, eng-mech-checks, eng-slim-docs, eng-data-repo.",
-  "qa_full_note": "14 Oct (user): full QA extended to the night of 18 Oct; the 14 Oct trial found 4 wrong rulings/attributions in Opus drafts (all fixed by QA)."
+  "qa_full_note": "14 Oct (user): full QA extended to the night of 18 Oct; the 14 Oct trial found 4 wrong rulings/attributions in Opus drafts (all fixed by QA).",
+  "h3_note": "3 Nov 2026 (user, chat): Hidaya 3 is no longer skipped; it comes right after Hidaya 4 (card it whenever Hidaya 4 has nothing ready). Sources: this year's class recordings (Drive My Drive/input_audio, transcripts named '<date> ہدایہ جلد ثالث 1448.md') win; last year's vault recordings only for passages this year's class has already passed with no recording. Passages this year's class has not reached yet: WAIT for this year's class (user's answer). After a this-year lesson is carded and its audio is safe, move the original to the Drive trash (AUTOMATION, Hidaya 3)."
  },
  "books": {
   "h4": "ہدایہ جلد رابع",
@@ -178,7 +178,7 @@
    "minutes": 19.2,
    "repair": "fixed 78%",
    "state": "skip",
-   "note": "Hidaya 3 lesson filed under Hidaya 4",
+   "note": "Hidaya 3 lesson filed under Hidaya 4 · 3 Nov: Hidaya 3 now active; this is a last-year Hidaya 3 source for eng-h3-queue (fallback only).",
    "claim": null
   },
   {
@@ -1337,6 +1337,30 @@
    "state": "done",
    "note": "26-27 Oct run: copying Opus audio from wifaq-data into hidaya4/audio was denied by the sandbox permission check (private-source provenance). Needed: wifaq-data audio/ہدایہ جلد رابع/ '2025-11-16 الهدايه الرابع كتاب الديات.ogg' → hidaya4/audio/2025-11-16.ogg; '2025-11-29 … الديات.ogg' → 2025-11-29-diyat.ogg; '2025-11-29 … الديات 2.ogg' → 2025-11-29-diyat-2.ogg (one part each, no parts.json entry). Cards are live without audio. DONE 27 Oct: user approved in chat, files copied.",
    "claim": null
+  },
+  {
+   "id": "eng-h3-setup",
+   "book": null,
+   "state": "todo",
+   "title": "Hidaya 3 site and preparation: find which Bushra OCR volume(s) hold Hidaya 3 (wifaq-data/ocr has Al Hidayah Vol-5 and Vol-6), the colleagues' page numbering for Hidaya 3 (ask on the panel for a photo of the colleagues' Hidaya 3 contents page if Drive automation/from-me/ has none; until then show Bushra pages and say so), page map + HEADINGS, a contents page hidaya3/ like hidaya4/, kitab pages, the drafting brief (copy src/cards/h4/BRIEF.md; same principles), and home-page link (build_site.py paper 5). Keep every Hidaya 4 page byte-identical (test as in HANDOVER section 6).",
+   "needs": "none to start; colleagues' numbering may need the user",
+   "done_when": "a Hidaya 3 lesson can be carded and shows on hidaya3/ with the right page numbers"
+  },
+  {
+   "id": "eng-h3-queue",
+   "book": null,
+   "state": "todo",
+   "title": "Queue the Hidaya 3 lessons with the source rule: list this year's transcripts (سال 1448, from input_audio; the Daily makes them, see daily_done.md 'new:' lines) and last year's (wifaq-data transcripts/ہدایہ جلد ثالث, inventory rows from سابعہ, plus h4-2025-07-06 which is a Hidaya 3 lesson). Map each to its passage (start/end in the OCR). Add an item per this-year lesson (id h3-<date>-1448, source 'this-year'). For a passage this year's class already passed (before the end of the latest this-year recording) that no this-year recording covers, add the last-year lesson(s) for it (id h3-<date>, source 'last-year'); if not transcribed yet, put them on daily_config 'transcribe' and their file name in opus_only. Passages after this year's latest recording: no item yet (wait). Re-check every run as new recordings arrive.",
+   "needs": "at least one this-year transcript repaired (Daily)",
+   "done_when": "every Hidaya 3 passage up to this year's class progress has a queued lesson; then keep it current"
+  },
+  {
+   "id": "eng-h3-audio",
+   "book": null,
+   "state": "todo",
+   "title": "Audio for Hidaya 3 pages: extend src/colab/daily/publish_audio.py and .github/workflows/audio.yml so carded Hidaya 3 lessons get their Opus parts from wifaq-data audio/ہدایہ جلد ثالث into hidaya3/audio/ (keys by queue id). Mind the 1 GB Pages limit (eng-audio-host).",
+   "needs": "eng-h3-setup",
+   "done_when": "a carded Hidaya 3 lesson plays on its page"
   }
  ]
 }
