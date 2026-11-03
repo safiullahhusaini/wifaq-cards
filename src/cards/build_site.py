@@ -3,7 +3,7 @@
 Card pages are written by h4_build.py / m1_build.py in the artifact form (no <html>/<head>); here they get a full
 document, a noindex tag, and a home page that links them. Output: the wifaq-cards repo working tree.
 """
-import os, re, shutil, subprocess, sys
+import glob, os, re, shutil, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SITE = sys.argv[1] if len(sys.argv) > 1 else os.path.abspath(os.path.join(HERE, "..", ".."))   # the repo root
@@ -115,17 +115,19 @@ PAPERS = [
      [("mishkat1/hifz.html", "حفظ الأحاديث", "نصاب کی 38 احادیث · یاد کرنے کی مشق اور دہرائی", ["hifz"]),
       ("mishkat1/iman.html", "كتاب الإيمان", "الفصل الأول · 2 حدیثیں", ["sample"])]),
     ("4", "مشکوٰۃ المصابیح جلد دوم", "", []),
-    ("5", "ہدایہ جلد ثالث", "", []),
+    ("5", "ہدایہ جلد ثالث", "", "__H3__"),   # linked only once Hidaya 3 has cards (h3_site)
     ("6", "ہدایہ جلد رابع", "", "__H4__"),
 ]
 TAGS = {"sample": "نمونہ", "audio": "آواز یہیں", "hifz": "15 نمبر"}
 
 
-def home_html(h4_links):
+def home_html(h4_links, h3_links=()):
     items = []
     for n, name, date, links in PAPERS:
         if links == "__H4__":
             links = h4_links
+        elif links == "__H3__":
+            links = list(h3_links)
         if links:
             lis = "".join(
                 f'<li><a href="{href}"><span class="t" lang="ar">{t}</span><span class="d">{d}</span>'
@@ -158,6 +160,29 @@ def main():
     for rel in REMOVE:
         if os.path.exists(os.path.join(SITE, rel)):
             os.remove(os.path.join(SITE, rel))
+    # Hidaya 3 (Bushra vol-5 pages): written only when it has cards; otherwise no hidaya3 page and no home link
+    import h3_site
+    h3_pages, h3_audio, D3 = h3_site.pages()
+    for rel, body in h3_pages.items():
+        dst = os.path.join(SITE, rel)
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        with open(dst, "w", encoding="utf-8") as f:
+            f.write(full_document(body))
+    for rel, src in h3_audio.items():
+        dst = os.path.join(SITE, rel)
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        if os.path.abspath(src) != os.path.abspath(dst) and (not os.path.exists(dst) or os.path.getsize(dst) != os.path.getsize(src)):
+            shutil.copyfile(src, dst)
+    for old in glob.glob(os.path.join(SITE, "hidaya3", "*.html")):   # pages of kitabs that no longer have cards
+        if os.path.relpath(old, SITE).replace(os.sep, "/") not in h3_pages:
+            os.remove(old)
+    if not h3_pages and os.path.isdir(os.path.join(SITE, "hidaya3")) and not os.listdir(os.path.join(SITE, "hidaya3")):
+        os.rmdir(os.path.join(SITE, "hidaya3"))
+    h3_links = []
+    if h3_pages:
+        done3, n3, aud3 = h3_site.summary(D3)
+        h3_links = [("hidaya3/", "فہرست", f"{len(done3)} {'کتاب' if len(done3) == 1 else 'کتابیں'} ({'، '.join(k['title'].replace('كتاب ', '') for k in done3)}) · {n3} کارڈ · صفحات بشریٰ جلد ٥ کے",
+                     ["audio"] if aud3 else [])]
     done = [k for k in D["kitabs"] if k["cards"]]
     n = sum(len(k["cards"]) for k in done)
     h4_links = [("hidaya4/", "فہرست", f"{len(done)} کتابیں ({'، '.join(k['title'].replace('كتاب ', '') for k in done)}) · {n} کارڈ", ["audio"])]
@@ -172,7 +197,7 @@ def main():
             if not os.path.exists(dst) or os.path.getsize(dst) != os.path.getsize(src):
                 shutil.copyfile(src, dst)
     with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as f:
-        f.write(full_document(home_html(h4_links)))
+        f.write(full_document(home_html(h4_links, h3_links)))
     with open(os.path.join(SITE, "robots.txt"), "w") as f:
         f.write("User-agent: *\nDisallow: /\n")
     open(os.path.join(SITE, ".nojekyll"), "w").close()
