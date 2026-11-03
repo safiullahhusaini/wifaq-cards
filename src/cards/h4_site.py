@@ -97,6 +97,11 @@ ol.toc { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid va
 .toc .sub b { color: var(--teacher); font-weight: 600; }
 .toc .sub .ex { color: var(--matn); font-weight: 600; margin-inline-start: 10px; }
 details.exw { font-size: 13px; }
+.toc .sub .pe { color: var(--muted); margin-inline-start: 10px; white-space: nowrap; }
+.toc .sub .pe.hot { color: var(--book); font-weight: 600; }
+details.exw.pw summary { color: var(--book); }
+details.exw.pw li { border-inline-start-color: var(--book); }
+details.exw.pw .ar { color: var(--ink); }
 details.exw summary { cursor: pointer; color: var(--matn); padding-block: 4px; }
 details.exw ul { list-style: none; margin: 4px 0 2px; padding: 0; display: grid; gap: 8px; }
 details.exw li { display: grid; gap: 1px; border-inline-start: 3px solid var(--matn); padding-inline-start: 10px; }
@@ -108,6 +113,9 @@ section.how { margin-block-start: 26px; border-top: 1px solid var(--rule); paddi
 section.how h2 { margin: 0; font-size: 15px; }
 section.how ul { margin: 0; padding-inline-start: 18px; color: var(--muted); font-size: 13.5px; line-height: 2.1; }
 """
+
+
+PAPER_EXAMS = 12   # Hidaya 4 papers in «الجواب للموقوف علیہ»: 1430–1441
 
 
 def paper_page(D):
@@ -131,6 +139,17 @@ def paper_page(D):
                 for w in wait)
             waits = (f'<details class="exw"><summary>ابھی کارڈ نہیں بنے؛ {"وہ مقام" if len(wait) == 1 else f"وہ {len(wait)} مقامات"} دیکھیں</summary>'
                      f'<ul>{items}</ul></details>')
+        py = k.get("paper_years") or []
+        pes = (f'<span class="pe{" hot" if len(py) >= 3 else ""}">وفاق کے پرچوں میں: {PAPER_EXAMS} میں سے {len(py)} سال</span>' if py
+               else f'<span class="pe none">وفاق کے پرچوں میں: کبھی نہیں</span>')
+        exs += pes
+        pw = k.get("paper_waiting") or []
+        if pw:
+            pitems = "".join(
+                f'<li><span class="ar" lang="ar">«{html.escape(w["q"])}»</span>'
+                f'<span class="when">وفاق <span class="ltr">{w["year"]}</span>ھ · س {html.escape(w["n"])}</span></li>' for w in pw)
+            waits += (f'<details class="exw pw"><summary>پرچوں کے {"سوال" if len(pw) == 1 else f"{len(pw)} سوال"} جن کا کارڈ ابھی نہیں</summary>'
+                      f'<ul>{pitems}</ul></details>')
         if n:
             units = sum(1 for u in k["units"] if u["level"] > 1)
             lessons = len({c["lesson"] for c in k["cards"] if c.get("lesson")})

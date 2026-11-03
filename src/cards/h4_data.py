@@ -265,6 +265,35 @@ def attach_exam(cards):
     return unplaced
 
 
+def attach_papers(cards):
+    """Past-paper marks (h4_exam.json → papers): each question goes on the card whose book span [off, end] holds
+    its passage (located by `start` near OCR page `v7`); one without `v7` goes on the first card of its `fasl`.
+    Needs c["kitab"/"bab"/"fasl"] set. Returns {kitab title: [entry, ...]} of questions with no card yet."""
+    if not os.path.exists(EXAM_FILE):
+        return {}
+    E = json.load(open(EXAM_FILE, encoding="utf-8"))
+    unplaced = {}
+    for q in E.get("papers", []):
+        mark = {"k": "p", "year": q["year"], "n": q.get("n", ""), "q": q.get("text", ""), "topic": q.get("topic", "")}
+        host, kt = None, None
+        if q.get("v7") is not None:
+            off, _ = pm.offset_of(int(q["v7"]), q.get("start"), search=1)
+            kt = unit_of(off)[0]
+            inside = [c for c in cards if c["off"] - 40 <= off <= c["end"] + 20]
+            if inside:
+                host = max(inside, key=lambda c: c["off"])
+        elif q.get("fasl"):
+            fc = [c for c in cards if q["fasl"] in (c.get("fasl"), c.get("bab"))]
+            if fc:
+                host = min(fc, key=lambda c: c["off"])
+                kt = host["kitab"]
+        if host is not None:
+            host.setdefault("exam", []).append(mark)
+        else:
+            unplaced.setdefault(kt or "", []).append(dict(mark, start=q.get("start", ""), src=q.get("src", "")))
+    return unplaced
+
+
 def build():
     recs = recordings()
     cards, gaps, notes = lesson_cards()
@@ -285,6 +314,7 @@ def build():
             if nh is not None and hi > nh:
                 hi = nh
             c["pages"] = pages_from(c["off"], hi, upage)
+    paper_unplaced = attach_papers(cards)
     # lessons used
     dates = sorted({c["lesson"] for c in cards if c.get("lesson")})
     lessons = {}
@@ -336,7 +366,11 @@ def build():
         slug = SLUGS.get(title, f"k{cp}")
         kitabs.append({"slug": slug, "title": title, "page_from": cp, "page_to": nxt - 1,
                        "units": units, "cards": kc, "gaps": kg, "exam_waiting": exam_unplaced.get(slug, []),
-                       "exam_n": sum(len(c.get("exam", [])) for c in kc) + len(exam_unplaced.get(slug, []))})
+                       "exam_n": sum(1 for c in kc for x in c.get("exam", []) if x["k"] == "t") + len(exam_unplaced.get(slug, [])),
+                       "paper_waiting": paper_unplaced.get(title, []),
+                       "paper_years": sorted({x["year"] for c in kc for x in c.get("exam", []) if x["k"] == "p"}
+                                             | {w["year"] for w in paper_unplaced.get(title, [])}),
+                       "paper_n": sum(1 for c in kc for x in c.get("exam", []) if x["k"] == "p") + len(paper_unplaced.get(title, []))})
     return {"lessons": lessons, "kitabs": kitabs, "notes": notes}
 
 
