@@ -1036,7 +1036,7 @@
    "minutes": 35.3,
    "repair": "fixed 84% (11 Oct)",
    "state": "done",
-   "note": "cards 29 Oct run; audio waiting for user approval (sandbox blocked copy from wifaq-data)",
+   "note": "cards 29 Oct run; audio added 3 Nov",
    "claim": null,
    "cards": 8,
    "qa": "focused QA 29 Oct: 0 wrong rulings/attributions; 1 teacher overstatement (قتل بالسبب), ~9 tag/wording fixes, all from drafting; bounds right"
@@ -1062,7 +1062,7 @@
    "minutes": 27.7,
    "repair": "fixed 93%",
    "state": "done",
-   "note": "cards 29 Oct run; audio waiting for user approval (sandbox blocked copy from wifaq-data)",
+   "note": "cards 29 Oct run; audio added 3 Nov",
    "claim": null,
    "cards": 5,
    "qa": "focused QA 29 Oct: 0 wrong rulings; end frac 1281 0.25→0.3, 5 label/tag fixes"
@@ -1076,7 +1076,7 @@
    "minutes": 47.0,
    "repair": "fixed 85%",
    "state": "done",
-   "note": "cards 29 Oct run; audio waiting for user approval (sandbox blocked copy from wifaq-data)",
+   "note": "cards 29 Oct run; audio added 3 Nov",
    "claim": null,
    "cards": 7,
    "qa": "focused QA 29 Oct: 0 wrong rulings; 2 imam-attribution precisions (ظاہر الروایہ, riwaya of Muhammad), 2 K7 fixes, 1 inexact flag quote; opening recap of 12-08 not carded (05-17 precedent)"
@@ -1102,7 +1102,7 @@
    "minutes": 22.9,
    "repair": "fixed 84%",
    "state": "done",
-   "note": "cards 30 Oct run; audio waiting for user approval (sandbox blocked copy from wifaq-data)",
+   "note": "cards 30 Oct run; audio added 3 Nov",
    "claim": null,
    "cards": 4,
    "qa": "focused QA 30 Oct: 0 wrong rulings/attributions; ~8 wording/tag nits (unlabelled teacher examples, a muddled reason, 2 S tags), all from drafting, fixed; end bound 1312 line 5 (my prep said 1311: OCR labels in p0311-0320 are one low)"
@@ -1116,7 +1116,7 @@
    "minutes": 26.9,
    "repair": "fixed 83%",
    "state": "done",
-   "note": "cards 30 Oct run; audio waiting for user approval (sandbox blocked copy from wifaq-data)",
+   "note": "cards 30 Oct run; audio added 3 Nov",
    "claim": null,
    "cards": 4,
    "qa": "focused QA 30 Oct: 0 wrong rulings/attributions; 7 tag/wording nits fixed; bounds 1312 line 6 → 1320 line 4 (my prep said 1311/1318: OCR label offset), drafter and QA caught it"
@@ -1130,7 +1130,7 @@
    "minutes": 33.9,
    "repair": "fixed 92%",
    "state": "done",
-   "note": "cards 30 Oct run; audio waiting for user approval (sandbox blocked copy from wifaq-data)",
+   "note": "cards 30 Oct run; audio added 3 Nov",
    "claim": null,
    "cards": 9,
    "qa": "focused QA 30 Oct: 0 wrong rulings; 1 minor attribution («قيل» credited to the author, fixed), 5 wording/scope nits fixed; bounds right (1321 line 1 → 1335 end)"
