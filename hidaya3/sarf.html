@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>كتاب الصرف · ہدایہ جلد ثالث</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+<style>
+/* One kitab of a book. Two views on one page:
+   فہرست (contents, styled like the book's own contents page: title … page) and a unit view (one bab/fasl,
+   its cards, page chips). Recordings live in a bottom sheet behind the header button. */
+:root {
+  --paper: #FDFCFB; --surface: #FFFFFF; --ink: #1F1A1B; --muted: #6E6566; --rule: #E9E3E2;
+  --matn: #A3211A; --matn-tint: #FBEDEB; --teacher: #17624C; --teacher-tint: #E3F2EC;
+  --book: #2B4B7E; --book-tint: #E8EEF8; --note: #545A68; --note-tint: #EDEEF2;
+  --ai: #8A5A00; --ai-tint: #FBF0DA; --focus: #2B4B7E;
+  --shadow: 0 1px 2px rgba(31,26,27,.05), 0 4px 16px rgba(31,26,27,.05);
+  --urdu: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Urdu Typesetting", "Noto Naskh Arabic", serif;
+  --ui: "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+  --arabic: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+    --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+    --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+    --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+  --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+  --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+  --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--ui); font-size: 15px; padding-inline: 16px; padding-block: 0 110px; }
+.wrap { max-width: 760px; margin: 0 auto; }
+[lang="ar"] { font-family: var(--arabic); }
+button, input, a.btn { font: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* header */
+header.top { padding-block: 14px 8px; display: grid; gap: 4px; }
+.topbar { display: flex; align-items: center; gap: 10px; min-height: 40px; }
+.homelink { color: var(--book); font-size: 13.5px; font-weight: 600; text-decoration: none; padding-block: 6px; }
+.homelink:hover { text-decoration: underline; }
+.recbtn { margin-inline-start: auto; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--rule);
+  background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 14px; font-size: 13.5px; font-weight: 600; }
+.recbtn svg { width: 15px; height: 15px; fill: none; stroke: var(--teacher); stroke-width: 1.7; stroke-linecap: round; }
+.recbtn:hover { border-color: var(--teacher); }
+h1 { margin: 6px 0 0; font-family: var(--arabic); font-weight: 700; color: var(--matn); font-size: clamp(36px, 8vw, 50px); line-height: 1.25; }
+.meta { color: var(--muted); font-size: 13.5px; line-height: 1.9; margin: 0; }
+.meta b { color: var(--ink); font-weight: 600; }
+
+/* contents (فہرست) */
+.tochead { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-block: 14px 4px; }
+.tochead h2 { margin: 0; font-size: 15px; font-weight: 700; color: var(--muted); }
+form.jump { display: flex; gap: 4px; margin-inline-start: auto; }
+form.jump input { inline-size: 92px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px;
+  padding: 5px 12px; font-size: 14px; font-variant-numeric: tabular-nums; direction: ltr; text-align: center; }
+form.jump button { cursor: pointer; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 999px; padding: 5px 13px; font-size: 13.5px; }
+.msg { margin: 8px 0 0; color: var(--ink); background: var(--ai-tint); border-radius: 8px; padding: 7px 12px; font-size: 13.5px; line-height: 1.9; }
+.msg a { color: var(--book); font-weight: 600; }
+ol.toc { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.toc li { border-bottom: 1px solid var(--rule); padding-block: 10px 9px; display: grid; gap: 4px; }
+.toc li.lv3 { padding-inline-start: 22px; }
+.toc a.row { display: flex; align-items: baseline; gap: 8px; text-decoration: none; color: inherit; }
+.toc .tt { font-family: var(--arabic); line-height: 1.6; }
+.toc li.lv1 .tt { font-size: 23px; color: var(--matn); font-weight: 700; }
+.toc li.lv2 .tt { font-size: 20px; font-weight: 700; }
+.toc li.lv3 .tt { font-size: 18.5px; }
+.toc .dots { flex: 1 1 24px; min-inline-size: 24px; border-bottom: 2px dotted var(--rule); transform: translateY(-5px); }
+.toc .pp { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.toc a.row:hover .tt, .toc a.row:focus-visible .tt { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.toc .sub { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.toc .sub .n { margin-inline-end: 4px; }
+.toc .sub .none { color: var(--ai); }
+.toc .sub .exn { color: var(--matn); font-weight: 600; margin-inline-end: 4px; }
+.toc .sub .pxn { color: var(--book); font-weight: 600; margin-inline-end: 4px; }
+a.pchip { text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 0 9px;
+  font-size: 12.5px; line-height: 1.9; font-variant-numeric: tabular-nums; }
+a.pchip:hover { border-color: var(--ink); }
+
+/* unit view */
+.ubar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); margin-inline: -16px; padding: 8px 16px 8px;
+  border-bottom: 1px solid var(--rule); display: grid; gap: 6px; }
+.ubar-top { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.back { flex: none; cursor: pointer; text-decoration: none; color: var(--book); font-size: 13.5px; font-weight: 600; border: 1px solid var(--rule); border-radius: 999px; padding: 3px 12px; background: var(--surface); }
+.utitle { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--arabic); font-size: 19px; font-weight: 700; line-height: 1.6; }
+.pbar { display: flex; gap: 6px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+.pbar::-webkit-scrollbar { display: none; }
+.pbar a { flex: none; text-decoration: none; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 3px 13px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.pbar a[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.ubar form.jump input { inline-size: 70px; padding: 3px 8px; }
+.ubar form.jump button { padding: 3px 10px; }
+.ubar form.jump { flex: none; }
+body.unit h1 { font-size: 26px; margin-top: 0; }
+body.unit header .meta { display: none; }
+.uhead { padding-block: 16px 0; display: grid; gap: 2px; }
+.uhead .parent { margin: 0; font-family: var(--arabic); color: var(--muted); font-size: 16px; }
+.uhead h2 { margin: 0; font-family: var(--arabic); color: var(--matn); font-size: clamp(26px, 6vw, 32px); line-height: 1.5; }
+.uhead p.meta { margin: 0; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; padding-block: 12px 0; color: var(--muted); font-size: 12.5px; align-items: center; }
+.lg { display: inline-flex; align-items: center; gap: 6px; }
+.linkbtn { cursor: pointer; background: none; border: 0; color: var(--book); font-weight: 600; font-size: 13px; padding: 4px 0; margin-inline-start: auto; }
+
+main { display: grid; gap: 18px; padding-block: 14px; }
+article.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; box-shadow: var(--shadow); padding: 18px 18px 14px; display: grid; gap: 12px; }
+.card-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.pg { font-size: 12.5px; font-weight: 600; color: var(--matn); background: var(--matn-tint); border-radius: 6px; padding: 2px 8px; font-variant-numeric: tabular-nums; }
+.v7 { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.cnum { color: var(--muted); font-size: 12.5px; }
+.badge { font-size: 12px; font-weight: 600; color: var(--book); background: var(--book-tint); border-radius: 999px; padding: 1px 9px; }
+.badge.exam { color: var(--matn); background: var(--matn-tint); border: 0; font-family: inherit; line-height: inherit; }
+button.badge.exam { cursor: pointer; }
+.badge.paper { cursor: pointer; font-family: inherit; line-height: inherit; color: var(--book); background: transparent; border: 1px solid var(--book); }
+.badge.paper.hot { color: var(--paper, #fff); background: var(--book); }
+.badge.paper[aria-expanded="true"] { box-shadow: 0 0 0 2px var(--book-tint); }
+.paperq { border-inline-start: 3px solid var(--book); background: var(--book-tint); border-radius: 8px; padding: 8px 12px; margin-top: 8px; }
+.paperq ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.paperq li { display: grid; gap: 1px; }
+.paperq .py { font-size: 12px; color: var(--book); font-weight: 600; }
+.paperq .pt { font-family: var(--arabic); font-size: 17px; line-height: 1.8; }
+.paperq .psrc { margin: 4px 0 0; font-size: 11px; color: var(--muted); }
+.les { color: var(--muted); font-size: 12.5px; margin-inline-start: auto; }
+.play { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--teacher); color: var(--teacher); background: transparent;
+  border-radius: 999px; padding: 3px 11px; font-size: 13px; font-variant-numeric: tabular-nums; direction: ltr; }
+.play svg { width: 10px; height: 10px; fill: currentColor; }
+.norec-chip { margin-inline-start: auto; color: var(--ai); background: var(--ai-tint); border-radius: 999px; padding: 2px 10px; font-size: 12.5px; font-weight: 600; }
+.label { margin: 0; font-family: var(--arabic); color: var(--book); font-size: 15px; line-height: 1.7; }
+h3.title { margin: 0; font-size: 19px; font-weight: 700; line-height: 1.7; text-wrap: balance; }
+.start { margin: 0; font-family: var(--arabic); font-size: 21px; line-height: 1.9; color: var(--matn); border-inline-start: 3px solid var(--matn); padding-inline-start: 12px; }
+.ref { margin: -4px 0 0; color: var(--book); font-size: 13px; line-height: 1.9; }
+.start-note { margin: -6px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.8; }
+.norec { margin: 0; background: var(--ai-tint); color: var(--ink); border-radius: 8px; padding: 6px 12px; font-size: 13.5px; line-height: 1.9; }
+.norec b { color: var(--ai); }
+.sec { display: grid; gap: 6px; }
+.sec h4 { margin: 0; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.sec ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.sec li { font-family: var(--urdu); font-size: 16px; line-height: 2.35; }
+.sec.tamheed li { font-size: 16.5px; }
+.sec.masala li { font-weight: 600; }
+.srcs { display: inline-flex; flex-wrap: wrap; gap: 4px; vertical-align: middle; margin-inline-start: 4px; }
+.chip { font-family: var(--ui); font-size: 11.5px; line-height: 1.6; border-radius: 5px; padding: 0 6px; white-space: nowrap; font-variant-numeric: tabular-nums; border: 0; font-weight: 600; }
+.chip.u { background: var(--teacher-tint); color: var(--teacher); cursor: pointer; }
+.chip.k { background: var(--book-tint); color: var(--book); }
+.chip.s { background: var(--note-tint); color: var(--note); }
+.chip.a { background: var(--ai-tint); color: var(--ai); }
+/* in the "سب" view a card opens folded: head, title, Arabic start and the note under it; the rest behind .ctoggle */
+.ctoggle { display: none; cursor: pointer; align-items: center; gap: 6px 10px; inline-size: 100%; background: none; border: 0; border-top: 1px dashed var(--rule);
+  padding: 8px 0 2px; color: var(--book); font-weight: 600; font-size: 13.5px; text-align: start; }
+.ctoggle::before { content: "−"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+.ctoggle[aria-expanded="false"]::before { content: "+"; }
+body.allview .ctoggle { display: flex; }
+.cbody { display: grid; gap: 12px; }
+article.card.folded .cbody { display: none; }
+article.card { scroll-margin-top: 112px; }
+.dlall { display: grid; gap: 6px; padding: 10px 12px; border-radius: 10px; background: var(--teacher-tint); }
+.dlall .btns { align-items: center; }
+.dlall .sub { color: var(--muted); font-size: 12.5px; }
+.dlall .dlstat { font-size: 12.5px; color: var(--ink); line-height: 1.9; }
+.btn[disabled] { opacity: .55; cursor: default; }
+details.more { border-top: 1px dashed var(--rule); padding-top: 8px; }
+details.more > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; color: var(--book); font-weight: 600; font-size: 13.5px; padding-block: 2px; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::before { content: "+"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+details.more[open] > summary::before { content: "−"; }
+details.more > summary .hint { color: var(--muted); font-weight: 400; font-size: 12.5px; }
+details.more > .inner { display: grid; gap: 12px; padding-top: 10px; }
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 14px; }
+.word { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; padding-block: 4px; border-bottom: 1px solid var(--rule); }
+.word .ar { font-family: var(--arabic); font-size: 19px; color: var(--matn); }
+.word .ur { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; flex: 1 1 auto; }
+.word .chip { font-size: 10.5px; }
+
+section.gaps { display: grid; gap: 8px; margin-block-start: 6px; border: 1px dashed var(--rule); border-radius: 12px; padding: 12px 14px; }
+section.gaps h3 { margin: 0; font-size: 14.5px; }
+section.gaps p.lead { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.9; }
+.glist { margin: 0; padding: 0; list-style: none; display: grid; }
+.glist li { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: start; padding-block: 8px; border-top: 1px solid var(--rule); }
+.glist .gp { font-size: 12px; font-weight: 600; color: var(--ai); background: var(--ai-tint); border-radius: 6px; padding: 1px 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.glist .gt { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; }
+.glist .gv { grid-column: 2; color: var(--muted); font-size: 12px; }
+
+nav.unav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-block-start: 18px; }
+nav.unav a { display: grid; gap: 2px; text-decoration: none; color: inherit; border: 1px solid var(--rule); border-radius: 12px; padding: 10px 14px; background: var(--surface); }
+nav.unav a:hover { border-color: var(--ink); }
+nav.unav .k { color: var(--muted); font-size: 12px; }
+nav.unav .t { font-family: var(--arabic); font-size: 17px; line-height: 1.6; }
+nav.unav a.next { text-align: left; grid-column: 2; }
+
+footer { margin-block-start: 28px; color: var(--muted); font-size: 13px; line-height: 2; border-top: 1px solid var(--rule); padding-block-start: 14px; }
+footer p { margin: 0 0 6px; }
+
+/* sheet */
+.backdrop { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.38); display: flex; align-items: flex-end; justify-content: center; }
+.sheet { background: var(--surface); color: var(--ink); inline-size: 100%; max-inline-size: 600px; max-block-size: 88vh; overflow-y: auto; border-radius: 16px 16px 0 0;
+  padding: 16px 18px calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 12px; box-shadow: 0 -8px 30px rgba(0,0,0,.2); }
+.sheet-head { display: flex; align-items: center; gap: 10px; }
+.sheet h3 { margin: 0; font-size: 17px; line-height: 1.7; }
+.sheet .x { margin-inline-start: auto; cursor: pointer; border: 1px solid var(--rule); background: transparent; color: var(--ink); border-radius: 999px; inline-size: 34px; block-size: 34px; font-size: 18px; line-height: 1; }
+.sheet p { margin: 0; font-size: 13.5px; line-height: 1.95; color: var(--muted); }
+.sheet p b { color: var(--ink); }
+.rec { display: grid; gap: 6px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.rec-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.rec-top b { font-size: 14.5px; }
+.rec-top .sub { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.state { font-size: 12px; font-weight: 600; border-radius: 5px; padding: 0 7px; }
+.state.on { color: var(--teacher); background: var(--teacher-tint); }
+.state.off { color: var(--muted); border: 1px solid var(--rule); }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; text-decoration: none; padding: 6px 13px; border-radius: 999px; border: 1px solid var(--teacher);
+  background: var(--teacher); color: var(--surface); font-weight: 600; font-size: 13.5px; line-height: 1.6; }
+.btn.ghost { background: transparent; color: var(--teacher); }
+.btn svg { width: 12px; height: 12px; fill: currentColor; flex: none; }
+
+/* player */
+.player { position: fixed; inset-inline: 0; bottom: 0; z-index: 10; background: var(--surface); border-top: 1px solid var(--rule); padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; justify-content: center; }
+.player audio { flex: 1 1 280px; max-width: 520px; height: 36px; }
+.speeds { display: flex; gap: 4px; direction: ltr; }
+.speeds button, .pclose { cursor: pointer; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 6px; padding: 3px 8px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.speeds button[aria-pressed="true"] { background: var(--teacher); color: var(--surface); border-color: var(--teacher); }
+.now { font-size: 12.5px; color: var(--muted); }
+.flash { animation: flash 1.2s ease-out; }
+@keyframes flash { from { box-shadow: 0 0 0 3px var(--teacher); } to { box-shadow: var(--shadow); } }
+@media (prefers-reduced-motion: reduce) { .flash { animation: none; } }
+@media (max-width: 460px) {
+  article.card { padding: 14px 14px 10px; }
+  .start { font-size: 19px; }
+  .sec li { font-size: 15.5px; }
+  .toc li.lv3 { padding-inline-start: 14px; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap" dir="rtl" lang="ur">
+  <header class="top">
+    <div class="topbar">
+      <a class="homelink" id="homeLink" href="./" hidden></a>
+      <button type="button" class="recbtn" id="recBtn" aria-haspopup="dialog">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 10V8a5.5 5.5 0 0 1 11 0v2"/><path d="M2.5 10h2v4h-2zM11.5 10h2v4h-2z"/></svg><span>ریکارڈنگز</span>
+      </button>
+    </div>
+    <h1 lang="ar" id="kitab"></h1>
+    <p class="meta" id="meta"></p>
+  </header>
+
+  <section id="tocView">
+    <div class="tochead">
+      <h2>فہرست</h2>
+      <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ نمبر" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form>
+    </div>
+    <p class="msg" id="tocMsg" hidden></p>
+    <ol class="toc" id="toc"></ol>
+  </section>
+
+  <section id="unitView" hidden>
+    <div class="ubar">
+      <div class="ubar-top"><a class="back" href="#">فہرست</a><span class="utitle" lang="ar" id="ubarTitle"></span>
+        <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form></div>
+      <nav class="pbar" id="pbar" aria-label="صفحات"></nav>
+    </div>
+    <div class="uhead">
+      <p class="parent" lang="ar" id="uParent"></p>
+      <h2 lang="ar" id="uTitle"></h2>
+      <p class="meta" id="uMeta"></p>
+    </div>
+    <p class="msg" id="uMsg" hidden></p>
+    <div class="legend" id="legend" aria-label="ماخذ کی علامتیں">
+      <span class="lg" data-t="u"><span class="chip u">استاد</span><span>ریکارڈنگ کا وقت</span></span>
+      <span class="lg" data-t="k"><span class="chip k">کتاب ص</span><span>متن</span></span>
+      <span class="lg" data-t="s"><span class="chip s">شرح</span><span>حاشیہ یا بین السطور</span></span>
+      <span class="lg" data-t="a"><span class="chip a">AI</span><span>خود جانچیں</span></span>
+      <button type="button" class="linkbtn" id="toggleAll" aria-pressed="false">سب تفصیل کھولیں</button>
+    </div>
+    <main id="cards"></main>
+    <section class="gaps" id="gaps" hidden>
+      <h3 id="gapsTitle"></h3>
+      <p class="lead" id="gapsLead"></p>
+      <ul class="glist" id="gapList"></ul>
+    </section>
+    <nav class="unav" id="unav" aria-label="پچھلا اور اگلا حصہ"></nav>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<div class="backdrop" id="backdrop" dir="rtl" lang="ur" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" id="sheet"></div>
+</div>
+
+<div class="player" id="player" dir="rtl" lang="ur" hidden>
+  <audio id="audio" controls preload="metadata"></audio>
+  <div class="speeds" id="speeds" role="group" aria-label="رفتار">
+    <button type="button" data-rate="1" aria-pressed="true">1×</button>
+    <button type="button" data-rate="1.25" aria-pressed="false">1.25×</button>
+    <button type="button" data-rate="1.5" aria-pressed="false">1.5×</button>
+  </div>
+  <span class="now" id="now"></span>
+  <button type="button" class="pclose" id="pclose" aria-label="آواز بند کریں">✕</button>
+</div>
+
+<script>
+const DATA = {"book": {"book": "ہدایہ جلد ثالث", "kitab": "كتاب الصرف", "from": 253, "to": 273, "unit": "کارڈ", "unitOne": "کارڈ"}, "home": "./", "homeLabel": "ہدایہ جلد ثالث", "store": "h3", "lessons": {"2026-07-11-1448": {"file": "Hidaya Saalis 11 July 2026.m4a", "minutes": 42.1, "id": "", "size_mb": null, "label": "11 جولائی 2026، اس سال کی کلاس", "source": "this-year"}}, "units": [{"key": "u0", "level": 1, "title": "كتاب الصرف", "page": 253, "page_to": 273}], "cards": [{"unit": "u0", "pages": [253, 254, 255, 256], "lesson": "2026-07-11-1448", "ts": "0:00:08", "label": null, "title": "کتاب الصرف: صرف وہ بیع جس کے دونوں عوض اثمان (سونا چاندی) کی جنس سے ہوں؛ سونا سونے یا چاندی چاندی کے بدلے ہو تو برابری ضروری (عمدگی اور بناوٹ کا فرق لغو) اور جدا ہونے سے پہلے دونوں عوضوں پر قبضہ ضروری، زیور متعین ہو تب بھی؛ جدائی سے مراد بدنوں کی جدائی", "start": "قال: الصرف: هو البيع إذا كان كلُّ واحد من عِوَضيه من جنس الأثمان", "start_note": "0:00:08 «کتاب الصرف» سے سبق (اور کتاب) شروع؛ تعریف کی عبارت 0:01:34 پر پڑھی۔ «فإن باع فضة بفضة» 0:05:30 پر اور «ومن باع فضة بفضة» 0:06:27 پر پڑھا (درمیان میں طلبہ کے سوال)۔ کارڈ «وإن باع الذهب بالفضة» (v5 256، ≈0.06) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 253–256", "tamheed": [{"x": "صرف کے بہت سے مباحث ربا اور بیع سے متعلق ہیں، لیکن اسے الگ ذکر کیا جاتا ہے کیونکہ اس کے احکام تھوڑے مختلف ہیں۔", "s": [{"t": "u", "v": "0:00:09"}, {"t": "u", "v": "0:00:14"}, {"t": "u", "v": "0:00:19"}]}, {"x": "بیع کی تین قسمیں: (1) عام بیع، ایک طرف ثمن دوسری طرف مبیع؛ (2) دونوں طرف سامان، جیسے گندم چاول کے بدلے (بارٹر سیل)، اس کے احکام زیادہ تر ربا میں آتے ہیں؛ (3) دونوں طرف ثمن، جس میں سب سے زیادہ سختی ہے، جیسے سونے چاندی کی خرید و فروخت۔", "s": [{"t": "u", "v": "0:00:24"}, {"t": "u", "v": "0:00:30"}, {"t": "u", "v": "0:00:40"}, {"t": "u", "v": "0:00:44"}, {"t": "u", "v": "0:00:49"}, {"t": "u", "v": "0:00:51"}, {"t": "u", "v": "0:00:55"}, {"t": "u", "v": "0:01:00"}, {"t": "u", "v": "0:01:01"}]}, {"x": "سونا سونے کے بدلے، چاندی چاندی کے بدلے، اور سونا چاندی کے بدلے (یا الٹ) بیچنا، سب صرف ہیں؛ دونوں طرف ثمن ہے، اس لیے ہر ایک من وجہٍ ثمن بھی ہے اور من وجہٍ مبیع بھی۔", "s": [{"t": "u", "v": "0:01:09"}, {"t": "u", "v": "0:01:11"}, {"t": "u", "v": "0:01:14"}, {"t": "u", "v": "0:01:22"}, {"t": "u", "v": "0:01:24"}]}], "masala": [{"x": "تعریف: صرف وہ بیع ہے جس کے دونوں عوض اثمان کی جنس سے ہوں۔ (کتاب: «الصرف: هو البيع إذا كان كل واحد من عوضيه من جنس الأثمان»؛ حاشیہ: یہ قدوری کی عبارت ہے۔)", "s": [{"t": "u", "v": "0:01:32"}, {"t": "u", "v": "0:01:34"}, {"t": "k", "v": "253"}, {"t": "s", "v": "فتح القدير ٢٥٨/٦-٢٥٩"}]}, {"x": "پہلا حکم: سونے چاندی کا تبادلہ ہم جنس ہو (سونا سونے سے، چاندی چاندی سے) تو برابری بھی ضروری ہے اور مجلسِ عقد میں قبضہ بھی۔", "s": [{"t": "u", "v": "0:01:40"}, {"t": "u", "v": "0:01:45"}, {"t": "u", "v": "0:01:49"}, {"t": "u", "v": "0:01:51"}, {"t": "k", "v": "253"}, {"t": "k", "v": "254"}]}, {"x": "جنس ایک ہو تو وصف لغو ہے: نیا پرانا، 22 یا 24 قیراط، یا بناوٹ (صنعت) کی وجہ سے بڑھا ہوا ریٹ نہیں دیکھا جائے گا، وزن سے برابر کریں گے؛ 10 گرام سونا 11 گرام سونے کے بدلے کسی بھی وجہ سے جائز نہیں۔ (کتاب: «لا يجوز إلا مثلاً بمثل وإن اختلفا في الجودة والصياغة»۔)", "s": [{"t": "u", "v": "0:01:57"}, {"t": "u", "v": "0:02:04"}, {"t": "u", "v": "0:02:10"}, {"t": "u", "v": "0:02:12"}, {"t": "u", "v": "0:02:17"}, {"t": "u", "v": "0:02:22"}, {"t": "u", "v": "0:02:27"}, {"t": "u", "v": "0:06:28"}, {"t": "u", "v": "0:06:35"}, {"t": "u", "v": "0:06:36"}, {"t": "k", "v": "253"}]}, {"x": "دوسری شرط: جدا ہونے سے پہلے دونوں عوضوں پر قبضہ۔ مجلس سے مراد جہاں دونوں بیٹھے ہیں؛ سونے کا تبادلہ کر کے گفتگو ختم ہو گئی اور کلاس شروع ہو گئی، تب بھی مجلس برقرار ہے؛ گفتگو بدلنے سے پہلے نہیں، الگ ہونے سے پہلے قبضہ ضروری ہے۔ (کتاب: «ولابد من قبض العوضين قبل الافتراق»؛ «والمراد منه الافتراق بالأبدان»۔)", "s": [{"t": "u", "v": "0:02:31"}, {"t": "u", "v": "0:02:38"}, {"t": "u", "v": "0:02:40"}, {"t": "u", "v": "0:02:44"}, {"t": "u", "v": "0:02:50"}, {"t": "u", "v": "0:02:52"}, {"t": "u", "v": "0:02:54"}, {"t": "u", "v": "0:02:56"}, {"t": "u", "v": "0:03:00"}, {"t": "u", "v": "0:06:41"}, {"t": "u", "v": "0:06:42"}, {"t": "k", "v": "254"}, {"t": "k", "v": "255"}]}, {"x": "دونوں اسی مجلس میں پانچ گھنٹے سو گئے تب بھی عقد باطل نہیں ہوتا؛ جاگ کر الگ ہوئے اور قبضہ نہیں ہوا تھا تو عقد باطل، قبضہ کر لیا تھا تو درست۔ (کتاب: «حتى لو ذهبا عن المجلس يمشيان معاً في جهة واحدة، أو ناما في المجلس، أو أغمي عليهما: لا يبطل الصرف»؛ حاشیہ: الگ الگ سمتوں میں چلے تو باطل۔)", "s": [{"t": "u", "v": "0:03:04"}, {"t": "u", "v": "0:03:08"}, {"t": "u", "v": "0:03:11"}, {"t": "u", "v": "0:03:17"}, {"t": "k", "v": "255"}, {"t": "s", "v": "البناية ٨٦/١١"}]}, {"x": "قبضہ ہر حال میں ضروری: دونوں متعین ہونے والے ہوں جیسے زیور (مصوغ)، یا متعین نہ ہونے والے جیسے سکے (مضروب)، یا ایک یہ ایک وہ۔ (کتاب: «سواء كانا يتعينان كالمصوغ، أو لا يتعينان كالمضروب، أو يتعين أحدهما، ولا يتعين الآخر»۔)", "s": [{"t": "u", "v": "0:04:30"}, {"t": "u", "v": "0:04:34"}, {"t": "u", "v": "0:04:51"}, {"t": "k", "v": "255"}]}], "dalil": [{"x": "گندم کا چاول سے تبادلہ ہو تو وہاں بھی دونوں طرف قبضہ ضروری ہے، مگر وہاں حسی قبضہ مراد نہیں، تعیین کافی ہے: میں کہوں یہ پانچ کلو گندم تمہارے پانچ کلو چاول کے بدلے بیچی؛ لین دین نہیں ہوا مگر متعین ہو گیا کہ گندم اس کی اور چاول میرے۔ سونے چاندی میں تعیین کافی نہیں، باقاعدہ قبضہ ضروری ہے۔", "s": [{"t": "u", "v": "0:03:23"}, {"t": "u", "v": "0:03:29"}, {"t": "u", "v": "0:03:33"}, {"t": "u", "v": "0:03:37"}, {"t": "u", "v": "0:03:39"}, {"t": "u", "v": "0:03:42"}, {"t": "u", "v": "0:03:47"}, {"t": "u", "v": "0:03:50"}, {"t": "u", "v": "0:03:57"}, {"t": "u", "v": "0:03:59"}, {"t": "u", "v": "0:04:02"}]}, {"x": "وجہ: اثمان متعین نہیں ہوتے۔ میں نے کسی سے کہا اس پانچ ہزار کے نوٹ کے بدلے فلاں چیز دے دو، اس نے دے دی؛ پھر میں نے وہ نوٹ جیب میں رکھ کر ہزار ہزار کے نوٹ یا کوئی اور پانچ ہزار کا نوٹ نکال کر دیا تو وہ انکار نہیں کر سکتا؛ ثمن قبضے سے ہی متعین ہوتا ہے۔", "s": [{"t": "u", "v": "0:04:05"}, {"t": "u", "v": "0:04:09"}, {"t": "u", "v": "0:04:13"}, {"t": "u", "v": "0:04:15"}, {"t": "u", "v": "0:04:20"}, {"t": "u", "v": "0:04:24"}, {"t": "u", "v": "0:04:26"}, {"t": "u", "v": "0:04:28"}]}, {"x": "زیور متعین ہو جاتا ہے (یہ دس گرام کا کنگن مجھے دس گرام سونے کے بدلے بیچ دو)، پھر بھی قبضہ ضروری ہے، کیونکہ اصل کے لحاظ سے وہ ثمن ہے؛ قبضے میں کوئی رعایت نہیں۔ (کتاب: «ولأنه إن كان يتعين، ففيه شبهة عدم التعيين؛ لكونه ثمناً خلقةً، فيشترط قبضه؛ اعتباراً للشبهة في الربا»؛ حاشیہ: حرمتوں میں شبہ حقیقت کے ساتھ ملحق ہے۔)", "s": [{"t": "u", "v": "0:04:34"}, {"t": "u", "v": "0:04:37"}, {"t": "u", "v": "0:04:39"}, {"t": "u", "v": "0:04:44"}, {"t": "u", "v": "0:04:49"}, {"t": "u", "v": "0:04:51"}, {"t": "u", "v": "0:04:55"}, {"t": "u", "v": "0:04:58"}, {"t": "u", "v": "0:05:02"}, {"t": "k", "v": "255"}, {"t": "s", "v": "الكفاية"}]}, {"x": "استاد: روایات میں اس پر بہت سختی کی گئی ہے۔ کتاب کی حدیث (استاد نے نہیں پڑھی): «الذهب بالذهب مثلاً بمثل وزناً بوزن يداً بيد والفضل ربا»، اور «جيدها ورديئها سواء» (یعنی زیادتی کی حرمت میں عمدہ اور گھٹیا برابر)۔", "s": [{"t": "u", "v": "0:06:49"}, {"t": "k", "v": "254"}, {"t": "s", "v": "البناية"}]}, {"x": "استاد: وہ کہے کہ میں گھر میں جا کر سونا لاتا ہوں تو اتنی مہلت بھی نہ دو؛ گھر چلا گیا تو عقد باطل، سونا لائے تو دوبارہ عقد کریں گے۔ (کتاب میں یہ حضرت عمرؓ کا قول ہے: «وإن استنظرك أن يدخل بيته فلا تنظره»؛ حاشیہ: صرف کا ساتھی بدلِ صرف لانے کے لیے گھر جانے کی مہلت مانگے تو نہ دو۔)", "s": [{"t": "u", "v": "0:05:03"}, {"t": "u", "v": "0:05:05"}, {"t": "u", "v": "0:05:15"}, {"t": "u", "v": "0:05:18"}, {"t": "k", "v": "254"}, {"t": "s", "v": "البناية ٨٤/١١"}]}, {"x": "وہ چھت سے چھلانگ لگائے تو تم بھی اس کے ساتھ چھلانگ لگا دو تاکہ (بدن جدا نہ ہوں اور) عقد باطل نہ ہو۔ (کتاب: «لقول ابن عمر رضي الله عنهما: وإن وثب من سطح فثب معه»؛ حاشیہ: مراد ہلاکت والی چھلانگ نہیں، قبضے سے پہلے جدائی سے بچنے میں مبالغہ ہے۔)", "s": [{"t": "u", "v": "0:05:22"}, {"t": "u", "v": "0:05:28"}, {"t": "k", "v": "255"}, {"t": "s", "v": "الكفاية"}]}, {"x": "کتاب کی عقلی دلیل (استاد نے نہیں بتائی): ایک پر قبضہ ضروری تاکہ عقد ادھار کے بدلے ادھار (الكالئ بالكالئ) سے نکلے، پھر دوسرے پر بھی تاکہ برابری ثابت ہو اور ربا نہ ہو؛ اور کوئی ایک دوسرے سے اولیٰ نہیں، اس لیے دونوں کا قبضہ واجب۔", "s": [{"t": "k", "v": "254"}, {"t": "k", "v": "255"}, {"t": "s", "v": "البناية ٨٥/١١-٨٦"}]}], "ikhtilaf": [], "faida": [{"x": "حاشیہ: صرف کی تین قسمیں: سونا سونے سے، چاندی چاندی سے، اور ایک دوسرے سے؛ اجمالی شرطیں: بدنوں کی جدائی سے پہلے دونوں کا قبضہ، اور اس میں نہ خیار ہو نہ مدت (اجل)۔", "s": [{"t": "s", "v": "الكفاية ٢٥٨/٦"}]}, {"x": "نام کی وجہ (کتاب؛ استاد نے نہیں بتائی): دونوں بدل ہاتھ سے ہاتھ منتقل کرنے پڑتے ہیں، اور لغت میں صرف «نقل اور واپس کرنا» ہے؛ یا اس لیے کہ اس سے زیادتی ہی مطلوب ہوتی ہے کیونکہ سونے چاندی کے عین سے فائدہ نہیں اٹھایا جاتا، اور لغت میں صرف «زیادتی» بھی ہے (خلیل)؛ اسی سے نفل عبادت کو «صرف» کہا گیا۔", "s": [{"t": "k", "v": "253"}, {"t": "s", "v": "العناية ٢٥٩/٦"}, {"t": "s", "v": "البناية ٨٣/١١"}]}, {"x": "حاشیہ: «من جنس الأثمان» کہا، «بیعِ ثمن» نہیں، تاکہ زیور کی زیور یا نقدی سے بیع بھی شامل ہو؛ زیور بناوٹ کی وجہ سے خالص ثمن نہیں رہتا اور عقد میں متعین ہو جاتا ہے، پھر بھی اس کی بیع صرف ہے۔", "s": [{"t": "s", "v": "فتح القدير ٢٥٨/٦-٢٥٩"}]}, {"x": "حاشیہ: «مثلاً بمثل» یعنی برابری کا علم ہو: اٹکل سے بیچا اور حقیقت میں برابر نکلے تب بھی جائز نہیں؛ ہاں مجلس ہی میں تول لیا اور برابر نکلے تو جائز۔", "s": [{"t": "s", "v": "فتح القدير ٢٥٩/٦"}]}, {"x": "کتاب (استاد نے نہیں بتایا): صرف میں مجلس سے اٹھنا نہیں، بدنوں کی جدائی معتبر ہے، اور سلم کے رأس المال کے قبضے میں بھی یہی ہے؛ بخلاف اس بیوی کے جسے اختیار دیا گیا (مخیرہ): وہ مجلس سے اٹھ جائے تو اس کا اختیار ختم، کیونکہ وہ اعراض سے باطل ہو جاتا ہے۔", "s": [{"t": "k", "v": "255"}, {"t": "k", "v": "256"}]}, {"x": "سوال جواب: سونے سے بنی ہر چیز (زیور، برتن، قلم) کا یہی حکم ہے، شرط یہ کہ اس میں سونا غالب ہو؛ سونے کا پانی چڑھا ہو یا آدھے سے زیادہ کوئی اور چیز ہو تو اس پر سونے کا حکم نہیں آئے گا۔", "s": [{"t": "u", "v": "0:05:30"}, {"t": "u", "v": "0:05:33"}, {"t": "u", "v": "0:05:51"}, {"t": "u", "v": "0:05:55"}]}, {"x": "سوال جواب: زیور بنوانے (استصناع) میں مسئلہ نہیں کیونکہ ایک طرف زیور اور دوسری طرف کرنسی ہے؛ سونا سونے کے بدلے ہو تو استصناع بھی درست نہیں۔ اپنا سونا دے کر کہا یہی بنا دو تو یہ اجارہ ہے (اس کی خدمات لیں)؛ کہا یہ لے لو اور اس کے بدلے بنا کر دو تو جائز نہیں، کیونکہ قبضہ دونوں طرف سے ضروری ہے۔", "s": [{"t": "u", "v": "0:05:56"}, {"t": "u", "v": "0:06:06"}, {"t": "u", "v": "0:06:10"}, {"t": "u", "v": "0:06:16"}, {"t": "u", "v": "0:06:23"}]}], "lughat": [{"ar": "الصَّرف", "ur": "لغت میں: نقل کرنا اور واپس کرنا؛ نیز زیادتی", "s": [{"t": "k", "v": "253"}]}, {"ar": "عِوَضَيه", "ur": "اس کے دونوں عوض (بدل)", "s": [{"t": "u", "v": "0:01:32"}]}, {"ar": "الجودة", "ur": "عمدگی، کوالٹی", "s": [{"t": "u", "v": "0:06:36"}]}, {"ar": "الصياغة", "ur": "بناوٹ، زیور سازی", "s": [{"t": "u", "v": "0:06:36"}, {"t": "s", "v": "البناية ٨٣/١١"}]}, {"ar": "الافتراق", "ur": "جدا ہونا (بدنوں سے)", "s": [{"t": "u", "v": "0:06:42"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "استنظرك", "ur": "تم سے مہلت مانگے", "s": [{"t": "u", "v": "0:05:03"}, {"t": "s", "v": "البناية ٨٤/١١"}]}, {"ar": "الكالئ بالكالئ", "ur": "ادھار کے بدلے ادھار", "s": [{"t": "s", "v": "البناية"}]}, {"ar": "المصوغ / المضروب", "ur": "بنا ہوا زیور / ڈھلے ہوئے سکے (درہم و دینار)", "s": [{"t": "s", "v": "البناية ٨٥/١١-٨٦"}]}]}, {"unit": "u0", "pages": [256, 257], "lesson": "2026-07-11-1448", "ts": "0:06:54", "label": null, "title": "سونا چاندی کے بدلے: کمی بیشی جائز مگر قبضہ واجب؛ دونوں یا ایک عوض پر قبضے سے پہلے جدا ہوئے تو عقد باطل؛ صرف میں نہ خیارِ شرط درست نہ مدت (اجل)، ہاں خیار مجلس ہی میں ساقط کر دیا تو عقد درست (امام زفر کا اختلاف)", "start": "وإن باع الذهب بالفضة: جاز التفاضل", "start_note": "0:06:54 پر پڑھا «فإن باع الذهب بالفضة جاز التفاضل» (متن میں «وإن»)۔ متن v5 256 ≈0.06 سے؛ کارڈ «قال: ولا يجوز التصرف في ثمن الصرف» (v5 257، ≈0.04) سے پہلے ختم، یعنی «وفيه خلاف زفر» تک۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 256–257", "tamheed": [{"x": "اب جنس بدل گئی (سونا چاندی کے بدلے) تو اضافہ جائز ہے: دس گرام سونے کے بدلے سو گرام چاندی، اس میں کوئی مسئلہ نہیں۔", "s": [{"t": "u", "v": "0:06:56"}, {"t": "u", "v": "0:07:02"}, {"t": "u", "v": "0:07:07"}]}], "masala": [{"x": "کمی بیشی جائز کیونکہ جنس ایک نہیں، مگر قبضہ پھر بھی ضروری؛ قبضے کے وہی احکام جو پیچھے گزرے۔ (کتاب: «جاز التفاضل؛ لعدم المجانسة، ووجب التقابض»۔)", "s": [{"t": "u", "v": "0:06:54"}, {"t": "u", "v": "0:07:11"}, {"t": "u", "v": "0:07:12"}, {"t": "u", "v": "0:07:13"}, {"t": "k", "v": "256"}]}, {"x": "قبضہ نہیں کیا اور صرف میں دونوں الگ ہو گئے، دونوں عوضوں پر قبضے سے پہلے یا ایک کے قبضے سے پہلے، تو عقد باطل۔ (کتاب: «فإن افترقا في الصرف قبل قبض العوضين، أو أحدهما: بطل العقد؛ لفوات الشرط وهو القبض»؛ بین السطور: یعنی بقا کی شرط۔)", "s": [{"t": "u", "v": "0:07:15"}, {"t": "u", "v": "0:07:19"}, {"t": "u", "v": "0:08:05"}, {"t": "u", "v": "0:08:10"}, {"t": "u", "v": "0:08:12"}, {"t": "u", "v": "0:08:14"}, {"t": "k", "v": "256"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"x": "باقی بیع میں خیارِ شرط بھی چلتا ہے اور مدت بھی دی جا سکتی ہے؛ صرف میں نہ خیارِ شرط ہو سکتا ہے (سونا سونے کے بدلے بیچتا ہوں، تین دن کا اختیار میرا) نہ اجل۔ (کتاب: «ولا يصح شرط الخيار فيه، ولا الأجل»۔)", "s": [{"t": "u", "v": "0:07:23"}, {"t": "u", "v": "0:07:28"}, {"t": "u", "v": "0:07:31"}, {"t": "u", "v": "0:07:35"}, {"t": "u", "v": "0:07:38"}, {"t": "k", "v": "256"}]}, {"x": "خیار رکھا تھا مگر مجلس کے اندر اندر اسے ختم کر دیا تو عقد ٹھیک ہو جائے گا؛ خیار کے ساتھ ہی مجلس برخاست ہو گئی تو باطل۔ (کتاب: «إلا إذا أسقط الخيار في المجلس، فيعود إلى الجواز؛ لارتفاعه قبل تقرره»؛ بین السطور: استحساناً۔)", "s": [{"t": "u", "v": "0:07:51"}, {"t": "u", "v": "0:08:02"}, {"t": "k", "v": "256"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}], "dalil": [{"x": "اجل سے قبضہ لیٹ ہو جاتا ہے، اور خیار کی وجہ سے ایک فریق کا قبضہ کرنے کا حق ختم ہو جاتا ہے، وہ کلیم نہیں کر سکتا کہ مجھے قبضہ دو۔ (کتاب: «لأن بأحدهما لا يبقى القبض مستحقاً، وبالثاني يفوت القبض المستحق»؛ حاشیہ: خیار ملکیت کو روکتا ہے۔)", "s": [{"t": "u", "v": "0:07:43"}, {"t": "u", "v": "0:07:46"}, {"t": "u", "v": "0:07:49"}, {"t": "u", "v": "0:07:50"}, {"t": "k", "v": "256"}, {"t": "s", "v": "البناية ٨٨/١١"}]}, {"x": "قبضہ واجب ہونے کی حدیث (استاد نے نہیں پڑھی): «الذهب بالورق ربا إلا هاء وهاء»؛ حاشیہ: «هاء» یعنی لو، ہر ایک دوسرے سے کہے لو، اور دونوں قبضہ کریں۔", "s": [{"t": "k", "v": "256"}, {"t": "s", "v": "الكفاية ٢٦٢/٦"}]}], "ikhtilaf": [{"x": "مجلس میں خیار ساقط کرنے سے عقد کا جائز ہو جانا: اس میں امام زفر کا اختلاف ہے، ان کے ہاں جائز نہیں ہوتا (استاد نے ذکر نہیں کیا)۔ (کتاب: «وفيه خلاف زفر»؛ حاشیہ: «لا يعود جائزاً»۔)", "s": [{"t": "k", "v": "257"}, {"t": "s", "v": "النهاية"}]}], "faida": [{"x": "حاشیہ: قید «خیارِ شرط» کی ہے؛ خیارِ عیب اور خیارِ رؤیت صرف میں بھی باقی عقود کی طرح ثابت ہیں، البتہ خیارِ رؤیت صرف عین (متعین چیز) میں، دَین میں نہیں۔", "s": [{"t": "s", "v": "العناية ٢٦٢/٦"}]}, {"x": "حاشیہ: اجل ساقط کرنے کا ذکر نہیں کیا، کیونکہ مجلس میں ادائیگی کر دی تو جائز ہے، چاہے زبان سے اسقاط نہ کیا ہو۔", "s": [{"t": "s", "v": "العناية ٢٦٢/٦"}]}], "lughat": [{"ar": "التفاضل", "ur": "کمی بیشی، ایک طرف زیادہ", "s": [{"t": "u", "v": "0:07:02"}]}, {"ar": "لعدم المجانسة", "ur": "کیونکہ جنس ایک نہیں", "s": [{"t": "u", "v": "0:06:56"}]}, {"ar": "التقابض", "ur": "دونوں کا ایک دوسرے سے قبضہ کرنا", "s": [{"t": "u", "v": "0:07:12"}]}, {"ar": "هاء وهاء", "ur": "لو اور لو (ہاتھوں ہاتھ لین دین)", "s": [{"t": "s", "v": "الكفاية ٢٦٢/٦"}]}, {"ar": "الأجل", "ur": "مدت، ادھار کی مہلت", "s": [{"t": "u", "v": "0:07:28"}]}, {"ar": "قبل تقرره", "ur": "(فساد کے) پکا ہونے سے پہلے، یعنی مجلس بدلنے سے پہلے", "s": [{"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}]}, {"unit": "u0", "pages": [257, 258], "lesson": "2026-07-11-1448", "ts": "0:08:17", "label": null, "title": "ثمنِ صرف میں قبضے سے پہلے تصرف جائز نہیں (دینار دس درہم کے بدلے بیچا اور درہم لینے سے پہلے ان کے بدلے کپڑا خریدا تو کپڑے کی بیع فاسد)؛ سونا چاندی کے بدلے اٹکل سے بیچنا جائز، سونا سونے کے بدلے نہیں", "start": "قال: ولا يجوز التصرفُ في ثمن الصرف قبل قبضه", "start_note": "0:08:17 پر تمہید، متن 0:10:25 پر پڑھا۔ «ويجوز بيع الذهب بالفضة مجازفة» (v5 257، ≈0.85) 0:10:56–0:11:37 میں۔ کارڈ «قال: ومن باع جاريةً» (v5 258، ≈0.11) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 257–258", "tamheed": [{"x": "عام قاعدہ: میں نے یہ موبائل اسے دس ہزار کا بیچا؛ موبائل مبیع ہے، قبضے سے پہلے وہ اس میں تصرف نہیں کر سکتا، مثلاً کسی سے نہیں کہہ سکتا کہ اپنا موبائل مجھے دے دو اور یہ موبائل سیدھا اس سے وصول کر لو۔", "s": [{"t": "u", "v": "0:08:17"}, {"t": "u", "v": "0:08:24"}, {"t": "u", "v": "0:08:27"}, {"t": "u", "v": "0:08:29"}, {"t": "u", "v": "0:08:31"}, {"t": "u", "v": "0:08:34"}, {"t": "u", "v": "0:08:39"}, {"t": "u", "v": "0:08:42"}]}, {"x": "لیکن پیسوں میں قبضے سے پہلے تصرف ہو سکتا ہے: اسے مجھے دس ہزار دینے ہیں، میں کسی سے کہوں اپنا موبائل مجھے دس ہزار کا بیچ دو اور پیسے اس سے لے لو؛ مطلب یہ کہ میں نے کسی بھی دس ہزار کے بدلے خریدا اور پھر کہا اس سے لے لو؛ یہ جائز ہے۔", "s": [{"t": "u", "v": "0:08:48"}, {"t": "u", "v": "0:08:52"}, {"t": "u", "v": "0:08:54"}, {"t": "u", "v": "0:08:59"}, {"t": "u", "v": "0:09:04"}, {"t": "u", "v": "0:09:09"}, {"t": "u", "v": "0:09:13"}, {"t": "u", "v": "0:09:16"}, {"t": "u", "v": "0:09:17"}]}, {"x": "صرف میں یہ بھی جائز نہیں: میں نے اسے دس گرام سونا دیا، اسے مجھے دس گرام سونا دینا تھا؛ میں کہوں: ان دس گرام کے بدلے مجھے سو گرام چاندی دے دو اور وہ دس گرام اس سے وصول کرو، یا ان دس گرام کے بدلے مجھے اپنا موبائل بیچ دو: جائز نہیں، کیونکہ اس دس گرام پر میں نے قبضہ نہیں کیا۔", "s": [{"t": "u", "v": "0:09:20"}, {"t": "u", "v": "0:09:23"}, {"t": "u", "v": "0:09:29"}, {"t": "u", "v": "0:09:32"}, {"t": "u", "v": "0:09:35"}, {"t": "u", "v": "0:09:39"}, {"t": "u", "v": "0:09:41"}, {"t": "u", "v": "0:09:47"}, {"t": "u", "v": "0:09:51"}, {"t": "u", "v": "0:09:56"}, {"t": "u", "v": "0:10:00"}]}], "masala": [{"x": "صرف کے ثمن میں قبضے سے پہلے تصرف درست نہیں۔ کتاب کی مثال: دینار دس درہم کے بدلے بیچا، ایک فریق نے ابھی دس درہم قبضے میں نہیں لیے تھے کہ ان کے بدلے (کسی اور سے یا اسی سے) کپڑا خرید لیا، تو کپڑے کی بیع فاسد، کیونکہ قبضہ نہیں ہوا۔ (کتاب: «ولا يجوز التصرف في ثمن الصرف قبل قبضه، حتى لو باع ديناراً بعشرة دراهم، ولم يقبض العشرة حتى اشترى بها ثوباً: فالبيع في الثوب فاسد»؛ حاشیہ: تصرف یعنی ہبہ، صدقہ یا بیع۔)", "s": [{"t": "u", "v": "0:10:25"}, {"t": "u", "v": "0:10:32"}, {"t": "u", "v": "0:10:35"}, {"t": "u", "v": "0:10:37"}, {"t": "u", "v": "0:10:41"}, {"t": "u", "v": "0:10:45"}, {"t": "u", "v": "0:10:47"}, {"t": "u", "v": "0:10:51"}, {"t": "u", "v": "0:10:53"}, {"t": "u", "v": "0:10:55"}, {"t": "k", "v": "257"}, {"t": "s", "v": "النهاية"}]}, {"x": "سونا چاندی کے بدلے اٹکل سے (بغیر وزن) بیچنا جائز: یہ سونا ہے پتا نہیں کتنا، تم یہ لے لو اور تمہارے پاس جو چاندی ہے پتا نہیں کتنی، مجھے دے دو؛ دونوں کو یا ایک کو مقدار معلوم نہ ہو تب بھی عقد جائز۔ (کتاب: «ويجوز بيع الذهب بالفضة مجازفة؛ لأن المساواة غير مشروطة فيه»۔)", "s": [{"t": "u", "v": "0:10:56"}, {"t": "u", "v": "0:11:07"}, {"t": "u", "v": "0:11:11"}, {"t": "u", "v": "0:11:16"}, {"t": "u", "v": "0:11:35"}, {"t": "u", "v": "0:11:37"}, {"t": "k", "v": "257"}]}, {"x": "سونا سونے کے بدلے اٹکل سے نہیں بیچ سکتے؛ دونوں کی مقدار معلوم ہونا ضروری ہے تاکہ یقینی ہو کہ دونوں برابر ہیں۔ (کتاب: «بخلاف بيعه بجنسه مجازفة؛ لما فيه من احتمال الربا»۔)", "s": [{"t": "u", "v": "0:11:25"}, {"t": "u", "v": "0:11:29"}, {"t": "k", "v": "258"}]}, {"x": "اٹکل والی بیع میں بھی جدا ہونے سے پہلے قبضہ شرط ہے۔ (کتاب: «ولكن يشترط القبض في المجلس؛ لما ذكرنا»؛ حاشیہ: مجلس سے مراد جدائی سے پہلے کا وقت۔)", "s": [{"t": "k", "v": "257"}, {"t": "k", "v": "258"}, {"t": "s", "v": "فتح القدير ٢٦٥/٦"}]}], "dalil": [{"x": "صرف میں باقاعدہ حسی قبضہ ضروری ہے، اس لیے ثمن پر قبضے سے پہلے بھی تصرف نہیں ہو سکتا۔ عام قاعدہ یہ کہ ثمن میں تصرف ہو سکتا ہے، مگر یہاں ثمن بھی مبیع کی طرح ہے: ہر ایک من وجہٍ ثمن اور من وجہٍ مبیع؛ اور جیسے باقی مبیعات میں قبضے سے پہلے تصرف نہیں ہوتا، یہاں بھی نہیں۔", "s": [{"t": "u", "v": "0:10:02"}, {"t": "u", "v": "0:10:07"}, {"t": "u", "v": "0:10:10"}, {"t": "u", "v": "0:10:13"}, {"t": "u", "v": "0:10:16"}, {"t": "u", "v": "0:10:20"}, {"t": "u", "v": "0:10:21"}]}, {"x": "کتاب: قبضہ عقد سے اللہ تعالیٰ کے حق کے طور پر واجب ہے (کیونکہ ربا کی حرمت اللہ کا حق ہے)، اور تصرف جائز ماننے میں قبضہ فوت ہوتا ہے؛ بیع کے لیے مبیع ضروری ہے اور یہاں دو ثمنوں کے سوا کچھ نہیں، اس لیے ہر ایک کو مبیع مانا گیا، اور مبیع کی بیع قبضے سے پہلے جائز نہیں۔ (کتاب: «لأن القبض مستحق بالعقد حقاً لله تعالى… الثمن في باب الصرف مبيع… وبيع المبيع قبل القبض لا يجوز»۔)", "s": [{"t": "k", "v": "257"}, {"t": "s", "v": "النهاية"}]}, {"x": "اٹکل کیوں جائز: جہاں اضافہ جائز ہوتا ہے وہاں وزن کے بغیر بیچنا بھی جائز ہوتا ہے؛ اضافہ ہو بھی جائے تو کوئی مسئلہ نہیں۔", "s": [{"t": "u", "v": "0:10:57"}, {"t": "u", "v": "0:11:05"}, {"t": "u", "v": "0:11:20"}]}], "ikhtilaf": [{"x": "امام زفر (کتاب: «كما نقل عن زفر»؛ استاد نے ذکر نہیں کیا): کپڑے کی بیع جائز ہونی چاہیے، کیونکہ درہم متعین نہیں ہوتے تو عقد مطلق درہموں کی طرف پھر جائے گا۔ جواب: ثمن یہاں مبیع ہے، اور مبیع ہونے کے لیے متعین ہونا ضروری نہیں، جیسے مسلم فیہ مبیع ہے مگر متعین نہیں۔ حاشیہ: «نقل عن زفر» اس لیے کہا کہ ان کا ظاہر مذہب ہمارے تینوں ائمہ جیسا ہے۔", "s": [{"t": "k", "v": "257"}, {"t": "s", "v": "البناية ٨٨/١١"}, {"t": "s", "v": "النهاية"}]}], "faida": [{"x": "حاشیہ: باقی ربوی اموال کا بھی یہی حکم ہے (ہم جنس اٹکل سے نہیں)؛ جنس الگ ہو جیسے گندم اور جو، تو اٹکل جائز۔", "s": [{"t": "s", "v": "فتح القدير"}]}, {"x": "حاشیہ: ہم جنس اٹکل سے بیچا تو حقیقت میں برابر نکلے تب بھی ناجائز، کیونکہ عقد کے وقت برابری کا علم شرط ہے؛ اس باب میں جس زیادتی کا وہم ہو وہ یقینی کی طرح ہے۔", "s": [{"t": "s", "v": "العناية"}]}], "lughat": [{"ar": "التصرف", "ur": "تصرف: بیچنا، ہبہ کرنا، صدقہ کرنا وغیرہ", "s": [{"t": "s", "v": "النهاية"}]}, {"ar": "ثمن الصرف", "ur": "صرف کا بدل (جو دوسری طرف سے ملنا ہے)", "s": [{"t": "u", "v": "0:10:32"}]}, {"ar": "مجازفة", "ur": "اٹکل سے، بغیر وزن کیے", "s": [{"t": "u", "v": "0:11:37"}]}, {"ar": "حقاً لله تعالى", "ur": "اللہ کے حق کے طور پر", "s": [{"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "المسلم فيه", "ur": "بیعِ سلم میں ذمے پر واجب (ادھار بیچی ہوئی) چیز", "s": [{"t": "s", "v": "النهاية"}]}, {"ar": "احتمال الربا", "ur": "سود کا احتمال (برابری یقینی نہیں)", "s": [{"t": "u", "v": "0:11:29"}]}]}, {"unit": "u0", "pages": [258], "lesson": "2026-07-11-1448", "ts": "0:11:41", "label": null, "title": "باندی اور اس کے گلے کا چاندی کا ہار (طوق) ایک ساتھ چاندی کے بدلے بیچے اور کچھ قیمت نقد دی، یا کچھ نقد کچھ ادھار طے کیا: جو نقد دیا وہ ہار کی قیمت شمار ہوگا اور عقد درست (استاد کی مثال: سونے کے کور والا موبائل)", "start": "ومن باع جاريةً قيمتُها ألفُ مثقال فضة", "start_note": "0:11:41 پر «ومن باع جارية قيمتها ألف مثقال» پڑھ کر پہلے موبائل اور سونے کے کور کی مثال دی؛ کتاب کی مثال 0:13:22 پر بتائی اور متن 0:13:41 سے پڑھا۔ OCR میں «وقال: ومن باع جاريةً»۔ کارڈ «وكذلك لو باع سيفاً محلى» (v5 258، ≈0.73) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 258", "tamheed": [{"x": "ایک موبائل ہے اور اس کا کور سونے سے بنا ہے، کور کا وزن پچاس گرام؛ میں نے دونوں کا مجموعہ سو گرام سونے کے بدلے بیچا۔ عقد جائز ہے: پچاس گرام کور کے مقابل اور پچاس گرام موبائل کے مقابل۔", "s": [{"t": "u", "v": "0:11:49"}, {"t": "u", "v": "0:11:52"}, {"t": "u", "v": "0:11:54"}, {"t": "u", "v": "0:11:58"}, {"t": "u", "v": "0:12:04"}, {"t": "u", "v": "0:12:09"}, {"t": "u", "v": "0:12:14"}]}, {"x": "کتاب کی مثال: ایک باندی ہے اور اس کے گلے میں ہار ہے؛ باندی اور ہار کو ایک ساتھ بیچا گیا تو یہی سارے احکام لاگو ہوں گے۔", "s": [{"t": "u", "v": "0:13:22"}, {"t": "u", "v": "0:13:26"}, {"t": "u", "v": "0:13:30"}, {"t": "u", "v": "0:13:32"}]}], "masala": [{"x": "سو گرام لے لیے تو عقد ٹھیک؛ ستر لیے اور تیس بعد میں دینے ہیں تو بھی ٹھیک: پچاس کور کے مقابل اور موبائل کی قیمت میں بیس وصول، تیس بعد میں؛ صرف پچاس لیے تب بھی درست: وہ کور کے مقابل، اور موبائل والے پچاس قرض۔", "s": [{"t": "u", "v": "0:12:25"}, {"t": "u", "v": "0:12:27"}, {"t": "u", "v": "0:12:29"}, {"t": "u", "v": "0:12:33"}, {"t": "u", "v": "0:12:36"}, {"t": "u", "v": "0:12:37"}, {"t": "u", "v": "0:12:44"}, {"t": "u", "v": "0:12:47"}, {"t": "u", "v": "0:12:48"}, {"t": "u", "v": "0:12:51"}]}, {"x": "کتاب: باندی کی قیمت ہزار مثقال چاندی، گلے میں ہار جس میں ہزار مثقال چاندی ہے؛ دونوں دو ہزار مثقال چاندی کے بدلے بیچے، ہزار نقد وصول کر لیا، پھر جدا ہو گئے: عقد درست، اور جو دیا وہ ہار کے مقابل سمجھا جائے گا۔ (کتاب: «ونقد من الثمن ألف مثقال، ثم افترقا: فالذي نقد ثمن الفضة»۔)", "s": [{"t": "u", "v": "0:13:41"}, {"t": "u", "v": "0:13:44"}, {"t": "u", "v": "0:13:46"}, {"t": "u", "v": "0:13:53"}, {"t": "u", "v": "0:14:01"}, {"t": "u", "v": "0:14:09"}, {"t": "u", "v": "0:14:11"}, {"t": "u", "v": "0:14:13"}, {"t": "k", "v": "258"}]}, {"x": "اسی طرح دو ہزار کے بدلے لیا اور طے ہوا کہ ہزار ابھی نقد اور ہزار ادھار، تو نقد ہار کے مقابل سمجھا جائے گا؛ ممکنہ حد تک کوشش کی جائے گی کہ عقد درست ہو جائے۔ (کتاب: «وكذا لو اشتراها بألفي مثقال: ألف نسيئة، وألف نقد، فالنقد ثمن الطوق»۔)", "s": [{"t": "u", "v": "0:14:17"}, {"t": "u", "v": "0:14:27"}, {"t": "u", "v": "0:14:36"}, {"t": "k", "v": "258"}]}, {"x": "استاد: پوری قیمت قرض تھی (موبائل دیا اور کہا سو گرام کل دے دینا) تو موبائل میں عقد ٹھیک اور کور میں فاسد، کیونکہ دونوں آسانی سے الگ ہو سکتے ہیں اور کور کے مقابل پچاس گرام پر فوراً قبضہ ضروری تھا۔ (ادھار کی صراحت کے ساتھ یہ صاحبین کا قول ہے؛ امام ابو حنیفہ کے ہاں سب میں فاسد؛ حاشیے کی تفصیل نیچے اختلاف میں۔)", "s": [{"t": "u", "v": "0:12:59"}, {"t": "u", "v": "0:13:02"}, {"t": "u", "v": "0:13:07"}, {"t": "u", "v": "0:13:12"}, {"t": "u", "v": "0:13:14"}, {"t": "u", "v": "0:13:16"}, {"t": "s", "v": "الكفاية"}]}], "dalil": [{"x": "ہار کے حصے پر مجلس میں قبضہ واجب ہے کیونکہ وہ صرف کا بدل ہے، اور (مسلمان سے) ظاہر یہی ہے کہ واجب ادا کرے؛ ادھار والی صورت میں: اجل صرف میں باطل اور باندی کی بیع میں جائز ہے، اور ظاہر یہی ہے کہ دونوں نے جائز طریقے پر معاملہ کیا۔ (کتاب: «لأن قبض حصة الطوق واجب في المجلس لكونه بدل الصرف، والظاهر منه الإتيان بالواجب… لأن الأجل باطل في الصرف جائز في بيع الجارية، والمباشرة على وجه الجواز هو الظاهر منهما»۔)", "s": [{"t": "u", "v": "0:14:36"}, {"t": "k", "v": "258"}, {"t": "s", "v": "الكفاية"}]}], "ikhtilaf": [{"x": "حاشیہ: پورے دو ہزار ادھار پر خریدا تو امام ابو حنیفہ کے ہاں سب میں فاسد (ہار میں قبضہ نہ ہونے سے، اور باندی میں اس لیے کہ مفسد عقد کے ساتھ ملا ہوا ہے)؛ صاحبین کے ہاں باندی میں فاسد نہیں، فساد مفسد کے بقدر رہتا ہے۔ ادھار کی شرط کے بغیر خریدا اور کچھ دیے بغیر جدا ہو گئے تو بالاتفاق ہار میں باطل، باندی میں نہیں، کیونکہ یہ فساد بعد میں آیا (طاری)۔", "s": [{"t": "s", "v": "الكفاية"}]}], "faida": [{"x": "قاعدہ (استاد): چیز میں جتنے گرام سونا ہے، قیمت اس سے کچھ نہ کچھ زیادہ ہونی چاہیے تاکہ زائد حصہ موبائل کے مقابل ہو جائے؛ پچاس کا ہی بیچا تو موبائل ایسا اضافہ رہ گیا جس کے مقابل کوئی عوض نہیں، یہ سود کے زمرے میں آنے سے ناجائز؛ چالیس کا بیچا تو سونے کے مقابل بھی پورا نہیں ہوا۔ برابر، کم، یا معلوم نہ ہو: تمام صورتیں ناجائز۔ (کتاب میں یہ تلوار والے مسئلے میں ہے، کارڈ 5۔)", "s": [{"t": "u", "v": "0:14:43"}, {"t": "u", "v": "0:14:45"}, {"t": "u", "v": "0:14:46"}, {"t": "u", "v": "0:14:53"}, {"t": "u", "v": "0:14:57"}, {"t": "u", "v": "0:14:58"}, {"t": "u", "v": "0:15:09"}, {"t": "u", "v": "0:15:11"}, {"t": "u", "v": "0:15:13"}, {"t": "u", "v": "0:15:16"}, {"t": "u", "v": "0:15:20"}, {"t": "u", "v": "0:15:21"}, {"t": "k", "v": "259"}, {"t": "k", "v": "260"}]}, {"x": "حاشیہ: ہزار مثقال کا ہار گلے میں ڈالنا عادت سے بعید، بلکہ ایک قسم کی سزا ہے؛ اس سے معلوم ہوا کہ باندی کی قیمت اور ہار کا برابر ہونا شرط نہیں؛ اصل یہ ہے کہ نقدی کسی اور چیز کے ساتھ اسی جنس کی نقدی کے بدلے بیچی جائے تو قیمت ساتھ ملی نقدی سے زیادہ ہو۔", "s": [{"t": "s", "v": "فتح القدير ٢٦٦/٦"}]}], "lughat": [{"ar": "جارية", "ur": "باندی", "s": [{"t": "u", "v": "0:13:22"}]}, {"ar": "طَوق", "ur": "گلے کا ہار", "s": [{"t": "u", "v": "0:13:22"}, {"t": "u", "v": "0:14:13"}]}, {"ar": "مثقال", "ur": "سونے چاندی کے وزن کا ایک پیمانہ", "s": [{"t": "a", "v": ""}]}, {"ar": "نَقَد من الثمن", "ur": "قیمت میں سے نقد ادا کیا", "s": [{"t": "u", "v": "0:14:09"}]}, {"ar": "نسيئة", "ur": "ادھار", "s": [{"t": "u", "v": "0:14:27"}]}, {"ar": "حصة الطوق", "ur": "قیمت میں سے ہار کا حصہ", "s": [{"t": "a", "v": ""}]}, {"ar": "المباشرة على وجه الجواز", "ur": "جائز طریقے پر معاملہ کرنا", "s": [{"t": "a", "v": ""}]}]}, {"unit": "u0", "pages": [258, 259, 260], "lesson": "2026-07-11-1448", "ts": "0:15:26", "label": null, "title": "چاندی جڑی تلوار (سیف محلّیٰ) چاندی کے بدلے: دیا ہوا نقد چاندی کا حصہ شمار، اگرچہ «دونوں کی قیمت میں سے» کہے؛ قبضے کے بغیر جدا ہوئے تو چاندی میں عقد باطل، اور تلوار میں بھی اگر چاندی نقصان کے بغیر الگ نہ ہو سکے؛ قیمت اس میں لگی چاندی سے زیادہ ہونا شرط", "start": "وكذلك لو باع سيفاً مُحَلَّى بمائة درهم، وحليتهُ خمسون", "start_note": "0:15:26 پر «وكذلك لو باع سيفا محلى» پڑھ کر سمجھایا، 0:16:44 پر دوبارہ پڑھ کر ترجمہ کیا۔ متن v5 258 ≈0.73 سے؛ کارڈ «قال: ومن باع إناء فضة» (v5 260، ≈0.22) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 258–260", "tamheed": [{"x": "تلوار لوہے سے بنتی ہے، لیکن اس کا دستہ چاندی کا ہے یا اس پر چاندی کی کڑھائی ہے؛ اس میں سو گرام چاندی ہے، باقی لوہا۔ دو سو گرام چاندی کے بدلے بیچی تو سو، سو کے مقابل اور باقی سو لوہے کے مقابل۔", "s": [{"t": "u", "v": "0:15:30"}, {"t": "u", "v": "0:15:34"}, {"t": "u", "v": "0:15:36"}, {"t": "u", "v": "0:15:40"}, {"t": "u", "v": "0:15:42"}, {"t": "u", "v": "0:15:46"}, {"t": "u", "v": "0:15:47"}]}], "masala": [{"x": "بس سو گرام لیا، یا سو گرام نقد اور سو ادھار تھا، تو ان تمام صورتوں میں عقد درست۔", "s": [{"t": "u", "v": "0:15:55"}, {"t": "u", "v": "0:15:57"}]}, {"x": "کتاب: سو درہم میں تلوار بیچی جس کی چاندی پچاس درہم کی ہے، اور پچاس دے دیے تو بیع جائز، اور دیا ہوا چاندی کا حصہ سمجھا جائے گا، اگرچہ یہ بیان نہ کیا ہو۔ (کتاب: «فدفع من الثمن خمسين: جاز البيع، وكان المقبوض حصة الفضة وإن لم يبين ذلك»۔)", "s": [{"t": "u", "v": "0:16:44"}, {"t": "u", "v": "0:16:53"}, {"t": "u", "v": "0:16:56"}, {"t": "u", "v": "0:16:59"}, {"t": "u", "v": "0:17:01"}, {"t": "u", "v": "0:17:06"}, {"t": "u", "v": "0:17:07"}, {"t": "k", "v": "258"}]}, {"x": "اگر کہا: یہ پچاس دونوں (تلوار اور چاندی؛ استاد کی مثال میں کور اور موبائل) کے مقابلے میں رکھ لو، باقی بعد میں دوں گا، تب بھی عقد درست، اور یہ پچاس کور ہی کے مقابل سمجھے جائیں گے؛ اس کے «دونوں» کہنے کا اعتبار نہیں ہوگا۔ (کتاب: «وكذلك إن قال: خذ هذه الخمسين من ثمنهما»۔)", "s": [{"t": "u", "v": "0:17:07"}, {"t": "u", "v": "0:17:12"}, {"t": "u", "v": "0:17:22"}, {"t": "u", "v": "0:17:26"}, {"t": "u", "v": "0:17:31"}, {"t": "u", "v": "0:17:33"}, {"t": "k", "v": "258"}]}, {"x": "استاد: پوری قیمت ادھار تھی تو (موبائل اور کور کی طرح) تلوار سے چاندی آسانی سے الگ ہو سکے تو تلوار میں عقد درست اور چاندی میں نہیں؛ چاندی جڑی ہوئی (فکسڈ) ہو تو تلوار میں بھی درست نہیں، کیونکہ تلوار کو نقصان پہنچائے بغیر اسے الگ نہیں کیا جا سکتا۔ (ادھار کی صراحت کے ساتھ یہ صاحبین کا قول ہے؛ امام ابو حنیفہ کے ہاں سب میں فاسد، دیکھیں کارڈ 4۔)", "s": [{"t": "u", "v": "0:16:02"}, {"t": "u", "v": "0:16:07"}, {"t": "u", "v": "0:16:13"}, {"t": "u", "v": "0:16:19"}, {"t": "u", "v": "0:16:25"}, {"t": "s", "v": "الكفاية"}]}, {"x": "قبضہ کیے بغیر جدا ہو گئے تو چاندی (زیور) میں عقد باطل؛ تلوار سے چاندی الگ کرنا مشکل ہے تو تلوار میں بھی عقد ختم، آسانی سے الگ ہو سکتی ہے تو تلوار میں بیع درست۔ (کتاب: «فإن لم يتقابضا حتى افترقا: بطل العقد في الحلية؛ لأنه صرف فيها، وكذا في السيف إن كان لا يتخلص إلا بضرر… وإن كان يتخلص السيف بغير ضرر جاز البيع في السيف، وبطل في الحلية»۔)", "s": [{"t": "u", "v": "0:18:31"}, {"t": "u", "v": "0:18:36"}, {"t": "u", "v": "0:18:38"}, {"t": "u", "v": "0:18:39"}, {"t": "u", "v": "0:18:45"}, {"t": "k", "v": "259"}]}, {"x": "یہ عقد تب درست ہے جب قیمت اس میں لگی چاندی سے زیادہ ہو (پچاس گرام ہے تو پچپن، سو)؛ پچاس کا بیچا، یا چالیس کا، یا پتا نہ ہو کہ اس میں پچاس ہے یا کم زیادہ، تو ان تمام صورتوں میں عقد جائز نہیں۔ (کتاب: «وهذا إذا كانت الفضة المفردة أزيد مما فيه، فإن كانت مثله، أو أقل منه، أو لا يدري لا يجوز البيع»۔)", "s": [{"t": "u", "v": "0:18:59"}, {"t": "u", "v": "0:19:04"}, {"t": "u", "v": "0:19:08"}, {"t": "u", "v": "0:19:19"}, {"t": "k", "v": "259"}, {"t": "k", "v": "260"}]}], "dalil": [{"x": "تلوار سے چاندی نقصان کے بغیر الگ نہ ہو سکے تو تلوار کو الگ بیچنا ہی جائز نہیں، جیسے چھت کا شہتیر: کوئی اپنی چھت کا شہتیر نہیں بیچ سکتا، نکال کر کیسے دے گا؟ الگ ہو سکے تو باندی اور ہار کی طرح۔ (کتاب: «لأنه لا يمكن تسليمه بدون الضرر… كالجذع في السقف… فصار كالطوق والجارية»۔)", "s": [{"t": "u", "v": "0:16:25"}, {"t": "u", "v": "0:16:41"}, {"t": "k", "v": "259"}, {"t": "s", "v": "البناية ٩٢/١١"}]}, {"x": "«دونوں» بول کر بھی ایک مراد لیا جا سکتا ہے، عربی میں اس کا امکان ہے: قرآن میں دو دریاؤں (کھارا اور میٹھا) کے بارے میں فرمایا «يخرج منهما اللؤلؤ والمرجان»، مراد ایک ہے، کیونکہ موتی اور مرجان نمکین پانی ہی میں ہوتے ہیں۔ (کتاب: «لأن الاثنين قد يراد بذكرهما الواحد… فيحمل عليه لظاهر حاله»؛ حاشیہ: یعنی مسلمان کا ظاہر حال کہ وہ جائز طریقے ہی پر معاملہ کرتا ہے۔)", "s": [{"t": "u", "v": "0:17:38"}, {"t": "u", "v": "0:17:55"}, {"t": "u", "v": "0:17:57"}, {"t": "u", "v": "0:18:00"}, {"t": "u", "v": "0:18:02"}, {"t": "u", "v": "0:18:05"}, {"t": "u", "v": "0:18:08"}, {"t": "k", "v": "259"}, {"t": "s", "v": "البناية ٩١/١١"}]}, {"x": "برابر، کم یا نامعلوم کیوں ناجائز: ایک طرف چاندی (یا سونا) زیادہ ہو سکتی ہے، اور برابر ہو تب بھی موبائل (تلوار) کے بدلے کوئی عوض نہیں بچتا۔ کتاب: برابر یا کم میں ربا ہے، نامعلوم میں ربا کا احتمال؛ صحت کی جہت ایک اور فساد کی دو، تو فساد کو ترجیح۔ (کتاب: «للربا، أو لاحتماله، وجهة الصحة من وجه، وجهة الفساد من وجهين، فترجحت»۔)", "s": [{"t": "u", "v": "0:19:19"}, {"t": "k", "v": "260"}, {"t": "s", "v": "العناية ٢٦٧/٦"}]}, {"x": "کتاب کا «لما بينا»: وہی وجہ جو ہار میں تھی، یعنی چاندی کے حصے کا مجلس میں قبضہ واجب ہے اور ظاہر یہی ہے کہ واجب ادا کیا گیا۔", "s": [{"t": "k", "v": "258"}, {"t": "s", "v": "الكفاية"}]}], "ikhtilaf": [{"x": "امام زفر: مقدار نامعلوم ہو تو جائز، کیونکہ اصل جواز ہے اور مفسد وہ زیادتی ہے جس کے مقابل عوض نہ ہو، جو یہاں معلوم نہیں۔ جواب: نامعلوم میں برابر، کم یا زیادہ تینوں ممکن ہیں؛ فساد کی جہتیں زیادہ ہیں۔", "s": [{"t": "s", "v": "العناية ٢٦٧/٦"}]}], "faida": [{"x": "حاشیہ: اگر صاف کہہ دیا کہ یہ (ہزار) باندی کی قیمت میں سے لو، تو ظاہر کے خلاف صراحت آ گئی؛ قبضہ کر کے جدا ہوئے تو ہار میں عقد باطل، جیسے قبضہ ہی نہ ہوا ہو۔", "s": [{"t": "s", "v": "فتح القدير ٢٦٥/٦"}]}, {"x": "سوال جواب: دونوں راضی ہوں تب بھی کوئی فرق نہیں، شرعاً جائز نہیں؛ دوسرے کا لحاظ رکھنا ہو تو اسے بیع قرار نہیں دیا جا سکتا، ہبہ کر دیا جائے اور الفاظ بھی ہبہ کے استعمال ہوں۔", "s": [{"t": "u", "v": "0:19:26"}, {"t": "u", "v": "0:19:28"}, {"t": "u", "v": "0:19:29"}, {"t": "u", "v": "0:19:31"}]}], "lughat": [{"ar": "سيف مُحَلّى", "ur": "چاندی (زیور) جڑی تلوار", "s": [{"t": "u", "v": "0:15:36"}, {"t": "u", "v": "0:15:40"}]}, {"ar": "الحِلية", "ur": "تلوار پر لگی چاندی، زیور", "s": [{"t": "u", "v": "0:18:39"}]}, {"ar": "لا يتخلص إلا بضرر", "ur": "نقصان کے بغیر الگ نہیں ہو سکتی", "s": [{"t": "u", "v": "0:16:25"}]}, {"ar": "الجِذع في السقف", "ur": "چھت میں لگا شہتیر", "s": [{"t": "u", "v": "0:16:25"}]}, {"ar": "اللؤلؤ والمرجان", "ur": "موتی اور مرجان", "s": [{"t": "u", "v": "0:18:02"}]}, {"ar": "الفضة المفردة", "ur": "قیمت میں الگ سے دی گئی چاندی", "s": [{"t": "s", "v": "البناية ٩٢/١١"}]}, {"ar": "أو لا يدري", "ur": "یا معلوم نہ ہو (کم ہے یا زیادہ)", "s": [{"t": "u", "v": "0:19:08"}]}]}, {"unit": "u0", "pages": [260], "lesson": "2026-07-11-1448", "ts": "0:19:31", "label": null, "title": "چاندی کا برتن بیچا اور کچھ قیمت لے کر جدا ہوئے: جتنے پر قبضہ ہوا اتنے میں بیع صحیح، باقی میں باطل، برتن مشترک اور مشتری کو واپسی کا اختیار نہیں؛ برتن کا کچھ حصہ کسی اور کا نکلا تو مشتری کو اختیار؛ چاندی کی ڈلی (نقرہ) میں اختیار نہیں", "start": "قال: ومن باع إناء فضة، ثم افترقا، وقد قبض بعض ثمنه", "start_note": "0:19:31 اور 0:19:35 پر «ومن باع إناء فضة» پڑھا، مثال کے بعد 0:22:38 پر دوبارہ پڑھ کر ترجمہ کیا۔ متن v5 260 ≈0.22 سے صفحے کے آخر تک (OCR میں «افتراقا»)۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 260", "tamheed": [{"x": "یہ گلاس سونے سے بنا ہے، اس میں تقریباً دو سو گرام سونا استعمال ہوا ہے؛ میں نے اسے دو سو گرام کا ہی بیچا، یہ تو جائز ہے۔ لیکن اس نے سو گرام دیے اور کہا سو گرام ایک ہفتے بعد دوں گا۔", "s": [{"t": "u", "v": "0:20:03"}, {"t": "u", "v": "0:20:04"}, {"t": "u", "v": "0:20:08"}, {"t": "u", "v": "0:20:12"}, {"t": "u", "v": "0:20:18"}, {"t": "u", "v": "0:20:22"}]}], "masala": [{"x": "پورا عقد باطل نہیں ہوا: سو گرام تک عقد ٹھیک (اتنے کے پیسے وصول ہو گئے)، باقی سو کے بدلے باطل؛ نتیجہ یہ کہ گلاس دونوں میں مشترک، سو گرام سونا میرا سو اس کا۔ (کتاب: «بطل البيع فيما لم يقبض، وصح فيما قبض، وكان الإناء مشتركاً بينهما»۔)", "s": [{"t": "u", "v": "0:20:24"}, {"t": "u", "v": "0:20:28"}, {"t": "u", "v": "0:20:36"}, {"t": "u", "v": "0:20:38"}, {"t": "u", "v": "0:20:42"}, {"t": "u", "v": "0:23:05"}, {"t": "u", "v": "0:23:06"}, {"t": "u", "v": "0:23:13"}, {"t": "u", "v": "0:23:14"}, {"t": "k", "v": "260"}]}, {"x": "دوسری صورت: پورے دو سو دے دیے، عقد ٹھیک ہو گیا؛ بعد میں کسی نے دعویٰ کیا کہ آدھا گلاس میرا تھا، ثابت بھی کر دیا اور قاضی نے فیصلہ بھی دے دیا: اب مشتری کو اختیار ہے، چاہے باقی اپنے حصے کی قیمت میں لے لے، چاہے واپس کر دے کہ اس میں شرکت آ گئی اور مجھے الگ چیز لینی تھی۔ (کتاب: «ولو استحق بعض الإناء: فالمشتري بالخيار إن شاء أخذ الباقي بحصته، وإن شاء رده؛ لأن الشركة عيب في الإناء»۔)", "s": [{"t": "u", "v": "0:21:15"}, {"t": "u", "v": "0:21:29"}, {"t": "u", "v": "0:21:30"}, {"t": "u", "v": "0:21:31"}, {"t": "u", "v": "0:21:36"}, {"t": "u", "v": "0:21:41"}, {"t": "u", "v": "0:21:55"}, {"t": "u", "v": "0:22:02"}, {"t": "u", "v": "0:23:36"}, {"t": "u", "v": "0:23:37"}, {"t": "u", "v": "0:23:45"}, {"t": "u", "v": "0:23:48"}, {"t": "u", "v": "0:23:49"}, {"t": "u", "v": "0:23:55"}, {"t": "k", "v": "260"}]}, {"x": "چاندی کی ڈلی یا ٹکڑا (نقرہ) خریدا، پھر اس کے کچھ حصے کا کوئی اور حق دار نکل آیا: جتنا باقی ہے اپنے حصے کی قیمت میں لے لے گا، اور اسے اختیار نہیں؛ فرق یہ کہ برتن کو ٹکڑے کرنے سے نقصان ہوتا ہے، ڈلی کو نہیں۔ (کتاب: «ومن باع قطعة نقرة، ثم استحق بعضها: أخذ ما بقي بحصته، ولا خيار له؛ لأنه لا يضره التبعيض»۔)", "s": [{"t": "u", "v": "0:25:15"}, {"t": "u", "v": "0:25:19"}, {"t": "u", "v": "0:25:21"}, {"t": "u", "v": "0:25:23"}, {"t": "u", "v": "0:25:24"}, {"t": "u", "v": "0:25:25"}, {"t": "k", "v": "260"}]}, {"x": "استاد (کتاب میں یہ صورت نہیں): سو گرام کا سونے کا ٹکڑا سو گرام کے بدلے بیچا، اس نے پچاس گرام دیے اور دونوں جدا ہو گئے، تو ٹکڑا مشترک نہیں ہوگا؛ جتنا دیا اتنے ٹکڑے میں بیع درست اور اتنا الگ کر کے دے دیا جائے گا، کیونکہ ٹکڑا آسانی سے کاٹا جا سکتا ہے، برتن ایک چیز ہے، اسے کاٹنا ممکن نہیں۔", "s": [{"t": "u", "v": "0:24:04"}, {"t": "u", "v": "0:24:08"}, {"t": "u", "v": "0:24:14"}, {"t": "u", "v": "0:24:20"}, {"t": "u", "v": "0:24:25"}, {"t": "u", "v": "0:24:31"}, {"t": "u", "v": "0:24:32"}, {"t": "u", "v": "0:24:35"}, {"t": "u", "v": "0:24:44"}]}], "dalil": [{"x": "عقد شروع میں درست تھا، بعد میں قبضہ نہ کرانے سے باطل ہوا؛ یہ فساد بعد میں آنے والا (طاری) ہے، اس لیے جتنے پر قبضہ ہوا اتنے میں عقد درست اور دونوں برتن کے مالک (برتن میں مشاع ملکیت)؛ جو فساد شروع سے ہو اس میں عقد ہی ختم ہو جاتا ہے۔ (کتاب: «لأنه صرف كله، فصح فيما وجد شرطه، وبطل فيما لم يوجد، والفساد طارئ؛ لأنه يصح، ثم يبطل بالافتراق، فلا يشيع»؛ «فلا يشيع» یعنی فساد باقی حصے تک نہیں پھیلتا۔)", "s": [{"t": "u", "v": "0:20:51"}, {"t": "u", "v": "0:20:55"}, {"t": "u", "v": "0:20:59"}, {"t": "u", "v": "0:21:06"}, {"t": "u", "v": "0:21:08"}, {"t": "k", "v": "260"}]}, {"x": "پہلی صورت میں مشتری کو واپسی کا اختیار نہیں، کیونکہ وہ میرے ساتھ اپنے ہی فعل سے شریک بنا؛ استحقاق میں شرکت اس کے فعل سے نہیں بلکہ (بائع کی) غلط بیانی یا غلط فہمی سے آئی، اس لیے اختیار ہے۔ (حاشیہ: پہلی صورت میں شرکت اس کے اپنے عمل سے ہوئی، یعنی پوری قیمت دینے سے پہلے جدا ہونا؛ اور تفریق شریعت کی طرف سے قبضے کی شرط سے ہوئی، عاقد کی طرف سے نہیں۔)", "s": [{"t": "u", "v": "0:22:07"}, {"t": "u", "v": "0:22:16"}, {"t": "u", "v": "0:22:21"}, {"t": "u", "v": "0:22:26"}, {"t": "u", "v": "0:22:30"}, {"t": "u", "v": "0:22:33"}, {"t": "u", "v": "0:22:35"}, {"t": "u", "v": "0:23:56"}, {"t": "s", "v": "الكفاية ٢٦٧/٦-٢٦٨"}, {"t": "s", "v": "البناية"}]}], "ikhtilaf": [], "faida": [{"x": "سوال جواب: یہ حکم تب ہے جب ثمن چاندی یا سونا ہو، تاکہ یہ صرف بنے۔ (بین السطور: «بفضة أو بذهب»۔)", "s": [{"t": "u", "v": "0:23:21"}, {"t": "u", "v": "0:23:27"}, {"t": "u", "v": "0:23:34"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"x": "حاشیہ: «لأنه صرف كله» سے احتراز ہے باندی مع ہار اور چاندی جڑی تلوار سے، کہ وہ بیع بھی ہیں اور صرف بھی۔", "s": [{"t": "s", "v": "النهاية"}]}, {"x": "حاشیہ: مختار یہ ہے کہ جدائی سے پہلے قبضہ عقد کے صحیح باقی رہنے کی شرط ہے، پورے عقد کے صحیح منعقد ہونے کی شرط نہیں۔", "s": [{"t": "s", "v": "فتح القدير ٢٦٧/٦"}]}], "lughat": [{"ar": "إناء فضة", "ur": "چاندی کا برتن", "s": [{"t": "u", "v": "0:22:52"}]}, {"ar": "استُحِقّ بعضه", "ur": "اس کے کچھ حصے کا کوئی اور حق دار نکل آیا", "s": [{"t": "u", "v": "0:23:37"}]}, {"ar": "بحصته", "ur": "اپنے حصے کی قیمت کے حساب سے", "s": [{"t": "u", "v": "0:23:49"}]}, {"ar": "نُقرة", "ur": "پگھلائی ہوئی چاندی کا ٹکڑا، ڈلی", "s": [{"t": "u", "v": "0:25:15"}, {"t": "s", "v": "العناية ٢٦٧/٦"}]}, {"ar": "التبعيض", "ur": "ٹکڑے کرنا", "s": [{"t": "u", "v": "0:25:25"}]}, {"ar": "طارئ", "ur": "بعد میں آنے والا", "s": [{"t": "u", "v": "0:20:59"}]}, {"ar": "فلا يشيع", "ur": "(فساد) پورے عقد میں نہیں پھیلتا", "s": [{"t": "a", "v": ""}]}]}, {"unit": "u0", "pages": [261, 262, 263], "lesson": "2026-07-11-1448", "ts": "0:25:27", "label": null, "title": "دو درہم اور ایک دینار، ایک درہم اور دو دینار کے بدلے: ہمارے ہاں بیع جائز، ہر جنس کو دوسری جنس کے مقابل مانا جائے گا؛ امام زفر و امام شافعی: ناجائز؛ ان کی نظیریں (مرابحہ، غلام کی بائع کو واپس فروخت، «دونوں میں سے ایک بیچا») اور ان کا جواب: یہ عقد کے وصف میں تبدیلی ہے، اصل میں نہیں", "start": "قال: ومن باع درهمين، وديناراً بدرهم، ودينارين: جاز البيع", "start_note": "0:25:27 پر پڑھا اور سمجھایا؛ 0:26:44 اور 0:36:25 پر دوبارہ پڑھا۔ متن v5 261 کے شروع سے؛ کارڈ «قال: ومن باع أحد عشر درهماً» (v5 263، ≈0.89) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 261–263", "tamheed": [{"x": "تین چیزیں اس طرف ہیں، تین اس طرف: ایک طرف ایک دینار اور دو درہم، دوسری طرف ایک درہم اور دو دینار۔ اگر دو دینار کا ایک دینار سے اور ایک درہم کا دو درہم سے تبادلہ ہو تو یہ جائز نہیں۔", "s": [{"t": "u", "v": "0:25:45"}, {"t": "u", "v": "0:25:50"}, {"t": "u", "v": "0:25:52"}, {"t": "u", "v": "0:26:00"}, {"t": "u", "v": "0:26:46"}, {"t": "u", "v": "0:26:50"}, {"t": "u", "v": "0:26:52"}]}], "masala": [{"x": "بیع جائز ہے: یہاں ہم کراس کریں گے، یعنی جنس کو خلافِ جنس کے مقابل کریں گے تاکہ جنس الگ ہونے سے عقد ٹھیک ہو جائے؛ عاقدین نے یہ نہیں کہا کہ دینار کس کے بدلے اور چاندی کس کے بدلے، پھر بھی عقد درست کرنے کے لیے یوں سمجھیں گے۔ (کتاب: «جاز البيع، وجعل كل جنس منهما بخلافه»؛ حاشیہ: دو درہم دو دیناروں کے مقابل اور (ایک طرف کا) دینار (دوسری طرف کے) درہم کے مقابل۔)", "s": [{"t": "u", "v": "0:26:06"}, {"t": "u", "v": "0:26:20"}, {"t": "u", "v": "0:26:24"}, {"t": "u", "v": "0:26:29"}, {"t": "u", "v": "0:26:38"}, {"t": "u", "v": "0:26:53"}, {"t": "u", "v": "0:26:54"}, {"t": "u", "v": "0:26:55"}, {"t": "u", "v": "0:26:57"}, {"t": "k", "v": "261"}, {"t": "s", "v": "فتح القدير ٢٦٧/٦"}]}, {"x": "اسی اختلاف پر: ایک کُر جو اور ایک کُر گندم، دو کُر گندم اور دو کُر جو کے بدلے (استاد نے ذکر نہیں کیا)۔ (کتاب: «وعلى هذا الخلاف إذا باع كرّ شعير، وكرّ حنطة بكري حنطة وكري شعير»۔)", "s": [{"t": "k", "v": "261"}]}], "dalil": [{"x": "امام زفر و شافعی: عاقدین نے یہ تو نہیں کہا کہ ایک درہم دو دینار کے بدلے ہے؛ انہوں نے تین چیزیں تین کے مقابل کیں، تو پورا پورے کے مقابل ہوا، اور یوں ایک طرف چاندی زیادہ دوسری طرف کم، ایک طرف سونا زیادہ دوسری طرف کم۔ (کتاب: «لأنه قابل الجملة بالجملة، ومن قضيته الانقسام على الشيوع لا على التعيين، والتغيير لا يجوز وإن كان فيه تصحيح التصرف»۔)", "s": [{"t": "u", "v": "0:27:12"}, {"t": "u", "v": "0:27:23"}, {"t": "u", "v": "0:27:27"}, {"t": "u", "v": "0:27:33"}, {"t": "u", "v": "0:27:41"}, {"t": "k", "v": "261"}, {"t": "s", "v": "الكفاية ٢٦٨/٦"}]}, {"x": "ان کی پہلی نظیر (مرابحہ): ایک موبائل اور دس گرام چاندی کی ایک چیز، ہر ایک دس کی لی (کل بیس)، پھر دونوں ایک ساتھ مرابحہ پر پچیس کی بیچیں؛ پانچ کے نفع میں سے ایک درہم بھی چاندی کے مقابل آیا تو ناجائز؛ ممکن تھا کہ سارا نفع موبائل پر ڈال دیں (موبائل پندرہ کا، چاندی دس کی)، مگر عقد کو یوں درست نہیں کیا جاتا۔ (کتاب: «كما إذا اشترى قلباً بعشرة، وثوباً بعشرة، ثم باعهما مرابحة: لا يجوز وإن أمكن صرف الربح إلى الثوب»؛ حاشیہ: قلب یعنی دس درہم وزن کا کنگن۔)", "s": [{"t": "u", "v": "0:27:47"}, {"t": "u", "v": "0:27:51"}, {"t": "u", "v": "0:28:03"}, {"t": "u", "v": "0:28:08"}, {"t": "u", "v": "0:28:14"}, {"t": "u", "v": "0:28:21"}, {"t": "u", "v": "0:28:25"}, {"t": "u", "v": "0:28:27"}, {"t": "u", "v": "0:28:41"}, {"t": "u", "v": "0:28:49"}, {"t": "u", "v": "0:28:55"}, {"t": "u", "v": "0:28:58"}, {"t": "u", "v": "0:29:08"}, {"t": "u", "v": "0:29:15"}, {"t": "u", "v": "0:29:21"}, {"t": "u", "v": "0:29:26"}, {"t": "k", "v": "261"}, {"t": "s", "v": "البناية"}]}, {"x": "دوسری نظیر: غلام ہزار درہم میں خریدا، پھر قیمت ادا کرنے سے پہلے وہی غلام ایک اور غلام کے ساتھ بائع کو پندرہ سو میں بیچ دیا: پہلے غلام میں جائز نہیں، حالانکہ ہزار اس کے مقابل کر کے درست کیا جا سکتا تھا۔ استاد کی مثال: میں نے موبائل دس ہزار کا بیچا، اس نے (قیمت ادا ہونے سے پہلے) وہی موبائل ایک چارجر ملا کر مجھے بارہ ہزار کا بیچ دیا؛ دو ہزار چارجر کے مقابل مانے جا سکتے تھے، مگر چونکہ اسے سود کا حیلہ بنایا جاتا تھا اس لیے درست نہیں کہا گیا۔ (کتاب: «لا يجوز في المشتري بألف وإن أمكن تصحيحه بصرف الألف إليه»؛ حاشیہ: کیونکہ یہ بیچی ہوئی چیز کو کم قیمت پر خریدنا ہے۔)", "s": [{"t": "u", "v": "0:30:44"}, {"t": "u", "v": "0:30:46"}, {"t": "u", "v": "0:31:06"}, {"t": "u", "v": "0:31:12"}, {"t": "u", "v": "0:31:16"}, {"t": "u", "v": "0:31:17"}, {"t": "u", "v": "0:31:20"}, {"t": "u", "v": "0:31:21"}, {"t": "u", "v": "0:31:25"}, {"t": "u", "v": "0:31:26"}, {"t": "u", "v": "0:31:36"}, {"t": "u", "v": "0:31:43"}, {"t": "u", "v": "0:31:49"}, {"t": "u", "v": "0:31:54"}, {"t": "u", "v": "0:31:58"}, {"t": "u", "v": "0:32:04"}, {"t": "u", "v": "0:32:06"}, {"t": "u", "v": "0:32:12"}, {"t": "k", "v": "261"}, {"t": "s", "v": "البناية ٩٤/١١"}]}, {"x": "تیسری نظیر: ایک موبائل میرا، ایک کسی اور کا؛ میں نے کہا ان دونوں میں سے ایک تمہیں دس ہزار کا بیچا: یہ عقد درست نہیں، حالانکہ اسے اپنے والے پر محمول کر کے درست کیا جا سکتا تھا۔ ان سب میں عقد درست نہیں کیا گیا، تو یہاں بھی درہم دینار کو آپس میں کراس کر کے درست نہیں کیا جائے گا۔ (کتاب: «وكذا إذا جمع بين عبده وعبد غيره، وقال: بعتك أحدهما لا يجوز وإن أمكن تصحيحه بصرفه إلى عبده»۔)", "s": [{"t": "u", "v": "0:32:38"}, {"t": "u", "v": "0:32:41"}, {"t": "u", "v": "0:32:46"}, {"t": "u", "v": "0:32:53"}, {"t": "u", "v": "0:32:57"}, {"t": "u", "v": "0:33:01"}, {"t": "u", "v": "0:33:07"}, {"t": "u", "v": "0:33:11"}, {"t": "u", "v": "0:33:20"}, {"t": "k", "v": "261"}, {"t": "k", "v": "262"}]}, {"x": "چوتھی نظیر (استاد نے نہیں بتائی): ایک درہم اور ایک کپڑا، ایک درہم (اور ایک کپڑے) کے بدلے بیچا اور قبضے کے بغیر جدا ہو گئے تو درہموں میں عقد فاسد، درہم کو کپڑے کی طرف نہیں پھیرا جاتا۔", "s": [{"t": "k", "v": "262"}]}, {"x": "ہماری (احناف کی) دلیل — استاد نے امام ابو حنیفہ کا نام لیا: درہم و دینار کو ایک دوسرے کے مقابل کیا گیا تو یہ بھی ہو سکتا ہے کہ پورا پورے کے مقابل ہو، یہ بھی کہ دینار دینار اور چاندی چاندی کے مقابل، اور یہ بھی کہ چاندی دینار کے اور دینار چاندی کے مقابل؛ تو اسے ٹھیک کیا جا سکتا ہے، اور عاقل بالغ مسلمان کے تصرف کو ممکنہ حد تک درست محمل پر محمول کیا جائے گا۔ (کتاب: «ولنا: أن المقابلة المطلقة تحتمل مقابلة الفرد بالفرد كما في مقابلة الجنس بالجنس، وأنه طريق متعين لتصحيحه، فيحمل عليه تصحيحاً لتصرفه»۔)", "s": [{"t": "u", "v": "0:33:30"}, {"t": "u", "v": "0:33:37"}, {"t": "u", "v": "0:33:45"}, {"t": "u", "v": "0:33:54"}, {"t": "k", "v": "262"}]}, {"x": "اس سے اصل عقد نہیں چھیڑا جاتا: تین کو تین کے مقابل کرنا اپنی جگہ برقرار ہے، ہم نے صرف وضاحت کی کہ کون سا کس کے مقابل؛ یہ وصف میں تبدیلی ہے، اصل میں نہیں، اور اس حد تک جائز ہے۔ (کتاب: «وفيه تغيير وصفه لا أصله؛ لأنه يبقى موجبه الأصلي، وهو ثبوت الملك في الكل بمقابلة الكل»۔)", "s": [{"t": "u", "v": "0:34:03"}, {"t": "u", "v": "0:34:08"}, {"t": "u", "v": "0:34:13"}, {"t": "u", "v": "0:34:20"}, {"t": "u", "v": "0:34:29"}, {"t": "u", "v": "0:34:34"}, {"t": "k", "v": "262"}]}, {"x": "ہماری نظیر (استاد نے نہیں بتائی): مشترک غلام کا آدھا بیچا تو بیچنے والے کے اپنے حصے کی طرف پھیرا جاتا ہے تاکہ تصرف صحیح ہو۔ (کتاب: «كما إذا باع نصف عبد مشترك بينه وبين غيره: ينصرف إلى نصيبه تصحيحاً لتصرفه»۔)", "s": [{"t": "k", "v": "262"}, {"t": "k", "v": "263"}, {"t": "s", "v": "البناية"}]}, {"x": "جواب، مرابحہ: نفع سارا موبائل پر ڈالیں تو موبائل میں مرابحہ اور چاندی میں تولیہ ہو گیا؛ یہ عقد کی نیچر (اصل) بدلنا ہے، جائز نہیں؛ مرابحہ کا مطلب ہے ہر چیز میں نفع ہو۔ (کتاب: «أما مسألة المرابحة؛ لأنه يصير تولية في القلب بصرف الربح كله إلى الثوب»؛ حاشیہ: تولیہ مرابحہ کی ضد ہے، اور انہوں نے صاف «مرابحہ» کہا تھا۔)", "s": [{"t": "u", "v": "0:30:01"}, {"t": "u", "v": "0:30:13"}, {"t": "u", "v": "0:30:16"}, {"t": "u", "v": "0:30:20"}, {"t": "u", "v": "0:30:25"}, {"t": "u", "v": "0:30:31"}, {"t": "u", "v": "0:30:34"}, {"t": "u", "v": "0:30:38"}, {"t": "u", "v": "0:34:37"}, {"t": "u", "v": "0:34:42"}, {"t": "u", "v": "0:34:48"}, {"t": "u", "v": "0:34:50"}, {"t": "k", "v": "263"}, {"t": "s", "v": "النهاية"}]}, {"x": "جواب، «دونوں میں سے ایک»: یہ نکرہ ہے، یہ بھی ہو سکتا ہے وہ بھی؛ کسی مرجح کے بغیر یہ کہنا کہ بیچا گیا یہی ہے، نہیں ہو سکتا؛ معین اور غیر معین الگ ہیں۔ (کتاب: «وفي الثالثة: أضيف البيع إلى المنكر، وهو ليس بمحل للبيع، والمعين ضده»۔)", "s": [{"t": "u", "v": "0:34:54"}, {"t": "u", "v": "0:34:58"}, {"t": "u", "v": "0:35:06"}, {"t": "u", "v": "0:35:09"}, {"t": "u", "v": "0:35:15"}, {"t": "u", "v": "0:35:26"}, {"t": "k", "v": "263"}]}, {"x": "جواب، واپس فروخت: بارہ ہزار کو موبائل اور چارجر میں کئی طرح بانٹا جا سکتا ہے، مثلاً موبائل ساڑھے دس ہزار اور چارجر پندرہ سو؛ بہت سی صورتیں ہیں، کسی ایک کو چن کر عقد درست کرنا ٹھیک نہیں۔ (کتاب: «والطريق في المسألة الثانية غير متعين؛ لأنه يمكن صرف الزيادة على الألف إلى المشتري»؛ حاشیہ: سب صورتیں برابر ہیں، کوئی اولیٰ نہیں، تو جواز کا طریقہ مجہول ہو کر عقد فاسد۔)", "s": [{"t": "u", "v": "0:35:35"}, {"t": "u", "v": "0:35:45"}, {"t": "u", "v": "0:35:59"}, {"t": "u", "v": "0:36:01"}, {"t": "u", "v": "0:36:10"}, {"t": "u", "v": "0:36:17"}, {"t": "k", "v": "263"}, {"t": "s", "v": "الكفاية ٢٦٩/٦"}]}, {"x": "جواب، چوتھی نظیر (استاد نے نہیں بتایا): وہاں عقد صحیح منعقد ہوا، فساد بقا کی حالت میں (جدائی سے) آیا، اور ہماری بحث ابتدا میں ہے؛ عقد کو صحیح کرنے کی ضرورت صحیح باقی رکھنے کی ضرورت سے بڑھ کر ہے۔ (کتاب: «وفي الأخيرة: انعقد العقد صحيحاً، والفساد في حالة البقاء، وكلامنا في الابتداء»۔)", "s": [{"t": "k", "v": "263"}, {"t": "s", "v": "الكفاية ٢٧٠/٦-٢٧١"}]}], "ikhtilaf": [{"x": "استاد: یہ امام ابو حنیفہ کی رائے ہے؛ امام شافعی اور امام زفر فرماتے ہیں: یہ عقد درست نہیں۔ (کتاب: «وقال زفر والشافعي: لا يجوز»؛ حاشیہ: ہمارے تینوں ائمہ کے ہاں جائز۔)", "s": [{"t": "u", "v": "0:27:02"}, {"t": "u", "v": "0:27:08"}, {"t": "k", "v": "261"}, {"t": "s", "v": "العناية ٢٦٧/٦"}]}], "faida": [{"x": "حاشیہ: عقد مطلق مقابلے کا تقاضا کرتا ہے، اور اس میں فرد کا فرد سے مقابلہ بھی محتمل ہے؛ اسی لیے اگر عقد میں کہہ دیں کہ جنس خلافِ جنس کے مقابل ہوگی تو صحیح ہے، اور احتمال نہ ہوتا تو یہ وضاحت صحیح نہ ہوتی۔", "s": [{"t": "s", "v": "الكفاية ٢٦٩/٦"}]}, {"x": "استاد کا خلاصہ: اس میں امام شافعی اور امام زفر کا اختلاف ہے، انہوں نے کچھ مثالیں ذکر کی تھیں جن کا مصنف نے جواب دے دیا ہے۔", "s": [{"t": "u", "v": "0:36:27"}, {"t": "u", "v": "0:36:28"}]}], "lughat": [{"ar": "وجعل كل جنس منهما بخلافه", "ur": "ہر جنس کو دوسری جنس کے مقابل مانا جائے گا", "s": [{"t": "u", "v": "0:26:57"}, {"t": "u", "v": "0:36:27"}]}, {"ar": "قابل الجملة بالجملة", "ur": "پورے کو پورے کے مقابل کیا", "s": [{"t": "u", "v": "0:27:23"}]}, {"ar": "الانقسام على الشيوع", "ur": "ہر بدل کا دوسری طرف کے سب بدلوں پر پھیل کر تقسیم ہونا", "s": [{"t": "s", "v": "الكفاية ٢٦٨/٦"}]}, {"ar": "قُلب", "ur": "کنگن (دس درہم وزن کا)", "s": [{"t": "s", "v": "البناية"}]}, {"ar": "مرابحة / تولية", "ur": "نفع کے ساتھ آگے بیچنا / اسی قیمت پر آگے بیچنا", "s": [{"t": "u", "v": "0:28:49"}, {"t": "u", "v": "0:30:25"}]}, {"ar": "قبل نقد الثمن", "ur": "قیمت ادا کرنے سے پہلے", "s": [{"t": "u", "v": "0:31:20"}]}, {"ar": "المنكَّر", "ur": "غیر معین (نکرہ)", "s": [{"t": "u", "v": "0:35:06"}]}, {"ar": "تغيير وصفه لا أصله", "ur": "عقد کے وصف میں تبدیلی، اصل میں نہیں", "s": [{"t": "u", "v": "0:34:29"}]}]}, {"unit": "u0", "pages": [263, 264], "lesson": "2026-07-11-1448", "ts": "0:36:29", "label": null, "title": "گیارہ درہم، دس درہم اور ایک دینار کے بدلے: جائز، دس دس کے مقابل اور ایک درہم دینار کے مقابل؛ چاندی چاندی (یا سونا سونے) کے بدلے کم والی طرف کے ساتھ کوئی اور چیز: اس کی قیمت باقی چاندی کے برابر ہو تو بلا کراہت جائز، کم ہو تو کراہت کے ساتھ، بے قیمت (جیسے مٹی) ہو تو ناجائز", "start": "قال: ومن باع أحد عشر درهماً بعشرة دراهم ودينار", "start_note": "0:36:29 پر تمہید، متن 0:37:15 پر پڑھا؛ «ولو تبايعا فضة بفضة» (v5 264، ≈0.29) 0:38:08 پر۔ کارڈ «ومن كان له على آخر عشرة دراهم» (v5 264، ≈0.66) سے پہلے ختم: استاد نے 0:41:31 پر یہ سطر پڑھی اور «یہ ان شاء اللہ کل پڑھیں گے» کہہ کر سبق ختم کیا۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 263–264", "tamheed": [{"x": "ایک طرف گیارہ درہم ہیں، دوسری طرف دس درہم اور ایک دینار؛ اسے بھی درست سمجھا جائے گا: دس دس کے مقابل اور دینار باقی (ایک درہم) کے مقابل۔", "s": [{"t": "u", "v": "0:36:29"}, {"t": "u", "v": "0:36:54"}, {"t": "u", "v": "0:37:01"}, {"t": "u", "v": "0:37:02"}, {"t": "u", "v": "0:37:06"}]}, {"x": "دوسرا مسئلہ: یہ پوری چیز چاندی کی ہے، وزن سو گرام؛ میں نے کہا مجھے (اس کے بدلے) اسی گرام دے دو، یہ جائز نہیں، بیس گرام اضافی ہیں۔ تو اس نے کہا میں اسی گرام چاندی اور ساتھ کوئی یو ایس بی یا میموری کارڈ دیتا ہوں جس کی قیمت بیس گرام کے برابر ہے۔", "s": [{"t": "u", "v": "0:38:50"}, {"t": "u", "v": "0:38:53"}, {"t": "u", "v": "0:38:55"}, {"t": "u", "v": "0:38:58"}, {"t": "u", "v": "0:39:04"}, {"t": "u", "v": "0:39:09"}, {"t": "u", "v": "0:39:12"}, {"t": "u", "v": "0:39:17"}, {"t": "u", "v": "0:39:20"}, {"t": "u", "v": "0:39:32"}]}], "masala": [{"x": "گیارہ درہم، دس درہم اور دینار کے بدلے: بیع جائز؛ دس دس کے مقابل اور ایک دینار ایک درہم کے مقابل۔ (کتاب: «جاز البيع، ويكون العشرة مثلها، والدينار بدرهم»۔)", "s": [{"t": "u", "v": "0:37:15"}, {"t": "u", "v": "0:37:20"}, {"t": "u", "v": "0:37:22"}, {"t": "u", "v": "0:37:24"}, {"t": "u", "v": "0:37:25"}, {"t": "k", "v": "263"}, {"t": "k", "v": "264"}]}, {"x": "کم والی طرف کے ساتھ ملی چیز کی قیمت باقی چاندی (بیس گرام) کے برابر ہو: اسی، اسی کے مقابل اور یو ایس بی باقی بیس گرام کے مقابل؛ عقد بالکل جائز، بغیر کراہت۔ (کتاب: «ولو تبايعا فضة بفضة، أو ذهباً بذهب، وأحدهما أقل، ومع أقلهما شيء آخر تبلغ قيمته باقي الفضة: جاز البيع من غير كراهة»۔)", "s": [{"t": "u", "v": "0:39:35"}, {"t": "u", "v": "0:39:43"}, {"t": "u", "v": "0:39:48"}, {"t": "u", "v": "0:39:52"}, {"t": "u", "v": "0:40:57"}, {"t": "u", "v": "0:40:59"}, {"t": "u", "v": "0:41:10"}, {"t": "k", "v": "264"}]}, {"x": "ملی چیز سستی ہو (یو ایس بی کی قیمت پانچ گرام کے برابر): عقد درست، اسی اسی کے مقابل اور یو ایس بی باقی بیس کے مقابل، لیکن کراہت ہوگی۔ (کتاب: «وإن لم تبلغ: فمع الكراهة»۔)", "s": [{"t": "u", "v": "0:39:54"}, {"t": "u", "v": "0:40:00"}, {"t": "u", "v": "0:40:09"}, {"t": "u", "v": "0:40:13"}, {"t": "u", "v": "0:40:19"}, {"t": "u", "v": "0:41:16"}, {"t": "u", "v": "0:41:17"}, {"t": "k", "v": "264"}]}, {"x": "ملی چیز کی کوئی قیمت ہی نہ ہو (اسی گرام چاندی اور تھوڑی سی مٹی): عقد درست ہی نہیں؛ درست قرار دینے کے لیے ضروری ہے کہ اس چیز کی کم از کم اپنی کوئی قیمت ہو۔ (کتاب: «وإن لم يكن له قيمة كالتراب: لا يجوز البيع؛ لتحقق الربا، إذ الزيادة لا يقابلها عوض، فيكون ربا»۔)", "s": [{"t": "u", "v": "0:40:30"}, {"t": "u", "v": "0:40:36"}, {"t": "u", "v": "0:40:42"}, {"t": "u", "v": "0:40:46"}, {"t": "u", "v": "0:40:48"}, {"t": "u", "v": "0:40:55"}, {"t": "u", "v": "0:41:20"}, {"t": "u", "v": "0:41:21"}, {"t": "u", "v": "0:41:22"}, {"t": "u", "v": "0:41:25"}, {"t": "u", "v": "0:41:26"}, {"t": "u", "v": "0:41:28"}, {"t": "k", "v": "264"}]}], "dalil": [{"x": "گیارہ درہم والی صورت: درہموں میں بیع کی شرط برابری ہے، تو ظاہر یہی ہے کہ اس نے یہی (دس کے بدلے دس) مراد لیا؛ باقی ایک درہم دینار کے مقابل رہا، اور یہ دو جنسیں ہیں جن میں برابری کا اعتبار نہیں (استاد نے دلیل نہیں بتائی)۔ (کتاب: «لأن شرط البيع في الدراهم التماثل على ما روينا، فالظاهر: أنه أراد به ذلك، فبقي الدرهم بالدينار، وهما جنسان»؛ حاشیہ: «ما روينا» یعنی «والفضة مثلاً بمثل»، اور مسلمان کے کام کو درستی پر محمول کرنا۔)", "s": [{"t": "k", "v": "264"}, {"t": "s", "v": "النهاية"}, {"t": "s", "v": "العناية ٢٧١/٦"}]}, {"x": "کراہت کی وجہ (استاد): ملی چیز کی قیمت کم ہے، تو بظاہر لگتا ہے کہ عقد کو جائز قرار دینے کے لیے ویسے ہی کوئی چیز ساتھ ملا دی گئی۔", "s": [{"t": "u", "v": "0:40:20"}, {"t": "u", "v": "0:40:29"}]}], "ikhtilaf": [], "faida": [{"x": "استاد: یہ مثالیں ہم نے سمجھانے کے لیے آگے پیچھے کیں؛ عملاً ایسا تب ہوتا ہے جب دونوں طرف قیمت کے لحاظ سے برابر ہوں: اس زمانے میں ایک دینار دس درہم کے برابر ہوتا تھا، تو ایک دینار اور دس درہم کو بیس (درہم) کے مقابل بیچا جاتا تھا، جو قیمت کے لحاظ سے بالکل برابر ہے۔", "s": [{"t": "u", "v": "0:37:27"}, {"t": "u", "v": "0:37:34"}, {"t": "u", "v": "0:38:00"}, {"t": "u", "v": "0:38:04"}]}, {"x": "حاشیہ: «شيء آخر» جیسے دس درہم اور ایک کپڑا پندرہ درہم کے بدلے؛ اور قیمت باقی چاندی تک نہ پہنچے، جیسے ایک اخروٹ یا مٹھی بھر کشمش۔", "s": [{"t": "s", "v": "الكفاية ٢٧١/٦"}, {"t": "s", "v": "النهاية"}]}, {"x": "حاشیہ (کراہت): امام محمد سے پوچھا گیا اسے دل میں کیسا پاتے ہیں؟ فرمایا: پہاڑ جیسا۔ امام ابو حنیفہ سے کراہت منقول نہیں («الإيضاح» میں ہے کہ ان کے ہاں حرج نہیں)؛ امام محمد نے اس لیے ناپسند کیا کہ یوں لوگ کمی بیشی کے عادی ہو کر ناجائز جگہ بھی کریں گے؛ یہ بھی کہا گیا کہ یہ ربا ساقط کرنے کا حیلہ ہے، جیسے بیعِ عینہ۔ ابن الہمام کا نتیجہ: «وينبغي أن يكون قول أبي حنيفة أيضاً على الكراهة»۔", "s": [{"t": "s", "v": "فتح القدير ٢٧١/٦-٢٧٢"}]}], "lughat": [{"ar": "ويكون العشرة مثلها", "ur": "دس (درہم) دس کے مقابل ہوں گے", "s": [{"t": "u", "v": "0:37:25"}]}, {"ar": "ومع أقلهما شيء آخر", "ur": "اور کم والی طرف کے ساتھ کوئی اور چیز ہو", "s": [{"t": "u", "v": "0:40:59"}]}, {"ar": "تبلغ قيمته باقي الفضة", "ur": "اس کی قیمت باقی چاندی تک پہنچے", "s": [{"t": "u", "v": "0:41:10"}]}, {"ar": "فمع الكراهة", "ur": "تو کراہت کے ساتھ (جائز)", "s": [{"t": "u", "v": "0:41:17"}]}, {"ar": "التراب", "ur": "مٹی", "s": [{"t": "u", "v": "0:41:22"}]}, {"ar": "إذ الزيادة لا يقابلها عوض", "ur": "کیونکہ زیادتی کے مقابل کوئی عوض نہیں", "s": [{"t": "u", "v": "0:40:42"}]}]}], "gaps": [{"unit": "u0", "pages": "253", "page_list": [253], "v7": "بشریٰ ج٥ ص 253", "text": "صرف کی وجہِ تسمیہ (ہاتھوں ہاتھ نقل؛ زیادتی، خلیل کا قول؛ نفل کو صرف کہنا) استاد نے نہیں بتائی؛ کارڈ 1 فائدہ میں کتاب سے۔"}, {"unit": "u0", "pages": "254", "page_list": [254], "v7": "بشریٰ ج٥ ص 254", "text": "حدیث «الذهب بالذهب مثلاً بمثل وزناً بوزن يداً بيد والفضل ربا» اور «جيدها ورديئها سواء» نہیں پڑھیں (استاد نے 0:06:49 پر صرف «روایات میں… سختی» کہا)؛ کارڈ 1 دلیل۔"}, {"unit": "u0", "pages": "254–255", "page_list": [254, 255], "v7": "بشریٰ ج٥ ص 254–255", "text": "قبضے کی عقلی دلیل («ليخرج العقد عن الكالئ بالكالئ… تحقيقاً للمساواة» اور «أحدهما ليس بأولى من الآخر») نہیں بتائی؛ کارڈ 1 دلیل میں کتاب سے۔"}, {"unit": "u0", "pages": "255–256", "page_list": [255, 256], "v7": "بشریٰ ج٥ ص 255–256", "text": "«وكذا المعتبر ما ذكرناه في قبض رأس مال السلم، بخلاف خيار المخيرة؛ لأنه يبطل بالإعراض فيه» نہیں بتایا؛ کارڈ 1 فائدہ۔"}, {"unit": "u0", "pages": "256", "page_list": [256], "v7": "بشریٰ ج٥ ص 256", "text": "حدیث «الذهب بالورق ربا إلا هاء وهاء» نہ پڑھی نہ بتائی؛ کارڈ 2 دلیل۔"}, {"unit": "u0", "pages": "257", "page_list": [257], "v7": "بشریٰ ج٥ ص 257", "text": "«وفيه خلاف زفر» (مجلس میں خیار ساقط کرنے سے عقد کا جائز ہو جانا) نہیں بتایا؛ کارڈ 2 اختلاف۔"}, {"unit": "u0", "pages": "257", "page_list": [257], "v7": "بشریٰ ج٥ ص 257", "text": "قبضے کا حق اللہ ہونا، امام زفر کا قول («كما نقل عن زفر») اور «الثمن في باب الصرف مبيع… كما في المسلم فيه» کا کتابی استدلال نہیں بتایا (استاد نے صرف «من وجہ ثمن، من وجہ مبیع» کہا)؛ کارڈ 3 دلیل/اختلاف۔"}, {"unit": "u0", "pages": "261", "page_list": [261], "v7": "بشریٰ ج٥ ص 261", "text": "«وعلى هذا الخلاف إذا باع كرّ شعير، وكرّ حنطة بكري حنطة وكري شعير» کا ذکر نہیں کیا؛ کارڈ 7 مسئلہ۔"}, {"unit": "u0", "pages": "262–263", "page_list": [262, 263], "v7": "بشریٰ ج٥ ص 262–263", "text": "چوتھی نظیر (درہم اور کپڑا، درہم کے بدلے، بغیر قبضہ جدائی) اور اس کا جواب «وفي الأخيرة… وكلامنا في الابتداء»، اور ہماری نظیر «نصف عبد مشترك… ينصرف إلى نصيبه» نہیں بتائیں؛ کارڈ 7 دلیل میں کتاب سے۔"}, {"unit": "u0", "pages": "264", "page_list": [264], "v7": "بشریٰ ج٥ ص 264", "text": "گیارہ درہم والی صورت کی کتابی دلیل («لأن شرط البيع في الدراهم التماثل… فالظاهر أنه أراد به ذلك») نہیں بتائی (استاد نے صرف حکم بتایا)؛ کارڈ 8 دلیل۔"}], "kitabs": [{"title": "كتاب الصرف", "from": 253, "to": 273, "href": "sarf.html"}, {"title": "كتاب الكفالة", "from": 274, "to": 327, "href": null}, {"title": "كتاب الحوالة", "from": 328, "to": 335, "href": null}, {"title": "كتاب أدب القاضي", "from": 336, "to": 398, "href": null}, {"title": "كتاب الشهادة", "from": 399, "to": 459, "href": null}, {"title": "كتاب الرجوع عن الشهادة", "from": 460, "to": 471, "href": null}, {"title": "كتاب الوكالة", "from": 472, "to": 541, "href": null}], "sections": [["tamheed", "تمہید"], ["masala", "مسئلہ"], ["dalil", "دلیل"], ["ikhtilaf", "اختلاف"], ["faida", "فائدہ"]], "quick": ["tamheed", "masala"], "footer": ["صفحہ نمبر مکتبۃ البشریٰ کے آٹھ جلدی نسخے کی جلد ٥ کے چھپے ہوئے صفحات ہیں، ساتھیوں والے نسخے کے نہیں (ہدایہ جلد ثالث کے لیے اس نسخے کی فہرست ابھی نہیں ملی؛ ملنے پر نمبر بدل دیے جائیں گے)۔ اصل جگہ کارڈ کی پہلی عربی سطر سے پہچانیں۔", "«اس سال کی کلاس» = اس سال (1448) کی کلاس کی ریکارڈنگ۔ «پچھلے سال کی کلاس» = پچھلے سال کی ریکارڈنگ، صرف اس حصے کے لیے جس کی اس سال کی ریکارڈنگ نہیں ملی۔", "ٹرانسکرپٹ ریکارڈنگ سے Gemini نے بنایا اور اس کے وقت آواز سے ملا کر درست کیے گئے۔ کارڈ اسی ٹرانسکرپٹ، کتاب کے متن اور حاشیے سے بنے ہیں؛ ہر سطر کے آخر میں اس کا ماخذ ہے۔", "پیلی (AI) علامت والی سطریں خود جانچیں۔ امتحان میں مسئلہ، اختلاف اور دلیل سبز، نیلی یا سرمئی علامت والی سطروں سے لکھیں۔"]};
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const secs = (ts) => ts.split(":").map(Number).reduce((a, n) => a * 60 + n, 0);
+const B = DATA.book, LES = DATA.lessons, UNITS = DATA.units || [], CARDS = DATA.cards, GAPS = DATA.gaps || [];
+const PAGED = CARDS.some((c) => c.pages && c.pages.length);
+const ONE = B.unitOne || "کارڈ";
+const audio = $("audio");
+const OPUS_OK = (() => { try { return audio.canPlayType('audio/ogg; codecs="opus"') !== ""; } catch (e) { return false; } })();
+const ICON = {
+  play: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0v10l9-5z"/></svg>',
+  down: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M5 1h2v5h2.5L6 9.5 2.5 6H5zM1 10.5h10V12H1z"/></svg>',
+};
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+const KEY = DATA.store || "cards";
+const toLatin = (v) => String(v).replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).trim();
+const LRI = "\u2066", PDI = "\u2069";
+const range = (a, b) => (a === b ? `${a}` : `${LRI}${a}–${b}${PDI}`);
+const iso = (s) => String(s ?? "").replace(/(\d+)\s*[–-]\s*(\d+)/g, `${LRI}$1–$2${PDI}`);
+const sizeMB = (x) => `${LRI}${x >= 10 ? Math.round(x) : Math.round(x * 10) / 10} MB${PDI}`;
+const pagesLabel = (ps) => `ص ${range(ps[0], ps[ps.length - 1])}`;
+
+// ---------- header
+document.title = `${B.kitab} · ${B.book}`;
+if (DATA.home) { $("homeLink").href = DATA.home; $("homeLink").textContent = `→ ${DATA.homeLabel || B.book}`; $("homeLink").hidden = false; }
+$("kitab").textContent = B.kitab;
+const usedLessons = [...new Set(CARDS.map((c) => c.lesson).filter(Boolean))].sort();
+$("meta").innerHTML = (PAGED && B.from ? `صفحات <b class="ltr num">${range(B.from, B.to)}</b>، ` : "") +
+  `<b>${CARDS.length}</b> ${esc(B.unit || "کارڈ")}، <b>${usedLessons.length}</b> اسباق کی ریکارڈنگ سے`;
+
+// ---------- units
+const unitByKey = Object.fromEntries(UNITS.map((u) => [u.key, u]));
+const cardsOf = (k) => CARDS.filter((c) => c.unit === k);
+const pagesOf = (k) => [...new Set(cardsOf(k).flatMap((c) => c.pages || []))].sort((a, b) => a - b);
+const gapsOf = (k) => GAPS.filter((g) => g.unit === k);
+const parentOf = (u) => {
+  const i = UNITS.indexOf(u);
+  for (let j = i - 1; j >= 0; j--) if (UNITS[j].level < u.level) return UNITS[j];
+  return null;
+};
+
+$("toc").innerHTML = UNITS.map((u) => {
+  const n = cardsOf(u.key).length, ps = pagesOf(u.key);
+  const pr = PAGED && u.page ? `<span class="pp">${range(u.page, u.page_to || u.page)}</span>` : "";
+  const ex = cardsOf(u.key).reduce((a, c) => a + (c.exam || []).filter((x) => x.k === "t").length, 0);
+  const px = cardsOf(u.key).reduce((a, c) => a + (c.exam || []).filter((x) => x.k === "p").length, 0);
+  const sub = n
+    ? `<span class="n">${n} ${esc(ONE)}</span>` + (ex ? `<span class="exn" title="استاد نے اہم کہا">★ ${ex}</span>` : "") + (px ? `<span class="pxn" title="وفاق کے پرچوں کے سوال">وفاق ${px}</span>` : "") + (PAGED ? ps.map((p) => `<a class="pchip" href="#${u.key}-${p}" aria-label="صفحہ ${p}">${p}</a>`).join("") : "")
+    : `<span class="none">${gapsOf(u.key).length ? "ریکارڈنگ نہیں ملی" : "ابھی کارڈ نہیں"}</span>`;
+  return `<li class="lv${u.level}" id="toc-${u.key}"><a class="row" href="#${u.key}"><span class="tt" lang="ar">${esc(u.title)}</span><span class="dots"></span>${pr}</a>
+    <div class="sub">${sub}</div></li>`;
+}).join("");
+if (!PAGED) document.querySelectorAll("form.jump").forEach((f) => { f.hidden = true; });
+
+// ---------- cards (rendered once; views show and hide them)
+function chip(s, lesson) {
+  if (s.t === "u") return `<button type="button" class="chip u" data-ts="${s.v}" data-l="${s.l || lesson || ""}" title="یہاں سے سنیں">استاد ${s.v}</button>`;
+  if (s.t === "k") return `<span class="chip k"${s.v7 ? ` title="بشریٰ ج${s.v7 >= 1000 ? "٨" : "٧"} ص ${s.v7 >= 1000 ? s.v7 - 1000 : s.v7}"` : ""}>کتاب ص ${iso(esc(s.v))}</span>`;
+  if (s.t === "s") return `<span class="chip s">شرح: ${esc(s.v)}</span>`;
+  return `<span class="chip a">AI · تصدیق طلب</span>`;
+}
+const chips = (arr, l) => `<span class="srcs">${arr.map((s) => chip(s, l)).join("")}</span>`;
+const QUICK = DATA.quick || ["tamheed", "masala"];
+$("cards").innerHTML = CARDS.map((c, i) => {
+  const l = c.lesson;
+  const sec = ([key, label]) => {
+    const items = c[key] || [];
+    if (!items.length) return "";
+    return `<div class="sec ${key}"><h4>${label}</h4><ul>${items.map((it) => `<li>${esc(it.x)} ${chips(it.s, l)}</li>`).join("")}</ul></div>`;
+  };
+  const quick = DATA.sections.filter(([k]) => QUICK.includes(k)).map(sec).join("");
+  const examSecs = DATA.sections.filter(([k]) => !QUICK.includes(k) && (c[k] || []).length);
+  const n = examSecs.reduce((a, [k]) => a + c[k].length, 0);
+  const exam = n ? `<details class="more"><summary>${examSecs.map(([, lb]) => lb).join("، ")} <span class="hint">${n} نکات، امتحان کی تیاری کے لیے</span></summary><div class="inner">${examSecs.map(sec).join("")}</div></details>` : "";
+  const words = (c.lughat || []).length ? `<div class="sec lughat"><h4>مشکل الفاظ</h4><div class="words">${c.lughat.map((w) =>
+    `<div class="word"><span class="ar" lang="ar">${esc(w.ar)}</span><span class="ur">${esc(w.ur)}</span>${chips(w.s, l)}</div>`).join("")}</div></div>` : "";
+  const head = l && c.ts
+    ? `<span class="les">${esc(LES[l].label)}</span><button type="button" class="play" data-ts="${c.ts}" data-l="${l}" aria-label="${esc(LES[l].label)}، ${c.ts} سے سنیں">${ICON.play}${c.ts}</button>`
+    : `<span class="norec-chip">ریکارڈنگ نہیں</span>`;
+  const pq = (c.exam || []).filter((x) => x.k === "p").sort((a, b) => a.year - b.year);
+  const pyears = [...new Set(pq.map((x) => x.year))];
+  const badges = (c.badges || []).map((b) => `<span class="badge">${esc(b)}</span>`).join("")
+    + (c.exam || []).filter((x) => x.k === "t").map((x) =>
+      `<button type="button" class="badge exam" data-ts="${x.ts}" data-l="${x.l}" title="استاد (${x.ts}): «${esc(x.said)}»" aria-label="استاد نے ${esc(x.kind)} کہا، ${x.ts} سے سنیں">★ استاد: ${esc(x.kind)}</button>`).join("")
+    + (pq.length ? `<button type="button" class="badge paper${pyears.length >= 3 ? " hot" : ""}" aria-expanded="false" aria-controls="pq${i + 1}" aria-label="وفاق کے پرچوں میں ${pyears.length} بار آیا، سوال دیکھیں">وفاق ${pyears.length > 2 ? `${pyears.length} بار` : pyears.map((y) => iso(String(y))).join("، ")}</button>` : "");
+  const paperList = pq.length ? `<div class="paperq" id="pq${i + 1}" hidden><ul>${pq.map((x) =>
+    `<li><span class="py">${iso(String(x.year))}ھ · س ${esc(x.n)}</span><span class="pt" lang="ar">«${esc(x.q)}»</span></li>`).join("")}</ul><p class="psrc">الجواب للموقوف علیہ</p></div>` : "";
+  const pg = PAGED && c.pages && c.pages.length ? `<span class="pg">${pagesLabel(c.pages)}</span>` : (c.group ? `<span class="pg">${esc(c.group)}</span>` : "");
+  return `<article class="card" id="c${i + 1}" data-unit="${esc(c.unit || "")}" data-pages="${(c.pages || []).join("|")}" hidden>
+    <div class="card-head">${pg}${c.v7 ? `<span class="v7">${iso(esc(c.v7))}</span>` : ""}<span class="cnum">${esc(ONE)} ${i + 1}</span>${badges}${head}</div>
+    ${paperList}
+    ${c.label ? `<p class="label" lang="ar">(${esc(c.label)})</p>` : ""}
+    <h3 class="title">${esc(c.title)}</h3>
+    <p class="start" lang="ar">«${esc(c.start)}»</p>
+    ${c.ref ? `<p class="ref">${esc(c.ref)}</p>` : ""}
+    ${c.start_note ? `<p class="start-note">${esc(c.start_note)}</p>` : ""}
+    <button type="button" class="ctoggle" aria-expanded="true" aria-controls="cb${i + 1}">تفصیل بند کریں</button>
+    <div class="cbody" id="cb${i + 1}">
+    ${c.norec ? `<p class="norec"><b>توجہ:</b> ${esc(c.norec)}</p>` : ""}
+    ${quick}${words}${exam}
+    </div>
+  </article>`;
+}).join("");
+const ARTS = [...document.querySelectorAll("article.card")];
+const usedT = new Set();
+CARDS.forEach((c) => {
+  DATA.sections.forEach(([k]) => (c[k] || []).forEach((it) => it.s.forEach((x) => usedT.add(x.t))));
+  (c.lughat || []).forEach((w) => w.s.forEach((x) => usedT.add(x.t)));
+});
+document.querySelectorAll(".legend .lg").forEach((el) => { el.hidden = !usedT.has(el.dataset.t); });
+$("foot").innerHTML = (DATA.footer || []).map((p) => `<p>${esc(p)}</p>`).join("");
+
+// ---------- views
+function showToc(msg) {
+  $("tocView").hidden = false; $("unitView").hidden = true; document.body.classList.remove("unit");
+  $("tocMsg").hidden = !msg; if (msg) $("tocMsg").innerHTML = msg;
+  document.title = `${B.kitab} · ${B.book}`;
+  const last = store.get(`${KEY}-unit`, "");
+  const row = last && $(`toc-${last}`);
+  if (row && !msg) row.scrollIntoView({ block: "center" }); else window.scrollTo(0, 0);
+}
+function showUnit(key, page, msg) {
+  const u = unitByKey[key];
+  $("tocView").hidden = true; $("unitView").hidden = false; document.body.classList.add("unit");
+  const par = u.level > 1 ? parentOf(u) : null;
+  $("ubarTitle").textContent = u.title;
+  $("uParent").textContent = par ? par.title : "";
+  $("uParent").hidden = !par;
+  $("uTitle").textContent = u.title;
+  const ps = pagesOf(key), n = cardsOf(key).length;
+  $("uMeta").innerHTML = (PAGED && u.page ? `ص <span class="ltr num">${range(u.page, u.page_to || u.page)}</span>، ` : "") + (n ? `${n} ${esc(ONE)}` : "ابھی کارڈ نہیں");
+  $("pbar").innerHTML = (ps.length > 1 || page ? [`<a href="#${key}" aria-current="${!page}">سب</a>`, ...ps.map((p) =>
+    `<a href="#${key}-${p}" aria-current="${page === p}">${p}</a>`)].join("") : "");
+  $("pbar").hidden = !$("pbar").innerHTML;
+  const allView = !page && !$("pbar").hidden;   // the «سب» chip is selected: cards start folded
+  document.body.classList.toggle("allview", allView);
+  $("toggleAll").hidden = !allView;
+  let shown = 0;
+  ARTS.forEach((a) => {
+    const on = a.dataset.unit === key && (!page || a.dataset.pages.split("|").includes(String(page)));
+    a.hidden = !on; if (on) shown++;
+    setFold(a, allView);
+  });
+  syncToggleAll();
+  if (page && !shown && !msg) msg = `صفحہ ${page} کا کوئی ${esc(ONE)} ابھی نہیں بنا۔`;
+  $("uMsg").hidden = !msg; if (msg) $("uMsg").innerHTML = msg;
+  const gs = gapsOf(key).filter((g) => !page || (g.page_list || []).includes(page));
+  $("gaps").hidden = !gs.length;
+  $("gapsTitle").textContent = n ? "اس حصے کی وہ عبارت جو استاد نے نہیں سمجھائی" : "اس حصے کی ریکارڈنگ نہیں ملی";
+  $("gapsLead").textContent = n ? "یہ باتیں کارڈوں میں متن اور حاشیے سے لکھی گئی ہیں؛ ریکارڈنگ میں ان کی وضاحت نہیں۔"
+    : "کسی ساتھی کے پاس اس حصے کی ریکارڈنگ ہو تو بھیج دیں، اس کے کارڈ بھی بن جائیں گے۔";
+  $("gapList").innerHTML = gs.map((g) => `<li><span class="gp">${PAGED && g.pages ? "ص " + iso(esc(g.pages)) : ""}</span><span class="gt">${esc(g.text)}</span>${g.v7 ? `<span class="gv">${iso(esc(g.v7))}</span>` : ""}</li>`).join("");
+  const i = UNITS.indexOf(u), prev = UNITS[i - 1], next = UNITS[i + 1];
+  $("unav").innerHTML = (prev ? `<a class="prev" href="#${prev.key}"><span class="k">پچھلا حصہ</span><span class="t" lang="ar">${esc(prev.title)}</span></a>` : "") +
+    (next ? `<a class="next" href="#${next.key}"><span class="k">اگلا حصہ</span><span class="t" lang="ar">${esc(next.title)}</span></a>` : "");
+  document.title = `${u.title} · ${B.kitab}`;
+  store.set(`${KEY}-unit`, key);
+  window.scrollTo(0, 0);
+}
+function findPage(p) {
+  const withCards = UNITS.find((u) => pagesOf(u.key).includes(p));
+  if (withCards) return { unit: withCards.key, page: p };
+  const inRange = [...UNITS].reverse().find((u) => u.page && u.page <= p && p <= (u.page_to || u.page));
+  if (inRange) return { unit: inRange.key, page: p };
+  return null;
+}
+function outsideMsg(p) {
+  const k = (DATA.kitabs || []).find((x) => x.from <= p && p <= x.to);
+  if (!k) return `صفحہ ${p} اس کتاب میں نہیں۔`;
+  if (k.href) return `صفحہ ${p} <a href="${k.href}#p${p}">${esc(k.title)}</a> میں ہے۔`;
+  return `صفحہ ${p} «${esc(k.title)}» میں ہے؛ اس کے کارڈ ابھی نہیں بنے۔`;
+}
+function route() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  let m;
+  if ((m = h.match(/^p(\d+)$/))) {
+    const p = +m[1], f = findPage(p);
+    if (f) { history.replaceState(null, "", `#${f.unit}-${p}`); return showUnit(f.unit, p); }
+    return showToc(outsideMsg(p));
+  }
+  if ((m = h.match(/^(u\d+)(?:-(\d+))?$/)) && unitByKey[m[1]]) return showUnit(m[1], m[2] ? +m[2] : null);
+  if (!h && UNITS.length === 1) return showUnit(UNITS[0].key, null);   // nothing to choose from
+  showToc();
+}
+window.addEventListener("hashchange", route);
+document.addEventListener("submit", (e) => {
+  const f = e.target.closest("form[data-jump]");
+  if (!f) return;
+  e.preventDefault();
+  const v = toLatin(f.querySelector("input").value || "");
+  if (!/^\d+$/.test(v)) return;
+  const p = +v, hit = findPage(p);
+  if (hit) location.hash = `${hit.unit}-${p}`;
+  else showToc(outsideMsg(p));
+});
+// folding: «سب تفصیل» opens or folds every card shown; each card's دلیل/اختلاف (details.more) stays as the reader left it
+function setFold(a, fold) {
+  a.classList.toggle("folded", fold);
+  const t = a.querySelector(".ctoggle");
+  t.setAttribute("aria-expanded", String(!fold));
+  t.textContent = fold ? "تمہید اور تفصیل" : "تفصیل بند کریں";
+}
+function syncToggleAll() {
+  const anyFolded = ARTS.some((a) => !a.hidden && a.classList.contains("folded"));
+  $("toggleAll").setAttribute("aria-pressed", String(!anyFolded));
+  $("toggleAll").textContent = anyFolded ? "سب تفصیل کھولیں" : "سب تفصیل بند کریں";
+}
+$("toggleAll").addEventListener("click", () => {
+  const anyFolded = ARTS.some((a) => !a.hidden && a.classList.contains("folded"));
+  ARTS.forEach((a) => { if (!a.hidden) setFold(a, !anyFolded); });
+  syncToggleAll();
+});
+$("cards").addEventListener("click", (e) => {
+  const pb = e.target.closest("button.badge.paper");
+  if (pb) {
+    const box = $(pb.getAttribute("aria-controls"));
+    const open = pb.getAttribute("aria-expanded") !== "true";
+    pb.setAttribute("aria-expanded", String(open));
+    if (box) box.hidden = !open;
+    return;
+  }
+  const t = e.target.closest(".ctoggle");
+  if (!t) return;
+  const a = t.closest("article.card");
+  const wasOpen = !a.classList.contains("folded");
+  setFold(a, wasOpen);
+  if (wasOpen && a.getBoundingClientRect().top < 0) a.scrollIntoView({ block: "start" });   // folding a long card: keep it in view
+  syncToggleAll();
+});
+route();
+
+// ---------- recordings: light (Opus) copies on this site
+const hasWeb = (l) => !!(LES[l] && LES[l].web && LES[l].web.length);
+const webOk = (l) => hasWeb(l) && (OPUS_OK || !/\.ogg$/i.test(LES[l].web[0].src));
+const NO_OPUS = "یہ براؤزر یہاں کی ہلکی فائلیں (Opus) نہیں چلاتا۔ آئی فون پر iOS 18.4 یا نیا ورژن چاہیے؛ اینڈرائیڈ پر Chrome میں کھولیں۔";
+let current = null, sheetMode = null;
+const blobUrls = {}, triedBlob = {};
+let curPart = null, lastOffset = 0, pendingSeek = null;
+function webPart(l, sec) {
+  let p = LES[l].web[0];
+  for (const x of LES[l].web) if (x.start <= sec + 0.5) p = x;
+  return p;
+}
+function recRow(l) {
+  const L = LES[l], btns = [];
+  if (webOk(l)) btns.push(`<button type="button" class="btn" data-ts="0:00:00" data-l="${l}">${ICON.play}شروع سے سنیں</button>`);
+  if (hasWeb(l)) {   // one button per lesson, whatever the number of parts
+    const mb = L.web.reduce((a, p) => a + (p.mb || 0), 0);
+    btns.push(`<button type="button" class="btn ghost" data-dl="${l}">${ICON.down}ڈاؤن لوڈ${L.web.length > 1 ? ` (${L.web.length} حصے)` : ""}${mb ? ` ${sizeMB(mb)}` : ""}</button>`);
+  }
+  const mins = L.minutes ? `${Math.round(L.minutes)} منٹ` : "";
+  const state = webOk(l) ? `<span class="state on">یہیں چلتی ہے</span>` : (hasWeb(l) ? "" : `<span class="state off">ابھی نہیں لگی</span>`);
+  return `<div class="rec" id="rec-${l}"><div class="rec-top"><b>${esc(L.label)}</b><span class="sub">${mins}</span>${state}</div>
+    ${btns.length ? `<div class="btns">${btns.join("")}</div>` : ""}</div>`;
+}
+function sheetAll() {
+  sheetMode = "all";
+  const anyWeb = usedLessons.some(hasWeb);
+  const hint = anyWeb && !OPUS_OK ? NO_OPUS : "کسی سبز وقت پر ٹیپ کریں تو استاد کی آواز اسی صفحے پر وہیں سے چلتی ہے۔";
+  const missing = usedLessons.filter((l) => !hasWeb(l)).length;
+  const all = filesOf(usedLessons.filter(hasWeb));
+  const mb = all.reduce((a, f) => a + (f.mb || 0), 0);
+  const dlAll = all.length > 1 ? `<div class="dlall"><div class="btns"><button type="button" class="btn" data-dl="*">${ICON.down}سب ڈاؤن لوڈ کریں</button>
+      <span class="sub">${usedLessons.filter(hasWeb).length} اسباق، ${all.length} فائلیں، کل ${sizeMB(mb)}</span></div>
+      <span class="dlstat" id="dlstat" hidden></span></div>` : "";
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">ریکارڈنگز</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${hint}${missing ? ` ${missing} اسباق کی ریکارڈنگ ابھی اس صفحے پر نہیں لگی۔` : ""}</p>
+    ${dlAll}
+    <div>${usedLessons.map(recRow).join("")}</div>`;
+  if (dlBusy) markBusy();
+  $("backdrop").hidden = false;
+}
+function sheetOne(l, ts) {
+  sheetMode = "one";
+  const L = LES[l];
+  const why = hasWeb(l) && !OPUS_OK ? NO_OPUS : "اس سبق کی ریکارڈنگ ابھی اس صفحے پر نہیں لگی۔";
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">یہ حصہ ${esc(L.label)} کی ریکارڈنگ میں <span class="ltr">${ts}</span> پر ہے</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${why}</p>
+    <button type="button" class="linkbtn" data-allrecs style="margin-inline-start:0">سب ریکارڈنگز</button>`;
+  $("backdrop").hidden = false;
+  $("sheet").querySelector("[data-close]").focus();
+}
+function closeSheet() { $("backdrop").hidden = true; sheetMode = null; }
+
+// downloads: every part of a lesson, or every lesson of this kitab, one after another.
+// Phones ask once to allow several downloads from this site.
+function filesOf(ls) {
+  return ls.flatMap((l) => LES[l].web.map((p, i, all) => {
+    const ext = (p.src.match(/\.\w+$/) || [".ogg"])[0];
+    return { src: p.src, mb: p.mb, name: `${l} ${B.book}${all.length > 1 ? ` - حصہ ${i + 1}` : ""}${ext}` };
+  }));
+}
+let dlBusy = false;
+function markBusy() { $("sheet").querySelectorAll("[data-dl]").forEach((b) => { b.disabled = dlBusy; }); }
+function dlStatus(html) { const s = $("dlstat"); if (s) { s.hidden = !html; s.innerHTML = html || ""; } }
+async function runDownloads(files) {
+  if (dlBusy || !files.length) return;
+  dlBusy = true; markBusy();
+  const allow = files.length > 1 ? " براؤزر «کئی فائلیں ڈاؤن لوڈ کریں؟» پوچھے تو Allow دبائیں۔" : "";
+  for (let i = 0; i < files.length; i++) {
+    dlStatus(`فائل <span class="ltr num">${i + 1} / ${files.length}</span> ڈاؤن لوڈ کے لیے بھیجی جا رہی ہے…${allow}`);
+    const a = document.createElement("a");
+    a.href = files[i].src; a.download = files[i].name; a.hidden = true;
+    document.body.appendChild(a); a.click(); a.remove();
+    await new Promise((r) => setTimeout(r, 1200));
+  }
+  dlBusy = false; markBusy();
+  dlStatus(files.length > 1
+    ? `${files.length} فائلیں بھیج دی گئیں؛ فون کے Downloads میں دیکھیں۔ اگر کم آئیں تو براؤزر کی سیٹنگ میں اس سائٹ کو <span class="ltr">Automatic downloads</span> کی اجازت دے کر دوبارہ دبائیں۔`
+    : "");
+}
+$("recBtn").addEventListener("click", sheetAll);
+$("backdrop").addEventListener("click", (e) => {
+  if (e.target === $("backdrop") || e.target.closest("[data-close]")) closeSheet();
+  else if (e.target.closest("[data-allrecs]")) sheetAll();
+  else if (e.target.closest("[data-dl]")) {
+    const k = e.target.closest("[data-dl]").dataset.dl;
+    runDownloads(filesOf(k === "*" ? usedLessons.filter(hasWeb) : [k]));
+  }
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("backdrop").hidden) closeSheet(); });
+
+function playAt(l, ts) {
+  if (!l || !LES[l]) return;
+  const sec = secs(ts);
+  if (!webOk(l)) { sheetOne(l, ts); return; }
+  const p = webPart(l, sec), src = blobUrls[p.src] || p.src, offset = sec - p.start;
+  curPart = p;
+  closeSheet();
+  current = l; lastOffset = Math.max(0, offset);
+  $("player").hidden = false;
+  if (audio.dataset.src !== src) { audio.dataset.src = src; audio.src = src; pendingSeek = lastOffset; }
+  else if (audio.readyState >= 1) {
+    if (!blobUrls[curPart.src] && !canSeekTo(lastOffset)) { pendingSeek = lastOffset; useBlob(); return; }
+    try { audio.currentTime = lastOffset; } catch (e) {}
+  } else pendingSeek = lastOffset;
+  audio.play().catch(() => {});
+  $("now").innerHTML = `${esc(LES[l].label)} · <span class="ltr">${ts}</span>`;
+}
+function canSeekTo(o) { const r = audio.seekable; return o < 1 || (r && r.length && r.end(r.length - 1) >= o - 1); }
+audio.addEventListener("loadedmetadata", () => {
+  const on = document.querySelector("#speeds button[aria-pressed='true']");
+  if (on) audio.playbackRate = +on.dataset.rate;
+  if (pendingSeek === null) return;
+  const o = pendingSeek;
+  if (curPart && !blobUrls[curPart.src] && !canSeekTo(o)) { useBlob(); return; }
+  pendingSeek = null;
+  try { audio.currentTime = o; } catch (e) {}
+  audio.play().catch(() => {});
+});
+audio.addEventListener("error", () => useBlob());
+async function useBlob() {   // the server can't jump to the time (or the stream failed): fetch the light copy whole
+  const p = curPart;
+  if (!p || blobUrls[p.src] || triedBlob[p.src]) return;
+  triedBlob[p.src] = true;
+  const label = $("now").innerHTML;
+  $("now").textContent = "آواز لوڈ ہو رہی ہے…";
+  try {
+    const r = await fetch(p.src);
+    if (!r.ok) throw new Error(r.status);
+    blobUrls[p.src] = URL.createObjectURL(await r.blob());
+    if (curPart !== p) return;
+    audio.dataset.src = blobUrls[p.src]; audio.src = blobUrls[p.src]; pendingSeek = lastOffset;
+    audio.play().catch(() => {});
+    $("now").innerHTML = label;
+  } catch (e) { $("now").textContent = "یہ آواز نہیں چل سکی؛ انٹرنیٹ دیکھ کر دوبارہ ٹیپ کریں۔"; }
+}
+$("pclose").addEventListener("click", () => { audio.pause(); $("player").hidden = true; });
+
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-ts]");
+  if (!b) return;
+  playAt(b.dataset.l, b.dataset.ts);
+  const card = b.closest("article.card");
+  if (card) { card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash"); }
+});
+$("speeds").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-rate]");
+  if (!b) return;
+  audio.playbackRate = +b.dataset.rate;
+  document.querySelectorAll("#speeds button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+});
+// files people picked on earlier versions of this page: free the space on their phone
+try { if (window.indexedDB) indexedDB.deleteDatabase(`${KEY}-audio`); } catch (e) {}
+try { localStorage.removeItem(`${KEY}-remember`); } catch (e) {}
+</script>
+
+</body>
+</html>

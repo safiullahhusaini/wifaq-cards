@@ -5,7 +5,7 @@ name: audio
 on:
   push:
     branches: [main]
-    paths: ['src/cards/h4/h4_*.py']
+    paths: ['src/cards/h4/h4_*.py', 'src/cards/h3/h3_*.py']
   workflow_run:
     workflows: [daily]
     types: [completed]
@@ -31,7 +31,7 @@ jobs:
       - name: Clone wifaq-data (blobless, sparse)
         run: |
           git clone -q --depth 1 --filter=blob:none --sparse "https://x-access-token:${WIFAQ_DATA_TOKEN}@github.com/safiullahhusaini/wifaq-data" ../wifaq-data
-          git -C ../wifaq-data sparse-checkout set --no-cone '/audio/index.csv' '/ocr/Al Hidayah Vol-7/' '/ocr/Al Hidayah Vol-8/'
+          git -C ../wifaq-data sparse-checkout set --no-cone '/audio/index.csv' '/ocr/Al Hidayah Vol-7/' '/ocr/Al Hidayah Vol-8/' '/ocr/Al Hidayah Vol-5/'
       - name: Fetch only the audio that is missing from the site
         id: need
         run: |
@@ -46,12 +46,13 @@ jobs:
           mkdir -p .cache
           ln -sfn "$PWD/../wifaq-data/ocr/Al Hidayah Vol-7" .cache/v7ocr
           ln -sfn "$PWD/../wifaq-data/ocr/Al Hidayah Vol-8" .cache/v8ocr
+          ln -sfn "$PWD/../wifaq-data/ocr/Al Hidayah Vol-5" .cache/v5ocr
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           for i in 1 2 3; do
             rm -f /tmp/out.txt; GITHUB_OUTPUT=/tmp/out.txt python3 src/colab/daily/publish_audio.py ../wifaq-data .
             grep -q 'changed=true' /tmp/out.txt || exit 0
             (cd src/cards && python3 build_site.py | tail -2)
-            git add -A hidaya4 index.html src/cards/h4_pagemap_cache.json
+            git add -A hidaya4 hidaya3 index.html src/cards/h4_pagemap_cache.json src/cards/h3_pagemap_cache.json
             git commit -qm "audio: new lessons (audio.yml)"
             git push -q origin main && exit 0
             # someone pushed meanwhile: start again from the new main (the script is idempotent)

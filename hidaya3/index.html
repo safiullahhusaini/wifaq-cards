@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>ہدایہ جلد ثالث · تمہیدی کارڈ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap">
+<style>
+:root {
+  --paper: #FDFCFB; --surface: #FFFFFF; --ink: #1F1A1B; --muted: #6E6566; --rule: #E9E3E2;
+  --matn: #A3211A; --teacher: #17624C; --teacher-tint: #E3F2EC; --book: #2B4B7E; --ai: #8A5A00; --ai-tint: #FBF0DA; --focus: #2B4B7E;
+  --ui: "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif; --arabic: "Amiri", "Noto Naskh Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { color-scheme: dark; --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+    --matn: #F07B6F; --teacher: #5CC7A2; --teacher-tint: #173229; --book: #93B2EA; --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; }
+}
+:root[data-theme="dark"] { color-scheme: dark; --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+  --matn: #F07B6F; --teacher: #5CC7A2; --teacher-tint: #173229; --book: #93B2EA; --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--ui); font-size: 15px; padding-inline: 16px; padding-block: 0 48px; }
+.wrap { max-width: 720px; margin: 0 auto; }
+[lang="ar"] { font-family: var(--arabic); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+header { padding-block: 14px 6px; display: grid; gap: 4px; }
+.homelink { justify-self: start; color: var(--book); font-size: 13.5px; font-weight: 600; text-decoration: none; padding-block: 6px; }
+h1 { margin: 6px 0 0; font-family: var(--arabic); color: var(--matn); font-size: clamp(34px, 8vw, 46px); line-height: 1.3; }
+.lead { margin: 0; color: var(--muted); font-size: 14px; line-height: 2; max-width: 62ch; }
+.tochead { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-block: 16px 4px; }
+.tochead h2 { margin: 0; font-size: 15px; color: var(--muted); }
+form.jump { display: flex; gap: 4px; margin-inline-start: auto; }
+form.jump input { inline-size: 92px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 14px; direction: ltr; text-align: center; }
+form.jump button { cursor: pointer; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 999px; padding: 5px 13px; font: inherit; font-size: 13.5px; }
+.msg { margin: 8px 0 0; background: var(--ai-tint); border-radius: 8px; padding: 7px 12px; font-size: 13.5px; line-height: 1.9; }
+ol.toc { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.toc li { border-bottom: 1px solid var(--rule); padding-block: 11px 10px; display: grid; gap: 3px; }
+.toc .row { display: flex; align-items: baseline; gap: 8px; text-decoration: none; color: inherit; }
+.toc .tt { font-family: var(--arabic); font-size: 22px; line-height: 1.6; color: var(--muted); }
+.toc a.row .tt { color: var(--matn); font-weight: 700; }
+.toc a.row:hover .tt, .toc a.row:focus-visible .tt { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.toc .dots { flex: 1 1 24px; min-inline-size: 24px; border-bottom: 2px dotted var(--rule); transform: translateY(-5px); }
+.toc .pp { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.toc .sub { font-size: 12.5px; color: var(--muted); }
+.toc .sub b { color: var(--teacher); font-weight: 600; }
+.toc .sub .ex { color: var(--matn); font-weight: 600; margin-inline-start: 10px; }
+details.exw { font-size: 13px; }
+.toc .sub .pe { color: var(--muted); margin-inline-start: 10px; white-space: nowrap; }
+.toc .sub .pe.hot { color: var(--book); font-weight: 600; }
+details.exw.pw summary { color: var(--book); }
+details.exw.pw li { border-inline-start-color: var(--book); }
+details.exw.pw .ar { color: var(--ink); }
+details.exw summary { cursor: pointer; color: var(--matn); padding-block: 4px; }
+details.exw ul { list-style: none; margin: 4px 0 2px; padding: 0; display: grid; gap: 8px; }
+details.exw li { display: grid; gap: 1px; border-inline-start: 3px solid var(--matn); padding-inline-start: 10px; }
+details.exw .ar { font-family: var(--arabic); font-size: 18px; line-height: 1.8; color: var(--matn); }
+details.exw .said { line-height: 1.9; }
+details.exw .when { color: var(--muted); font-size: 12px; }
+.ltr { direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular-nums; }
+section.how { margin-block-start: 26px; border-top: 1px solid var(--rule); padding-block-start: 14px; display: grid; gap: 6px; }
+section.how h2 { margin: 0; font-size: 15px; }
+section.how ul { margin: 0; padding-inline-start: 18px; color: var(--muted); font-size: 13.5px; line-height: 2.1; }
+
+.note { margin: 6px 0 0; background: var(--ai-tint); border-radius: 8px; padding: 7px 12px; font-size: 13.5px; line-height: 1.9; }</style>
+</head>
+<body>
+
+<div class="wrap" dir="rtl" lang="ur">
+  <header>
+    <a class="homelink" href="../">→ تمام پرچے</a>
+    <h1>ہدایہ جلد ثالث</h1>
+    <p class="lead">کتابیں اسی ترتیب سے جیسے کتاب کی فہرست میں ہیں۔ کسی کتاب کو کھولیں تو اس کے باب اور فصلیں آتی ہیں، ہر فصل کے نیچے اس کے صفحات۔ اب تک 8 کارڈ۔</p>
+    <p class="note">صفحہ نمبر مکتبۃ البشریٰ کے آٹھ جلدی نسخے کی جلد ٥ کے چھپے ہوئے صفحات ہیں، ساتھیوں والے نسخے کے نہیں (ہدایہ جلد ثالث کے لیے اس نسخے کی فہرست ابھی نہیں ملی؛ ملنے پر نمبر بدل دیے جائیں گے)۔</p>
+  </header>
+  <div class="tochead">
+    <h2>فہرست</h2>
+    <form class="jump" id="jump" role="search"><input inputmode="numeric" placeholder="صفحہ نمبر" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form>
+  </div>
+  <p class="msg" id="msg" hidden></p>
+  <ol class="toc">
+    <li><a class="row" href="sarf.html"><span class="tt" lang="ar">كتاب الصرف</span><span class="dots"></span><span class="pp">⁦253–273⁩</span></a><div class="sub"><b>8 کارڈ</b>، 1 اسباق (اس سال کی کلاس 1)</div></li>
+    <li><div class="row"><span class="tt" lang="ar">كتاب الكفالة</span><span class="dots"></span><span class="pp">⁦274–327⁩</span></div><div class="sub">ابھی کارڈ نہیں</div></li>
+    <li><div class="row"><span class="tt" lang="ar">كتاب الحوالة</span><span class="dots"></span><span class="pp">⁦328–335⁩</span></div><div class="sub">ابھی کارڈ نہیں</div></li>
+    <li><div class="row"><span class="tt" lang="ar">كتاب أدب القاضي</span><span class="dots"></span><span class="pp">⁦336–398⁩</span></div><div class="sub">ابھی کارڈ نہیں</div></li>
+    <li><div class="row"><span class="tt" lang="ar">كتاب الشهادة</span><span class="dots"></span><span class="pp">⁦399–459⁩</span></div><div class="sub">ابھی کارڈ نہیں</div></li>
+    <li><div class="row"><span class="tt" lang="ar">كتاب الرجوع عن الشهادة</span><span class="dots"></span><span class="pp">⁦460–471⁩</span></div><div class="sub">ابھی کارڈ نہیں</div></li>
+    <li><div class="row"><span class="tt" lang="ar">كتاب الوكالة</span><span class="dots"></span><span class="pp">⁦472–541⁩</span></div><div class="sub">ابھی کارڈ نہیں</div></li>
+  </ol>
+  <section class="how">
+    <h2>استعمال</h2>
+    <ul>
+      <li>صفحہ نمبر بشریٰ (آٹھ جلدی) کی جلد ٥ کے ہیں، ساتھیوں والے نسخے کے نہیں۔</li>
+      <li>ہر سبق کے ساتھ لکھا ہے کہ وہ «اس سال کی کلاس» کا ہے یا «پچھلے سال کی کلاس» کا۔ پچھلے سال کی ریکارڈنگ صرف وہاں لی گئی ہے جہاں اس سال کی نہیں ملی۔</li>
+      <li>سبز وقت پر ٹیپ کریں تو استاد کی آواز اسی صفحے پر وہیں سے چلتی ہے۔ ہلکی فائلیں «ریکارڈنگز» کے بٹن میں ہیں۔</li>
+      <li>سبز = استاد کی ریکارڈنگ، نیلا = کتاب کا متن، سرمئی = حاشیہ یا شرح، پیلا = AI کی لکھی ہوئی سطر، خود جانچیں۔</li>
+    </ul>
+  </section>
+</div>
+<script>
+const KITABS = [{"t": "كتاب الصرف", "f": 253, "to": 273, "h": "sarf.html"}, {"t": "كتاب الكفالة", "f": 274, "to": 327, "h": ""}, {"t": "كتاب الحوالة", "f": 328, "to": 335, "h": ""}, {"t": "كتاب أدب القاضي", "f": 336, "to": 398, "h": ""}, {"t": "كتاب الشهادة", "f": 399, "to": 459, "h": ""}, {"t": "كتاب الرجوع عن الشهادة", "f": 460, "to": 471, "h": ""}, {"t": "كتاب الوكالة", "f": 472, "to": 541, "h": ""}];
+const toLatin = (v) => String(v).replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).trim();
+document.getElementById("jump").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const v = toLatin(e.target.querySelector("input").value || ""), msg = document.getElementById("msg");
+  if (!/^\d+$/.test(v)) return;
+  const p = +v, k = KITABS.find((x) => x.f <= p && p <= x.to);
+  if (k && k.h) { location.href = `${k.h}#p${p}`; return; }
+  msg.hidden = false;
+  msg.textContent = k ? `صفحہ ${p} «${k.t}» میں ہے؛ اس کے کارڈ ابھی نہیں بنے۔` : `صفحہ ${p} یہاں نہیں (بشریٰ جلد ٥، ص 253–541)۔`;
+});
+</script>
+
+</body>
+</html>
