@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01 (run 12:52 am PKT)",
+ "updated": "4 Nov 2026, ~2 am",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 3,
@@ -1341,10 +1341,11 @@
   {
    "id": "eng-h3-setup",
    "book": null,
-   "state": "todo",
+   "state": "done",
    "title": "Hidaya 3 site and preparation: find which Bushra OCR volume(s) hold Hidaya 3 (wifaq-data/ocr has Al Hidayah Vol-5 and Vol-6), the colleagues' page numbering for Hidaya 3 (ask on the panel for a photo of the colleagues' Hidaya 3 contents page if Drive automation/from-me/ has none; until then show Bushra pages and say so), page map + HEADINGS, a contents page hidaya3/ like hidaya4/, kitab pages, the drafting brief (copy src/cards/h4/BRIEF.md; same principles), and home-page link (build_site.py paper 5). Keep every Hidaya 4 page byte-identical (test as in HANDOVER section 6).",
    "needs": "none to start; colleagues' numbering may need the user",
-   "done_when": "a Hidaya 3 lesson can be carded and shows on hidaya3/ with the right page numbers"
+   "done_when": "a Hidaya 3 lesson can be carded and shows on hidaya3/ with the right page numbers",
+   "result": "3 Nov run: hidaya3/ page set (Bushra vol-5 pages, h3_toc/h3_pagemap/h3_data/h3_site, src/cards/h3/BRIEF.md); Hidaya 4 pages byte-identical. Limits: only الصرف..الوكالة mapped (البيوع vol-5 pp.3-252 and vol 6 not yet); colleagues numbering missing; no past-paper marks."
   },
   {
    "id": "eng-h3-queue",
@@ -1357,10 +1358,47 @@
   {
    "id": "eng-h3-audio",
    "book": null,
-   "state": "todo",
+   "state": "done",
    "title": "Audio for Hidaya 3 pages: extend src/colab/daily/publish_audio.py and .github/workflows/audio.yml so carded Hidaya 3 lessons get their Opus parts from wifaq-data audio/ہدایہ جلد ثالث into hidaya3/audio/ (keys by queue id). Mind the 1 GB Pages limit (eng-audio-host).",
    "needs": "eng-h3-setup",
-   "done_when": "a carded Hidaya 3 lesson plays on its page"
+   "done_when": "a carded Hidaya 3 lesson plays on its page",
+   "result": "publish_audio.py + audio.yml now handle hidaya3/audio (key <date>-1448 via RECORDING in the card file, last-year by date). First real run to be checked."
+  },
+  {
+   "id": "h3-2026-07-11-1448",
+   "book": "h3",
+   "kitab": "sarf",
+   "date": "2026-07-11",
+   "file": "Hidaya Saalis 11 July 2026.m4a",
+   "source": "this-year",
+   "minutes": 42.1,
+   "repair": "fixed 79%",
+   "state": "done",
+   "cards": 8,
+   "qa": "full: 0 wrong rulings; 2 tag fixes, 4 scope fixes (deferral case Abu Hanifa vs Sahibain), 9 nits; v5 253-264 (0.66)",
+   "trashed": null,
+   "note": "original recording in Drive input_audio/Hidayah salis NOT yet trashed: the trash call was denied by the permission classifier in the 4 Nov run; ask user or retry next run",
+   "claim": null
+  },
+  {
+   "id": "h3-2026-09-06-1448",
+   "book": "h3",
+   "date": "2026-09-06",
+   "file": "Hidaya Saalis 6 Sep 26.m4a",
+   "source": "this-year",
+   "minutes": 24.9,
+   "repair": "fixed, text missing 83% (gap 0:09:53-0:20:00)",
+   "state": "redo",
+   "note": "text missing in the middle: needs re-transcription before carding",
+   "claim": null
+  },
+  {
+   "id": "h3-other-1448",
+   "book": "h3",
+   "source": "this-year",
+   "state": "wait_transcript",
+   "note": "input_audio recordings 12 Jul, 1 Aug, 30 Aug, 5 Sep, 12/13 Sep, 19/20/26 Sep, 3/4/11 Oct 2026: Daily marked 12 Jul, 1 Aug, 30 Aug, 5 Sep, 12 Sep as failed (✗) on 3 Nov; the rest not yet attempted. Card when transcripts are repaired, in book order from vol-5 p.264 «ومن كان له على آخر عشرة دراهم»",
+   "claim": null
   }
  ]
 }
