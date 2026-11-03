@@ -26,7 +26,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   daily:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04   # pinned 3 Nov: ubuntu-latest moved to an image where fusermount3 gets 'Permission denied'
     timeout-minutes: 350
     env:
       RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
@@ -51,6 +51,8 @@ jobs:
           pip -q install faster-whisper==1.1.1 rapidfuzz numpy google-genai
       - name: Mount Google Drive at /content/drive/MyDrive
         run: |
+          sudo chmod a+rw /dev/fuse; sudo chmod u+s "$(command -v fusermount3)" || true
+          grep -q '^user_allow_other' /etc/fuse.conf 2>/dev/null || echo user_allow_other | sudo tee -a /etc/fuse.conf >/dev/null
           mkdir -p ~/.config/rclone && printf '%s\n' "$RCLONE_CONF" > ~/.config/rclone/rclone.conf
           sudo mkdir -p /content/drive/MyDrive && sudo chown -R "$USER" /content
           rclone mount gdrive: /content/drive/MyDrive --daemon --vfs-cache-mode full --vfs-cache-max-size 12G \
