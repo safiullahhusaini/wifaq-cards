@@ -1399,6 +1399,22 @@
    "state": "wait_transcript",
    "note": "input_audio recordings 12 Jul, 1 Aug, 30 Aug, 5 Sep, 12/13 Sep, 19/20/26 Sep, 3/4/11 Oct 2026: Daily marked 12 Jul, 1 Aug, 30 Aug, 5 Sep, 12 Sep as failed (✗) on 3 Nov; the rest not yet attempted. Card when transcripts are repaired, in book order from vol-5 p.264 «ومن كان له على آخر عشرة دراهم»",
    "claim": null
+  },
+  {
+   "id": "h3-2026-07-12-1448",
+   "book": "h3",
+   "kitab": "sarf",
+   "date": "2026-07-12",
+   "file": "Hidaya Saalis 12 July 2026.m4a",
+   "source": "this-year",
+   "minutes": 41.3,
+   "repair": "fixed 87%",
+   "state": "claimed",
+   "note": "v5 264 ≈0.66 «ومن كان له على آخر عشرة دراهم» to end of كتاب الصرف (v5 273)",
+   "claim": {
+    "run": "2026-11-04T19:55:00Z",
+    "by": "https://claude.ai/code/session_018ayvLnzRPVdeKkFA1rAPq1"
+   }
   }
  ]
 }
