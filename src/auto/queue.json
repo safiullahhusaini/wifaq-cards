@@ -1409,12 +1409,12 @@
    "source": "this-year",
    "minutes": 41.3,
    "repair": "fixed 87%",
-   "state": "claimed",
+   "state": "done",
    "note": "v5 264 ≈0.66 «ومن كان له على آخر عشرة دراهم» to end of كتاب الصرف (v5 273)",
-   "claim": {
-    "run": "2026-11-04T19:55:00Z",
-    "by": "https://claude.ai/code/session_018ayvLnzRPVdeKkFA1rAPq1"
-   }
+   "claim": null,
+   "cards": 7,
+   "trashed": null,
+   "qa": "full: 0 wrong rulings/attributions; 4 scope/tag fixes, ~9 nits fixed; v5 264-273 (end of كتاب الصرف)"
   }
  ]
 }
