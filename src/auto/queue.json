@@ -1397,7 +1397,7 @@
    "book": "h3",
    "source": "this-year",
    "state": "wait_transcript",
-   "note": "input_audio recordings 12 Jul, 1 Aug, 30 Aug, 5 Sep, 12/13 Sep, 19/20/26 Sep, 3/4/11 Oct 2026: Daily marked 12 Jul, 1 Aug, 30 Aug, 5 Sep, 12 Sep as failed (✗) on 3 Nov; the rest not yet attempted. Card when transcripts are repaired, in book order from vol-5 p.264 «ومن كان له على آخر عشرة دراهم»",
+   "note": "12 Jul done. Remaining this-year recordings: 1 Aug, 30 Aug, 5 Sep, 12/13 Sep, 19/20/26 Sep, 3/4/11 Oct 2026: Daily marked 1 Aug, 30 Aug, 5 Sep as failed (✗) on 4 Nov; the rest not yet attempted; 6 Sep transcript has a text gap. Next passage: vol-5 p.274 كتاب الكفالة",
    "claim": null
   },
   {
@@ -1410,7 +1410,7 @@
    "minutes": 41.3,
    "repair": "fixed 87%",
    "state": "done",
-   "note": "v5 264 ≈0.66 «ومن كان له على آخر عشرة دراهم» to end of كتاب الصرف (v5 273)",
+   "note": "v5 264 ≈0.66 «ومن كان له على آخر عشرة دراهم» to end of كتاب الصرف (v5 273) · 5 Nov: original in input_audio (Drive id 1Gdj4XU3KT60ee78q4SMESZIF_eHv1xwh) NOT trashed: permission classifier denied again; Opus copy confirmed in wifaq-data.",
    "claim": null,
    "cards": 7,
    "trashed": null,
