@@ -257,3 +257,7 @@ In `wifaq-data/ocr/Al Hidayah Vol-8` (and the Drive folder) the files for PDF 37
 - Data: `src/cards/m1_hifz_data.py`; page builder `src/cards/m1_hifz.py` (registered in `build_site.py` PAGES).
 - Text source: OpenITI `0741KhatibTabrizi.MishkatMasabih.Shamela0008360` (unvocalised); every hadith was diffed word-for-word against it after stripping harakat. Harakat for 2–203 from the sunnah.com vocalisation (AhmedBaset/hadith-json), typos fixed (أحدق، الحياة، ميتغ، أوعلم). **Harakat for 4812–4830 are Claude's** and shown with an amber «اعراب AI کے» note until the user checks them against his Mishkat. Takhrij "~" = none printed in the book (shown as «بخاری و مسلم» in Urdu).
 - Open: user to compare the 4812–4830 harakat (and the 4815 «كافر» / 4821 «أهلكهم» readings) with his edition; then set `ai` to False for checked ones.
+
+## 13. Run of 6 Nov 2026 (Hidaya 4)
+
+Live now: الوصايا 27 Dec (11 cards, colleagues' pp. 1991–1996, exact via the new card field `cpages` that overrides the estimated pages in h4_data.py; book tags K(page) = colleagues' page), الوصايا 7 Dec (6 cards, v8 1266.82–1274), الجنايات 19 Apr (8 cards, v8 1055.2–1064). 28 Dec الخنثى still open: only colleague photo p1997 was saved locally (`.cache/colleague_pages`, gitignored); pages 1998–2001 (Drive ids in from-me.md §9) were blocked when a helper tried to write them out; fetch them again or ask the user. 20 Apr الديات is repaired (91%) and ready; 14 Dec is still not aligned. Trash of the 11 and 12 Jul Hidaya 3 originals was denied by the permission classifier a third time.
