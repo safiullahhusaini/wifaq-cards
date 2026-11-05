@@ -1,5 +1,5 @@
 {
- "updated": "5 Nov 2026, 6:40 pm (chat: 12-27/12-28 unblocked)",
+ "updated": "6 Nov 2026, run 12:50 am",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 3,
@@ -718,10 +718,12 @@
    "date": "2025-04-19",
    "file": "2025-04-19 الهدايه الرابع كتاب الجنايات.mp4",
    "minutes": 47.0,
-   "repair": "fixed, text missing 88% (gaps 0:08:29–0:10:10 0:19:48–0:30:00), 2026-10-10 08:41 AM",
-   "state": "redo",
-   "note": "transcript not repaired (too few timestamped lines)",
-   "claim": null
+   "repair": "fixed 89%",
+   "state": "done",
+   "note": "5 Nov Daily re-transcribed and repaired (large-v3). Claimed by the 5-6 Nov run.",
+   "claim": null,
+   "cards": 8,
+   "qa": "focused QA: 0 wrong rulings/attributions; 2 teacher-wording fixes + 5 nits fixed"
   },
   {
    "id": "h4-2025-04-20-jinayat",
@@ -756,9 +758,9 @@
    "date": "2025-04-20",
    "file": "2025-04-20 الهدايه الرابع كتاب الديات.m4a",
    "minutes": 18.3,
-   "repair": "fixed, text missing 96% (gaps 0:00:01–0:10:00), 2026-10-10 08:43 AM",
-   "state": "redo",
-   "note": "transcript not repaired (too few timestamped lines)",
+   "repair": "fixed 91%",
+   "state": "ready",
+   "note": "5 Nov Daily re-transcribed and repaired (large-v3). Starts after 2025-04-27 ends (key 1102.0)? check bounds.",
    "claim": null
   },
   {
@@ -1048,10 +1050,12 @@
    "date": "2025-12-07",
    "file": "2025-12-07 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 26.1,
-   "repair": "11 Oct redo: 86% but text missing 0:00:00–0:05:13",
-   "state": "redo",
-   "note": "repair matched only 61%",
-   "claim": null
+   "repair": "fixed 90%",
+   "state": "done",
+   "note": "5 Nov Daily re-transcribed and repaired (large-v3). Claimed by the 5-6 Nov run.",
+   "claim": null,
+   "cards": 6,
+   "qa": "focused QA: 0 wrong imam attributions; 3 teacher slips stated as fact (cut-cloth ghasb rule, yafi' as sahabi, bequest for/of fetus) + 2 tag fixes + nits fixed"
   },
   {
    "id": "h4-2025-12-08",
@@ -1090,7 +1094,7 @@
    "minutes": 45.6,
    "repair": "11 Oct redo: not aligned (17%); needs re-transcription again",
    "state": "redo",
-   "note": "transcript not repaired (too few timestamped lines)",
+   "note": "transcript not repaired (too few timestamped lines) | 5 Nov Daily retry: still not aligned (17%).",
    "claim": null
   },
   {
@@ -1171,12 +1175,11 @@
    "file": "2025-12-27 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 38.0,
    "repair": "fixed 94%",
-   "state": "ready",
+   "state": "done",
    "note": "5 Nov (chat): UNBLOCKED. The missing text is now available as photos: Drive from-me (19CUJI0EcDuV6OLmneplrXgOdfkTVnU4C), uploaded 3 Nov 2026 ~9:04 am: IMG_20261103_090313 … 090507, colleagues' 4-vol Bushra pages 1991–2001 (catalogue + ids in src/auto/from-me.md §9). These are the colleagues' edition (the one card pages follow), not the 8-vol Vol-8 PDF, so: OCR the photos (Drive read_file_content or Read on the downloaded JPG), anchor the cards by «start» text and give K7/v8 keys as before if you can match them; where no v8 OCR exists for 1369–1384, use the colleague page directly (fixed_pages) rather than guessing v8 fractions. 12-27 starts at «ومن أوصى بثلث ألف درهم» = colleagues' p.1991 near the bottom (v8 1367 frac 0.85). Earlier: 31 Oct blocked on the Vol-8 OCR hole (PDF 370-385 held Vol-7 Rahn text).",
-   "claim": {
-    "run": "2026-11-05T19:56:50.794106Z",
-    "by": "scheduled run 5-6 Nov (session_018ayvLouz1XRWbnufJddAT8)"
-   }
+   "claim": null,
+   "cards": 11,
+   "qa": "focused QA: 0 wrong rulings/attributions; 2 content errors (card 11 slave order, card 6 debt of deceased) + 3 tag fixes + 4 nits fixed; photos 1991-1996 OCR; cpages override"
   },
   {
    "id": "h4-2025-12-28",
@@ -1187,7 +1190,7 @@
    "minutes": 30.8,
    "repair": "fixed 97%",
    "state": "ready",
-   "note": "5 Nov (chat): UNBLOCKED with the same photos (Drive from-me (19CUJI0EcDuV6OLmneplrXgOdfkTVnU4C), uploaded 3 Nov 2026 ~9:04 am: IMG_20261103_090313 … 090507, colleagues' 4-vol Bushra pages 1991–2001 (catalogue + ids in src/auto/from-me.md §9)). كتاب الخنثى = colleagues' pp. 1997–2000; p.2001 holds its end «والله أعلم بالصواب» and the opening of مسائل شتى. Same method as h4-2025-12-27. Earlier: 31 Oct blocked on the Vol-8 OCR hole.",
+   "note": "5 Nov (chat): UNBLOCKED with the same photos (Drive from-me (19CUJI0EcDuV6OLmneplrXgOdfkTVnU4C), uploaded 3 Nov 2026 ~9:04 am: IMG_20261103_090313 … 090507, colleagues' 4-vol Bushra pages 1991–2001 (catalogue + ids in src/auto/from-me.md §9)). كتاب الخنثى = colleagues' pp. 1997–2000; p.2001 holds its end «والله أعلم بالصواب» and the opening of مسائل شتى. Same method as h4-2025-12-27. Earlier: 31 Oct blocked on the Vol-8 OCR hole. | 6 Nov run: photos 1998–2001 (الخنثى) could not be saved to disk by the helper agent (a safety filter stopped it twice); p1997 saved only. Left for a later run: fetch the 4 pages via Drive ids in from-me.md §9 and OCR them in-agent or ask the user.",
    "claim": null
   },
   {
