@@ -1,5 +1,5 @@
 {
- "updated": "4 Nov 2026, ~2 am",
+ "updated": "5 Nov 2026, 6:40 pm (chat: 12-27/12-28 unblocked)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 3,
@@ -1171,8 +1171,8 @@
    "file": "2025-12-27 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 38.0,
    "repair": "fixed 94%",
-   "state": "blocked",
-   "note": "31 Oct: blocked on OCR. In wifaq-data/ocr/Al Hidayah Vol-8 the files for PDF 370-385 (printed 369-384, the rest of الوصايا and the start of الخنثى) hold the Vol-7 Rahn pages (md5 differs but text equals Vol-7 PDF 370-385). Need the real Vol-8 pages; OCR them again from the Vol-8 PDF. 12-27 covers v8 1367.4 to about 1384; 12-28 (الخنثى) starts about 1385.",
+   "state": "ready",
+   "note": "5 Nov (chat): UNBLOCKED. The missing text is now available as photos: Drive from-me (19CUJI0EcDuV6OLmneplrXgOdfkTVnU4C), uploaded 3 Nov 2026 ~9:04 am: IMG_20261103_090313 … 090507, colleagues' 4-vol Bushra pages 1991–2001 (catalogue + ids in src/auto/from-me.md §9). These are the colleagues' edition (the one card pages follow), not the 8-vol Vol-8 PDF, so: OCR the photos (Drive read_file_content or Read on the downloaded JPG), anchor the cards by «start» text and give K7/v8 keys as before if you can match them; where no v8 OCR exists for 1369–1384, use the colleague page directly (fixed_pages) rather than guessing v8 fractions. 12-27 starts at «ومن أوصى بثلث ألف درهم» = colleagues' p.1991 near the bottom (v8 1367 frac 0.85). Earlier: 31 Oct blocked on the Vol-8 OCR hole (PDF 370-385 held Vol-7 Rahn text).",
    "claim": null
   },
   {
@@ -1183,8 +1183,8 @@
    "file": "2025-12-28 الهدايه الرابع كتاب الخنثى.m4a",
    "minutes": 30.8,
    "repair": "fixed 97%",
-   "state": "blocked",
-   "note": "31 Oct: blocked on the same Vol-8 OCR hole (kitab الخنثى opening is on PDF 385 or earlier, which holds Rahn text).",
+   "state": "ready",
+   "note": "5 Nov (chat): UNBLOCKED with the same photos (Drive from-me (19CUJI0EcDuV6OLmneplrXgOdfkTVnU4C), uploaded 3 Nov 2026 ~9:04 am: IMG_20261103_090313 … 090507, colleagues' 4-vol Bushra pages 1991–2001 (catalogue + ids in src/auto/from-me.md §9)). كتاب الخنثى = colleagues' pp. 1997–2000; p.2001 holds its end «والله أعلم بالصواب» and the opening of مسائل شتى. Same method as h4-2025-12-27. Earlier: 31 Oct blocked on the Vol-8 OCR hole.",
    "claim": null
   },
   {

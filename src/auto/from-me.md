@@ -101,3 +101,22 @@ Title page only (151200): 2nd edition, 320 pp, revised by Maulana Abd al-Majid L
 6. Aina-e-Qadiyaniyat: title page only; no contents page; publisher not read. IMG_20261009_151219.jpg returned empty OCR (may be the contents page or a blank/blurred shot - needs a look at the image).
 7. Taysir Tahhan: contents captured in 3 photos; page numbers scrambled (e.g. "٣٧", "٣٨" before the Mishkat). Verify numbers visually.
 8. Count: user said ~32 photos; folder has 27 (maybe 5 not yet uploaded, or still syncing).
+
+
+## 9. 3 Nov 2026 batch: Hidaya 4 pages 1991–2001 (catalogued 5 Nov, chat)
+
+11 pages, one photo each, colleagues' 4-vol Bushra edition (running page numbers, same as `claude/hidaya4-contents.md`), taken 3 Nov 9:03–9:05 am. They fill the Vol-8 OCR hole (HANDOVER §11): the rest of كتاب الوصايا from «ومن أوصى بثلث ألف درهم», all of كتاب الخنثى, and the first page of مسائل شتى. Pages for the middle photos are assumed from shooting order; only 1991 and 2001 were looked at, so confirm each page number when OCR'ing.
+
+| File | Drive id | Colleagues' page | Note |
+|---|---|---|---|
+| IMG_20261103_090313.jpg | 1_vdDrG98n8TTERx8QSYG034Wj8_OFjU6 | 1991 | checked: باب الوصي, opens «ومن أوصى بثلث ألف درهم» near the bottom (12-27 start) |
+| IMG_20261103_090328.jpg | 1O1pi2ZkiCSnIdY96E0rH6AF16naC7eas | 1992 |  |
+| IMG_20261103_090334.jpg | 15dfyRso8ijet-5-5uxqaqntGF4LaBoTO | 1993 |  |
+| IMG_20261103_090345.jpg | 1NX6G7nwLvX6e45FM8HqIz5CkvzS6_zBX | 1994 |  |
+| IMG_20261103_090352.jpg | 1W6-efMqczPVInNwb9iu02NUOWSXv1sa- | 1995 |  |
+| IMG_20261103_090402.jpg | 1SRVuRvLCR894Rng1rLD5Vu85jDLQswz- | 1996 | smaller file (1.6 MB): check it is sharp |
+| IMG_20261103_090411.jpg | 1mwZmQTClMj6VOPNPg7k8Mn60jFNPiNJj | 1997 | كتاب الخنثى expected to start here |
+| IMG_20261103_090429.jpg | 1sPNdkOC500B9VkhQBJMB5U9cmvP3Hle6 | 1998 | uploaded twice; duplicate id 1-pena-5rXpAqGWe_gCS1QpqDtuMEt7d- (same size) |
+| IMG_20261103_090438.jpg | 1gIoNU6pU8SwILld7-tclcDAtCGll4u_f | 1999 |  |
+| IMG_20261103_090456.jpg | 1jmehwybshMGb8YcewNtJZaH2Y5Cr9Grw | 2000 |  |
+| IMG_20261103_090507.jpg | 1m0rFRUFexGnHCh_MrcXJWW6a1Aojcift | 2001 | checked: end of الخنثى «والله أعلم بالصواب», then مسائل شتى (أخرس، إشارة) |
