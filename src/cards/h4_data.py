@@ -314,6 +314,8 @@ def build():
             if nh is not None and hi > nh:
                 hi = nh
             c["pages"] = pages_from(c["off"], hi, upage)
+            if c.get("cpages"):          # exact colleagues' pages from photos (no vol-8 OCR for printed 369–384)
+                c["pages"] = [int(x) for x in c["cpages"]]
     paper_unplaced = attach_papers(cards)
     # lessons used
     dates = sorted({c["lesson"] for c in cards if c.get("lesson")})

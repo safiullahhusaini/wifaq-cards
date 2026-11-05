@@ -1173,7 +1173,10 @@
    "repair": "fixed 94%",
    "state": "ready",
    "note": "5 Nov (chat): UNBLOCKED. The missing text is now available as photos: Drive from-me (19CUJI0EcDuV6OLmneplrXgOdfkTVnU4C), uploaded 3 Nov 2026 ~9:04 am: IMG_20261103_090313 … 090507, colleagues' 4-vol Bushra pages 1991–2001 (catalogue + ids in src/auto/from-me.md §9). These are the colleagues' edition (the one card pages follow), not the 8-vol Vol-8 PDF, so: OCR the photos (Drive read_file_content or Read on the downloaded JPG), anchor the cards by «start» text and give K7/v8 keys as before if you can match them; where no v8 OCR exists for 1369–1384, use the colleague page directly (fixed_pages) rather than guessing v8 fractions. 12-27 starts at «ومن أوصى بثلث ألف درهم» = colleagues' p.1991 near the bottom (v8 1367 frac 0.85). Earlier: 31 Oct blocked on the Vol-8 OCR hole (PDF 370-385 held Vol-7 Rahn text).",
-   "claim": null
+   "claim": {
+    "run": "2026-11-05T19:56:50.794106Z",
+    "by": "scheduled run 5-6 Nov (session_018ayvLouz1XRWbnufJddAT8)"
+   }
   },
   {
    "id": "h4-2025-12-28",
