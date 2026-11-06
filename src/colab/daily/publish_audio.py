@@ -4,8 +4,10 @@
 
 Usage: publish_audio.py <wifaq-data checkout> <wifaq-cards checkout> [--need]
 Prints one line per lesson. Writes `changed=true|false` to $GITHUB_OUTPUT when set.
-Only plain-date keys (h4_2025-12-06.py -> 2025-12-06) are handled: a date that has one recording in
-audio/index.csv. Keys with a suffix (two recordings on one date) need LESSON_FILES and stay manual; they are listed as SKIPPED.
+Plain-date keys (h4_2025-12-06.py -> 2025-12-06): the date must have one recording in audio/index.csv.
+Keys with a suffix (two recordings on one date, e.g. 2025-04-20-diyat, since 6 Nov 2026): the recording is found via
+LESSON_FILES in src/cards/h4_data.py (key -> Drive id) and status/recording_ids.csv in wifaq-data (Drive id -> file name);
+split parts are named <key>-p1.ogg, <key>-p2.ogg (a plain "-2" is another lesson's key).
 """
 import csv, glob, json, os, re, shutil, sys
 
@@ -19,6 +21,25 @@ for r in rows:
     m = re.match(r"(\d{4}-\d\d-\d\d)", r["file"])
     if m:
         by_date.setdefault(m[1], {}).setdefault(r["file"], []).append(r)
+
+def norm_name(x):
+    return re.sub(r"\s+", "", x).translate(str.maketrans("ىيةهأإآ", "ييههااا"))
+
+
+def lesson_files():
+    """LESSON_FILES of h4_data.py (suffixed key -> Drive id of its recording), read as text (no import: it needs the OCR)."""
+    txt = open(os.path.join(repo, "src", "cards", "h4_data.py"), encoding="utf-8").read()
+    m = re.search(r"^LESSON_FILES\s*=\s*\{(.*?)\}", txt, re.S | re.M)
+    return dict(re.findall(r'"([0-9][^"]+)"\s*:\s*"([^"]+)"', m[1])) if m else {}
+
+
+def drive_names():
+    """Drive id -> recording file name, from wifaq-data status/recording_ids.csv (empty if not checked out)."""
+    f = os.path.join(data, "status", "recording_ids.csv")
+    if not os.path.exists(f):
+        return {}
+    return {r["drive_id"].strip(): r["file"].strip() for r in csv.DictReader(open(f, encoding="utf-8-sig")) if r.get("drive_id")}
+
 
 def h3_keys():
     """Hidaya 3 card files src/cards/h3/h3_<key>.py -> (key, recording file name or None)."""
@@ -35,18 +56,34 @@ def h3_keys():
 pj_path = os.path.join(AUD, "parts.json")
 parts_json = json.load(open(pj_path, encoding="utf-8")) if os.path.exists(pj_path) else {}
 added, skipped = [], []
+LF, DN = lesson_files(), drive_names()
+by_norm = {norm_name(r["file"]): r["file"] for r in rows}
+by_file = {}
+for r in rows:
+    by_file.setdefault(r["file"], []).append(r)
 for f in sorted(glob.glob(os.path.join(repo, "src", "cards", "h4", "h4_20*.py"))):
     key = os.path.basename(f)[3:-3]
     if '"start":' not in open(f, encoding="utf-8").read():
         continue   # a lesson file without cards (07-06)
-    if any(re.fullmatch(re.escape(key) + r"(-p?\d+)?\.ogg", os.path.basename(a)) for a in glob.glob(os.path.join(AUD, key + "*.ogg"))):
+    plain = bool(re.fullmatch(r"\d{4}-\d\d-\d\d", key))
+    have_re = re.escape(key) + (r"(-p?\d+)?\.ogg" if plain else r"(-p\d+)?\.ogg")
+    if any(re.fullmatch(have_re, os.path.basename(a)) for a in glob.glob(os.path.join(AUD, key + "*.ogg"))):
         continue
-    if not re.fullmatch(r"\d{4}-\d\d-\d\d", key):
-        skipped.append((key, "suffixed key: add it by hand (LESSON_FILES)")); continue
-    recs = by_date.get(key, {})
-    if len(recs) != 1:
-        skipped.append((key, f"{len(recs)} recordings for this date in index.csv")); continue
-    parts = sorted(next(iter(recs.values())), key=lambda r: int(r["part"]))
+    if plain:
+        recs = by_date.get(key, {})
+        if len(recs) != 1:
+            skipped.append((key, f"{len(recs)} recordings for this date in index.csv")); continue
+        rec_rows = next(iter(recs.values()))
+    else:
+        fid = LF.get(key)
+        name = DN.get(fid) if fid else None
+        rec = by_norm.get(norm_name(name)) if name else None
+        if not fid:
+            skipped.append((key, "suffixed key without a LESSON_FILES entry in h4_data.py")); continue
+        if not rec:
+            skipped.append((key, f"recording {name or fid} not found in audio/index.csv")); continue
+        rec_rows = by_file[rec]
+    parts = sorted(rec_rows, key=lambda r: int(r["part"]))
     srcs = [os.path.join(data, "audio", p["web_file"]) for p in parts]
     if NEED:
         for p in parts:
@@ -56,7 +93,7 @@ for f in sorted(glob.glob(os.path.join(repo, "src", "cards", "h4", "h4_20*.py"))
     if miss:
         skipped.append((key, "audio file not in wifaq-data yet (Opus copy not made)")); continue
     for n, (p, s) in enumerate(zip(parts, srcs), 1):
-        name = key + ".ogg" if len(parts) == 1 else f"{key}-{n}.ogg"
+        name = key + ".ogg" if len(parts) == 1 else (f"{key}-{n}.ogg" if plain else f"{key}-p{n}.ogg")
         shutil.copyfile(s, os.path.join(AUD, name))
         if n >= 2:
             parts_json[name] = float(p["start_sec"])

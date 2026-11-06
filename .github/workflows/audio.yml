@@ -1,5 +1,5 @@
 name: audio
-# Adds the Opus audio of newly carded Hidaya 4 lessons to the site, so night card runs never have to copy it
+# Adds the Opus audio of newly carded Hidaya 4 lessons (plain-date and, since 6 Nov 2026, suffixed keys via LESSON_FILES) to the site, so night card runs never have to copy it
 # (the Claude sandbox blocks copying files from the private wifaq-data repo into this public one; this job is allowed to).
 # Runs when card files are pushed, after the daily workflow, and by hand. Secret: WIFAQ_DATA_TOKEN (read access to wifaq-data).
 on:
@@ -31,7 +31,7 @@ jobs:
       - name: Clone wifaq-data (blobless, sparse)
         run: |
           git clone -q --depth 1 --filter=blob:none --sparse "https://x-access-token:${WIFAQ_DATA_TOKEN}@github.com/safiullahhusaini/wifaq-data" ../wifaq-data
-          git -C ../wifaq-data sparse-checkout set --no-cone '/audio/index.csv' '/ocr/Al Hidayah Vol-7/' '/ocr/Al Hidayah Vol-8/' '/ocr/Al Hidayah Vol-5/'
+          git -C ../wifaq-data sparse-checkout set --no-cone '/audio/index.csv' '/status/recording_ids.csv' '/ocr/Al Hidayah Vol-7/' '/ocr/Al Hidayah Vol-8/' '/ocr/Al Hidayah Vol-5/'
       - name: Fetch only the audio that is missing from the site
         id: need
         run: |
