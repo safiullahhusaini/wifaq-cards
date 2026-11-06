@@ -1,5 +1,5 @@
 {
- "updated": "6 Nov 2026, run 12:50 am",
+ "updated": "7 Nov 2026, run 12:50 am",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 3,
@@ -1096,12 +1096,11 @@
    "file": "2025-12-14 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 45.6,
    "repair": "fixed 88% (6 Nov Daily)",
-   "state": "ready",
-   "note": "transcript not repaired (too few timestamped lines) | 5 Nov Daily retry: still not aligned (17%). | 6 Nov: added bumped to 2026-11-06 in daily_config for another retry.",
-   "claim": {
-    "run": "2026-11-06T19:52:17.718038",
-    "by": "https://claude.ai/code/session_018ayvLoDiLT2ZiUZoaNwr91"
-   }
+   "state": "done",
+   "note": "7 Nov run: re-transcribed 6 Nov, fixed 88%. v8 1295 line 1 to 1307 frac 0.7. Audio via audio.yml (12-14-1, -2).",
+   "claim": null,
+   "cards": 8,
+   "qa": "focused QA: 0 wrong attributions; 1 wrong ruling (teacher proportional-share line in masala, moved to faida with footnote), 1 wrong tag (card 7 فراش), 5 nits fixed; bounds right (باب العتق heading is on v8 1306)"
   },
   {
    "id": "h4-2025-12-15",
@@ -1403,7 +1402,7 @@
    "minutes": 24.9,
    "repair": "fixed, text missing 83% (gap 0:09:53-0:20:00)",
    "state": "redo",
-   "note": "text missing in the middle: needs re-transcription before carding",
+   "note": "text missing in the middle: needs re-transcription before carding | 7 Nov: re-queued in daily_config (added 2026-11-07).",
    "claim": null
   },
   {
@@ -1411,7 +1410,7 @@
    "book": "h3",
    "source": "this-year",
    "state": "wait_transcript",
-   "note": "12 Jul done. Remaining this-year recordings: 1 Aug, 30 Aug, 5 Sep, 12/13 Sep, 19/20/26 Sep, 3/4/11 Oct 2026: Daily marked 1 Aug, 30 Aug, 5 Sep as failed (✗) on 4 Nov; the rest not yet attempted; 6 Sep transcript has a text gap. Next passage: vol-5 p.274 كتاب الكفالة",
+   "note": "12 Jul done. Remaining this-year recordings: 1 Aug, 30 Aug, 5 Sep, 12/13 Sep, 19/20/26 Sep, 3/4/11 Oct 2026: Daily marked 1 Aug, 30 Aug, 5 Sep as failed (✗) on 4 Nov; the rest not yet attempted; 6 Sep transcript has a text gap. Next passage: vol-5 p.274 كتاب الكفالة | 6 Nov Daily: 1 Aug fixed but text missing 60% (gap 0:42:03-0:51:42), 30 Aug 69% (gap 0:00:08-0:10:00); both below the 75% bar, re-queued 7 Nov in daily_config with 6 Sep.",
    "claim": null
   },
   {

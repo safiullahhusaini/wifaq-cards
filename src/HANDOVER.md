@@ -267,3 +267,7 @@ Live now: الوصايا 27 Dec (11 cards, colleagues' pp. 1991–1996, exact vi
 6 Nov, chat (later): 20 Apr الديات audio added with the user's OK. `publish_audio.py`/`audio.yml` now also publish suffixed keys (two recordings on one date) by themselves: the key needs a `LESSON_FILES` entry (Drive id) in h4_data.py; the recording is found via wifaq-data `status/recording_ids.csv`; split parts become `<key>-pN.ogg`. Tested locally and with a manual workflow run (success).
 
 6 Nov, chat (later): user sent photos of colleagues' pp. 2001–2004 → 28 Dec now complete (10 cards incl. مسائل شتى masa'il 2–3; full QA, 1 wrong ruling + 1 wrong attribution fixed). He also sent the colleagues' Hidaya 3 contents (pp. 1588–1589): Hidaya 3 pages now follow their numbering (see 0e).
+
+## 14. Run of 7 Nov 2026 (12:50 am)
+
+Hidaya 4 كتاب الوصايا 14 Dec carded (8 cards, v8 1295–1307 frac 0.7; the باب العتق heading is on v8 1306). Audio landed via audio.yml (`2025-12-14-1/-2.ogg`). Hidaya 4 is complete except pages without any recording. Hidaya 3: the 6 Nov Daily transcribed 1 Aug (60%, gap 0:42:03–0:51:42) and 30 Aug (69%, gap 0:00:08–0:10:00), both below the 75% bar; with 6 Sep they were re-queued in wifaq-data `automation/daily_config.json` (added 2026-11-07). Next Hidaya 3 passage starts at كتاب الكفالة (v5 274).
