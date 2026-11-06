@@ -759,9 +759,12 @@
    "file": "2025-04-20 الهدايه الرابع كتاب الديات.m4a",
    "minutes": 18.3,
    "repair": "fixed 91%",
-   "state": "ready",
+   "state": "done",
    "note": "5 Nov Daily re-transcribed and repaired (large-v3). Starts after 2025-04-27 ends (key 1102.0)? check bounds.",
-   "claim": null
+   "claim": null,
+   "cards": 7,
+   "qa": "focused QA: 0 wrong rulings/attributions; 1 wrong number (finger example, dropped) + 2 tag fixes + 3 nits fixed",
+   "audio": "pending: suffix key, copy of the Opus part to hidaya4/audio/2025-04-20-diyat.ogg blocked by permission classifier (6 Nov chat)"
   },
   {
    "id": "h4-2025-04-26",
@@ -1094,7 +1097,7 @@
    "minutes": 45.6,
    "repair": "11 Oct redo: not aligned (17%); needs re-transcription again",
    "state": "redo",
-   "note": "transcript not repaired (too few timestamped lines) | 5 Nov Daily retry: still not aligned (17%).",
+   "note": "transcript not repaired (too few timestamped lines) | 5 Nov Daily retry: still not aligned (17%). | 6 Nov: added bumped to 2026-11-06 in daily_config for another retry.",
    "claim": null
   },
   {
@@ -1189,9 +1192,11 @@
    "file": "2025-12-28 الهدايه الرابع كتاب الخنثى.m4a",
    "minutes": 30.8,
    "repair": "fixed 97%",
-   "state": "ready",
-   "note": "5 Nov (chat): UNBLOCKED with the same photos (Drive from-me (19CUJI0EcDuV6OLmneplrXgOdfkTVnU4C), uploaded 3 Nov 2026 ~9:04 am: IMG_20261103_090313 … 090507, colleagues' 4-vol Bushra pages 1991–2001 (catalogue + ids in src/auto/from-me.md §9)). كتاب الخنثى = colleagues' pp. 1997–2000; p.2001 holds its end «والله أعلم بالصواب» and the opening of مسائل شتى. Same method as h4-2025-12-27. Earlier: 31 Oct blocked on the Vol-8 OCR hole. | 6 Nov run: photos 1998–2001 (الخنثى) could not be saved to disk by the helper agent (a safety filter stopped it twice); p1997 saved only. Left for a later run: fetch the 4 pages via Drive ids in from-me.md §9 and OCR them in-agent or ask the user.",
-   "claim": null
+   "state": "done",
+   "note": "5 Nov (chat): UNBLOCKED with the same photos (Drive from-me (19CUJI0EcDuV6OLmneplrXgOdfkTVnU4C), uploaded 3 Nov 2026 ~9:04 am: IMG_20261103_090313 … 090507, colleagues' 4-vol Bushra pages 1991–2001 (catalogue + ids in src/auto/from-me.md §9)). كتاب الخنثى = colleagues' pp. 1997–2000; p.2001 holds its end «والله أعلم بالصواب» and the opening of مسائل شتى. Same method as h4-2025-12-27. Earlier: 31 Oct blocked on the Vol-8 OCR hole. | 6 Nov run: photos 1998–2001 (الخنثى) could not be saved to disk by the helper agent (a safety filter stopped it twice); p1997 saved only. Left for a later run: fetch the 4 pages via Drive ids in from-me.md §9 and OCR them in-agent or ask the user. | 6 Nov chat: carded (6 khuntha cards + مسائل شتى masala 1 on 2001). Teacher also taught مسائل شتى masa'il 2-3 (0:23:33-0:30:05) on colleagues' pp. 2002+ (no photos): GAP, needs photos of 2002-2004.",
+   "claim": null,
+   "cards": 7,
+   "qa": "focused QA: 0 wrong attributions; 1 ruling too strong (kafan, fixed) + 3 tag fixes + 7 nits fixed; pages 1997-2001 read from Drive in-agent"
   },
   {
    "id": "retime-h4-2025-06-15",

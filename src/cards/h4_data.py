@@ -39,13 +39,14 @@ LESSON_FILES = {"2025-08-09-udhiya": "1MVGVDm7Qpu6vo48Z8hPGfxgiBRH_T26e",     # 
                 "2026-01-10-rahn-2": "1L7hZ-BM1lo-frY-ukOlrrWV4Bt3ZvT3g",
                 "2025-11-29-diyat": "1Ei0j_zktxV5OmNDL2aIP2SeXx9GViI47",     # "2025-11-29 … كتاب الديات.m4a", 22.9 min
                 "2025-11-29-diyat-2": "1hbHA7FkEf0bNkf89DBzOzLBrAJEWhRjk",   # "2025-11-29 … كتاب الديات 2.m4a", 17.4 min
-                "2025-04-20-jinayat": "1RYJaOGl4bfq-YWoeJJkJ-GJB5-F1duCb"}   # "2025-04-20 … كتاب الجنايات.m4a", 16.2 min   # "2026-01-10 … كتاب الرهن 2.m4a", 7.6 min       # "2025-10-18 … كتاب الصيد.mp4", 16.1 min
+                "2025-04-20-jinayat": "1RYJaOGl4bfq-YWoeJJkJ-GJB5-F1duCb",
+                "2025-04-20-diyat": "1oTmOtH0nOoJBrlIdmdyTTXp50N9LJQIT"}   # "2025-04-20 … كتاب الجنايات.m4a", 16.2 min   # "2026-01-10 … كتاب الرهن 2.m4a", 7.6 min       # "2025-10-18 … كتاب الصيد.mp4", 16.1 min
 LESSON_SUFFIX = {"2025-08-09-udhiya": "پہلی ریکارڈنگ", "2025-08-09-udhiya-2": "دوسری ریکارڈنگ",
                  "2025-09-27-ihya": "احیاء الموات", "2025-09-27-ashriba": "کتاب الأشربة",
                  "2025-10-18-sayd": "کتاب الصید", "2025-10-18-diyat": "کتاب الدیات",
                  "2026-01-10-rahn": "پہلی ریکارڈنگ", "2026-01-10-rahn-2": "دوسری ریکارڈنگ",
                  "2025-11-29-diyat": "پہلی ریکارڈنگ", "2025-11-29-diyat-2": "دوسری ریکارڈنگ",
-                 "2025-04-20-jinayat": "کتاب الجنایات"}
+                 "2025-04-20-jinayat": "کتاب الجنایات", "2025-04-20-diyat": "کتاب الدیات"}
 
 
 def web_parts(date):
