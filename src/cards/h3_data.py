@@ -1,5 +1,7 @@
 """Hidaya 3: gather every lesson's cards (h3/h3_<key>.py), place them in Bushra vol 5 (printed pages), and split them
-by kitab -> bab/fasl in book order. Page numbers are Bushra vol-5 printed pages (no colleagues' edition yet).
+by kitab -> bab/fasl in book order. Positions are Bushra vol-5 printed pages (+ fraction); since 6 Nov 2026 the pages
+shown are the colleagues' 4-vol edition, interpolated linearly between the headings of h3_toc.COLLEAGUE (each card
+also shows its Bushra page).
 
 Lesson keys: this year's class = "<date>-1448" (e.g. 2026-07-11-1448), last year's = "<date>" (e.g. 2025-02-22),
 plus an optional "-<suffix>" for a second recording on one date. Audio: <repo>/hidaya3/audio/<key>.ogg, or
@@ -62,8 +64,28 @@ def web_parts(key, all_keys):
 
 
 # ---- headings in book order: (position, level, title, page)
-HEADS = sorted(((pm.heading_pos(h[2], h[3], h[4] if len(h) > 4 else None), i, h[0], h[1], h[2])
-                for i, h in enumerate(h3_toc.TOC)))
+_HPOS = [pm.heading_pos(h[2], h[3], h[4] if len(h) > 4 else None) for h in h3_toc.TOC]
+# anchors v5 position -> colleagues' page (headings + end of vol 5); equal positions keep the first page
+_ANCH = sorted(set(zip(_HPOS, h3_toc.COLLEAGUE)) | {(h3_toc.LAST_TEXT_PAGE + 1.0, h3_toc.COLLEAGUE_END)})
+_A = []
+for x, y in _ANCH:
+    if not _A or x > _A[-1][0] + 1e-9:
+        _A.append((x, y))
+
+
+def colleague(pos):
+    """v5 position -> colleagues' page as a float (linear between heading anchors)."""
+    if pos <= _A[0][0]:
+        (x0, y0), (x1, y1) = _A[0], _A[1]
+    elif pos >= _A[-1][0]:
+        (x0, y0), (x1, y1) = _A[-2], _A[-1]
+    else:
+        i = next(k for k in range(1, len(_A)) if _A[k][0] >= pos)
+        (x0, y0), (x1, y1) = _A[i - 1], _A[i]
+    return y0 + (pos - x0) * (y1 - y0) / (x1 - x0)
+
+
+HEADS = sorted(((pos, i, h[0], h[1], h3_toc.COLLEAGUE[i]) for i, (pos, h) in enumerate(zip(_HPOS, h3_toc.TOC))))
 HEADS = [(pos, lv, t, p) for pos, _, lv, t, p in HEADS]
 
 
@@ -84,8 +106,9 @@ def unit_of(pos):
 
 
 def pages_from(lo, hi, floor_page=None):
-    a = math.floor(lo + 1e-6)
-    b = max(a, math.floor(hi - 1e-6))
+    """v5 positions lo..hi -> list of colleagues' pages."""
+    a = math.floor(colleague(lo) + 1e-6)
+    b = max(a, math.floor(colleague(hi) - 1e-6))
     if floor_page:
         a = max(a, floor_page); b = max(b, a)
     return list(range(a, b + 1))
@@ -95,12 +118,22 @@ def plabel(ps):
     return str(ps[0]) if len(ps) == 1 else f"{ps[0]}–{ps[-1]}"
 
 
-def convert_tags(items):
-    """K5(page) -> the site's book-page chip; the page is the Bushra page itself."""
+def convert_tags(items, lo, hi):
+    """K5(v5 page) -> the site's book-page chip in colleagues' pages (that v5 page, clipped to the card's range)."""
     out = []
     for it in items or []:
         *head, ss = it
-        out.append((*head, [{"t": "k", "v": str(s["v"])} if s.get("t") == "k5" else s for s in ss]))
+        new = []
+        for s in ss:
+            if s.get("t") == "k5":
+                p = int(s["v"])
+                a, b = max(lo, p), min(hi, p + 1.0)
+                if a >= b:
+                    a, b = p, p + 1.0
+                new.append({"t": "k", "v": plabel(pages_from(a, b))})
+            else:
+                new.append(s)
+        out.append((*head, new))
     return out
 
 
@@ -130,7 +163,7 @@ def lesson_cards():
             card.update(lesson=key, off=lo, end=hi, src=f"{os.path.basename(f)}#{i + 1}", found=bool(hit),
                         v5a=v5a, v5b=max(v5a, ve if (vf is None or vf > 0.02) else ve - 1))
             for k in ("tamheed", "masala", "dalil", "ikhtilaf", "faida", "lughat"):
-                card[k] = convert_tags(c.get(k))
+                card[k] = convert_tags(c.get(k), lo, hi)
             cards.append(card)
         for rng, text in d.get("GAPS", []):
             if not rng.strip().startswith("v5"):
@@ -172,15 +205,18 @@ def build():
         lessons[key] = L
     kitabs = []
     toc = h3_toc.TOC
-    for i, (level, title, page, *_) in enumerate(toc):
+    CP = h3_toc.COLLEAGUE
+    for i, (level, title, _v5page, *_) in enumerate(toc):
         if level != 1:
             continue
-        nxt = next((t[2] for t in toc[i + 1:] if t[0] == 1), h3_toc.LAST_TEXT_PAGE + 1)
+        page = CP[i]
+        nxt = next((CP[j] for j in range(i + 1, len(toc)) if toc[j][0] == 1), h3_toc.COLLEAGUE_END)
         units = []
-        for lv, t, p, *_ in toc[i:]:
+        for j in range(i, len(toc)):
+            lv, t = toc[j][0], toc[j][1]
             if lv == 1 and t != title:
                 break
-            units.append({"key": "u0" if lv == 1 else f"u{len(units)}", "level": lv, "title": t, "page": p})
+            units.append({"key": "u0" if lv == 1 else f"u{len(units)}", "level": lv, "title": t, "page": CP[j]})
         for j, u in enumerate(units):
             u["page_to"] = max((units[j + 1]["page"] if j + 1 < len(units) else nxt) - 1, u["page"])
         kc = [c for c in cards if c["kitab"] == title]
