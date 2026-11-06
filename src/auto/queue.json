@@ -1095,10 +1095,13 @@
    "date": "2025-12-14",
    "file": "2025-12-14 الهدايه الرابع كتاب الوصايا.m4a",
    "minutes": 45.6,
-   "repair": "11 Oct redo: not aligned (17%); needs re-transcription again",
-   "state": "redo",
+   "repair": "fixed 88% (6 Nov Daily)",
+   "state": "ready",
    "note": "transcript not repaired (too few timestamped lines) | 5 Nov Daily retry: still not aligned (17%). | 6 Nov: added bumped to 2026-11-06 in daily_config for another retry.",
-   "claim": null
+   "claim": {
+    "run": "2026-11-06T19:52:17.718038",
+    "by": "https://claude.ai/code/session_018ayvLoDiLT2ZiUZoaNwr91"
+   }
   },
   {
    "id": "h4-2025-12-15",
