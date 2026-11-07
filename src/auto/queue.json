@@ -1400,10 +1400,13 @@
    "file": "Hidaya Saalis 6 Sep 26.m4a",
    "source": "this-year",
    "minutes": 24.9,
-   "repair": "fixed, text missing 83% (gap 0:09:53-0:20:00)",
-   "state": "redo",
+   "repair": "fixed 86%",
+   "state": "todo",
    "note": "text missing in the middle: needs re-transcription before carding | 7 Nov: re-queued in daily_config (added 2026-11-07).",
-   "claim": null
+   "claim": {
+    "run": "2026-11-07T19:54Z",
+    "by": "https://claude.ai/code/session_018ayvLmRaAzzp8Q8LGKDmgT"
+   }
   },
   {
    "id": "h3-other-1448",
@@ -1437,6 +1440,36 @@
    "needs": "user's photos of اشرف الہدایہ for the four passages",
    "done_when": "every h4_sharh card cites اشرف الہدایہ and no tamheed line is tagged A",
    "note": "7 Nov 2026 (chat): user chose 'start now from the book, add اشرف الہدایہ later'. No copy of اشرف الہدایہ in Drive or online."
+  },
+  {
+   "id": "h3-2026-08-30-1448",
+   "book": "h3",
+   "date": "2026-08-30",
+   "file": "Hidaya Saalis 30 August 2026.m4a",
+   "source": "this-year",
+   "minutes": 52.4,
+   "repair": "fixed 87%",
+   "state": "todo",
+   "note": "v5 377 ≈0.96 «ومن أقر أنه قبض من فلان عشرة دراهم» → ≈384 (وديعة أربعة آلاف)",
+   "claim": {
+    "run": "2026-11-07T19:54Z",
+    "by": "https://claude.ai/code/session_018ayvLmRaAzzp8Q8LGKDmgT"
+   }
+  },
+  {
+   "id": "h3-2026-09-05-1448",
+   "book": "h3",
+   "date": "2026-09-05",
+   "file": "Hidaya Saalis 5 Sep 2026.m4a",
+   "source": "this-year",
+   "minutes": 45.7,
+   "repair": "fixed 92%",
+   "state": "todo",
+   "note": "v5 ≈385–387 → ≈393-394 (بيع القاضي عبداً للغرماء)",
+   "claim": {
+    "run": "2026-11-07T19:54Z",
+    "by": "https://claude.ai/code/session_018ayvLmRaAzzp8Q8LGKDmgT"
+   }
   }
  ]
 }
