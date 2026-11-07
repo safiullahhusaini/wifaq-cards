@@ -1401,12 +1401,11 @@
    "source": "this-year",
    "minutes": 24.9,
    "repair": "fixed 86%",
-   "state": "todo",
+   "state": "done",
    "note": "text missing in the middle: needs re-transcription before carding | 7 Nov: re-queued in daily_config (added 2026-11-07).",
-   "claim": {
-    "run": "2026-11-07T19:54Z",
-    "by": "https://claude.ai/code/session_018ayvLmRaAzzp8Q8LGKDmgT"
-   }
+   "claim": null,
+   "cards": 6,
+   "qa": "focused: 0 wrong rulings; 1 attribution scope (Abu Mansur line) + 1 tag + wording/GAPS fixes; v5 395-405 (start of كتاب الشهادة 399)"
   },
   {
    "id": "h3-other-1448",
@@ -1449,12 +1448,11 @@
    "source": "this-year",
    "minutes": 52.4,
    "repair": "fixed 87%",
-   "state": "todo",
+   "state": "done",
    "note": "v5 377 ≈0.96 «ومن أقر أنه قبض من فلان عشرة دراهم» → ≈384 (وديعة أربعة آلاف)",
-   "claim": {
-    "run": "2026-11-07T19:54Z",
-    "by": "https://claude.ai/code/session_018ayvLmRaAzzp8Q8LGKDmgT"
-   }
+   "claim": null,
+   "cards": 7,
+   "qa": "full: 0 wrong rulings/attributions; 2 tag + 2 scope fixes, ~3 nits; v5 377-384 (مسائل شتى, فصل القضاء بالمواريث)"
   },
   {
    "id": "h3-2026-09-05-1448",
@@ -1464,12 +1462,11 @@
    "source": "this-year",
    "minutes": 45.7,
    "repair": "fixed 92%",
-   "state": "todo",
+   "state": "done",
    "note": "v5 ≈385–387 → ≈393-394 (بيع القاضي عبداً للغرماء)",
-   "claim": {
-    "run": "2026-11-07T19:54Z",
-    "by": "https://claude.ai/code/session_018ayvLmRaAzzp8Q8LGKDmgT"
-   }
+   "claim": null,
+   "cards": 6,
+   "qa": "focused: 0 wrong rulings/attributions; 1 scope + 2 tag fixes, 1 slip note, 1 nit; v5 385-395"
   }
  ]
 }
