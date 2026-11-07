@@ -1,5 +1,5 @@
 {
- "updated": "7 Nov 2026, 6:30 am (chat: Hidaya 4 no-recording pages carded from book + footnotes; h4-sharh-ashraf added)",
+ "updated": "8 Nov 2026, 1:45 am (run: h3 30 Aug, 5 Sep, 6 Sep carded)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 3,
@@ -1405,7 +1405,8 @@
    "note": "text missing in the middle: needs re-transcription before carding | 7 Nov: re-queued in daily_config (added 2026-11-07).",
    "claim": null,
    "cards": 6,
-   "qa": "focused: 0 wrong rulings; 1 attribution scope (Abu Mansur line) + 1 tag + wording/GAPS fixes; v5 395-405 (start of كتاب الشهادة 399)"
+   "qa": "focused: 0 wrong rulings; 1 attribution scope (Abu Mansur line) + 1 tag + wording/GAPS fixes; v5 395-405 (start of كتاب الشهادة 399)",
+   "trashed": "2026-11-08"
   },
   {
    "id": "h3-other-1448",
@@ -1449,7 +1450,7 @@
    "minutes": 52.4,
    "repair": "fixed 87%",
    "state": "done",
-   "note": "v5 377 ≈0.96 «ومن أقر أنه قبض من فلان عشرة دراهم» → ≈384 (وديعة أربعة آلاف)",
+   "note": "v5 377-384. Original in input_audio (Drive id 1Cru5TEL867nBZHWrtS6DmkzQYpxy2X4T) NOT trashed: permission classifier denied 8 Nov (Opus copy confirmed in wifaq-data)",
    "claim": null,
    "cards": 7,
    "qa": "full: 0 wrong rulings/attributions; 2 tag + 2 scope fixes, ~3 nits; v5 377-384 (مسائل شتى, فصل القضاء بالمواريث)"
@@ -1466,7 +1467,68 @@
    "note": "v5 ≈385–387 → ≈393-394 (بيع القاضي عبداً للغرماء)",
    "claim": null,
    "cards": 6,
-   "qa": "focused: 0 wrong rulings/attributions; 1 scope + 2 tag fixes, 1 slip note, 1 nit; v5 385-395"
+   "qa": "focused: 0 wrong rulings/attributions; 1 scope + 2 tag fixes, 1 slip note, 1 nit; v5 385-395",
+   "trashed": "2026-11-08"
+  },
+  {
+   "id": "h3-2026-08-01-1448",
+   "book": "h3",
+   "date": "2026-08-01",
+   "file": "Hidaya Saalis 01 Aug 26.m4a",
+   "source": "this-year",
+   "minutes": 57.9,
+   "repair": "fixed, text missing 80% (gap 0:29:58-0:40:01)",
+   "state": "redo",
+   "note": "v5 318 باب كفالة الرجلين → ~332 (الحوالة); re-queued 8 Nov for the 10-min text gap",
+   "claim": null
+  },
+  {
+   "id": "h3-2026-09-12-1448",
+   "book": "h3",
+   "date": "2026-09-12",
+   "file": "Hidaya Saalis 12 Sep 2026.m4a",
+   "source": "this-year",
+   "minutes": 34.4,
+   "repair": "fixed 89%",
+   "state": "todo",
+   "note": "ready: v5 ≈405 (ولا بد في ذلك كله من العدالة) → ≈416",
+   "claim": null
+  },
+  {
+   "id": "h3-2026-09-13-1448",
+   "book": "h3",
+   "date": "2026-09-13",
+   "file": "Hidaya Saalis 13 Sep 2026.m4a",
+   "source": "this-year",
+   "minutes": 45.5,
+   "repair": "fixed 87%",
+   "state": "todo",
+   "note": "ready: follows 12 Sep; v5 ≈416 → ≈431+",
+   "claim": null
+  },
+  {
+   "id": "h3-2026-09-19-1448",
+   "book": "h3",
+   "date": "2026-09-19",
+   "file": "Hidaya Saalis 19 Sep 2026.m4a",
+   "source": "this-year",
+   "minutes": 51.4,
+   "repair": "fixed, text missing 90% (gap 0:29:56-0:40:03)",
+   "state": "redo",
+   "note": "re-queued 8 Nov for the text gap",
+   "claim": null
+  },
+  {
+   "id": "h3-2026-09-20-1448",
+   "book": "h3",
+   "date": "2026-09-20",
+   "file": "Hidaya Saalis 20 Sep 2026.m4a",
+   "source": "this-year",
+   "minutes": 40.5,
+   "repair": "fixed, text missing 88% (gap 0:29:57-0:40:01)",
+   "state": "redo",
+   "note": "re-queued 8 Nov for the text gap",
+   "claim": null
   }
  ]
 }
