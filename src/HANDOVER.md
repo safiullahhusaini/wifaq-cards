@@ -271,3 +271,7 @@ Live now: الوصايا 27 Dec (11 cards, colleagues' pp. 1991–1996, exact vi
 ## 14. Run of 7 Nov 2026 (12:50 am)
 
 Hidaya 4 كتاب الوصايا 14 Dec carded (8 cards, v8 1295–1307 frac 0.7; the باب العتق heading is on v8 1306). Audio landed via audio.yml (`2025-12-14-1/-2.ogg`). Hidaya 4 is complete except pages without any recording. Hidaya 3: the 6 Nov Daily transcribed 1 Aug (60%, gap 0:42:03–0:51:42) and 30 Aug (69%, gap 0:00:08–0:10:00), both below the 75% bar; with 6 Sep they were re-queued in wifaq-data `automation/daily_config.json` (added 2026-11-07). Next Hidaya 3 passage starts at كتاب الكفالة (v5 274).
+
+## 13. Cards without a recording (7 Nov 2026)
+
+`src/cards/h4/h4_sharh_<kitab>.py` (LESSON = None, SOURCE = "sharh") hold cards for book text that no class recording covers. `h4_data.lesson_cards()` loads them after the lesson files; with no lesson/ts the card head shows «ریکارڈنگ نہیں» and the `norec` note says the card is from the matn and Bushra footnotes, with the تمہید written by Claude (tag A). Done for all of Hidaya 4's gaps: الشفعة v7 24–28 (3 cards), فصل في اللبس v7 187–195 (5), إحياء الموات v7 260–272 incl. فصل في المياه (7), الرهن v7 376–379 (2). After this, every colleague page 1597–2004 has a card (the coverage check still flags 1939 and 2004, but those are page-estimate edges; cards do cover them). Queue `h4-sharh-ashraf` (blocked on the user's photos) adds اشرف الہدایہ to these cards, tagged S("اشرف الہدایہ <vol>/<page>"). Use the same file pattern for any other book's unrecorded stretches.

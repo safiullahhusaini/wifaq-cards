@@ -1,5 +1,5 @@
 {
- "updated": "7 Nov 2026, run 12:50 am",
+ "updated": "7 Nov 2026, 6:30 am (chat: Hidaya 4 no-recording pages carded from book + footnotes; h4-sharh-ashraf added)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 3,
@@ -1428,6 +1428,15 @@
    "cards": 7,
    "trashed": "2026-11-06",
    "qa": "full: 0 wrong rulings/attributions; 4 scope/tag fixes, ~9 nits fixed; v5 264-273 (end of كتاب الصرف)"
+  },
+  {
+   "id": "h4-sharh-ashraf",
+   "book": null,
+   "state": "blocked",
+   "title": "Hidaya 4: add اشرف الہدایہ to the 17 no-recording cards in src/cards/h4/h4_sharh_{shufa,libas,ihya,rahn}.py (v7 24–28, 187–195, 260–272, 376–379). They were drafted 7 Nov from the matn + Bushra footnotes only, with Claude-written tamheed tagged A. When the user's photos of اشرف الہدایہ for these passages are in Drive from-me/, replace or extend each tamheed with the sharh's explanation and examples, tagged S(\"اشرف الہدایہ <vol>/<page>\"), add any extra points it gives, and update NOREC (drop «تمہید Claude کی لکھی ہوئی ہے» once no A tamheed is left). Focused QA as for a lesson.",
+   "needs": "user's photos of اشرف الہدایہ for the four passages",
+   "done_when": "every h4_sharh card cites اشرف الہدایہ and no tamheed line is tagged A",
+   "note": "7 Nov 2026 (chat): user chose 'start now from the book, add اشرف الہدایہ later'. No copy of اشرف الہدایہ in Drive or online."
   }
  ]
 }

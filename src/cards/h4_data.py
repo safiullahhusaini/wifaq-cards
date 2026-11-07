@@ -189,9 +189,11 @@ def convert_tags(items, lo, hi):
 
 def lesson_cards():
     cards, gaps, notes = [], [], []
-    for f in sorted(glob.glob(os.path.join(HERE, "h4", "h4_20*.py"))):
+    files = sorted(glob.glob(os.path.join(HERE, "h4", "h4_20*.py")))
+    files += sorted(glob.glob(os.path.join(HERE, "h4", "h4_sharh_*.py")))   # no recording: book + footnotes (+ اشرف الہدایہ)
+    for f in files:
         d = runpy.run_path(f)
-        date = d["LESSON"]
+        date = d.get("LESSON")
         for i, c in enumerate(d["CARDS"]):
             lo, hit = pm.offset_of(int(c["v7"]), c.get("start"), c.get("v7_frac") or 0.0)
             ve, vf = int(c.get("v7_end") or c["v7"]), c.get("v7_end_frac")
