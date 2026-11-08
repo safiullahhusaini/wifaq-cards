@@ -1492,7 +1492,10 @@
    "repair": "fixed 89%",
    "state": "todo",
    "note": "ready: v5 ≈405 (ولا بد في ذلك كله من العدالة) → ≈416",
-   "claim": null
+   "claim": {
+    "run": "2026-11-08T19:51+00:00",
+    "by": "scheduled run 9 Nov"
+   }
   },
   {
    "id": "h3-2026-09-13-1448",
@@ -1504,7 +1507,10 @@
    "repair": "fixed 87%",
    "state": "todo",
    "note": "ready: follows 12 Sep; v5 ≈416 → ≈431+",
-   "claim": null
+   "claim": {
+    "run": "2026-11-08T19:51+00:00",
+    "by": "scheduled run 9 Nov"
+   }
   },
   {
    "id": "h3-2026-09-19-1448",
