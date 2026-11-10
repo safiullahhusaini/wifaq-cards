@@ -1521,7 +1521,10 @@
    "repair": "fixed 90%",
    "state": "ready",
    "note": "re-transcribed 9 Nov (Daily 10 Nov 3 am): no text gap now; follows the previous lesson",
-   "claim": null
+   "claim": {
+    "run": "2026-11-10T00:35+00:00",
+    "by": "chat run 10 Nov (Opus, user asked)"
+   }
   },
   {
    "id": "h3-2026-09-20-1448",
@@ -1533,7 +1536,10 @@
    "repair": "fixed 91%",
    "state": "ready",
    "note": "re-transcribed 9 Nov (Daily 10 Nov 3 am): no text gap now; follows the previous lesson",
-   "claim": null
+   "claim": {
+    "run": "2026-11-10T00:35+00:00",
+    "by": "chat run 10 Nov (Opus, user asked)"
+   }
   },
   {
    "id": "h3-2026-09-26-1448",
@@ -1545,7 +1551,10 @@
    "repair": "fixed 92%",
    "state": "ready",
    "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap",
-   "claim": null
+   "claim": {
+    "run": "2026-11-10T00:35+00:00",
+    "by": "chat run 10 Nov (Opus, user asked)"
+   }
   },
   {
    "id": "h3-2026-10-03-1448",
