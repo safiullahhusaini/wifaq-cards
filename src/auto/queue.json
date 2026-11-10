@@ -1,5 +1,5 @@
 {
- "updated": "10 Nov 2026, 1:30 am (run: h3 12 and 13 Sep closed out)",
+ "updated": "10 Nov 2026, 5:20 am (chat: transcription fix; 19/20/26 Sep, 3/4/11 Oct ready)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 3,
@@ -1413,7 +1413,7 @@
    "book": "h3",
    "source": "this-year",
    "state": "wait_transcript",
-   "note": "12 Jul done. Remaining this-year recordings: 1 Aug, 30 Aug, 5 Sep, 12/13 Sep, 19/20/26 Sep, 3/4/11 Oct 2026: Daily marked 1 Aug, 30 Aug, 5 Sep as failed (✗) on 4 Nov; the rest not yet attempted; 6 Sep transcript has a text gap. Next passage: vol-5 p.274 كتاب الكفالة | 6 Nov Daily: 1 Aug fixed but text missing 60% (gap 0:42:03-0:51:42), 30 Aug 69% (gap 0:00:08-0:10:00); both below the 75% bar, re-queued 7 Nov in daily_config with 6 Sep.",
+   "note": "Remaining this-year recordings after 11 Oct: none uploaded yet. 1 Aug heals on the next Daily. Pages 274-376 not recorded this year.",
    "claim": null
   },
   {
@@ -1479,7 +1479,7 @@
    "minutes": 57.9,
    "repair": "fixed, text missing 80% (gap 0:29:58-0:40:01)",
    "state": "redo",
-   "note": "v5 318 باب كفالة الرجلين → ~332 (الحوالة); re-queued 8 Nov for the 10-min text gap",
+   "note": "v5 318 باب كفالة الرجلين → ~332 (الحوالة); re-queued 8 Nov for the 10-min text gap | 10 Nov: the \"gap\" is only badly written timestamps in part 4 (text is there); the Daily heals it without Gemini (retx_core.heal) and re-repairs it on its next run",
    "claim": null
   },
   {
@@ -1518,9 +1518,9 @@
    "file": "Hidaya Saalis 19 Sep 2026.m4a",
    "source": "this-year",
    "minutes": 51.4,
-   "repair": "fixed, text missing 90% (gap 0:29:56-0:40:03)",
-   "state": "redo",
-   "note": "re-queued 8 Nov for the text gap",
+   "repair": "fixed 90%",
+   "state": "ready",
+   "note": "re-transcribed 9 Nov (Daily 10 Nov 3 am): no text gap now; follows the previous lesson",
    "claim": null
   },
   {
@@ -1530,9 +1530,57 @@
    "file": "Hidaya Saalis 20 Sep 2026.m4a",
    "source": "this-year",
    "minutes": 40.5,
-   "repair": "fixed, text missing 88% (gap 0:29:57-0:40:01)",
-   "state": "redo",
-   "note": "re-queued 8 Nov for the text gap",
+   "repair": "fixed 91%",
+   "state": "ready",
+   "note": "re-transcribed 9 Nov (Daily 10 Nov 3 am): no text gap now; follows the previous lesson",
+   "claim": null
+  },
+  {
+   "id": "h3-2026-09-26-1448",
+   "book": "h3",
+   "date": "2026-09-26",
+   "file": "(input_audio/Hidayah salis, 2026-09-26)",
+   "source": "this-year",
+   "minutes": 48.3,
+   "repair": "fixed 92%",
+   "state": "ready",
+   "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap",
+   "claim": null
+  },
+  {
+   "id": "h3-2026-10-03-1448",
+   "book": "h3",
+   "date": "2026-10-03",
+   "file": "(input_audio/Hidayah salis, 2026-10-03)",
+   "source": "this-year",
+   "minutes": 45.5,
+   "repair": "fixed 89%",
+   "state": "ready",
+   "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap",
+   "claim": null
+  },
+  {
+   "id": "h3-2026-10-04-1448",
+   "book": "h3",
+   "date": "2026-10-04",
+   "file": "(input_audio/Hidayah salis, 2026-10-04)",
+   "source": "this-year",
+   "minutes": 43.2,
+   "repair": "fixed 88%",
+   "state": "ready",
+   "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap",
+   "claim": null
+  },
+  {
+   "id": "h3-2026-10-11-1448",
+   "book": "h3",
+   "date": "2026-10-11",
+   "file": "(input_audio/Hidayah salis, 2026-10-11)",
+   "source": "this-year",
+   "minutes": 43.5,
+   "repair": "fixed 92%",
+   "state": "ready",
+   "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap",
    "claim": null
   }
  ]

@@ -765,6 +765,9 @@ rx.OUT_DIR, rx.TX_DIR = OUT_DIR, TX_DIR
 DONE_LOG = []
 if '5' in SKIP:
     CONFIG['redo'] = []
+# 10 Nov 2026: first fix, for free, transcripts whose "missing text" is only badly written timestamps
+for n in (rx.heal_all() if "5" not in globals().get("SKIP", "") else []):
+    DONE_LOG.append("✓ " + n + " (وقت کی شکل ٹھیک کی، Gemini کے بغیر)")
 todo = [t for t in CONFIG["redo"] if not rx.already_redone(t["file"], t.get("added", "2000-01-01"))]
 if not todo:
     print("Nothing to re-transcribe today.")
@@ -775,7 +778,7 @@ else:
     for t in todo:
         ok = rx.redo(t["file"])
         DONE_LOG.append(("✓" if ok else "✗") + " " + t["file"])
-        if not ok and len(rx.DEAD) >= len(rx.COMBOS):
+        if not ok and (len(rx.DEAD) >= len(rx.COMBOS) or rx.out_of_time()):
             rx.say("All models are out of quota for today; the rest waits for tomorrow.")
             break
     print(f"\n{sum(1 for x in DONE_LOG if x.startswith('✓'))} of {len(todo)} re-transcribed.")
@@ -830,7 +833,7 @@ else:
         NEW_DONE.append(("✓ " + got[0]) if got else ("✗ " + os.path.basename(t["path"])))
         if got:
             _inventory_row(t, got[1])
-        elif len(rx.DEAD) >= len(rx.COMBOS):
+        elif len(rx.DEAD) >= len(rx.COMBOS) or rx.out_of_time():
             rx.say("All models are out of quota for today; the rest waits for tomorrow.")
             break
 for t in NEW_ALL:   # the transcription notebook rewrites the inventory without these books: put them back
