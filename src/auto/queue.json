@@ -1564,7 +1564,10 @@
    "repair": "fixed 89%",
    "state": "ready",
    "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap",
-   "claim": null
+   "claim": {
+    "run": "2026-11-10T19:52:59Z",
+    "by": "https://claude.ai/code/session_018ayvLpQ8gse3mD1RxgJabh"
+   }
   },
   {
    "id": "h3-2026-10-04-1448",
@@ -1576,7 +1579,10 @@
    "repair": "fixed 88%",
    "state": "ready",
    "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap",
-   "claim": null
+   "claim": {
+    "run": "2026-11-10T19:52:59Z",
+    "by": "https://claude.ai/code/session_018ayvLpQ8gse3mD1RxgJabh"
+   }
   },
   {
    "id": "h3-2026-10-11-1448",
@@ -1588,7 +1594,10 @@
    "repair": "fixed 92%",
    "state": "ready",
    "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap",
-   "claim": null
+   "claim": {
+    "run": "2026-11-10T19:52:59Z",
+    "by": "https://claude.ai/code/session_018ayvLpQ8gse3mD1RxgJabh"
+   }
   }
  ]
 }
