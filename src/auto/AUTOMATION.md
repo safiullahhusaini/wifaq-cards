@@ -52,6 +52,8 @@ The user is on the Pro plan; his own chats share the allowance with these runs, 
 3. Items in `wait_transcript` become `redo`-checked the same way once a transcript exists.
 4. Rewrite Drive `Wifaq 1448/automation/daily_config.json` so its `redo` list holds exactly the transcript files of items still in `redo` (format in section 9).
 
+3a. **Text gaps don't pause carding (10 Nov 2026, user: "fix it so our work doesn't get paused").** Since 10 Nov the Daily heals transcripts whose "gap" is only badly written timestamps (no Gemini) and re-transcribes only the weak 10-minute part, never the whole lesson. So: a transcript that is `fixed` ≥ 75% but still has a `- خلا:` line after one more Daily is carded anyway, with the gap's pages in `GAPS` («ریکارڈنگ کا متن نہیں ملا»), and the lesson goes on the `redo` list once; when the redone part arrives, add a `retime` item to fill the gap. Never hold the next lessons back for one gap.
+
 ## 4. Choose and claim work
 
 - Order: `settings.book_order` (h4, then h3 since 3 Nov: card Hidaya 3 whenever Hidaya 4 has nothing ready; blocked/redo Hidaya 4 lessons don't hold it up), and inside a book the queue order (book order of kitabs, then date). Prefer finishing a kitab before starting the next, but don't wait: if a lesson is blocked on re-transcription, card the next ready one and note the hole (`GAPS` already shows unrecorded/unexplained parts on the site).
