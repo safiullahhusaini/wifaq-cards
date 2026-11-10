@@ -1,5 +1,5 @@
 {
- "updated": "10 Nov 2026, 5:20 am (chat: transcription fix; 19/20/26 Sep, 3/4/11 Oct ready)",
+ "updated": "10 Nov 2026, 6:45 am (chat run: h3 19, 20, 26 Sep carded)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 3,
@@ -1519,12 +1519,11 @@
    "source": "this-year",
    "minutes": 51.4,
    "repair": "fixed 90%",
-   "state": "ready",
-   "note": "re-transcribed 9 Nov (Daily 10 Nov 3 am): no text gap now; follows the previous lesson",
-   "claim": {
-    "run": "2026-11-10T00:35+00:00",
-    "by": "chat run 10 Nov (Opus, user asked)"
-   }
+   "state": "done",
+   "note": "v5 433.79-445 (end of باب من تقبل; باب الاختلاف في الشهادة); original NOT trashed (classifier denied 10 Nov, Drive id 1o7Sqy9ma5xAN8IDUMrutAFeJlCrQuaiY; Opus copy confirmed)",
+   "claim": null,
+   "cards": 12,
+   "qa": "focused: 0 wrong rulings; 3 attribution scopes (Tahawi/Zufar, nikah راجح, اعتاق as teacher) + 4 content fixes (witnesses vs spouses, rahn reason, amount condition, teacher-only point) + 2 tag fixes"
   },
   {
    "id": "h3-2026-09-20-1448",
@@ -1534,12 +1533,11 @@
    "source": "this-year",
    "minutes": 40.5,
    "repair": "fixed 91%",
-   "state": "ready",
-   "note": "re-transcribed 9 Nov (Daily 10 Nov 3 am): no text gap now; follows the previous lesson",
-   "claim": {
-    "run": "2026-11-10T00:35+00:00",
-    "by": "chat run 10 Nov (Opus, user asked)"
-   }
+   "state": "done",
+   "note": "v5 446-459.3 (الشهادة على الإرث, الشهادة على الشهادة, شاهد الزور); original NOT trashed (classifier denied 10 Nov, Drive id 1ioJrJiD1PqhtFulL2OoMl2a7Fya4lDZR; Opus copy confirmed)",
+   "claim": null,
+   "cards": 9,
+   "qa": "focused: 3 rulings fixed (تشہیر too broad, عباسیہ slip, «no benefit» against matn); 2 attributions (طرفین→شیخین, Abu Yusuf riwayah); 3 tag fixes; fractions aligned"
   },
   {
    "id": "h3-2026-09-26-1448",
@@ -1549,12 +1547,12 @@
    "source": "this-year",
    "minutes": 48.3,
    "repair": "fixed 92%",
-   "state": "ready",
-   "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap",
-   "claim": {
-    "run": "2026-11-10T00:35+00:00",
-    "by": "chat run 10 Nov (Opus, user asked)"
-   }
+   "state": "done",
+   "note": "v5 460-471 (كتاب الرجوع عن الشهادة, complete); new page rujoo; original trashed 10 Nov",
+   "claim": null,
+   "cards": 11,
+   "qa": "focused: all ضمان fractions right; 2 rulings fixed (مزکّین maleness scope, «سبب» against matn), 2 attributions (Abu Hanifa not احناف; انشاء view), 1 tag, 1 clause moved",
+   "trashed": "2026-11-10"
   },
   {
    "id": "h3-2026-10-03-1448",
