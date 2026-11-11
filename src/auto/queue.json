@@ -1506,7 +1506,7 @@
    "minutes": 45.5,
    "repair": "fixed 87%",
    "state": "done",
-   "note": "v5 419 (باب من تقبل شهادته) → 433 ≈0.79; next starts «ولا يسمع القاضي الشهادة على جرح مجرد»; original NOT trashed (classifier denied 9 Nov); Drive id 1UDc9ZbmZFVKG5EeowsEskfD8yL_ZiHVr",
+   "note": "v5 419 (باب من تقبل شهادته) → 433 ≈0.79; next starts «ولا يسمع القاضي الشهادة على جرح مجرد»; original trashed 10 Nov by a later run (my 9 Nov attempt was denied)",
    "claim": null,
    "cards": 11,
    "trashed": "2026-11-10",
