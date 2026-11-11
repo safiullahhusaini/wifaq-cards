@@ -1,5 +1,5 @@
 {
- "updated": "9 Nov 2026, 1:20 am (run: h3 12 Sep, 13 Sep carded)",
+ "updated": "11 Nov 2026, 1:10 am (nightly run: h3 3, 4, 11 Oct carded)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 3,
@@ -1413,7 +1413,7 @@
    "book": "h3",
    "source": "this-year",
    "state": "wait_transcript",
-   "note": "Remaining this-year recordings after 11 Oct: none uploaded yet. 1 Aug heals on the next Daily. Pages 274-376 not recorded this year.",
+   "note": "Remaining this-year recordings after 11 Oct: none uploaded yet. Next passage: v5 503 (فصل في التوكيل بشراء نفس العبد). 1 Aug heals on the next Daily. Pages 274-376 not recorded this year.",
    "claim": null
   },
   {
@@ -1563,12 +1563,12 @@
    "source": "this-year",
    "minutes": 45.5,
    "repair": "fixed 89%",
-   "state": "ready",
-   "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap",
-   "claim": {
-    "run": "2026-11-10T19:52:59Z",
-    "by": "https://claude.ai/code/session_018ayvLpQ8gse3mD1RxgJabh"
-   }
+   "state": "done",
+   "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap | carded 11 Nov, v5 472-483",
+   "claim": null,
+   "cards": 8,
+   "qa": "0 wrong rulings left; 1 teacher slip stated as fact (hadith version), 3 tag fixes, 7 nits fixed",
+   "trash_note": "classifier denied 11 Nov; Drive id 1bmLx1QlxXC0gynNYPeUs87xPkz6UveWY"
   },
   {
    "id": "h3-2026-10-04-1448",
@@ -1578,12 +1578,12 @@
    "source": "this-year",
    "minutes": 43.2,
    "repair": "fixed 88%",
-   "state": "ready",
-   "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap",
-   "claim": {
-    "run": "2026-11-10T19:52:59Z",
-    "by": "https://claude.ai/code/session_018ayvLpQ8gse3mD1RxgJabh"
-   }
+   "state": "done",
+   "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap | carded 11 Nov, v5 484-495",
+   "claim": null,
+   "cards": 7,
+   "qa": "0 wrong attributions; 1 ruling grouping made precise, 6 tag fixes, 4 nits; p.491 OCR attribution resolved (Abu Hanifa)",
+   "trash_note": "classifier denied 11 Nov; Drive id 1CQYVWLdC3xilW2CHyOX9VnKeA0WOkWnh"
   },
   {
    "id": "h3-2026-10-11-1448",
@@ -1593,12 +1593,12 @@
    "source": "this-year",
    "minutes": 43.5,
    "repair": "fixed 92%",
-   "state": "ready",
-   "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap",
-   "claim": {
-    "run": "2026-11-10T19:52:59Z",
-    "by": "https://claude.ai/code/session_018ayvLpQ8gse3mD1RxgJabh"
-   }
+   "state": "done",
+   "note": "first transcript 9 Nov (Daily 10 Nov 3 am), no gap | carded 11 Nov, v5 495-503",
+   "claim": null,
+   "cards": 6,
+   "qa": "0 wrong rulings/attributions; 1 tag + 3 nits fixed",
+   "trashed": "2026-11-11"
   }
  ]
 }
