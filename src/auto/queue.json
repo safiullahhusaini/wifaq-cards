@@ -1,5 +1,5 @@
 {
- "updated": "10 Nov 2026, 6:45 am (chat run: h3 19, 20, 26 Sep carded)",
+ "updated": "9 Nov 2026, 1:20 am (run: h3 12 Sep, 13 Sep carded)",
  "settings": {
   "paused": false,
   "max_lessons_per_run": 3,
@@ -1453,7 +1453,8 @@
    "note": "v5 377-384. Original in input_audio (Drive id 1Cru5TEL867nBZHWrtS6DmkzQYpxy2X4T) NOT trashed: permission classifier denied 8 Nov (Opus copy confirmed in wifaq-data)",
    "claim": null,
    "cards": 7,
-   "qa": "full: 0 wrong rulings/attributions; 2 tag + 2 scope fixes, ~3 nits; v5 377-384 (مسائل شتى, فصل القضاء بالمواريث)"
+   "qa": "full: 0 wrong rulings/attributions; 2 tag + 2 scope fixes, ~3 nits; v5 377-384 (مسائل شتى, فصل القضاء بالمواريث)",
+   "trashed": "2026-11-09"
   },
   {
    "id": "h3-2026-09-05-1448",
@@ -1491,10 +1492,10 @@
    "minutes": 34.4,
    "repair": "fixed 89%",
    "state": "done",
-   "note": "v5 405-418 (end of تزكية الشهود … شهادة على الشهرة); Original in input_audio (Drive id 1h7PxW-wyIjjMrCh-iFkfPe_Vse4w9-jl) NOT trashed: permission classifier denied 10 Nov (Opus copy confirmed in wifaq-data and live in hidaya3/audio)",
+   "note": "v5 405 (ولا بد في ذلك كله من العدالة) → 418 ≈0.74; original recording NOT trashed (classifier denied 9 Nov); Drive id 1h7PxW-wyIjjMrCh-iFkfPe_Vse4w9-jl",
    "claim": null,
    "cards": 7,
-   "qa": "focused (10 Nov): 0 wrong attributions; 1 ruling too broad (card 6 \"he said he was not present\" is the قيل view) + 1 tag page + 1 wording fixed"
+   "qa": "focused: 9 fixes (1 content: «سچے» in tazkiya examples; U tag on wrong view; صک line; «أشهد أنه باع»), 0 wrong imam attributions"
   },
   {
    "id": "h3-2026-09-13-1448",
@@ -1505,11 +1506,11 @@
    "minutes": 45.5,
    "repair": "fixed 87%",
    "state": "done",
-   "note": "v5 419-433 (باب من تقبل شهادته); trashed original 10 Nov",
+   "note": "v5 419 (باب من تقبل شهادته) → 433 ≈0.79; next starts «ولا يسمع القاضي الشهادة على جرح مجرد»; original NOT trashed (classifier denied 9 Nov); Drive id 1UDc9ZbmZFVKG5EeowsEskfD8yL_ZiHVr",
    "claim": null,
    "cards": 11,
    "trashed": "2026-11-10",
-   "qa": "focused (10 Nov): 0 wrong attributions; 1 ruling too broad (dhimmi vs kafir) + 1 قيل presented as main (Khattabiyya) + 2 reason/scope fixes; all fixed"
+   "qa": "focused: 10 fixes (حد reading of teacher separated from book, طرفین attribution, tags), 0 wrong imam attributions"
   },
   {
    "id": "h3-2026-09-19-1448",
