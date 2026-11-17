@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>كتاب الكفالة · ہدایہ جلد ثالث</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+<style>
+/* One kitab of a book. Two views on one page:
+   فہرست (contents, styled like the book's own contents page: title … page) and a unit view (one bab/fasl,
+   its cards, page chips). Recordings live in a bottom sheet behind the header button. */
+:root {
+  --paper: #FDFCFB; --surface: #FFFFFF; --ink: #1F1A1B; --muted: #6E6566; --rule: #E9E3E2;
+  --matn: #A3211A; --matn-tint: #FBEDEB; --teacher: #17624C; --teacher-tint: #E3F2EC;
+  --book: #2B4B7E; --book-tint: #E8EEF8; --note: #545A68; --note-tint: #EDEEF2;
+  --ai: #8A5A00; --ai-tint: #FBF0DA; --focus: #2B4B7E;
+  --shadow: 0 1px 2px rgba(31,26,27,.05), 0 4px 16px rgba(31,26,27,.05);
+  --urdu: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Urdu Typesetting", "Noto Naskh Arabic", serif;
+  --ui: "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+  --arabic: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+    --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+    --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+    --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+  --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+  --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+  --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--ui); font-size: 15px; padding-inline: 16px; padding-block: 0 110px; }
+.wrap { max-width: 760px; margin: 0 auto; }
+[lang="ar"] { font-family: var(--arabic); }
+button, input, a.btn { font: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* header */
+header.top { padding-block: 14px 8px; display: grid; gap: 4px; }
+.topbar { display: flex; align-items: center; gap: 10px; min-height: 40px; }
+.homelink { color: var(--book); font-size: 13.5px; font-weight: 600; text-decoration: none; padding-block: 6px; }
+.homelink:hover { text-decoration: underline; }
+.recbtn { margin-inline-start: auto; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--rule);
+  background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 14px; font-size: 13.5px; font-weight: 600; }
+.recbtn svg { width: 15px; height: 15px; fill: none; stroke: var(--teacher); stroke-width: 1.7; stroke-linecap: round; }
+.recbtn:hover { border-color: var(--teacher); }
+h1 { margin: 6px 0 0; font-family: var(--arabic); font-weight: 700; color: var(--matn); font-size: clamp(36px, 8vw, 50px); line-height: 1.25; }
+.meta { color: var(--muted); font-size: 13.5px; line-height: 1.9; margin: 0; }
+.meta b { color: var(--ink); font-weight: 600; }
+
+/* contents (فہرست) */
+.tochead { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-block: 14px 4px; }
+.tochead h2 { margin: 0; font-size: 15px; font-weight: 700; color: var(--muted); }
+form.jump { display: flex; gap: 4px; margin-inline-start: auto; }
+form.jump input { inline-size: 92px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px;
+  padding: 5px 12px; font-size: 14px; font-variant-numeric: tabular-nums; direction: ltr; text-align: center; }
+form.jump button { cursor: pointer; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 999px; padding: 5px 13px; font-size: 13.5px; }
+.msg { margin: 8px 0 0; color: var(--ink); background: var(--ai-tint); border-radius: 8px; padding: 7px 12px; font-size: 13.5px; line-height: 1.9; }
+.msg a { color: var(--book); font-weight: 600; }
+ol.toc { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.toc li { border-bottom: 1px solid var(--rule); padding-block: 10px 9px; display: grid; gap: 4px; }
+.toc li.lv3 { padding-inline-start: 22px; }
+.toc a.row { display: flex; align-items: baseline; gap: 8px; text-decoration: none; color: inherit; }
+.toc .tt { font-family: var(--arabic); line-height: 1.6; }
+.toc li.lv1 .tt { font-size: 23px; color: var(--matn); font-weight: 700; }
+.toc li.lv2 .tt { font-size: 20px; font-weight: 700; }
+.toc li.lv3 .tt { font-size: 18.5px; }
+.toc .dots { flex: 1 1 24px; min-inline-size: 24px; border-bottom: 2px dotted var(--rule); transform: translateY(-5px); }
+.toc .pp { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.toc a.row:hover .tt, .toc a.row:focus-visible .tt { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.toc .sub { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.toc .sub .n { margin-inline-end: 4px; }
+.toc .sub .none { color: var(--ai); }
+.toc .sub .exn { color: var(--matn); font-weight: 600; margin-inline-end: 4px; }
+.toc .sub .pxn { color: var(--book); font-weight: 600; margin-inline-end: 4px; }
+a.pchip { text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 0 9px;
+  font-size: 12.5px; line-height: 1.9; font-variant-numeric: tabular-nums; }
+a.pchip:hover { border-color: var(--ink); }
+
+/* unit view */
+.ubar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); margin-inline: -16px; padding: 8px 16px 8px;
+  border-bottom: 1px solid var(--rule); display: grid; gap: 6px; }
+.ubar-top { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.back { flex: none; cursor: pointer; text-decoration: none; color: var(--book); font-size: 13.5px; font-weight: 600; border: 1px solid var(--rule); border-radius: 999px; padding: 3px 12px; background: var(--surface); }
+.utitle { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--arabic); font-size: 19px; font-weight: 700; line-height: 1.6; }
+.pbar { display: flex; gap: 6px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+.pbar::-webkit-scrollbar { display: none; }
+.pbar a { flex: none; text-decoration: none; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 3px 13px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.pbar a[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.ubar form.jump input { inline-size: 70px; padding: 3px 8px; }
+.ubar form.jump button { padding: 3px 10px; }
+.ubar form.jump { flex: none; }
+body.unit h1 { font-size: 26px; margin-top: 0; }
+body.unit header .meta { display: none; }
+.uhead { padding-block: 16px 0; display: grid; gap: 2px; }
+.uhead .parent { margin: 0; font-family: var(--arabic); color: var(--muted); font-size: 16px; }
+.uhead h2 { margin: 0; font-family: var(--arabic); color: var(--matn); font-size: clamp(26px, 6vw, 32px); line-height: 1.5; }
+.uhead p.meta { margin: 0; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; padding-block: 12px 0; color: var(--muted); font-size: 12.5px; align-items: center; }
+.lg { display: inline-flex; align-items: center; gap: 6px; }
+.linkbtn { cursor: pointer; background: none; border: 0; color: var(--book); font-weight: 600; font-size: 13px; padding: 4px 0; margin-inline-start: auto; }
+
+main { display: grid; gap: 18px; padding-block: 14px; }
+article.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; box-shadow: var(--shadow); padding: 18px 18px 14px; display: grid; gap: 12px; }
+.card-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.pg { font-size: 12.5px; font-weight: 600; color: var(--matn); background: var(--matn-tint); border-radius: 6px; padding: 2px 8px; font-variant-numeric: tabular-nums; }
+.v7 { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.cnum { color: var(--muted); font-size: 12.5px; }
+.badge { font-size: 12px; font-weight: 600; color: var(--book); background: var(--book-tint); border-radius: 999px; padding: 1px 9px; }
+.badge.exam { color: var(--matn); background: var(--matn-tint); border: 0; font-family: inherit; line-height: inherit; }
+button.badge.exam { cursor: pointer; }
+.badge.paper { cursor: pointer; font-family: inherit; line-height: inherit; color: var(--book); background: transparent; border: 1px solid var(--book); }
+.badge.paper.hot { color: var(--paper, #fff); background: var(--book); }
+.badge.paper[aria-expanded="true"] { box-shadow: 0 0 0 2px var(--book-tint); }
+.paperq { border-inline-start: 3px solid var(--book); background: var(--book-tint); border-radius: 8px; padding: 8px 12px; margin-top: 8px; }
+.paperq ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.paperq li { display: grid; gap: 1px; }
+.paperq .py { font-size: 12px; color: var(--book); font-weight: 600; }
+.paperq .pt { font-family: var(--arabic); font-size: 17px; line-height: 1.8; }
+.paperq .psrc { margin: 4px 0 0; font-size: 11px; color: var(--muted); }
+.les { color: var(--muted); font-size: 12.5px; margin-inline-start: auto; }
+.play { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--teacher); color: var(--teacher); background: transparent;
+  border-radius: 999px; padding: 3px 11px; font-size: 13px; font-variant-numeric: tabular-nums; direction: ltr; }
+.play svg { width: 10px; height: 10px; fill: currentColor; }
+.norec-chip { margin-inline-start: auto; color: var(--ai); background: var(--ai-tint); border-radius: 999px; padding: 2px 10px; font-size: 12.5px; font-weight: 600; }
+.label { margin: 0; font-family: var(--arabic); color: var(--book); font-size: 15px; line-height: 1.7; }
+h3.title { margin: 0; font-size: 19px; font-weight: 700; line-height: 1.7; text-wrap: balance; }
+.start { margin: 0; font-family: var(--arabic); font-size: 21px; line-height: 1.9; color: var(--matn); border-inline-start: 3px solid var(--matn); padding-inline-start: 12px; }
+.ref { margin: -4px 0 0; color: var(--book); font-size: 13px; line-height: 1.9; }
+.start-note { margin: -6px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.8; }
+.norec { margin: 0; background: var(--ai-tint); color: var(--ink); border-radius: 8px; padding: 6px 12px; font-size: 13.5px; line-height: 1.9; }
+.norec b { color: var(--ai); }
+.sec { display: grid; gap: 6px; }
+.sec h4 { margin: 0; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.sec ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.sec li { font-family: var(--urdu); font-size: 16px; line-height: 2.35; }
+.sec.tamheed li { font-size: 16.5px; }
+.sec.masala li { font-weight: 600; }
+.srcs { display: inline-flex; flex-wrap: wrap; gap: 4px; vertical-align: middle; margin-inline-start: 4px; }
+.chip { font-family: var(--ui); font-size: 11.5px; line-height: 1.6; border-radius: 5px; padding: 0 6px; white-space: nowrap; font-variant-numeric: tabular-nums; border: 0; font-weight: 600; }
+.chip.u { background: var(--teacher-tint); color: var(--teacher); cursor: pointer; }
+.chip.k { background: var(--book-tint); color: var(--book); }
+.chip.s { background: var(--note-tint); color: var(--note); }
+.chip.a { background: var(--ai-tint); color: var(--ai); }
+/* in the "سب" view a card opens folded: head, title, Arabic start and the note under it; the rest behind .ctoggle */
+.ctoggle { display: none; cursor: pointer; align-items: center; gap: 6px 10px; inline-size: 100%; background: none; border: 0; border-top: 1px dashed var(--rule);
+  padding: 8px 0 2px; color: var(--book); font-weight: 600; font-size: 13.5px; text-align: start; }
+.ctoggle::before { content: "−"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+.ctoggle[aria-expanded="false"]::before { content: "+"; }
+body.allview .ctoggle { display: flex; }
+.cbody { display: grid; gap: 12px; }
+article.card.folded .cbody { display: none; }
+article.card { scroll-margin-top: 112px; }
+.dlall { display: grid; gap: 6px; padding: 10px 12px; border-radius: 10px; background: var(--teacher-tint); }
+.dlall .btns { align-items: center; }
+.dlall .sub { color: var(--muted); font-size: 12.5px; }
+.dlall .dlstat { font-size: 12.5px; color: var(--ink); line-height: 1.9; }
+.btn[disabled] { opacity: .55; cursor: default; }
+details.more { border-top: 1px dashed var(--rule); padding-top: 8px; }
+details.more > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; color: var(--book); font-weight: 600; font-size: 13.5px; padding-block: 2px; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::before { content: "+"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+details.more[open] > summary::before { content: "−"; }
+details.more > summary .hint { color: var(--muted); font-weight: 400; font-size: 12.5px; }
+details.more > .inner { display: grid; gap: 12px; padding-top: 10px; }
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 14px; }
+.word { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; padding-block: 4px; border-bottom: 1px solid var(--rule); }
+.word .ar { font-family: var(--arabic); font-size: 19px; color: var(--matn); }
+.word .ur { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; flex: 1 1 auto; }
+.word .chip { font-size: 10.5px; }
+
+section.gaps { display: grid; gap: 8px; margin-block-start: 6px; border: 1px dashed var(--rule); border-radius: 12px; padding: 12px 14px; }
+section.gaps h3 { margin: 0; font-size: 14.5px; }
+section.gaps p.lead { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.9; }
+.glist { margin: 0; padding: 0; list-style: none; display: grid; }
+.glist li { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: start; padding-block: 8px; border-top: 1px solid var(--rule); }
+.glist .gp { font-size: 12px; font-weight: 600; color: var(--ai); background: var(--ai-tint); border-radius: 6px; padding: 1px 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.glist .gt { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; }
+.glist .gv { grid-column: 2; color: var(--muted); font-size: 12px; }
+
+nav.unav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-block-start: 18px; }
+nav.unav a { display: grid; gap: 2px; text-decoration: none; color: inherit; border: 1px solid var(--rule); border-radius: 12px; padding: 10px 14px; background: var(--surface); }
+nav.unav a:hover { border-color: var(--ink); }
+nav.unav .k { color: var(--muted); font-size: 12px; }
+nav.unav .t { font-family: var(--arabic); font-size: 17px; line-height: 1.6; }
+nav.unav a.next { text-align: left; grid-column: 2; }
+
+footer { margin-block-start: 28px; color: var(--muted); font-size: 13px; line-height: 2; border-top: 1px solid var(--rule); padding-block-start: 14px; }
+footer p { margin: 0 0 6px; }
+
+/* sheet */
+.backdrop { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.38); display: flex; align-items: flex-end; justify-content: center; }
+.sheet { background: var(--surface); color: var(--ink); inline-size: 100%; max-inline-size: 600px; max-block-size: 88vh; overflow-y: auto; border-radius: 16px 16px 0 0;
+  padding: 16px 18px calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 12px; box-shadow: 0 -8px 30px rgba(0,0,0,.2); }
+.sheet-head { display: flex; align-items: center; gap: 10px; }
+.sheet h3 { margin: 0; font-size: 17px; line-height: 1.7; }
+.sheet .x { margin-inline-start: auto; cursor: pointer; border: 1px solid var(--rule); background: transparent; color: var(--ink); border-radius: 999px; inline-size: 34px; block-size: 34px; font-size: 18px; line-height: 1; }
+.sheet p { margin: 0; font-size: 13.5px; line-height: 1.95; color: var(--muted); }
+.sheet p b { color: var(--ink); }
+.rec { display: grid; gap: 6px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.rec-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.rec-top b { font-size: 14.5px; }
+.rec-top .sub { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.state { font-size: 12px; font-weight: 600; border-radius: 5px; padding: 0 7px; }
+.state.on { color: var(--teacher); background: var(--teacher-tint); }
+.state.off { color: var(--muted); border: 1px solid var(--rule); }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; text-decoration: none; padding: 6px 13px; border-radius: 999px; border: 1px solid var(--teacher);
+  background: var(--teacher); color: var(--surface); font-weight: 600; font-size: 13.5px; line-height: 1.6; }
+.btn.ghost { background: transparent; color: var(--teacher); }
+.btn svg { width: 12px; height: 12px; fill: currentColor; flex: none; }
+
+/* player */
+.player { position: fixed; inset-inline: 0; bottom: 0; z-index: 10; background: var(--surface); border-top: 1px solid var(--rule); padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; justify-content: center; }
+.player audio { flex: 1 1 280px; max-width: 520px; height: 36px; }
+.speeds { display: flex; gap: 4px; direction: ltr; }
+.speeds button, .pclose { cursor: pointer; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 6px; padding: 3px 8px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.speeds button[aria-pressed="true"] { background: var(--teacher); color: var(--surface); border-color: var(--teacher); }
+.now { font-size: 12.5px; color: var(--muted); }
+.flash { animation: flash 1.2s ease-out; }
+@keyframes flash { from { box-shadow: 0 0 0 3px var(--teacher); } to { box-shadow: var(--shadow); } }
+@media (prefers-reduced-motion: reduce) { .flash { animation: none; } }
+@media (max-width: 460px) {
+  article.card { padding: 14px 14px 10px; }
+  .start { font-size: 19px; }
+  .sec li { font-size: 15.5px; }
+  .toc li.lv3 { padding-inline-start: 14px; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap" dir="rtl" lang="ur">
+  <header class="top">
+    <div class="topbar">
+      <a class="homelink" id="homeLink" href="./" hidden></a>
+      <button type="button" class="recbtn" id="recBtn" aria-haspopup="dialog">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 10V8a5.5 5.5 0 0 1 11 0v2"/><path d="M2.5 10h2v4h-2zM11.5 10h2v4h-2z"/></svg><span>ریکارڈنگز</span>
+      </button>
+    </div>
+    <h1 lang="ar" id="kitab"></h1>
+    <p class="meta" id="meta"></p>
+  </header>
+
+  <section id="tocView">
+    <div class="tochead">
+      <h2>فہرست</h2>
+      <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ نمبر" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form>
+    </div>
+    <p class="msg" id="tocMsg" hidden></p>
+    <ol class="toc" id="toc"></ol>
+  </section>
+
+  <section id="unitView" hidden>
+    <div class="ubar">
+      <div class="ubar-top"><a class="back" href="#">فہرست</a><span class="utitle" lang="ar" id="ubarTitle"></span>
+        <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form></div>
+      <nav class="pbar" id="pbar" aria-label="صفحات"></nav>
+    </div>
+    <div class="uhead">
+      <p class="parent" lang="ar" id="uParent"></p>
+      <h2 lang="ar" id="uTitle"></h2>
+      <p class="meta" id="uMeta"></p>
+    </div>
+    <p class="msg" id="uMsg" hidden></p>
+    <div class="legend" id="legend" aria-label="ماخذ کی علامتیں">
+      <span class="lg" data-t="u"><span class="chip u">استاد</span><span>ریکارڈنگ کا وقت</span></span>
+      <span class="lg" data-t="k"><span class="chip k">کتاب ص</span><span>متن</span></span>
+      <span class="lg" data-t="s"><span class="chip s">شرح</span><span>حاشیہ یا بین السطور</span></span>
+      <span class="lg" data-t="a"><span class="chip a">AI</span><span>خود جانچیں</span></span>
+      <button type="button" class="linkbtn" id="toggleAll" aria-pressed="false">سب تفصیل کھولیں</button>
+    </div>
+    <main id="cards"></main>
+    <section class="gaps" id="gaps" hidden>
+      <h3 id="gapsTitle"></h3>
+      <p class="lead" id="gapsLead"></p>
+      <ul class="glist" id="gapList"></ul>
+    </section>
+    <nav class="unav" id="unav" aria-label="پچھلا اور اگلا حصہ"></nav>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<div class="backdrop" id="backdrop" dir="rtl" lang="ur" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" id="sheet"></div>
+</div>
+
+<div class="player" id="player" dir="rtl" lang="ur" hidden>
+  <audio id="audio" controls preload="metadata"></audio>
+  <div class="speeds" id="speeds" role="group" aria-label="رفتار">
+    <button type="button" data-rate="1" aria-pressed="true">1×</button>
+    <button type="button" data-rate="1.25" aria-pressed="false">1.25×</button>
+    <button type="button" data-rate="1.5" aria-pressed="false">1.5×</button>
+  </div>
+  <span class="now" id="now"></span>
+  <button type="button" class="pclose" id="pclose" aria-label="آواز بند کریں">✕</button>
+</div>
+
+<script>
+const DATA = {"book": {"book": "ہدایہ جلد ثالث", "kitab": "كتاب الكفالة", "from": 1181, "to": 1203, "unit": "کارڈ", "unitOne": "کارڈ"}, "home": "./", "homeLabel": "ہدایہ جلد ثالث", "store": "h3", "lessons": {"2026-08-01-1448": {"file": "Hidaya Saalis 01 Aug 26.m4a", "minutes": 57.9, "id": "", "size_mb": null, "label": "یکم اگست 2026، اس سال کی کلاس", "source": "this-year"}}, "units": [{"key": "u0", "level": 1, "title": "كتاب الكفالة", "page": 1181, "page_to": 1196}, {"key": "u1", "level": 3, "title": "فصل في الضمان", "page": 1197, "page_to": 1199}, {"key": "u2", "level": 2, "title": "باب كفالة الرجلين", "page": 1200, "page_to": 1201}, {"key": "u3", "level": 2, "title": "باب كفالة العبد وعنه", "page": 1202, "page_to": 1203}], "cards": [{"unit": "u2", "pages": [1200, 1201], "lesson": "2026-08-01-1448", "ts": "0:00:01", "label": null, "title": "دو آدمیوں پر قرض ہو اور ہر ایک دوسرے کا کفیل: آدھے سے زیادہ ادا کرے تب ساتھی سے زائد کا رجوع؛ دو آدمی ایک کی طرف سے (اور ایک دوسرے کی طرف سے) پورے کے کفیل: جو بھی ادا کرے آدھا ساتھی سے، یا پورا اصیل سے؛ ایک کفیل کو بری کرنے سے دوسرا پورے کا ذمہ دار؛ مفاوضہ کے شریک الگ ہوں تو قرض خواہ کسی سے بھی پورا لے", "start": "وإذا كان الدين على اثنين، وكل واحد منهما كفيل عن صاحبه", "start_note": "سبق باب کے عنوان سے شروع: 0:00:01 پر «باب كفالة الرجلين» پڑھ کر اردو میں تمہید، 0:02:08 سے عبارت ٹکڑوں میں پڑھ کر ترجمہ (0:07:29 «حتى يزاد على النصف» تک)۔ متن v5 318 کے شروع سے؛ کارڈ «وإذا كوتب العبدان كتابة واحدة» (v5 321 کی آخری سطر) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 318–321", "tamheed": [{"x": "میں نے دو آدمیوں کو ایک ہی گاڑی ایک لاکھ روپے کی بیچی: 50 ہزار ایک کے ذمے، 50 دوسرے کے؛ ساتھ ہر ایک دوسرے کی طرف سے ذمہ دار (کفیل) بھی بن گیا۔", "s": [{"t": "u", "v": "0:00:30"}, {"t": "u", "v": "0:00:33"}, {"t": "u", "v": "0:00:38"}, {"t": "u", "v": "0:00:41"}, {"t": "u", "v": "0:00:45"}, {"t": "u", "v": "0:00:49"}, {"t": "u", "v": "0:00:58"}, {"t": "u", "v": "0:01:00"}, {"t": "u", "v": "0:01:04"}]}, {"x": "ایک نے 25 ہزار دیے تو یہ نہیں کہہ سکتا کہ ساڑھے 12 اپنی طرف سے اور ساڑھے 12 تمہاری طرف سے دیے؛ ہر ادائیگی پہلے اس کے اپنے قرضے میں شمار ہوگی، کفالت والی رقم 50 کے بعد شروع ہوگی؛ 50 کے بعد 10 ہزار مزید دیے تو وہ 10 ساتھی سے مانگ سکتا ہے۔", "s": [{"t": "u", "v": "0:01:13"}, {"t": "u", "v": "0:01:16"}, {"t": "u", "v": "0:01:26"}, {"t": "u", "v": "0:01:30"}, {"t": "u", "v": "0:01:31"}, {"t": "u", "v": "0:01:34"}, {"t": "u", "v": "0:01:46"}, {"t": "u", "v": "0:02:07"}, {"t": "u", "v": "0:02:08"}]}, {"x": "دوسری صورت: قرضہ کسی اور پر ہے اور دو آدمی اس کی طرف سے پورے ایک ایک لاکھ کے گارنٹر بنے، اور (شرط یہ کہ) ایک دوسرے کی طرف سے بھی؛ ان پر ذاتی قرضہ نہیں، تو کفیل نمبر ایک نے 10 ہزار دیے تو 5 ہزار دوسرے کفیل سے لے، یا پورے 10 اصل مقروض سے۔", "s": [{"t": "u", "v": "0:02:56"}, {"t": "u", "v": "0:03:02"}, {"t": "u", "v": "0:03:09"}, {"t": "u", "v": "0:03:11"}, {"t": "u", "v": "0:03:17"}, {"t": "u", "v": "0:03:21"}, {"t": "u", "v": "0:03:48"}, {"t": "u", "v": "0:03:51"}, {"t": "u", "v": "0:03:58"}, {"t": "u", "v": "0:04:26"}, {"t": "u", "v": "0:04:29"}, {"t": "u", "v": "0:04:34"}]}], "masala": [{"x": "قرض دو پر ہو اور ہر ایک دوسرے کا کفیل (جیسے دونوں نے ہزار درہم کا ایک غلام خریدا): جو ادا کرے وہ ساتھی سے رجوع نہیں کرے گا جب تک آدھے سے زیادہ ادا نہ کر دے؛ پھر زائد کا رجوع کرے گا۔ (کتاب: «فما أدى أحدهما لم يرجع على شريكه حتى يزيد ما يؤديه على النصف، فيرجع بالزيادة»۔)", "s": [{"t": "u", "v": "0:02:08"}, {"t": "u", "v": "0:02:10"}, {"t": "u", "v": "0:02:22"}, {"t": "u", "v": "0:02:26"}, {"t": "u", "v": "0:02:31"}, {"t": "u", "v": "0:02:34"}, {"t": "u", "v": "0:02:37"}, {"t": "u", "v": "0:02:42"}, {"t": "u", "v": "0:02:45"}, {"t": "k", "v": "1200"}]}, {"x": "دو آدمی ایک آدمی کی طرف سے کفیل بنے، اس شرط پر کہ ہر ایک دوسرے کا بھی کفیل ہے: جو کچھ بھی ایک ادا کرے، تھوڑا ہو یا زیادہ، آدھا ساتھی سے لے سکتا ہے۔ کتاب: صحیح مطلب یہ کہ ہر ایک پورے مال کا اصیل کی طرف سے بھی کفیل ہے اور پورے کا شریک کی طرف سے بھی۔ (کتاب: «فكل شيء أداه أحدهما رجع على شريكه بنصفه، قليلاً كان أو كثيراً. ومعنى المسألة في الصحيح: أن تكون الكفالة بالكل عن الأصيل، وبالكل عن الشريك»۔)", "s": [{"t": "u", "v": "0:04:14"}, {"t": "u", "v": "0:04:20"}, {"t": "u", "v": "0:04:23"}, {"t": "u", "v": "0:04:41"}, {"t": "u", "v": "0:04:47"}, {"t": "u", "v": "0:04:49"}, {"t": "u", "v": "0:04:50"}, {"t": "k", "v": "1200"}, {"t": "s", "v": "الكفاية ٣٣٨/٦-٣٣٩"}]}, {"x": "چاہے تو پوری ادا شدہ رقم اصل مقروض (مکفول عنہ) سے لے، کیونکہ اس کے حکم سے پورے مال کا کفیل بنا تھا؛ اور دونوں (آدھا آدھا بانٹ کر) اصیل سے لیں گے۔ (کتاب: «ثم يرجعان على الأصيل… وإن شاء رجع بالجميع على المكفول عنه؛ لأنه كفل بجميع المال عنه بأمره»۔)", "s": [{"t": "u", "v": "0:04:55"}, {"t": "u", "v": "0:04:56"}, {"t": "u", "v": "0:04:57"}, {"t": "u", "v": "0:04:58"}, {"t": "u", "v": "0:04:59"}, {"t": "k", "v": "1201"}]}, {"x": "قرض خواہ نے ایک کفیل کو بری کر دیا تو دوسرے سے پورے قرضے کا مطالبہ کر سکتا ہے، آدھے کا نہیں، کیونکہ ہر ایک پورے کا گارنٹر تھا۔ (کتاب: «وإذا أبرأ رب المال أحدهما أخذ الآخر بالجميع»۔)", "s": [{"t": "u", "v": "0:05:03"}, {"t": "u", "v": "0:05:09"}, {"t": "u", "v": "0:05:13"}, {"t": "u", "v": "0:05:26"}, {"t": "u", "v": "0:05:30"}, {"t": "u", "v": "0:05:33"}, {"t": "u", "v": "0:05:34"}, {"t": "u", "v": "0:05:35"}, {"t": "k", "v": "1201"}]}, {"x": "شرکت مفاوضہ کے دونوں شریک الگ ہو گئے اور ان پر قرضہ تھا تو قرض خواہ کسی کو بھی پکڑ کر پورے قرضے کا مطالبہ کر سکتے ہیں؛ اور جس نے ادا کیا وہ ساتھی سے تب رجوع کرے گا جب آدھے سے زیادہ ادا کرے (پہلے مسئلے کی طرح)۔ (کتاب: «وإذا افترق المتفاوضان فلأصحاب الديون أن يأخذوا أيهما شاءوا بجميع الدين… ولا يرجع أحدهما على صاحبه حتى يؤدي أكثر من النصف»۔)", "s": [{"t": "u", "v": "0:05:35"}, {"t": "u", "v": "0:06:31"}, {"t": "u", "v": "0:06:35"}, {"t": "u", "v": "0:06:44"}, {"t": "u", "v": "0:06:47"}, {"t": "u", "v": "0:06:51"}, {"t": "u", "v": "0:06:56"}, {"t": "u", "v": "0:06:59"}, {"t": "u", "v": "0:07:07"}, {"t": "u", "v": "0:07:11"}, {"t": "u", "v": "0:07:13"}, {"t": "u", "v": "0:07:19"}, {"t": "u", "v": "0:07:21"}, {"t": "u", "v": "0:07:22"}, {"t": "u", "v": "0:07:29"}, {"t": "k", "v": "1201"}]}], "dalil": [{"x": "پہلی صورت: ہر ایک آدھے میں اصیل ہے اور آدھے میں کفیل؛ اپنا قرضہ مضبوط ہے اور کفالت دوسرے نمبر پر، تو ادائیگی پہلے اپنے قرضے سے شمار ہوگی؛ آدھے سے زائد میں کوئی ٹکراؤ نہیں تو وہ کفالت کی طرف سے۔ (کتاب: «لأن كل واحد منهما في النصف أصيل، وفي النصف الآخر كفيل… لأن الأول دين، والثاني مطالبة، ثم هو تابع للأول، فيقع عن الأول، وفي الزيادة لا معارضة، فيقع عن الكفالة»۔)", "s": [{"t": "u", "v": "0:01:35"}, {"t": "u", "v": "0:01:38"}, {"t": "u", "v": "0:01:45"}, {"t": "k", "v": "1200"}, {"t": "s", "v": "البناية ١٨١/١١"}, {"t": "s", "v": "الكفاية ٣٣٧/٦-٣٣٨"}]}, {"x": "کتاب (استاد نے نہیں بتایا): دوسری دلیل: اگر آدھے میں ادائیگی ساتھی کی طرف سے مانی جائے اور وہ اس سے رجوع کرے تو ساتھی بھی کہے گا: میرے نائب کی ادائیگی میری ادائیگی ہے، میں بھی تم سے رجوع کرتا ہوں؛ یوں دَور لازم آئے گا۔ (کتاب: «ولأنه لو وقع في النصف عن صاحبه، فيرجع عليه، فلصاحبه أن يرجع؛ لأن أداء نائبه كأدائه، فيؤدي إلى الدور»؛ حاشیہ: ابن الہمام نے اس دلیل پر اعتراض کیا ہے۔)", "s": [{"t": "k", "v": "1200"}, {"t": "k", "v": "1200"}, {"t": "s", "v": "الكفاية ٣٣٨/٦"}, {"t": "s", "v": "فتح القدير ٣٣٨/٦"}]}, {"x": "دوسری صورت: یہاں ان پر ذاتی قرضہ نہیں، سب کفالت ہے، تو ہر ادائیگی دونوں کی طرف سے برابر شمار ہوگی، ایک کو دوسرے پر ترجیح نہیں۔ (کتاب: «فما أداه أحدهما وقع شائعاً عنهما؛ إذ الكل كفالة، فلا ترجيح للبعض على البعض، بخلاف ما تقدم»؛ اور کفیل کی طرف سے کفالت اسی طرح درست جیسے اصیل کی طرف سے، کیونکہ کفالت کا موجب مطالبہ کا التزام ہے اور مطالبہ متعدد ہے۔)", "s": [{"t": "u", "v": "0:04:00"}, {"t": "u", "v": "0:04:06"}, {"t": "k", "v": "1200"}, {"t": "s", "v": "الكفاية ٣٣٩/٦"}]}, {"x": "ابراء: کفیل کو بری کرنے سے اصیل بری نہیں ہوتا، پورا مال اصیل پر باقی اور دوسرا کفیل پورے کا اس کی طرف سے کفیل۔ (کتاب: «لأن إبراء الكفيل لا يوجب براءة الأصيل، فبقي المال كله على الأصيل، والآخر كفيل عنه بكله»۔)", "s": [{"t": "u", "v": "0:05:26"}, {"t": "u", "v": "0:05:30"}, {"t": "k", "v": "1201"}]}, {"x": "مفاوضہ: اس شرکت میں ہر شریک دوسرے کا وکیل بھی ہوتا ہے اور کفیل بھی؛ کفالت عقدِ مفاوضہ سے ثابت ہوئی تھی، الگ ہونے سے ختم نہیں ہوتی۔ (کتاب: «لأن كل واحد منهما كفيل عن صاحبه على ما عرف في الشركة»؛ حاشیہ: «فلا تبطل بالافتراق»۔)", "s": [{"t": "u", "v": "0:06:23"}, {"t": "u", "v": "0:06:51"}, {"t": "k", "v": "1201"}, {"t": "s", "v": "العناية"}]}], "ikhtilaf": [], "faida": [{"x": "استاد: «یہ بات ذہن میں رکھیں»: دوسری صورت وہ نہیں جس میں دو آدمی الگ الگ کفیل بنے، اس میں اضافی شرط ہے کہ دونوں ایک دوسرے کے بھی کفیل ہوں۔ (حاشیہ: اگر ایک صرف دوسرے کفیل کا کفیل ہو، اصیل کا نہیں، تو اس کا اصیل پر رجوع نہیں۔)", "s": [{"t": "u", "v": "0:04:26"}, {"t": "u", "v": "0:04:29"}, {"t": "u", "v": "0:04:34"}, {"t": "u", "v": "0:04:39"}, {"t": "s", "v": "العناية ٣٣٩/٦"}]}, {"x": "شرکت مفاوضہ: دو آدمی ہر چیز میں مکمل طور پر برابر کے شریک: سرمایہ، نفع، نقصان سب برابر۔ (حاشیہ: مال، آزادی، عقل اور دین میں برابر لوگوں کی شرکت، جو وکالت اور کفالت کو متضمن ہے؛ نام تفویض سے ماخوذ۔)", "s": [{"t": "u", "v": "0:05:50"}, {"t": "u", "v": "0:05:56"}, {"t": "u", "v": "0:05:59"}, {"t": "u", "v": "0:06:03"}, {"t": "u", "v": "0:06:06"}, {"t": "u", "v": "0:06:10"}, {"t": "s", "v": "شرح النقاية للقاري"}]}], "lughat": [{"ar": "كفيل عن صاحبه", "ur": "اپنے ساتھی کی طرف سے ذمہ دار", "s": [{"t": "u", "v": "0:02:09"}, {"t": "u", "v": "0:02:26"}]}, {"ar": "لم يرجع على شريكه", "ur": "ساتھی سے مطالبہ نہیں کر سکتا", "s": [{"t": "u", "v": "0:02:34"}]}, {"ar": "حتى يزيد ما يؤديه على النصف", "ur": "یہاں تک کہ آدھے سے زیادہ ادا کر دے", "s": [{"t": "u", "v": "0:02:37"}]}, {"ar": "فيرجع بالزيادة", "ur": "آدھے سے زائد ادا شدہ رقم کا ساتھی سے مطالبہ کرے", "s": [{"t": "u", "v": "0:02:42"}, {"t": "u", "v": "0:02:45"}]}, {"ar": "المكفول عنه", "ur": "جس کی طرف سے کفالت کی گئی، اصل مقروض", "s": [{"t": "u", "v": "0:04:59"}]}, {"ar": "أبرأ رب المال أحدهما", "ur": "قرض خواہ نے ایک (کفیل) کو بری کر دیا", "s": [{"t": "u", "v": "0:05:34"}]}, {"ar": "افترق المتفاوضان", "ur": "شرکت مفاوضہ کے دونوں شریک الگ ہو گئے", "s": [{"t": "u", "v": "0:07:21"}]}, {"ar": "الدور", "ur": "ایک دوسرے پر لوٹنے کا نہ ختم ہونے والا چکر (حاشیہ: حقیقت میں تسلسل)", "s": [{"t": "s", "v": "فتح القدير ٣٣٨/٦"}]}]}, {"unit": "u2", "pages": [1201], "lesson": "2026-08-01-1448", "ts": "0:07:34", "label": null, "title": "دو غلاموں کو ایک ہی عقد میں مکاتب بنایا اور ہر ایک دوسرے کا کفیل: استحساناً جائز، جو ادا کرے آدھا ساتھی سے؛ ادائیگی سے پہلے آقا نے ایک کو آزاد کیا تو آزادی درست، وہ آدھے سے بری؛ باقی آدھا آقا چاہے آزاد شدہ سے (کفالت کی وجہ سے) لے، چاہے دوسرے سے (اصالت کی وجہ سے)", "start": "قال: وإذا كوتب العبدان كتابةً واحدةً، وكلُّ واحد منهما كفيل عن صاحبه", "start_note": "0:07:34 پر عبارت کا آغاز پڑھ کر 0:08:05 سے تمہید (بدلِ کتابت کی کفالت درست نہیں)، 0:09:47 سے عبارت پڑھ کر ترجمہ (0:12:05 تک)۔ متن v5 321 کی آخری سطر سے؛ کارڈ «باب كفالة العبد وعنه» (v5 324) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 321–323", "tamheed": [{"x": "آگے آنے والا مسئلہ «ابھی تھوڑا سا ذہن میں بٹھائیں»: بدلِ کتابت کا کوئی کفیل نہیں بن سکتا؛ مثلاً آقا نے غلام سے کہا ایک لاکھ دے دو، تم آزاد ہو؛ کفالت کے لیے دینِ صحیح چاہیے اور بدلِ کتابت دینِ صحیح نہیں۔", "s": [{"t": "u", "v": "0:08:05"}, {"t": "u", "v": "0:08:10"}, {"t": "u", "v": "0:08:13"}, {"t": "u", "v": "0:08:16"}, {"t": "u", "v": "0:08:20"}, {"t": "u", "v": "0:08:25"}, {"t": "u", "v": "0:08:29"}]}, {"x": "البتہ میرے دو غلام زید اور بکر؛ دونوں سے کہا تم دونوں مجھے ایک لاکھ دے دو تو دونوں آزاد۔ ویسے ہر ایک کے پچاس پچاس ہزار ہیں، مگر دونوں مجموعی رقم کے بدلے آزاد ہوں گے؛ اس صورت میں ہر ایک دوسرے کا کفیل بن سکتا ہے۔", "s": [{"t": "u", "v": "0:08:39"}, {"t": "u", "v": "0:08:42"}, {"t": "u", "v": "0:08:47"}, {"t": "u", "v": "0:08:52"}, {"t": "u", "v": "0:08:54"}, {"t": "u", "v": "0:08:57"}, {"t": "u", "v": "0:09:00"}, {"t": "u", "v": "0:09:02"}, {"t": "u", "v": "0:09:06"}, {"t": "u", "v": "0:09:08"}]}], "masala": [{"x": "ایک عقد میں مکاتب بنائے گئے دو غلام ایک دوسرے کے کفیل ہوں تو یہ استحساناً درست ہے؛ جو بھی ادا کرے، ساتھی سے اس کا آدھا لے سکتا ہے۔ (کتاب: «فكل شيء أداه أحدهما رجع على صاحبه بنصفه… أن هذا العقد جائز استحساناً»۔)", "s": [{"t": "u", "v": "0:09:10"}, {"t": "u", "v": "0:09:17"}, {"t": "u", "v": "0:09:20"}, {"t": "u", "v": "0:09:30"}, {"t": "u", "v": "0:09:48"}, {"t": "u", "v": "0:10:00"}, {"t": "u", "v": "0:10:21"}, {"t": "u", "v": "0:10:26"}, {"t": "k", "v": "1201"}, {"t": "k", "v": "1201"}]}, {"x": "الگ الگ عقد ہوں (ایک کو پچاس ہزار پر، دوسرے کو پچاس ہزار پر مکاتب بنایا) تو ایک دوسرے کے کفیل نہیں بن سکتے؛ صرف وہی جسے ساتھ ایک عقد میں جمع کیا گیا۔ (حاشیہ: الگ مکاتب ہوں تو کفالت نہ قیاساً صحیح نہ استحساناً۔)", "s": [{"t": "u", "v": "0:09:43"}, {"t": "u", "v": "0:09:46"}, {"t": "u", "v": "0:24:44"}, {"t": "u", "v": "0:24:45"}, {"t": "u", "v": "0:24:52"}, {"t": "u", "v": "0:24:57"}, {"t": "s", "v": "الكفاية ٣٤٠/٦"}]}, {"x": "ابھی کسی نے کچھ ادا نہیں کیا تھا کہ آقا نے ایک (زید) کو آزاد کر دیا: آزادی درست، اور دوسرا (بکر) پورا نہیں، صرف آدھا دے گا۔ (کتاب: «ولو لم يؤديا شيئاً حتى أعتق المولى أحدهما: جاز العتق لمصادفته ملكه، وبرئ عن النصف… ويبقى النصف على الآخر»۔)", "s": [{"t": "u", "v": "0:10:29"}, {"t": "u", "v": "0:10:35"}, {"t": "u", "v": "0:10:53"}, {"t": "u", "v": "0:10:57"}, {"t": "u", "v": "0:10:59"}, {"t": "u", "v": "0:11:09"}, {"t": "u", "v": "0:11:14"}, {"t": "u", "v": "0:11:16"}, {"t": "u", "v": "0:11:54"}, {"t": "u", "v": "0:12:00"}, {"t": "u", "v": "0:12:05"}, {"t": "k", "v": "1201"}, {"t": "k", "v": "1201"}]}, {"x": "کفالت شروع سے درست تھی، ایک کی آزادی سے باطل نہیں ہوئی: باقی آدھا آقا چاہے آزاد شدہ (زید) سے کفالت کی وجہ سے لے، چاہے بکر سے اصیل ہونے کی وجہ سے۔ (کتاب: «وللمولى أن يأخذ بحصة الذي لم يعتق أيهما شاء، المعتق بالكفالة، وصاحبه بالأصالة»۔)", "s": [{"t": "u", "v": "0:11:19"}, {"t": "u", "v": "0:11:23"}, {"t": "u", "v": "0:11:27"}, {"t": "u", "v": "0:11:30"}, {"t": "u", "v": "0:11:34"}, {"t": "u", "v": "0:11:40"}, {"t": "u", "v": "0:11:42"}, {"t": "u", "v": "0:11:45"}, {"t": "u", "v": "0:11:51"}, {"t": "k", "v": "1201"}]}, {"x": "کتاب (استاد نے نہیں بتایا): آقا نے آزاد شدہ سے لیا تو وہ ساتھی سے واپس لے گا (اس کی طرف سے اس کے حکم سے ادا کیا)؛ دوسرے سے لیا تو وہ آزاد شدہ سے کچھ نہیں لے گا (اپنی طرف سے ادا کیا)۔ (کتاب: «فإن أخذ الذي أعتق رجع على صاحبه بما يؤدى… وإن أخذ الآخر لم يرجع على المعتق بشيء»۔)", "s": [{"t": "k", "v": "1201"}]}], "dalil": [{"x": "درستی کا طریقہ (کتاب کے ہزار درہم کے حساب سے): یہ کہنا کہ پانچ سو ایک پر اور پانچ سو دوسرے پر ہے اور ہر ایک دوسرے کا کفیل، تو یہ کفالت باطل ہوتی (بدلِ کتابت کا کفیل نہیں بن سکتا)؛ اس لیے ہر ایک کو پورے ہزار کا اصیل مانا گیا، اور ساتھی کے حق میں پورے ہزار کا کفیل۔ (کتاب: «طريقه أن يجعل كل واحد منهما أصيلاً في حق وجوب الألف عليه، فيكون عتقهما معلقاً بأدائه، ويجعل كفيلاً بالألف في حق صاحبه»۔)", "s": [{"t": "u", "v": "0:10:03"}, {"t": "u", "v": "0:10:09"}, {"t": "u", "v": "0:10:12"}, {"t": "u", "v": "0:10:17"}, {"t": "k", "v": "1201"}, {"t": "s", "v": "النهاية"}]}, {"x": "قیاس (حاشیہ): اس میں مکاتب کی کفالت بھی ہے (کفالت تبرع ہے، مکاتب اس کا مالک نہیں) اور بدلِ کتابت کی کفالت بھی (دینِ صحیح نہیں)؛ دونوں الگ الگ باطل، اکٹھے بدرجہ اولیٰ؛ مگر استحساناً جائز رکھا گیا۔", "s": [{"t": "u", "v": "0:09:20"}, {"t": "s", "v": "العناية ٣٤٠/٦"}]}, {"x": "کتاب (استاد نے نہیں بتایا): آدھا آدھا اس لیے کہ دونوں برابر ہیں؛ پورے کا رجوع کرے تو برابری نہیں رہتی۔ (کتاب: «فما أداه أحدهما رجع بنصفه على صاحبه لاستوائهما، ولو رجع بالكل لا يتحقق المساواة»۔)", "s": [{"t": "k", "v": "1201"}]}, {"x": "آزادی کے بعد آدھا کیوں: ہر ایک پر پورا ہزار صرف کتابت یا کفالت کو درست کرنے کے لیے فرض کیا گیا تھا، اصل میں ہر ایک پر پانچ سو ہے؛ آزادی آ گئی تو اس حیلے کی ضرورت نہ رہی۔ (کتاب: «لأن المال في الحقيقة مقابل برقبتهما، وإنما جعل على كل واحد منهما احتيالاً لتصحيح الضمان، وإذا جاء العتق استغنى عنه… فلهذا يتنصف»؛ اور آزاد شدہ نے مال صرف آزادی کے وسیلے کے طور پر قبول کیا تھا، وسیلہ نہ رہا تو ساقط۔)", "s": [{"t": "u", "v": "0:10:39"}, {"t": "u", "v": "0:10:44"}, {"t": "u", "v": "0:10:49"}, {"t": "u", "v": "0:11:05"}, {"t": "u", "v": "0:11:09"}, {"t": "k", "v": "1201"}, {"t": "k", "v": "1201"}]}], "ikhtilaf": [{"x": "حاشیہ: یہ عقد (دو مکاتبوں کی باہمی کفالت) احناف کے ہاں جائز ہے، باقی تینوں ائمہ کے خلاف۔", "s": [{"t": "s", "v": "فتح القدير ٣٤٠/٦"}]}], "faida": [{"x": "کتاب: اس کی تفصیل کتاب المکاتب میں آئے گی («وسنذكره في المكاتب إن شاء الله تعالى»)۔", "s": [{"t": "k", "v": "1201"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}], "lughat": [{"ar": "كوتب العبدان كتابة واحدة", "ur": "دو غلاموں کو ایک ہی عقد میں مکاتب بنایا گیا", "s": [{"t": "u", "v": "0:09:48"}]}, {"ar": "بدل الكتابة", "ur": "وہ رقم جس کی ادائیگی پر غلام آزاد ہوگا", "s": [{"t": "u", "v": "0:08:16"}, {"t": "u", "v": "0:08:20"}]}, {"ar": "استحساناً", "ur": "عام قاعدے (قیاس) سے ہٹ کر", "s": [{"t": "u", "v": "0:09:20"}, {"t": "u", "v": "0:23:29"}, {"t": "u", "v": "0:23:31"}]}, {"ar": "جاز العتق", "ur": "آزادی درست ہے", "s": [{"t": "u", "v": "0:12:00"}]}, {"ar": "برئ عن النصف", "ur": "(آزاد شدہ) آدھے بدل سے بری ہو گیا", "s": [{"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}, {"t": "k", "v": "1201"}]}, {"ar": "المعتق بالكفالة وصاحبه بالأصالة", "ur": "آزاد شدہ سے کفیل ہونے کی وجہ سے، دوسرے سے اصیل ہونے کی وجہ سے", "s": [{"t": "u", "v": "0:11:34"}, {"t": "u", "v": "0:11:42"}]}, {"ar": "احتيالاً لتصحيح الضمان", "ur": "کفالت کو درست کرنے کے لیے بطور حیلہ", "s": [{"t": "u", "v": "0:11:05"}]}]}, {"unit": "u3", "pages": [1202], "lesson": "2026-08-01-1448", "ts": "0:12:08", "label": null, "title": "غلام پر ایسا مال جو آزادی کے بعد ہی واجب الادا ہو، اس کا کسی نے ضمان لیا اور وقت نہ بتایا تو کفیل سے ابھی مطالبہ، اور کفیل غلام سے آزادی کے بعد لے گا؛ غلام پر مال کا دعویٰ اور کسی نے اس کے نفس کی کفالت کی، غلام مر گیا تو کفیل بری؛ غلام کی رقبہ کا دعویٰ اور کسی نے غلام کی کفالت کی، غلام مر گیا اور مدعی نے گواہوں سے ملکیت ثابت کی تو کفیل قیمت دے گا", "start": "ومن ضمن عن عبد مالاً لا يجب عليه، حتى يعتق، ولم يسم حالاً، ولا غيره", "start_note": "0:12:08 پر «باب كفالة العبد وعنه» پڑھ کر تمہید؛ عبارت 0:14:36، 0:15:15، 0:16:10 اور 0:17:55 پر۔ متن v5 324 کے شروع سے؛ کارڈ «قال: وإذا كفل العبد عن مولاه بأمره» (v5 325، ≈0.35) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 324–325", "tamheed": [{"x": "غلام کا قرضہ عموماً آقا پر آتا ہے، مگر کبھی صرف غلام پر بھی: میری موٹر سائیکل گم ہو گئی تھی؛ غلام نے اقرار کیا کہ سال پہلے وہ میں نے چرائی اور ضائع کر دی تھی؛ آقا نے انکار کر دیا کہ میں ذمہ داری نہیں لیتا۔", "s": [{"t": "u", "v": "0:12:29"}, {"t": "u", "v": "0:12:39"}, {"t": "u", "v": "0:12:42"}, {"t": "u", "v": "0:12:50"}, {"t": "u", "v": "0:12:54"}, {"t": "u", "v": "0:12:56"}, {"t": "u", "v": "0:13:01"}]}, {"x": "قرضہ غلام ہی کے ذمے ہے مگر اس کے پاس مال نہیں، تو قرض خواہ سے کہا جائے گا کہ آزادی کا انتظار کرو۔ یعنی غلام پر قرضہ چڑھ سکتا ہے، (ابھی) مطالبہ نہیں ہو سکتا۔", "s": [{"t": "u", "v": "0:13:08"}, {"t": "u", "v": "0:13:09"}, {"t": "u", "v": "0:13:15"}, {"t": "u", "v": "0:13:23"}, {"t": "u", "v": "0:13:29"}, {"t": "u", "v": "0:13:34"}]}], "masala": [{"x": "غلام پر ایسا مال جو آزادی تک واجب الادا نہیں، کسی نے اس کا ضمان لیا اور فوری یا مؤخر کچھ نہ کہا تو کفیل سے ابھی مطالبہ ہوگا؛ کفیل یہ نہیں کہہ سکتا کہ جب غلام سے مطالبہ ہوگا تب مجھ سے۔ (کتاب: «ومن ضمن عن عبد مالاً لا يجب عليه حتى يعتق، ولم يسم حالاً ولا غيره: فهو حال»۔)", "s": [{"t": "u", "v": "0:13:41"}, {"t": "u", "v": "0:13:47"}, {"t": "u", "v": "0:13:51"}, {"t": "u", "v": "0:14:07"}, {"t": "u", "v": "0:14:11"}, {"t": "u", "v": "0:14:36"}, {"t": "u", "v": "0:14:40"}, {"t": "u", "v": "0:14:45"}, {"t": "u", "v": "0:14:53"}, {"t": "u", "v": "0:14:55"}, {"t": "u", "v": "0:14:58"}, {"t": "u", "v": "0:15:10"}, {"t": "k", "v": "1202"}]}, {"x": "استاد (متن «ولم يسم حالاً ولا غيره» کا مفہوم): اگر کفیل نے شروع ہی میں کہا تھا کہ میں اس کا ذمہ دار ہوں جب یہ آزاد ہوگا، تو آزادی سے پہلے کفیل سے مطالبہ نہیں ہوگا۔", "s": [{"t": "u", "v": "0:14:58"}, {"t": "u", "v": "0:15:02"}, {"t": "u", "v": "0:15:05"}]}, {"x": "کفیل ادا کر کے غلام سے آزادی کے بعد لے گا، جیسے قرض خواہ آزادی کے بعد ہی لے سکتا تھا۔ (کتاب: «ثم إذا أدى رجع على العبد بعد العتق؛ لأن الطالب لا يرجع عليه إلا بعد العتق، فكذا الكفيل لقيامه مقامه»۔)", "s": [{"t": "u", "v": "0:14:18"}, {"t": "u", "v": "0:14:22"}, {"t": "u", "v": "0:14:24"}, {"t": "u", "v": "0:14:34"}, {"t": "k", "v": "1202"}]}, {"x": "غلام پر مال کا دعویٰ کیا گیا اور ایک آدمی نے غلام کے نفس کی کفالت کی (کہ میں اسے پیش کروں گا)؛ غلام مر گیا تو کفیل بری، کیونکہ کفالت بالنفس مکفول عنہ کی موت سے ختم ہو جاتی ہے، مال کی کفالت پر موت کا اثر نہیں۔ (کتاب: «ومن ادعى على عبد مالاً، وكفل له رجل بنفسه، فمات العبد: برئ الكفيل»۔)", "s": [{"t": "u", "v": "0:15:15"}, {"t": "u", "v": "0:15:18"}, {"t": "u", "v": "0:15:30"}, {"t": "u", "v": "0:15:35"}, {"t": "u", "v": "0:15:42"}, {"t": "u", "v": "0:15:48"}, {"t": "u", "v": "0:15:53"}, {"t": "u", "v": "0:15:55"}, {"t": "u", "v": "0:16:07"}, {"t": "u", "v": "0:18:30"}, {"t": "u", "v": "0:18:36"}, {"t": "u", "v": "0:18:45"}, {"t": "u", "v": "0:18:52"}, {"t": "u", "v": "0:18:57"}, {"t": "k", "v": "1202"}]}, {"x": "یاسر کے پاس وقاص نامی غلام ہے؛ میں نے دعویٰ کیا کہ یہ میرا ہے، اس نے غصب کیا ہے؛ ایک آدمی نے (فیصلے سے پہلے) غلام کی کفالت کر لی؛ غلام مر گیا اور میں نے گواہوں سے ثابت کر دیا کہ غلام میرا تھا: کفیل غلام کی قیمت دے گا۔ (کتاب: «فإن ادعى رقبة العبد، وكفل به رجل فمات العبد، فأقام المدعي البينة أنه كان له: ضمن الكفيل قيمته»۔)", "s": [{"t": "u", "v": "0:16:10"}, {"t": "u", "v": "0:16:21"}, {"t": "u", "v": "0:16:23"}, {"t": "u", "v": "0:16:28"}, {"t": "u", "v": "0:16:29"}, {"t": "u", "v": "0:16:37"}, {"t": "u", "v": "0:16:43"}, {"t": "u", "v": "0:16:47"}, {"t": "u", "v": "0:17:55"}, {"t": "u", "v": "0:18:01"}, {"t": "u", "v": "0:18:09"}, {"t": "u", "v": "0:18:16"}, {"t": "u", "v": "0:18:19"}, {"t": "u", "v": "0:18:21"}, {"t": "u", "v": "0:18:23"}, {"t": "k", "v": "1202"}]}], "dalil": [{"x": "مال غلام پر فوراً واجب ہے کیونکہ سبب موجود ہے اور اس کا ذمہ قابل ہے؛ مطالبہ صرف اس کی تنگدستی کی وجہ سے نہیں ہوتا (جو اس کے ہاتھ میں ہے آقا کا ہے)، اور کفیل تنگدست نہیں؛ جیسے غائب یا مفلس کی طرف سے کفالت؛ مؤجل قرض کا معاملہ الگ ہے۔ (کتاب: «لأن المال حال عليه لوجود السبب، وقبول الذمة، إلا أنه لا يطالب به لعسرته… والكفيل غير معسر، فصار كما إذا كفل عن غائب أو مفلس، بخلاف الدين المؤجل»؛ حاشیہ: آزادی کو مدت نہیں بنایا جا سکتا کیونکہ اس کا وقت مجہول ہے، ہو سکتا ہے ہو ہی نہیں۔)", "s": [{"t": "u", "v": "0:13:09"}, {"t": "u", "v": "0:13:51"}, {"t": "k", "v": "1202"}, {"t": "s", "v": "فتح القدير ٣٤٢/٦"}, {"t": "s", "v": "العناية ٣٤٢/٦"}]}, {"x": "نفس کی کفالت: اصیل بری ہوا تو کفیل بھی بری، جیسے آزاد آدمی کے نفس کی کفالت میں۔ (کتاب: «لبراءة الأصيل كما إذا كان المكفول بنفسه حراً»۔)", "s": [{"t": "u", "v": "0:15:42"}, {"t": "u", "v": "0:15:53"}, {"t": "k", "v": "1202"}]}, {"x": "رقبہ کی کفالت: غاصب (قابض) پر غلام لوٹانا واجب تھا اور مر جائے تو قیمت؛ کفیل نے اسی کی ذمہ داری لی تھی، تو وہ بھی قیمت دے گا؛ یہ کفالت بالنفس نہیں تھی۔ (کتاب: «لأن على المولى ردها على وجه تخلفها قيمتها، وقد التزم الكفيل ذلك، وبعد الموت تبقى القيمة على الأصيل، فكذا على الكفيل، بخلاف الأول»؛ حاشیہ: «المولى» یعنی قابض۔)", "s": [{"t": "u", "v": "0:16:52"}, {"t": "u", "v": "0:16:56"}, {"t": "u", "v": "0:16:59"}, {"t": "u", "v": "0:17:04"}, {"t": "u", "v": "0:17:06"}, {"t": "u", "v": "0:17:13"}, {"t": "u", "v": "0:17:18"}, {"t": "u", "v": "0:17:27"}, {"t": "u", "v": "0:17:30"}, {"t": "k", "v": "1202"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}, {"t": "s", "v": "العناية ٣٤٣/٦"}]}], "ikhtilaf": [], "faida": [{"x": "حاشیہ: آزادی کے بعد واجب ہونے والے مال کی مثالیں: غلام نے مال ضائع کرنے کا اقرار کیا اور آقا نے جھٹلایا (استاد کی موٹر سائیکل والی مثال)، یا محجور غلام کو کسی نے قرض دیا یا اس سے کچھ بیچا؛ لیکن ضائع کرنا آنکھوں دیکھا ہو تو فوراً پکڑا جائے گا۔", "s": [{"t": "u", "v": "0:12:50"}, {"t": "u", "v": "0:13:01"}, {"t": "s", "v": "فتح القدير ٣٤٢/٦"}]}, {"x": "استاد: کفیل قیمت دے کر غاصب سے لے گا اگر اس کے حکم سے کفالت ہوئی تھی؛ اور ضروری ہے کہ مدعی قاضی کے پاس ثابت کرے کہ غلام اس کا تھا۔ حاشیہ: «گواہوں سے» کی قید اس لیے کہ ملکیت قابض کے اقرار یا قسم سے انکار سے ثابت ہو تو قیمت قابض پر آئے گی، کفیل پر نہیں (اقرار قاصر حجت ہے)، الا یہ کہ کفیل بھی اقرار کرے۔", "s": [{"t": "u", "v": "0:17:39"}, {"t": "k", "v": "1202"}, {"t": "s", "v": "العناية ٢٤٣/٦"}]}], "lughat": [{"ar": "ضمن عن عبد مالاً", "ur": "غلام کی طرف سے کسی مال کا ضامن بنا", "s": [{"t": "u", "v": "0:14:40"}]}, {"ar": "لا يجب عليه حتى يعتق", "ur": "جو غلام پر آزادی تک واجب (الادا) نہیں", "s": [{"t": "u", "v": "0:14:45"}]}, {"ar": "ولم يسم حالاً ولا غيره", "ur": "کفیل نے فوری یا مؤخر کچھ نہیں کہا", "s": [{"t": "u", "v": "0:14:55"}, {"t": "u", "v": "0:15:02"}]}, {"ar": "فهو حال", "ur": "تو (کفیل پر) ابھی واجب الادا ہے", "s": [{"t": "u", "v": "0:14:58"}, {"t": "u", "v": "0:15:10"}]}, {"ar": "كفل له رجل بنفسه", "ur": "ایک آدمی نے (غلام کی) جان کی کفالت لی", "s": [{"t": "u", "v": "0:15:55"}]}, {"ar": "ادعى رقبة العبد", "ur": "خود غلام کا دعویٰ کیا کہ یہ میرا ہے", "s": [{"t": "u", "v": "0:17:57"}, {"t": "u", "v": "0:17:58"}]}, {"ar": "ضمن الكفيل قيمته", "ur": "کفیل غلام کی قیمت کا ضامن ہوگا", "s": [{"t": "u", "v": "0:18:19"}, {"t": "u", "v": "0:18:23"}]}]}, {"unit": "u3", "pages": [1202, 1203], "lesson": "2026-08-01-1448", "ts": "0:18:58", "label": null, "title": "غلام آقا کے حکم سے اس کا کفیل بنا پھر آزاد ہو کر ادا کیا، یا آقا غلام کا کفیل بنا اور آزادی کے بعد ادا کیا: کوئی دوسرے سے رجوع نہیں کرے گا (امام زفر: رجوع کرے گا)؛ بدلِ کتابت کی کفالت جائز نہیں، کفیل آزاد ہو یا غلام؛ بدلِ سعایہ امام ابو حنیفہ کے ہاں اسی طرح", "start": "قال: وإذا كفل العبد عن مولاه بأمره، فعتق، فأداه", "start_note": "0:18:24 پر عبارت کا آغاز پڑھا، پچھلے مسئلے کی وضاحت کے بعد 0:18:58 پر پوری عبارت، 0:19:12 سے تمہید، 0:20:54 سے ترجمہ؛ بدلِ کتابت 0:22:57 سے (عبارت کا ترجمہ 0:25:00–0:25:09)۔ متن v5 325 ≈0.35 سے؛ کارڈ باب کے آخر (v5 327، «وبدل السعاية…») پر ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 325–327", "tamheed": [{"x": "آقا اور غلام ایک ہی سکے کے دو رخ ہیں؛ شروع میں آقا کا غلام پر یا غلام کا آقا پر کوئی قرضہ نہیں چڑھتا۔", "s": [{"t": "u", "v": "0:19:38"}, {"t": "u", "v": "0:19:48"}, {"t": "u", "v": "0:21:55"}, {"t": "u", "v": "0:21:59"}]}, {"x": "مثال: آقا پر کسی نے دعویٰ کیا، اس نے اپنے غلام سے کہا تم میری طرف سے کفیل بن جاؤ اور غلام کفیل بن گیا؛ پھر آقا نے اسے آزاد کر دیا اور آزادی کے بعد مطالبہ ہوا۔ اسی طرح الٹا: غلام پر قرضے کا دعویٰ ہوا اور آقا اس کا کفیل بنا۔", "s": [{"t": "u", "v": "0:19:58"}, {"t": "u", "v": "0:20:00"}, {"t": "u", "v": "0:20:01"}, {"t": "u", "v": "0:20:05"}, {"t": "u", "v": "0:20:11"}, {"t": "u", "v": "0:20:14"}, {"t": "u", "v": "0:20:31"}, {"t": "u", "v": "0:20:33"}, {"t": "u", "v": "0:20:36"}]}], "masala": [{"x": "غلام اپنے آقا کے حکم سے اس کا کفیل بنا، پھر آزاد ہو کر ادا کیا؛ یا آقا غلام کا کفیل بنا اور آزادی کے بعد ادا کیا: دونوں میں سے کوئی دوسرے سے رجوع نہیں کر سکتا۔ (کتاب: «لم يرجع واحد منهما على صاحبه»۔)", "s": [{"t": "u", "v": "0:18:58"}, {"t": "u", "v": "0:20:54"}, {"t": "u", "v": "0:20:56"}, {"t": "u", "v": "0:21:00"}, {"t": "u", "v": "0:21:01"}, {"t": "u", "v": "0:21:02"}, {"t": "u", "v": "0:21:03"}, {"t": "u", "v": "0:21:04"}, {"t": "u", "v": "0:21:08"}, {"t": "u", "v": "0:21:10"}, {"t": "u", "v": "0:21:11"}, {"t": "u", "v": "0:21:32"}, {"t": "u", "v": "0:21:35"}, {"t": "u", "v": "0:21:39"}, {"t": "u", "v": "0:22:44"}, {"t": "u", "v": "0:22:46"}, {"t": "u", "v": "0:22:51"}, {"t": "u", "v": "0:22:53"}, {"t": "u", "v": "0:22:55"}, {"t": "k", "v": "1202"}]}, {"x": "کتاب: پہلی صورت (غلام کی کفالت آقا کی طرف سے) کا مطلب یہ کہ غلام پر قرضہ نہ ہو، تب آقا کے حکم سے مال کی کفالت درست؛ آقا کی کفالت غلام کی طرف سے ہر حال میں درست۔ یعنی کفالت درست ہے مگر رجوع کا سبب نہیں بنتی۔ (کتاب: «ومعنى الوجه الأول: أن لا يكون على العبد دين حتى تصح كفالته بالمال عن المولى إذا كان بأمره، أما كفالته عن العبد، فتصح على كل حال»؛ استاد کا جملہ «کفالت درست ہی نہیں» دیکھیں NOTES۔)", "s": [{"t": "k", "v": "1202"}, {"t": "s", "v": "الكفاية ٣٤٣/٦"}, {"t": "s", "v": "البناية ١٩٠/١١"}]}, {"x": "بدلِ کتابت کی کفالت جائز نہیں، کفیل آزاد ہو یا غلام۔ (کتاب: «ولا يجوز الكفالة بمال الكتابة، حر تكفل به أو عبد»۔)", "s": [{"t": "u", "v": "0:22:57"}, {"t": "u", "v": "0:22:59"}, {"t": "u", "v": "0:23:07"}, {"t": "u", "v": "0:23:09"}, {"t": "u", "v": "0:24:19"}, {"t": "u", "v": "0:24:20"}, {"t": "u", "v": "0:24:26"}, {"t": "u", "v": "0:25:00"}, {"t": "u", "v": "0:25:02"}, {"t": "u", "v": "0:25:06"}, {"t": "u", "v": "0:25:08"}, {"t": "u", "v": "0:25:09"}, {"t": "k", "v": "1203"}]}, {"x": "کتاب (استاد نے نہیں بتایا): امام ابو حنیفہ کے ہاں بدلِ سعایہ بھی مالِ کتابت کی طرح ہے (اس کی کفالت جائز نہیں)، کیونکہ ان کے ہاں سعایہ کرنے والا مکاتب کی طرح ہے۔ (کتاب: «وبدل السعاية كمال الكتابة في قول أبي حنيفة؛ لأنه كالمكاتب عنده»؛ حاشیہ: آقا نے غلام کا کچھ حصہ آزاد کیا تو باقی قیمت کے لیے غلام محنت کرتا ہے۔)", "s": [{"t": "k", "v": "1203"}, {"t": "s", "v": "العناية ٣٤٥/٦"}]}], "dalil": [{"x": "یہ کفالت قرض خواہ کو ادائیگی تو لازم کرتی ہے، مگر شروع میں رجوع (ادا شدہ کی واپسی) واجب نہیں کرتی، کیونکہ آقا کا غلام پر یا غلام کا آقا پر قرضہ ہی نہیں چڑھتا؛ اور جو شروع میں رجوع کا سبب نہ بنی وہ بعد میں مانع (غلامی) ہٹ جانے سے بھی نہیں بنتی، تو آزادی کے بعد ادائیگی سے بھی رجوع نہیں۔ (کتاب: «ولنا: أنها وقعت غير موجبة للرجوع؛ لأن المولى لا يستوجب على عبده ديناً، وكذا العبد على مولاه، فلا تنقلب موجبة أبداً، كمن كفل عن غيره بغير أمره فأجازه»۔)", "s": [{"t": "u", "v": "0:21:41"}, {"t": "u", "v": "0:21:43"}, {"t": "u", "v": "0:21:47"}, {"t": "u", "v": "0:21:51"}, {"t": "u", "v": "0:21:55"}, {"t": "u", "v": "0:21:59"}, {"t": "u", "v": "0:22:03"}, {"t": "u", "v": "0:22:08"}, {"t": "u", "v": "0:22:14"}, {"t": "u", "v": "0:22:16"}, {"t": "u", "v": "0:22:19"}, {"t": "u", "v": "0:22:26"}, {"t": "u", "v": "0:22:34"}, {"t": "u", "v": "0:22:40"}, {"t": "k", "v": "1202"}, {"t": "k", "v": "1203"}]}, {"x": "بدلِ کتابت (1): آقا کا غلام پر قرضہ اصولاً نہیں چڑھتا، کتابت میں استحساناً عام قواعد سے ہٹ کر یہ اجازت دی گئی؛ یہ دوسرے قرضوں کی طرح دینِ صحیح نہیں، تو اس کا کفیل نہیں۔ (کتاب: «لأنه دين ثبت مع المنافي، فلا يظهر في حق صحة الكفالة»؛ حاشیہ: منافی = غلامی؛ کتابت آیت «فكاتبوهم» کی وجہ سے خلافِ قیاس ثابت ہے۔)", "s": [{"t": "u", "v": "0:23:13"}, {"t": "u", "v": "0:23:15"}, {"t": "u", "v": "0:23:19"}, {"t": "u", "v": "0:23:26"}, {"t": "u", "v": "0:23:29"}, {"t": "u", "v": "0:23:31"}, {"t": "u", "v": "0:23:35"}, {"t": "u", "v": "0:23:42"}, {"t": "u", "v": "0:23:44"}, {"t": "u", "v": "0:23:45"}, {"t": "k", "v": "1203"}, {"t": "s", "v": "العناية"}]}, {"x": "بدلِ کتابت (2): کفیل پر وہی واجب ہوتا ہے جو اصیل پر؛ غلام اگر انکار کر دے کہ ادا نہیں کر سکتا تو دوبارہ غلام ہو جاتا ہے، کفیل پر یہ صورت ممکن نہیں کہ انکار پر وہ غلام بن جائے؛ تو دونوں میں برابری نہیں ہو سکتی۔ (کتاب: «ولأنه لو عجز نفسه سقط، ولا يمكن إثباته على هذا الوجه في ذمة الكفيل، وإثباته مطلقاً ينافي معنى الضم؛ لأن من شرطه الاتحاد»۔)", "s": [{"t": "u", "v": "0:23:48"}, {"t": "u", "v": "0:23:50"}, {"t": "u", "v": "0:23:56"}, {"t": "u", "v": "0:24:00"}, {"t": "u", "v": "0:24:04"}, {"t": "u", "v": "0:24:08"}, {"t": "u", "v": "0:24:10"}, {"t": "u", "v": "0:24:16"}, {"t": "k", "v": "1203"}, {"t": "s", "v": "العناية ٣٤٤/٦"}, {"t": "s", "v": "النهاية"}]}], "ikhtilaf": [{"x": "کتاب (استاد نے نہیں بتایا): امام زفر: دونوں رجوع کریں گے، کیونکہ رجوع کا سبب (حکم سے کفالت) پایا گیا اور مانع (غلامی) ختم ہو گیا۔ (کتاب: «وقال زفر: يرجع… له: أنه تحقق الموجب للرجوع، وهو الكفالة بأمره، والمانع وهو الرق قد زال»۔)", "s": [{"t": "k", "v": "1202"}, {"t": "s", "v": "البناية ١٩٠/١١"}]}, {"x": "حاشیہ: بدلِ سعایہ میں صاحبین کے ہاں کفالت درست، کیونکہ وہ تعجیز سے ساقط نہیں ہوتا، تو سعایہ کرنے والا مقروض آزاد کی طرح ہے۔", "s": [{"t": "s", "v": "العناية ٣٤٥/٦"}]}], "faida": [{"x": "فرق: پچھلے مسئلے (کارڈ 2) میں دو غلام ایک ہی عقد میں مکاتب تھے، اس لیے ہر ایک پر پورا فرض کر کے استحساناً ایک دوسرے کا کفیل مانا گیا؛ الگ الگ عقد ہوں تو وہ بھی کفیل نہیں بن سکتے۔", "s": [{"t": "u", "v": "0:24:26"}, {"t": "u", "v": "0:24:28"}, {"t": "u", "v": "0:24:31"}, {"t": "u", "v": "0:24:33"}, {"t": "u", "v": "0:24:37"}, {"t": "u", "v": "0:24:40"}, {"t": "u", "v": "0:24:44"}]}, {"x": "حاشیہ: «مال الكتابة» کہا، «بدل الكتابة» نہیں، تاکہ آقا کا مکاتب پر ہر قرض شامل ہو جائے۔", "s": [{"t": "s", "v": "العناية"}]}], "lughat": [{"ar": "كفل العبد عن مولاه بأمره", "ur": "غلام آقا کے حکم سے اس کا کفیل بنا", "s": [{"t": "u", "v": "0:19:19"}, {"t": "u", "v": "0:20:56"}]}, {"ar": "فعتق فأداه", "ur": "پھر آزاد ہوا اور مال ادا کیا", "s": [{"t": "u", "v": "0:21:01"}, {"t": "u", "v": "0:21:03"}]}, {"ar": "لم يرجع واحد منهما على صاحبه", "ur": "کوئی دوسرے سے (ادا شدہ رقم کا) رجوع نہیں کرے گا", "s": [{"t": "u", "v": "0:22:53"}, {"t": "u", "v": "0:22:55"}]}, {"ar": "لا يستوجب على عبده ديناً", "ur": "آقا کا اپنے غلام پر قرض واجب نہیں ہوتا", "s": [{"t": "u", "v": "0:21:55"}, {"t": "u", "v": "0:21:59"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "مال الكتابة", "ur": "بدلِ کتابت", "s": [{"t": "u", "v": "0:25:02"}]}, {"ar": "حر تكفل به أو عبد", "ur": "اس کی کفالت آزاد کرے یا غلام", "s": [{"t": "u", "v": "0:25:08"}, {"t": "u", "v": "0:25:09"}]}, {"ar": "عجز نفسه", "ur": "خود کو ادائیگی سے عاجز کر دے، تو دوبارہ غلام", "s": [{"t": "u", "v": "0:24:04"}, {"t": "u", "v": "0:24:08"}]}, {"ar": "الضم", "ur": "ملانا (کفالت میں کفیل کا ذمہ اصیل کے ذمے سے ملانا)", "s": [{"t": "s", "v": "العناية"}, {"t": "s", "v": "النهاية"}]}]}], "gaps": [{"unit": "u2", "pages": "1200", "page_list": [1200], "v7": "بشریٰ ج٥ ص 318–319", "text": "دَور والی دوسری دلیل «ولأنه لو وقع في النصف عن صاحبه… فيؤدي إلى الدور» نہ پڑھی نہ سمجھائی؛ کارڈ 1 دلیل میں کتاب سے۔"}, {"unit": "u2", "pages": "1200", "page_list": [1200], "v7": "بشریٰ ج٥ ص 320", "text": "«والمطالبة متعددة، فيجتمع الكفالتان… وكما تصح الحوالة من المحتال عليه… فما أداه أحدهما وقع شائعاً عنهما… ولا يؤدي إلى الدور؛ لأن قضيته الاستواء» نہیں پڑھا (استاد نے صرف «یہاں صرف کفالت ہے» کہا)؛ کارڈ 1۔"}, {"unit": "u2", "pages": "1201", "page_list": [1201], "v7": "بشریٰ ج٥ ص 322", "text": "«وسنذكره في المكاتب»، «لاستوائهما، ولو رجع بالكل لا يتحقق المساواة» اور «لأنه ما رضي بالتزام المال إلا ليكون المال وسيلة إلى العتق» نہیں پڑھے؛ کارڈ 2 دلیل میں کتاب سے۔"}, {"unit": "u2", "pages": "1201", "page_list": [1201], "v7": "بشریٰ ج٥ ص 323", "text": "«فإن أخذ الذي أعتق رجع على صاحبه… وإن أخذ الآخر لم يرجع على المعتق بشيء» نہیں بتایا؛ کارڈ 2 مسئلہ۔"}, {"unit": "u3", "pages": "1202", "page_list": [1202], "v7": "بشریٰ ج٥ ص 324", "text": "«لأن المال حال عليه لوجود السبب… فصار كما إذا كفل عن غائب أو مفلس، بخلاف الدين المؤجل» نہیں پڑھا؛ کارڈ 3 دلیل۔"}, {"unit": "u3", "pages": "1202", "page_list": [1202], "v7": "بشریٰ ج٥ ص 325", "text": "امام زفر کا قول «يرجع» اور اس کی دلیل، اور «ومعنى الوجه الأول: أن لا يكون على العبد دين…» نہ پڑھا نہ بتایا؛ کارڈ 4۔"}, {"unit": "u3", "pages": "1203", "page_list": [1203], "v7": "بشریٰ ج٥ ص 326", "text": "«كمن كفل عن غيره بغير أمره فأجازه» (نظیر) نہیں بتائی؛ کارڈ 4 دلیل۔"}, {"unit": "u3", "pages": "1203", "page_list": [1203], "v7": "بشریٰ ج٥ ص 327", "text": "«وبدل السعاية كمال الكتابة في قول أبي حنيفة» نہ پڑھا نہ بتایا؛ کارڈ 4۔"}], "kitabs": [{"title": "كتاب الصرف", "from": 1171, "to": 1180, "href": "sarf.html"}, {"title": "كتاب الكفالة", "from": 1181, "to": 1203, "href": "kafala.html"}, {"title": "كتاب الحوالة", "from": 1204, "to": 1207, "href": "hawala.html"}, {"title": "كتاب أدب القاضي", "from": 1208, "to": 1238, "href": "adab-qadi.html"}, {"title": "كتاب الشهادة", "from": 1239, "to": 1266, "href": "shahada.html"}, {"title": "كتاب الرجوع عن الشهادة", "from": 1267, "to": 1272, "href": "rujoo.html"}, {"title": "كتاب الوكالة", "from": 1273, "to": 1303, "href": "wakala.html"}], "sections": [["tamheed", "تمہید"], ["masala", "مسئلہ"], ["dalil", "دلیل"], ["ikhtilaf", "اختلاف"], ["faida", "فائدہ"]], "quick": ["tamheed", "masala"], "footer": ["صفحہ نمبر ساتھیوں والے نسخے (مسلسل صفحات، جلد ثالث ص 1019 سے) کے ہیں۔ باب اور فصل کے صفحے اس نسخے کی فہرست سے ہیں؛ کارڈوں کے صفحے بشریٰ کے آٹھ جلدی نسخے (جلد ٥) سے حساب لگا کر، اس لیے کہیں کہیں ایک صفحہ آگے پیچھے ہو سکتا ہے۔ اصل جگہ کارڈ کی پہلی عربی سطر سے پہچانیں؛ بشریٰ کا صفحہ ہر کارڈ پر ساتھ لکھا ہے۔", "«اس سال کی کلاس» = اس سال (1448) کی کلاس کی ریکارڈنگ۔ «پچھلے سال کی کلاس» = پچھلے سال کی ریکارڈنگ، صرف اس حصے کے لیے جس کی اس سال کی ریکارڈنگ نہیں ملی۔", "ٹرانسکرپٹ ریکارڈنگ سے Gemini نے بنایا اور اس کے وقت آواز سے ملا کر درست کیے گئے۔ کارڈ اسی ٹرانسکرپٹ، کتاب کے متن اور حاشیے سے بنے ہیں؛ ہر سطر کے آخر میں اس کا ماخذ ہے۔", "پیلی (AI) علامت والی سطریں خود جانچیں۔ امتحان میں مسئلہ، اختلاف اور دلیل سبز، نیلی یا سرمئی علامت والی سطروں سے لکھیں۔"]};
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const secs = (ts) => ts.split(":").map(Number).reduce((a, n) => a * 60 + n, 0);
+const B = DATA.book, LES = DATA.lessons, UNITS = DATA.units || [], CARDS = DATA.cards, GAPS = DATA.gaps || [];
+const PAGED = CARDS.some((c) => c.pages && c.pages.length);
+const ONE = B.unitOne || "کارڈ";
+const audio = $("audio");
+const OPUS_OK = (() => { try { return audio.canPlayType('audio/ogg; codecs="opus"') !== ""; } catch (e) { return false; } })();
+const ICON = {
+  play: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0v10l9-5z"/></svg>',
+  down: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M5 1h2v5h2.5L6 9.5 2.5 6H5zM1 10.5h10V12H1z"/></svg>',
+};
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+const KEY = DATA.store || "cards";
+const toLatin = (v) => String(v).replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).trim();
+const LRI = "\u2066", PDI = "\u2069";
+const range = (a, b) => (a === b ? `${a}` : `${LRI}${a}–${b}${PDI}`);
+const iso = (s) => String(s ?? "").replace(/(\d+)\s*[–-]\s*(\d+)/g, `${LRI}$1–$2${PDI}`);
+const sizeMB = (x) => `${LRI}${x >= 10 ? Math.round(x) : Math.round(x * 10) / 10} MB${PDI}`;
+const pagesLabel = (ps) => `ص ${range(ps[0], ps[ps.length - 1])}`;
+
+// ---------- header
+document.title = `${B.kitab} · ${B.book}`;
+if (DATA.home) { $("homeLink").href = DATA.home; $("homeLink").textContent = `→ ${DATA.homeLabel || B.book}`; $("homeLink").hidden = false; }
+$("kitab").textContent = B.kitab;
+const usedLessons = [...new Set(CARDS.map((c) => c.lesson).filter(Boolean))].sort();
+$("meta").innerHTML = (PAGED && B.from ? `صفحات <b class="ltr num">${range(B.from, B.to)}</b>، ` : "") +
+  `<b>${CARDS.length}</b> ${esc(B.unit || "کارڈ")}، <b>${usedLessons.length}</b> اسباق کی ریکارڈنگ سے`;
+
+// ---------- units
+const unitByKey = Object.fromEntries(UNITS.map((u) => [u.key, u]));
+const cardsOf = (k) => CARDS.filter((c) => c.unit === k);
+const pagesOf = (k) => [...new Set(cardsOf(k).flatMap((c) => c.pages || []))].sort((a, b) => a - b);
+const gapsOf = (k) => GAPS.filter((g) => g.unit === k);
+const parentOf = (u) => {
+  const i = UNITS.indexOf(u);
+  for (let j = i - 1; j >= 0; j--) if (UNITS[j].level < u.level) return UNITS[j];
+  return null;
+};
+
+$("toc").innerHTML = UNITS.map((u) => {
+  const n = cardsOf(u.key).length, ps = pagesOf(u.key);
+  const pr = PAGED && u.page ? `<span class="pp">${range(u.page, u.page_to || u.page)}</span>` : "";
+  const ex = cardsOf(u.key).reduce((a, c) => a + (c.exam || []).filter((x) => x.k === "t").length, 0);
+  const px = cardsOf(u.key).reduce((a, c) => a + (c.exam || []).filter((x) => x.k === "p").length, 0);
+  const sub = n
+    ? `<span class="n">${n} ${esc(ONE)}</span>` + (ex ? `<span class="exn" title="استاد نے اہم کہا">★ ${ex}</span>` : "") + (px ? `<span class="pxn" title="وفاق کے پرچوں کے سوال">وفاق ${px}</span>` : "") + (PAGED ? ps.map((p) => `<a class="pchip" href="#${u.key}-${p}" aria-label="صفحہ ${p}">${p}</a>`).join("") : "")
+    : `<span class="none">${gapsOf(u.key).length ? "ریکارڈنگ نہیں ملی" : "ابھی کارڈ نہیں"}</span>`;
+  return `<li class="lv${u.level}" id="toc-${u.key}"><a class="row" href="#${u.key}"><span class="tt" lang="ar">${esc(u.title)}</span><span class="dots"></span>${pr}</a>
+    <div class="sub">${sub}</div></li>`;
+}).join("");
+if (!PAGED) document.querySelectorAll("form.jump").forEach((f) => { f.hidden = true; });
+
+// ---------- cards (rendered once; views show and hide them)
+function chip(s, lesson) {
+  if (s.t === "u") return `<button type="button" class="chip u" data-ts="${s.v}" data-l="${s.l || lesson || ""}" title="یہاں سے سنیں">استاد ${s.v}</button>`;
+  if (s.t === "k") return `<span class="chip k"${s.v7 ? ` title="بشریٰ ج${s.v7 >= 1000 ? "٨" : "٧"} ص ${s.v7 >= 1000 ? s.v7 - 1000 : s.v7}"` : ""}>کتاب ص ${iso(esc(s.v))}</span>`;
+  if (s.t === "s") return `<span class="chip s">شرح: ${esc(s.v)}</span>`;
+  return `<span class="chip a">AI · تصدیق طلب</span>`;
+}
+const chips = (arr, l) => `<span class="srcs">${arr.map((s) => chip(s, l)).join("")}</span>`;
+const QUICK = DATA.quick || ["tamheed", "masala"];
+$("cards").innerHTML = CARDS.map((c, i) => {
+  const l = c.lesson;
+  const sec = ([key, label]) => {
+    const items = c[key] || [];
+    if (!items.length) return "";
+    return `<div class="sec ${key}"><h4>${label}</h4><ul>${items.map((it) => `<li>${esc(it.x)} ${chips(it.s, l)}</li>`).join("")}</ul></div>`;
+  };
+  const quick = DATA.sections.filter(([k]) => QUICK.includes(k)).map(sec).join("");
+  const examSecs = DATA.sections.filter(([k]) => !QUICK.includes(k) && (c[k] || []).length);
+  const n = examSecs.reduce((a, [k]) => a + c[k].length, 0);
+  const exam = n ? `<details class="more"><summary>${examSecs.map(([, lb]) => lb).join("، ")} <span class="hint">${n} نکات، امتحان کی تیاری کے لیے</span></summary><div class="inner">${examSecs.map(sec).join("")}</div></details>` : "";
+  const words = (c.lughat || []).length ? `<div class="sec lughat"><h4>مشکل الفاظ</h4><div class="words">${c.lughat.map((w) =>
+    `<div class="word"><span class="ar" lang="ar">${esc(w.ar)}</span><span class="ur">${esc(w.ur)}</span>${chips(w.s, l)}</div>`).join("")}</div></div>` : "";
+  const head = l && c.ts
+    ? `<span class="les">${esc(LES[l].label)}</span><button type="button" class="play" data-ts="${c.ts}" data-l="${l}" aria-label="${esc(LES[l].label)}، ${c.ts} سے سنیں">${ICON.play}${c.ts}</button>`
+    : `<span class="norec-chip">ریکارڈنگ نہیں</span>`;
+  const pq = (c.exam || []).filter((x) => x.k === "p").sort((a, b) => a.year - b.year);
+  const pyears = [...new Set(pq.map((x) => x.year))];
+  const badges = (c.badges || []).map((b) => `<span class="badge">${esc(b)}</span>`).join("")
+    + (c.exam || []).filter((x) => x.k === "t").map((x) =>
+      `<button type="button" class="badge exam" data-ts="${x.ts}" data-l="${x.l}" title="استاد (${x.ts}): «${esc(x.said)}»" aria-label="استاد نے ${esc(x.kind)} کہا، ${x.ts} سے سنیں">★ استاد: ${esc(x.kind)}</button>`).join("")
+    + (pq.length ? `<button type="button" class="badge paper${pyears.length >= 3 ? " hot" : ""}" aria-expanded="false" aria-controls="pq${i + 1}" aria-label="وفاق کے پرچوں میں ${pyears.length} بار آیا، سوال دیکھیں">وفاق ${pyears.length > 2 ? `${pyears.length} بار` : pyears.map((y) => iso(String(y))).join("، ")}</button>` : "");
+  const paperList = pq.length ? `<div class="paperq" id="pq${i + 1}" hidden><ul>${pq.map((x) =>
+    `<li><span class="py">${iso(String(x.year))}ھ · س ${esc(x.n)}</span><span class="pt" lang="ar">«${esc(x.q)}»</span></li>`).join("")}</ul><p class="psrc">الجواب للموقوف علیہ</p></div>` : "";
+  const pg = PAGED && c.pages && c.pages.length ? `<span class="pg">${pagesLabel(c.pages)}</span>` : (c.group ? `<span class="pg">${esc(c.group)}</span>` : "");
+  return `<article class="card" id="c${i + 1}" data-unit="${esc(c.unit || "")}" data-pages="${(c.pages || []).join("|")}" hidden>
+    <div class="card-head">${pg}${c.v7 ? `<span class="v7">${iso(esc(c.v7))}</span>` : ""}<span class="cnum">${esc(ONE)} ${i + 1}</span>${badges}${head}</div>
+    ${paperList}
+    ${c.label ? `<p class="label" lang="ar">(${esc(c.label)})</p>` : ""}
+    <h3 class="title">${esc(c.title)}</h3>
+    <p class="start" lang="ar">«${esc(c.start)}»</p>
+    ${c.ref ? `<p class="ref">${esc(c.ref)}</p>` : ""}
+    ${c.start_note ? `<p class="start-note">${esc(c.start_note)}</p>` : ""}
+    <button type="button" class="ctoggle" aria-expanded="true" aria-controls="cb${i + 1}">تفصیل بند کریں</button>
+    <div class="cbody" id="cb${i + 1}">
+    ${c.norec ? `<p class="norec"><b>توجہ:</b> ${esc(c.norec)}</p>` : ""}
+    ${quick}${words}${exam}
+    </div>
+  </article>`;
+}).join("");
+const ARTS = [...document.querySelectorAll("article.card")];
+const usedT = new Set();
+CARDS.forEach((c) => {
+  DATA.sections.forEach(([k]) => (c[k] || []).forEach((it) => it.s.forEach((x) => usedT.add(x.t))));
+  (c.lughat || []).forEach((w) => w.s.forEach((x) => usedT.add(x.t)));
+});
+document.querySelectorAll(".legend .lg").forEach((el) => { el.hidden = !usedT.has(el.dataset.t); });
+$("foot").innerHTML = (DATA.footer || []).map((p) => `<p>${esc(p)}</p>`).join("");
+
+// ---------- views
+function showToc(msg) {
+  $("tocView").hidden = false; $("unitView").hidden = true; document.body.classList.remove("unit");
+  $("tocMsg").hidden = !msg; if (msg) $("tocMsg").innerHTML = msg;
+  document.title = `${B.kitab} · ${B.book}`;
+  const last = store.get(`${KEY}-unit`, "");
+  const row = last && $(`toc-${last}`);
+  if (row && !msg) row.scrollIntoView({ block: "center" }); else window.scrollTo(0, 0);
+}
+function showUnit(key, page, msg) {
+  const u = unitByKey[key];
+  $("tocView").hidden = true; $("unitView").hidden = false; document.body.classList.add("unit");
+  const par = u.level > 1 ? parentOf(u) : null;
+  $("ubarTitle").textContent = u.title;
+  $("uParent").textContent = par ? par.title : "";
+  $("uParent").hidden = !par;
+  $("uTitle").textContent = u.title;
+  const ps = pagesOf(key), n = cardsOf(key).length;
+  $("uMeta").innerHTML = (PAGED && u.page ? `ص <span class="ltr num">${range(u.page, u.page_to || u.page)}</span>، ` : "") + (n ? `${n} ${esc(ONE)}` : "ابھی کارڈ نہیں");
+  $("pbar").innerHTML = (ps.length > 1 || page ? [`<a href="#${key}" aria-current="${!page}">سب</a>`, ...ps.map((p) =>
+    `<a href="#${key}-${p}" aria-current="${page === p}">${p}</a>`)].join("") : "");
+  $("pbar").hidden = !$("pbar").innerHTML;
+  const allView = !page && !$("pbar").hidden;   // the «سب» chip is selected: cards start folded
+  document.body.classList.toggle("allview", allView);
+  $("toggleAll").hidden = !allView;
+  let shown = 0;
+  ARTS.forEach((a) => {
+    const on = a.dataset.unit === key && (!page || a.dataset.pages.split("|").includes(String(page)));
+    a.hidden = !on; if (on) shown++;
+    setFold(a, allView);
+  });
+  syncToggleAll();
+  if (page && !shown && !msg) msg = `صفحہ ${page} کا کوئی ${esc(ONE)} ابھی نہیں بنا۔`;
+  $("uMsg").hidden = !msg; if (msg) $("uMsg").innerHTML = msg;
+  const gs = gapsOf(key).filter((g) => !page || (g.page_list || []).includes(page));
+  $("gaps").hidden = !gs.length;
+  $("gapsTitle").textContent = n ? "اس حصے کی وہ عبارت جو استاد نے نہیں سمجھائی" : "اس حصے کی ریکارڈنگ نہیں ملی";
+  $("gapsLead").textContent = n ? "یہ باتیں کارڈوں میں متن اور حاشیے سے لکھی گئی ہیں؛ ریکارڈنگ میں ان کی وضاحت نہیں۔"
+    : "کسی ساتھی کے پاس اس حصے کی ریکارڈنگ ہو تو بھیج دیں، اس کے کارڈ بھی بن جائیں گے۔";
+  $("gapList").innerHTML = gs.map((g) => `<li><span class="gp">${PAGED && g.pages ? "ص " + iso(esc(g.pages)) : ""}</span><span class="gt">${esc(g.text)}</span>${g.v7 ? `<span class="gv">${iso(esc(g.v7))}</span>` : ""}</li>`).join("");
+  const i = UNITS.indexOf(u), prev = UNITS[i - 1], next = UNITS[i + 1];
+  $("unav").innerHTML = (prev ? `<a class="prev" href="#${prev.key}"><span class="k">پچھلا حصہ</span><span class="t" lang="ar">${esc(prev.title)}</span></a>` : "") +
+    (next ? `<a class="next" href="#${next.key}"><span class="k">اگلا حصہ</span><span class="t" lang="ar">${esc(next.title)}</span></a>` : "");
+  document.title = `${u.title} · ${B.kitab}`;
+  store.set(`${KEY}-unit`, key);
+  window.scrollTo(0, 0);
+}
+function findPage(p) {
+  const withCards = UNITS.find((u) => pagesOf(u.key).includes(p));
+  if (withCards) return { unit: withCards.key, page: p };
+  const inRange = [...UNITS].reverse().find((u) => u.page && u.page <= p && p <= (u.page_to || u.page));
+  if (inRange) return { unit: inRange.key, page: p };
+  return null;
+}
+function outsideMsg(p) {
+  const k = (DATA.kitabs || []).find((x) => x.from <= p && p <= x.to);
+  if (!k) return `صفحہ ${p} اس کتاب میں نہیں۔`;
+  if (k.href) return `صفحہ ${p} <a href="${k.href}#p${p}">${esc(k.title)}</a> میں ہے۔`;
+  return `صفحہ ${p} «${esc(k.title)}» میں ہے؛ اس کے کارڈ ابھی نہیں بنے۔`;
+}
+function route() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  let m;
+  if ((m = h.match(/^p(\d+)$/))) {
+    const p = +m[1], f = findPage(p);
+    if (f) { history.replaceState(null, "", `#${f.unit}-${p}`); return showUnit(f.unit, p); }
+    return showToc(outsideMsg(p));
+  }
+  if ((m = h.match(/^(u\d+)(?:-(\d+))?$/)) && unitByKey[m[1]]) return showUnit(m[1], m[2] ? +m[2] : null);
+  if (!h && UNITS.length === 1) return showUnit(UNITS[0].key, null);   // nothing to choose from
+  showToc();
+}
+window.addEventListener("hashchange", route);
+document.addEventListener("submit", (e) => {
+  const f = e.target.closest("form[data-jump]");
+  if (!f) return;
+  e.preventDefault();
+  const v = toLatin(f.querySelector("input").value || "");
+  if (!/^\d+$/.test(v)) return;
+  const p = +v, hit = findPage(p);
+  if (hit) location.hash = `${hit.unit}-${p}`;
+  else showToc(outsideMsg(p));
+});
+// folding: «سب تفصیل» opens or folds every card shown; each card's دلیل/اختلاف (details.more) stays as the reader left it
+function setFold(a, fold) {
+  a.classList.toggle("folded", fold);
+  const t = a.querySelector(".ctoggle");
+  t.setAttribute("aria-expanded", String(!fold));
+  t.textContent = fold ? "تمہید اور تفصیل" : "تفصیل بند کریں";
+}
+function syncToggleAll() {
+  const anyFolded = ARTS.some((a) => !a.hidden && a.classList.contains("folded"));
+  $("toggleAll").setAttribute("aria-pressed", String(!anyFolded));
+  $("toggleAll").textContent = anyFolded ? "سب تفصیل کھولیں" : "سب تفصیل بند کریں";
+}
+$("toggleAll").addEventListener("click", () => {
+  const anyFolded = ARTS.some((a) => !a.hidden && a.classList.contains("folded"));
+  ARTS.forEach((a) => { if (!a.hidden) setFold(a, !anyFolded); });
+  syncToggleAll();
+});
+$("cards").addEventListener("click", (e) => {
+  const pb = e.target.closest("button.badge.paper");
+  if (pb) {
+    const box = $(pb.getAttribute("aria-controls"));
+    const open = pb.getAttribute("aria-expanded") !== "true";
+    pb.setAttribute("aria-expanded", String(open));
+    if (box) box.hidden = !open;
+    return;
+  }
+  const t = e.target.closest(".ctoggle");
+  if (!t) return;
+  const a = t.closest("article.card");
+  const wasOpen = !a.classList.contains("folded");
+  setFold(a, wasOpen);
+  if (wasOpen && a.getBoundingClientRect().top < 0) a.scrollIntoView({ block: "start" });   // folding a long card: keep it in view
+  syncToggleAll();
+});
+route();
+
+// ---------- recordings: light (Opus) copies on this site
+const hasWeb = (l) => !!(LES[l] && LES[l].web && LES[l].web.length);
+const webOk = (l) => hasWeb(l) && (OPUS_OK || !/\.ogg$/i.test(LES[l].web[0].src));
+const NO_OPUS = "یہ براؤزر یہاں کی ہلکی فائلیں (Opus) نہیں چلاتا۔ آئی فون پر iOS 18.4 یا نیا ورژن چاہیے؛ اینڈرائیڈ پر Chrome میں کھولیں۔";
+let current = null, sheetMode = null;
+const blobUrls = {}, triedBlob = {};
+let curPart = null, lastOffset = 0, pendingSeek = null;
+function webPart(l, sec) {
+  let p = LES[l].web[0];
+  for (const x of LES[l].web) if (x.start <= sec + 0.5) p = x;
+  return p;
+}
+function recRow(l) {
+  const L = LES[l], btns = [];
+  if (webOk(l)) btns.push(`<button type="button" class="btn" data-ts="0:00:00" data-l="${l}">${ICON.play}شروع سے سنیں</button>`);
+  if (hasWeb(l)) {   // one button per lesson, whatever the number of parts
+    const mb = L.web.reduce((a, p) => a + (p.mb || 0), 0);
+    btns.push(`<button type="button" class="btn ghost" data-dl="${l}">${ICON.down}ڈاؤن لوڈ${L.web.length > 1 ? ` (${L.web.length} حصے)` : ""}${mb ? ` ${sizeMB(mb)}` : ""}</button>`);
+  }
+  const mins = L.minutes ? `${Math.round(L.minutes)} منٹ` : "";
+  const state = webOk(l) ? `<span class="state on">یہیں چلتی ہے</span>` : (hasWeb(l) ? "" : `<span class="state off">ابھی نہیں لگی</span>`);
+  return `<div class="rec" id="rec-${l}"><div class="rec-top"><b>${esc(L.label)}</b><span class="sub">${mins}</span>${state}</div>
+    ${btns.length ? `<div class="btns">${btns.join("")}</div>` : ""}</div>`;
+}
+function sheetAll() {
+  sheetMode = "all";
+  const anyWeb = usedLessons.some(hasWeb);
+  const hint = anyWeb && !OPUS_OK ? NO_OPUS : "کسی سبز وقت پر ٹیپ کریں تو استاد کی آواز اسی صفحے پر وہیں سے چلتی ہے۔";
+  const missing = usedLessons.filter((l) => !hasWeb(l)).length;
+  const all = filesOf(usedLessons.filter(hasWeb));
+  const mb = all.reduce((a, f) => a + (f.mb || 0), 0);
+  const dlAll = all.length > 1 ? `<div class="dlall"><div class="btns"><button type="button" class="btn" data-dl="*">${ICON.down}سب ڈاؤن لوڈ کریں</button>
+      <span class="sub">${usedLessons.filter(hasWeb).length} اسباق، ${all.length} فائلیں، کل ${sizeMB(mb)}</span></div>
+      <span class="dlstat" id="dlstat" hidden></span></div>` : "";
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">ریکارڈنگز</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${hint}${missing ? ` ${missing} اسباق کی ریکارڈنگ ابھی اس صفحے پر نہیں لگی۔` : ""}</p>
+    ${dlAll}
+    <div>${usedLessons.map(recRow).join("")}</div>`;
+  if (dlBusy) markBusy();
+  $("backdrop").hidden = false;
+}
+function sheetOne(l, ts) {
+  sheetMode = "one";
+  const L = LES[l];
+  const why = hasWeb(l) && !OPUS_OK ? NO_OPUS : "اس سبق کی ریکارڈنگ ابھی اس صفحے پر نہیں لگی۔";
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">یہ حصہ ${esc(L.label)} کی ریکارڈنگ میں <span class="ltr">${ts}</span> پر ہے</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${why}</p>
+    <button type="button" class="linkbtn" data-allrecs style="margin-inline-start:0">سب ریکارڈنگز</button>`;
+  $("backdrop").hidden = false;
+  $("sheet").querySelector("[data-close]").focus();
+}
+function closeSheet() { $("backdrop").hidden = true; sheetMode = null; }
+
+// downloads: every part of a lesson, or every lesson of this kitab, one after another.
+// Phones ask once to allow several downloads from this site.
+function filesOf(ls) {
+  return ls.flatMap((l) => LES[l].web.map((p, i, all) => {
+    const ext = (p.src.match(/\.\w+$/) || [".ogg"])[0];
+    return { src: p.src, mb: p.mb, name: `${l} ${B.book}${all.length > 1 ? ` - حصہ ${i + 1}` : ""}${ext}` };
+  }));
+}
+let dlBusy = false;
+function markBusy() { $("sheet").querySelectorAll("[data-dl]").forEach((b) => { b.disabled = dlBusy; }); }
+function dlStatus(html) { const s = $("dlstat"); if (s) { s.hidden = !html; s.innerHTML = html || ""; } }
+async function runDownloads(files) {
+  if (dlBusy || !files.length) return;
+  dlBusy = true; markBusy();
+  const allow = files.length > 1 ? " براؤزر «کئی فائلیں ڈاؤن لوڈ کریں؟» پوچھے تو Allow دبائیں۔" : "";
+  for (let i = 0; i < files.length; i++) {
+    dlStatus(`فائل <span class="ltr num">${i + 1} / ${files.length}</span> ڈاؤن لوڈ کے لیے بھیجی جا رہی ہے…${allow}`);
+    const a = document.createElement("a");
+    a.href = files[i].src; a.download = files[i].name; a.hidden = true;
+    document.body.appendChild(a); a.click(); a.remove();
+    await new Promise((r) => setTimeout(r, 1200));
+  }
+  dlBusy = false; markBusy();
+  dlStatus(files.length > 1
+    ? `${files.length} فائلیں بھیج دی گئیں؛ فون کے Downloads میں دیکھیں۔ اگر کم آئیں تو براؤزر کی سیٹنگ میں اس سائٹ کو <span class="ltr">Automatic downloads</span> کی اجازت دے کر دوبارہ دبائیں۔`
+    : "");
+}
+$("recBtn").addEventListener("click", sheetAll);
+$("backdrop").addEventListener("click", (e) => {
+  if (e.target === $("backdrop") || e.target.closest("[data-close]")) closeSheet();
+  else if (e.target.closest("[data-allrecs]")) sheetAll();
+  else if (e.target.closest("[data-dl]")) {
+    const k = e.target.closest("[data-dl]").dataset.dl;
+    runDownloads(filesOf(k === "*" ? usedLessons.filter(hasWeb) : [k]));
+  }
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("backdrop").hidden) closeSheet(); });
+
+function playAt(l, ts) {
+  if (!l || !LES[l]) return;
+  const sec = secs(ts);
+  if (!webOk(l)) { sheetOne(l, ts); return; }
+  const p = webPart(l, sec), src = blobUrls[p.src] || p.src, offset = sec - p.start;
+  curPart = p;
+  closeSheet();
+  current = l; lastOffset = Math.max(0, offset);
+  $("player").hidden = false;
+  if (audio.dataset.src !== src) { audio.dataset.src = src; audio.src = src; pendingSeek = lastOffset; }
+  else if (audio.readyState >= 1) {
+    if (!blobUrls[curPart.src] && !canSeekTo(lastOffset)) { pendingSeek = lastOffset; useBlob(); return; }
+    try { audio.currentTime = lastOffset; } catch (e) {}
+  } else pendingSeek = lastOffset;
+  audio.play().catch(() => {});
+  $("now").innerHTML = `${esc(LES[l].label)} · <span class="ltr">${ts}</span>`;
+}
+function canSeekTo(o) { const r = audio.seekable; return o < 1 || (r && r.length && r.end(r.length - 1) >= o - 1); }
+audio.addEventListener("loadedmetadata", () => {
+  const on = document.querySelector("#speeds button[aria-pressed='true']");
+  if (on) audio.playbackRate = +on.dataset.rate;
+  if (pendingSeek === null) return;
+  const o = pendingSeek;
+  if (curPart && !blobUrls[curPart.src] && !canSeekTo(o)) { useBlob(); return; }
+  pendingSeek = null;
+  try { audio.currentTime = o; } catch (e) {}
+  audio.play().catch(() => {});
+});
+audio.addEventListener("error", () => useBlob());
+async function useBlob() {   // the server can't jump to the time (or the stream failed): fetch the light copy whole
+  const p = curPart;
+  if (!p || blobUrls[p.src] || triedBlob[p.src]) return;
+  triedBlob[p.src] = true;
+  const label = $("now").innerHTML;
+  $("now").textContent = "آواز لوڈ ہو رہی ہے…";
+  try {
+    const r = await fetch(p.src);
+    if (!r.ok) throw new Error(r.status);
+    blobUrls[p.src] = URL.createObjectURL(await r.blob());
+    if (curPart !== p) return;
+    audio.dataset.src = blobUrls[p.src]; audio.src = blobUrls[p.src]; pendingSeek = lastOffset;
+    audio.play().catch(() => {});
+    $("now").innerHTML = label;
+  } catch (e) { $("now").textContent = "یہ آواز نہیں چل سکی؛ انٹرنیٹ دیکھ کر دوبارہ ٹیپ کریں۔"; }
+}
+$("pclose").addEventListener("click", () => { audio.pause(); $("player").hidden = true; });
+
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-ts]");
+  if (!b) return;
+  playAt(b.dataset.l, b.dataset.ts);
+  const card = b.closest("article.card");
+  if (card) { card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash"); }
+});
+$("speeds").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-rate]");
+  if (!b) return;
+  audio.playbackRate = +b.dataset.rate;
+  document.querySelectorAll("#speeds button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+});
+// files people picked on earlier versions of this page: free the space on their phone
+try { if (window.indexedDB) indexedDB.deleteDatabase(`${KEY}-audio`); } catch (e) {}
+try { localStorage.removeItem(`${KEY}-remember`); } catch (e) {}
+</script>
+
+</body>
+</html>

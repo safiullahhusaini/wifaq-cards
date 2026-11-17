@@ -1413,7 +1413,7 @@
    "book": "h3",
    "source": "this-year",
    "state": "wait_transcript",
-   "note": "Remaining this-year recordings after 11 Oct: none uploaded yet. Next passage: v5 503 (فصل في التوكيل بشراء نفس العبد). 1 Aug heals on the next Daily. Pages 274-376 not recorded this year.",
+   "note": "Remaining this-year recordings after 11 Oct: none uploaded yet. Next passage: v5 503 (فصل في التوكيل بشراء نفس العبد). 1 Aug carded 18 Nov. Pages 274-317 and 336-376 not recorded this year.",
    "claim": null
   },
   {
@@ -1478,13 +1478,12 @@
    "file": "Hidaya Saalis 01 Aug 26.m4a",
    "source": "this-year",
    "minutes": 57.9,
-   "repair": "fixed, text missing 80% (gap 0:29:58-0:40:01)",
-   "state": "ready",
-   "note": "v5 318 باب كفالة الرجلين → ~332 (الحوالة); re-queued 8 Nov for the 10-min text gap | 10 Nov: the \"gap\" is only badly written timestamps in part 4 (text is there); the Daily heals it without Gemini (retx_core.heal) and re-repairs it on its next run",
-   "claim": {
-    "run": "2026-11-17T19:51:36.409472Z",
-    "by": "scheduled run 17-18 Nov (session_018ayvLnjUbpE7dhQFGDsm... )"
-   }
+   "repair": "fixed 77% (no gap, 17 Nov Daily)",
+   "state": "done",
+   "note": "v5 318 باب كفالة الرجلين → 335 (ويكره السفاتج / قرض جر نفعاً); original NOT yet trashed (waiting for audio.yml to land + Opus copy confirmed in wifaq-data: 2 parts present)",
+   "claim": null,
+   "cards": 10,
+   "qa": "focused: 1 wrong ruling fixed (saftaja: teacher's view vs footnote), 0 wrong attributions; ~12 scope/tag/fraction fixes; v5 318-335"
   },
   {
    "id": "h3-2026-09-12-1448",

@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>كتاب الحوالة · ہدایہ جلد ثالث</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+<style>
+/* One kitab of a book. Two views on one page:
+   فہرست (contents, styled like the book's own contents page: title … page) and a unit view (one bab/fasl,
+   its cards, page chips). Recordings live in a bottom sheet behind the header button. */
+:root {
+  --paper: #FDFCFB; --surface: #FFFFFF; --ink: #1F1A1B; --muted: #6E6566; --rule: #E9E3E2;
+  --matn: #A3211A; --matn-tint: #FBEDEB; --teacher: #17624C; --teacher-tint: #E3F2EC;
+  --book: #2B4B7E; --book-tint: #E8EEF8; --note: #545A68; --note-tint: #EDEEF2;
+  --ai: #8A5A00; --ai-tint: #FBF0DA; --focus: #2B4B7E;
+  --shadow: 0 1px 2px rgba(31,26,27,.05), 0 4px 16px rgba(31,26,27,.05);
+  --urdu: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Urdu Typesetting", "Noto Naskh Arabic", serif;
+  --ui: "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+  --arabic: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+    --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+    --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+    --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #141112; --surface: #1D191A; --ink: #EFE9E8; --muted: #A99F9F; --rule: #342E2F;
+  --matn: #F07B6F; --matn-tint: #3A1F1D; --teacher: #5CC7A2; --teacher-tint: #173229;
+  --book: #93B2EA; --book-tint: #1C2638; --note: #A7ADBA; --note-tint: #262831;
+  --ai: #E7B25B; --ai-tint: #34290F; --focus: #93B2EA; --shadow: none;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--ui); font-size: 15px; padding-inline: 16px; padding-block: 0 110px; }
+.wrap { max-width: 760px; margin: 0 auto; }
+[lang="ar"] { font-family: var(--arabic); }
+button, input, a.btn { font: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* header */
+header.top { padding-block: 14px 8px; display: grid; gap: 4px; }
+.topbar { display: flex; align-items: center; gap: 10px; min-height: 40px; }
+.homelink { color: var(--book); font-size: 13.5px; font-weight: 600; text-decoration: none; padding-block: 6px; }
+.homelink:hover { text-decoration: underline; }
+.recbtn { margin-inline-start: auto; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--rule);
+  background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 14px; font-size: 13.5px; font-weight: 600; }
+.recbtn svg { width: 15px; height: 15px; fill: none; stroke: var(--teacher); stroke-width: 1.7; stroke-linecap: round; }
+.recbtn:hover { border-color: var(--teacher); }
+h1 { margin: 6px 0 0; font-family: var(--arabic); font-weight: 700; color: var(--matn); font-size: clamp(36px, 8vw, 50px); line-height: 1.25; }
+.meta { color: var(--muted); font-size: 13.5px; line-height: 1.9; margin: 0; }
+.meta b { color: var(--ink); font-weight: 600; }
+
+/* contents (فہرست) */
+.tochead { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-block: 14px 4px; }
+.tochead h2 { margin: 0; font-size: 15px; font-weight: 700; color: var(--muted); }
+form.jump { display: flex; gap: 4px; margin-inline-start: auto; }
+form.jump input { inline-size: 92px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px;
+  padding: 5px 12px; font-size: 14px; font-variant-numeric: tabular-nums; direction: ltr; text-align: center; }
+form.jump button { cursor: pointer; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 999px; padding: 5px 13px; font-size: 13.5px; }
+.msg { margin: 8px 0 0; color: var(--ink); background: var(--ai-tint); border-radius: 8px; padding: 7px 12px; font-size: 13.5px; line-height: 1.9; }
+.msg a { color: var(--book); font-weight: 600; }
+ol.toc { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.toc li { border-bottom: 1px solid var(--rule); padding-block: 10px 9px; display: grid; gap: 4px; }
+.toc li.lv3 { padding-inline-start: 22px; }
+.toc a.row { display: flex; align-items: baseline; gap: 8px; text-decoration: none; color: inherit; }
+.toc .tt { font-family: var(--arabic); line-height: 1.6; }
+.toc li.lv1 .tt { font-size: 23px; color: var(--matn); font-weight: 700; }
+.toc li.lv2 .tt { font-size: 20px; font-weight: 700; }
+.toc li.lv3 .tt { font-size: 18.5px; }
+.toc .dots { flex: 1 1 24px; min-inline-size: 24px; border-bottom: 2px dotted var(--rule); transform: translateY(-5px); }
+.toc .pp { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.toc a.row:hover .tt, .toc a.row:focus-visible .tt { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.toc .sub { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.toc .sub .n { margin-inline-end: 4px; }
+.toc .sub .none { color: var(--ai); }
+.toc .sub .exn { color: var(--matn); font-weight: 600; margin-inline-end: 4px; }
+.toc .sub .pxn { color: var(--book); font-weight: 600; margin-inline-end: 4px; }
+a.pchip { text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 0 9px;
+  font-size: 12.5px; line-height: 1.9; font-variant-numeric: tabular-nums; }
+a.pchip:hover { border-color: var(--ink); }
+
+/* unit view */
+.ubar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); margin-inline: -16px; padding: 8px 16px 8px;
+  border-bottom: 1px solid var(--rule); display: grid; gap: 6px; }
+.ubar-top { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.back { flex: none; cursor: pointer; text-decoration: none; color: var(--book); font-size: 13.5px; font-weight: 600; border: 1px solid var(--rule); border-radius: 999px; padding: 3px 12px; background: var(--surface); }
+.utitle { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--arabic); font-size: 19px; font-weight: 700; line-height: 1.6; }
+.pbar { display: flex; gap: 6px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+.pbar::-webkit-scrollbar { display: none; }
+.pbar a { flex: none; text-decoration: none; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 3px 13px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.pbar a[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.ubar form.jump input { inline-size: 70px; padding: 3px 8px; }
+.ubar form.jump button { padding: 3px 10px; }
+.ubar form.jump { flex: none; }
+body.unit h1 { font-size: 26px; margin-top: 0; }
+body.unit header .meta { display: none; }
+.uhead { padding-block: 16px 0; display: grid; gap: 2px; }
+.uhead .parent { margin: 0; font-family: var(--arabic); color: var(--muted); font-size: 16px; }
+.uhead h2 { margin: 0; font-family: var(--arabic); color: var(--matn); font-size: clamp(26px, 6vw, 32px); line-height: 1.5; }
+.uhead p.meta { margin: 0; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; padding-block: 12px 0; color: var(--muted); font-size: 12.5px; align-items: center; }
+.lg { display: inline-flex; align-items: center; gap: 6px; }
+.linkbtn { cursor: pointer; background: none; border: 0; color: var(--book); font-weight: 600; font-size: 13px; padding: 4px 0; margin-inline-start: auto; }
+
+main { display: grid; gap: 18px; padding-block: 14px; }
+article.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; box-shadow: var(--shadow); padding: 18px 18px 14px; display: grid; gap: 12px; }
+.card-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.pg { font-size: 12.5px; font-weight: 600; color: var(--matn); background: var(--matn-tint); border-radius: 6px; padding: 2px 8px; font-variant-numeric: tabular-nums; }
+.v7 { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.cnum { color: var(--muted); font-size: 12.5px; }
+.badge { font-size: 12px; font-weight: 600; color: var(--book); background: var(--book-tint); border-radius: 999px; padding: 1px 9px; }
+.badge.exam { color: var(--matn); background: var(--matn-tint); border: 0; font-family: inherit; line-height: inherit; }
+button.badge.exam { cursor: pointer; }
+.badge.paper { cursor: pointer; font-family: inherit; line-height: inherit; color: var(--book); background: transparent; border: 1px solid var(--book); }
+.badge.paper.hot { color: var(--paper, #fff); background: var(--book); }
+.badge.paper[aria-expanded="true"] { box-shadow: 0 0 0 2px var(--book-tint); }
+.paperq { border-inline-start: 3px solid var(--book); background: var(--book-tint); border-radius: 8px; padding: 8px 12px; margin-top: 8px; }
+.paperq ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.paperq li { display: grid; gap: 1px; }
+.paperq .py { font-size: 12px; color: var(--book); font-weight: 600; }
+.paperq .pt { font-family: var(--arabic); font-size: 17px; line-height: 1.8; }
+.paperq .psrc { margin: 4px 0 0; font-size: 11px; color: var(--muted); }
+.les { color: var(--muted); font-size: 12.5px; margin-inline-start: auto; }
+.play { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--teacher); color: var(--teacher); background: transparent;
+  border-radius: 999px; padding: 3px 11px; font-size: 13px; font-variant-numeric: tabular-nums; direction: ltr; }
+.play svg { width: 10px; height: 10px; fill: currentColor; }
+.norec-chip { margin-inline-start: auto; color: var(--ai); background: var(--ai-tint); border-radius: 999px; padding: 2px 10px; font-size: 12.5px; font-weight: 600; }
+.label { margin: 0; font-family: var(--arabic); color: var(--book); font-size: 15px; line-height: 1.7; }
+h3.title { margin: 0; font-size: 19px; font-weight: 700; line-height: 1.7; text-wrap: balance; }
+.start { margin: 0; font-family: var(--arabic); font-size: 21px; line-height: 1.9; color: var(--matn); border-inline-start: 3px solid var(--matn); padding-inline-start: 12px; }
+.ref { margin: -4px 0 0; color: var(--book); font-size: 13px; line-height: 1.9; }
+.start-note { margin: -6px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.8; }
+.norec { margin: 0; background: var(--ai-tint); color: var(--ink); border-radius: 8px; padding: 6px 12px; font-size: 13.5px; line-height: 1.9; }
+.norec b { color: var(--ai); }
+.sec { display: grid; gap: 6px; }
+.sec h4 { margin: 0; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.sec ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.sec li { font-family: var(--urdu); font-size: 16px; line-height: 2.35; }
+.sec.tamheed li { font-size: 16.5px; }
+.sec.masala li { font-weight: 600; }
+.srcs { display: inline-flex; flex-wrap: wrap; gap: 4px; vertical-align: middle; margin-inline-start: 4px; }
+.chip { font-family: var(--ui); font-size: 11.5px; line-height: 1.6; border-radius: 5px; padding: 0 6px; white-space: nowrap; font-variant-numeric: tabular-nums; border: 0; font-weight: 600; }
+.chip.u { background: var(--teacher-tint); color: var(--teacher); cursor: pointer; }
+.chip.k { background: var(--book-tint); color: var(--book); }
+.chip.s { background: var(--note-tint); color: var(--note); }
+.chip.a { background: var(--ai-tint); color: var(--ai); }
+/* in the "سب" view a card opens folded: head, title, Arabic start and the note under it; the rest behind .ctoggle */
+.ctoggle { display: none; cursor: pointer; align-items: center; gap: 6px 10px; inline-size: 100%; background: none; border: 0; border-top: 1px dashed var(--rule);
+  padding: 8px 0 2px; color: var(--book); font-weight: 600; font-size: 13.5px; text-align: start; }
+.ctoggle::before { content: "−"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+.ctoggle[aria-expanded="false"]::before { content: "+"; }
+body.allview .ctoggle { display: flex; }
+.cbody { display: grid; gap: 12px; }
+article.card.folded .cbody { display: none; }
+article.card { scroll-margin-top: 112px; }
+.dlall { display: grid; gap: 6px; padding: 10px 12px; border-radius: 10px; background: var(--teacher-tint); }
+.dlall .btns { align-items: center; }
+.dlall .sub { color: var(--muted); font-size: 12.5px; }
+.dlall .dlstat { font-size: 12.5px; color: var(--ink); line-height: 1.9; }
+.btn[disabled] { opacity: .55; cursor: default; }
+details.more { border-top: 1px dashed var(--rule); padding-top: 8px; }
+details.more > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; color: var(--book); font-weight: 600; font-size: 13.5px; padding-block: 2px; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::before { content: "+"; display: inline-grid; place-items: center; inline-size: 18px; block-size: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 13px; line-height: 1; }
+details.more[open] > summary::before { content: "−"; }
+details.more > summary .hint { color: var(--muted); font-weight: 400; font-size: 12.5px; }
+details.more > .inner { display: grid; gap: 12px; padding-top: 10px; }
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 14px; }
+.word { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; padding-block: 4px; border-bottom: 1px solid var(--rule); }
+.word .ar { font-family: var(--arabic); font-size: 19px; color: var(--matn); }
+.word .ur { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; flex: 1 1 auto; }
+.word .chip { font-size: 10.5px; }
+
+section.gaps { display: grid; gap: 8px; margin-block-start: 6px; border: 1px dashed var(--rule); border-radius: 12px; padding: 12px 14px; }
+section.gaps h3 { margin: 0; font-size: 14.5px; }
+section.gaps p.lead { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.9; }
+.glist { margin: 0; padding: 0; list-style: none; display: grid; }
+.glist li { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: start; padding-block: 8px; border-top: 1px solid var(--rule); }
+.glist .gp { font-size: 12px; font-weight: 600; color: var(--ai); background: var(--ai-tint); border-radius: 6px; padding: 1px 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.glist .gt { font-family: var(--urdu); font-size: 14.5px; line-height: 2.2; }
+.glist .gv { grid-column: 2; color: var(--muted); font-size: 12px; }
+
+nav.unav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-block-start: 18px; }
+nav.unav a { display: grid; gap: 2px; text-decoration: none; color: inherit; border: 1px solid var(--rule); border-radius: 12px; padding: 10px 14px; background: var(--surface); }
+nav.unav a:hover { border-color: var(--ink); }
+nav.unav .k { color: var(--muted); font-size: 12px; }
+nav.unav .t { font-family: var(--arabic); font-size: 17px; line-height: 1.6; }
+nav.unav a.next { text-align: left; grid-column: 2; }
+
+footer { margin-block-start: 28px; color: var(--muted); font-size: 13px; line-height: 2; border-top: 1px solid var(--rule); padding-block-start: 14px; }
+footer p { margin: 0 0 6px; }
+
+/* sheet */
+.backdrop { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.38); display: flex; align-items: flex-end; justify-content: center; }
+.sheet { background: var(--surface); color: var(--ink); inline-size: 100%; max-inline-size: 600px; max-block-size: 88vh; overflow-y: auto; border-radius: 16px 16px 0 0;
+  padding: 16px 18px calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 12px; box-shadow: 0 -8px 30px rgba(0,0,0,.2); }
+.sheet-head { display: flex; align-items: center; gap: 10px; }
+.sheet h3 { margin: 0; font-size: 17px; line-height: 1.7; }
+.sheet .x { margin-inline-start: auto; cursor: pointer; border: 1px solid var(--rule); background: transparent; color: var(--ink); border-radius: 999px; inline-size: 34px; block-size: 34px; font-size: 18px; line-height: 1; }
+.sheet p { margin: 0; font-size: 13.5px; line-height: 1.95; color: var(--muted); }
+.sheet p b { color: var(--ink); }
+.rec { display: grid; gap: 6px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.rec-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.rec-top b { font-size: 14.5px; }
+.rec-top .sub { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.state { font-size: 12px; font-weight: 600; border-radius: 5px; padding: 0 7px; }
+.state.on { color: var(--teacher); background: var(--teacher-tint); }
+.state.off { color: var(--muted); border: 1px solid var(--rule); }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; text-decoration: none; padding: 6px 13px; border-radius: 999px; border: 1px solid var(--teacher);
+  background: var(--teacher); color: var(--surface); font-weight: 600; font-size: 13.5px; line-height: 1.6; }
+.btn.ghost { background: transparent; color: var(--teacher); }
+.btn svg { width: 12px; height: 12px; fill: currentColor; flex: none; }
+
+/* player */
+.player { position: fixed; inset-inline: 0; bottom: 0; z-index: 10; background: var(--surface); border-top: 1px solid var(--rule); padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; justify-content: center; }
+.player audio { flex: 1 1 280px; max-width: 520px; height: 36px; }
+.speeds { display: flex; gap: 4px; direction: ltr; }
+.speeds button, .pclose { cursor: pointer; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 6px; padding: 3px 8px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.speeds button[aria-pressed="true"] { background: var(--teacher); color: var(--surface); border-color: var(--teacher); }
+.now { font-size: 12.5px; color: var(--muted); }
+.flash { animation: flash 1.2s ease-out; }
+@keyframes flash { from { box-shadow: 0 0 0 3px var(--teacher); } to { box-shadow: var(--shadow); } }
+@media (prefers-reduced-motion: reduce) { .flash { animation: none; } }
+@media (max-width: 460px) {
+  article.card { padding: 14px 14px 10px; }
+  .start { font-size: 19px; }
+  .sec li { font-size: 15.5px; }
+  .toc li.lv3 { padding-inline-start: 14px; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap" dir="rtl" lang="ur">
+  <header class="top">
+    <div class="topbar">
+      <a class="homelink" id="homeLink" href="./" hidden></a>
+      <button type="button" class="recbtn" id="recBtn" aria-haspopup="dialog">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 10V8a5.5 5.5 0 0 1 11 0v2"/><path d="M2.5 10h2v4h-2zM11.5 10h2v4h-2z"/></svg><span>ریکارڈنگز</span>
+      </button>
+    </div>
+    <h1 lang="ar" id="kitab"></h1>
+    <p class="meta" id="meta"></p>
+  </header>
+
+  <section id="tocView">
+    <div class="tochead">
+      <h2>فہرست</h2>
+      <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ نمبر" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form>
+    </div>
+    <p class="msg" id="tocMsg" hidden></p>
+    <ol class="toc" id="toc"></ol>
+  </section>
+
+  <section id="unitView" hidden>
+    <div class="ubar">
+      <div class="ubar-top"><a class="back" href="#">فہرست</a><span class="utitle" lang="ar" id="ubarTitle"></span>
+        <form class="jump" data-jump role="search"><input inputmode="numeric" placeholder="صفحہ" aria-label="صفحہ نمبر"><button type="submit">کھولیں</button></form></div>
+      <nav class="pbar" id="pbar" aria-label="صفحات"></nav>
+    </div>
+    <div class="uhead">
+      <p class="parent" lang="ar" id="uParent"></p>
+      <h2 lang="ar" id="uTitle"></h2>
+      <p class="meta" id="uMeta"></p>
+    </div>
+    <p class="msg" id="uMsg" hidden></p>
+    <div class="legend" id="legend" aria-label="ماخذ کی علامتیں">
+      <span class="lg" data-t="u"><span class="chip u">استاد</span><span>ریکارڈنگ کا وقت</span></span>
+      <span class="lg" data-t="k"><span class="chip k">کتاب ص</span><span>متن</span></span>
+      <span class="lg" data-t="s"><span class="chip s">شرح</span><span>حاشیہ یا بین السطور</span></span>
+      <span class="lg" data-t="a"><span class="chip a">AI</span><span>خود جانچیں</span></span>
+      <button type="button" class="linkbtn" id="toggleAll" aria-pressed="false">سب تفصیل کھولیں</button>
+    </div>
+    <main id="cards"></main>
+    <section class="gaps" id="gaps" hidden>
+      <h3 id="gapsTitle"></h3>
+      <p class="lead" id="gapsLead"></p>
+      <ul class="glist" id="gapList"></ul>
+    </section>
+    <nav class="unav" id="unav" aria-label="پچھلا اور اگلا حصہ"></nav>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<div class="backdrop" id="backdrop" dir="rtl" lang="ur" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" id="sheet"></div>
+</div>
+
+<div class="player" id="player" dir="rtl" lang="ur" hidden>
+  <audio id="audio" controls preload="metadata"></audio>
+  <div class="speeds" id="speeds" role="group" aria-label="رفتار">
+    <button type="button" data-rate="1" aria-pressed="true">1×</button>
+    <button type="button" data-rate="1.25" aria-pressed="false">1.25×</button>
+    <button type="button" data-rate="1.5" aria-pressed="false">1.5×</button>
+  </div>
+  <span class="now" id="now"></span>
+  <button type="button" class="pclose" id="pclose" aria-label="آواز بند کریں">✕</button>
+</div>
+
+<script>
+const DATA = {"book": {"book": "ہدایہ جلد ثالث", "kitab": "كتاب الحوالة", "from": 1204, "to": 1207, "unit": "کارڈ", "unitOne": "کارڈ"}, "home": "./", "homeLabel": "ہدایہ جلد ثالث", "store": "h3", "lessons": {"2026-08-01-1448": {"file": "Hidaya Saalis 01 Aug 26.m4a", "minutes": 57.9, "id": "", "size_mb": null, "label": "یکم اگست 2026، اس سال کی کلاس", "source": "this-year"}}, "units": [{"key": "u0", "level": 1, "title": "كتاب الحوالة", "page": 1204, "page_to": 1207}], "cards": [{"unit": "u0", "pages": [1204], "lesson": "2026-08-01-1448", "ts": "0:25:16", "label": null, "title": "حوالہ (قرض کی منتقلی) اور کفالہ (گارنٹی) کا فرق؛ محیل، محتال علیہ اور محتال؛ مقیدہ اور مطلقہ؛ حوالہ صرف دیون میں جائز، اعیان میں نہیں؛ محتال اور محتال علیہ کی رضامندی ضروری، محیل کی رضامندی میں دو قول", "start": "كتاب الحوالة · قال: وهي جائزة بالديون", "start_note": "0:25:16 سے کفالہ کے مسائل ختم کر کے اردو میں حوالہ کی تمہید (کفالہ سے فرق، مقیدہ، مطلقہ، فریقوں کے نام)؛ عربی 0:30:47 «الحوالة جائزة بالديون» (متن «وهي جائزة بالديون») اور 0:32:35 «وتصح الحوالة برضا المحيل والمحتال والمحتال عليه»۔ متن v5 328 کے شروع سے؛ کارڈ «قال: وإذا تمت الحوالة» (v5 329، ≈0.45) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 328–329", "tamheed": [{"x": "کفالہ کو انگریزی میں گارنٹی کہتے ہیں: میرا اس کے ذمے قرضہ تھا، اس نے گارنٹر دے دیا؛ مقروض بری نہیں ہوتا، میں دونوں سے مطالبہ کر سکتا ہوں؛ قرضہ اصل مقروض کے ذمے ہے، گارنٹر سے صرف مطالبے کا حق ہے۔", "s": [{"t": "u", "v": "0:25:24"}, {"t": "u", "v": "0:25:27"}, {"t": "u", "v": "0:25:38"}, {"t": "u", "v": "0:25:50"}, {"t": "u", "v": "0:25:52"}, {"t": "u", "v": "0:25:54"}, {"t": "u", "v": "0:25:59"}, {"t": "u", "v": "0:26:04"}, {"t": "u", "v": "0:26:06"}, {"t": "u", "v": "0:26:09"}, {"t": "u", "v": "0:26:11"}]}, {"x": "حوالہ ٹرانسفر ہے: یاسر کے ذمے میرا ایک لاکھ؛ وہ حج پر جا رہا ہے، میں نے روکا کہ کل اللہ کو پیارے ہو گئے تو؟ اس نے کہا میری جگہ وقاص دے دے گا؛ قرضہ یاسر سے ختم ہو کر وقاص پر آ گیا، یاسر بالکل بری الذمہ، اب مطالبہ وقاص سے۔", "s": [{"t": "u", "v": "0:26:16"}, {"t": "u", "v": "0:26:18"}, {"t": "u", "v": "0:26:24"}, {"t": "u", "v": "0:26:27"}, {"t": "u", "v": "0:26:29"}, {"t": "u", "v": "0:26:34"}, {"t": "u", "v": "0:26:37"}, {"t": "u", "v": "0:26:42"}, {"t": "u", "v": "0:26:45"}, {"t": "u", "v": "0:26:51"}, {"t": "u", "v": "0:26:56"}, {"t": "u", "v": "0:27:03"}, {"t": "u", "v": "0:27:10"}]}, {"x": "حوالہ مقیدہ: یاسر کا وقاص کے ذمے قرضہ تھا (یا امانت، یا غصب کا ضمان)، اسی سے دینے کو کہا؛ وقاص ادا کر کے یاسر سے مطالبہ نہیں کرے گا۔ حوالہ مطلقہ: یاسر کا وقاص پر قرض ہو یا نہ ہو، حوالہ اس سے جوڑا نہ گیا ہو، ویسے ہی (رشتہ داری وغیرہ میں) قبول کیا؛ (قرض نہ ہو تو) ادا کر کے یاسر سے مطالبہ کرے گا۔", "s": [{"t": "s", "v": "الكفاية ٣٥٥/٦"}, {"t": "u", "v": "0:27:13"}, {"t": "u", "v": "0:27:17"}, {"t": "u", "v": "0:27:23"}, {"t": "u", "v": "0:27:27"}, {"t": "u", "v": "0:27:30"}, {"t": "u", "v": "0:27:32"}, {"t": "u", "v": "0:27:36"}, {"t": "u", "v": "0:27:42"}, {"t": "u", "v": "0:27:45"}, {"t": "u", "v": "0:27:48"}, {"t": "u", "v": "0:27:56"}, {"t": "u", "v": "0:27:59"}, {"t": "u", "v": "0:28:01"}, {"t": "u", "v": "0:28:06"}, {"t": "u", "v": "0:28:08"}, {"t": "u", "v": "0:28:11"}, {"t": "u", "v": "0:28:14"}, {"t": "u", "v": "0:28:17"}, {"t": "u", "v": "0:28:21"}, {"t": "u", "v": "0:28:29"}, {"t": "u", "v": "0:28:30"}]}, {"x": "تین فریق: محیل = جس نے حوالہ کیا، اصل مقروض (یاسر)؛ محتال علیہ = جس کے ذمے حوالہ کیا گیا (وقاص)؛ جو بچ گیا وہ اصل دائن، اسے محتال یا محتال لہ کہتے ہیں۔ استاد: یہ نام اکثر کنفیوز ہو جاتے ہیں، پہلے دو سمجھ لیں تو تیسرا خود سمجھ آ جائے گا۔", "s": [{"t": "u", "v": "0:28:49"}, {"t": "u", "v": "0:28:52"}, {"t": "u", "v": "0:28:58"}, {"t": "u", "v": "0:29:02"}, {"t": "u", "v": "0:29:05"}, {"t": "u", "v": "0:29:17"}, {"t": "u", "v": "0:29:18"}, {"t": "u", "v": "0:29:27"}, {"t": "u", "v": "0:29:35"}, {"t": "u", "v": "0:29:39"}, {"t": "u", "v": "0:29:46"}, {"t": "u", "v": "0:29:55"}, {"t": "u", "v": "0:29:58"}]}], "masala": [{"x": "حوالہ صرف دین (قرض) کا ہوتا ہے، عین کا نہیں: میں نے اس کے پاس گاڑی امانتاً کھڑی کی، اس کا حوالہ نہیں ہو سکتا؛ ہزار روپے، ایک من گندم جیسی ذمے میں واجب چیز کا حوالہ ہوتا ہے۔ کفالہ نفس اور مال دونوں کا ہو سکتا ہے۔ (کتاب: «وهي جائزة بالديون… وإنما اختصت بالديون؛ لأنها تنبئ عن النقل والتحويل، والتحويل في الدين، لا في العين»۔)", "s": [{"t": "u", "v": "0:30:05"}, {"t": "u", "v": "0:30:08"}, {"t": "u", "v": "0:30:14"}, {"t": "u", "v": "0:30:18"}, {"t": "u", "v": "0:30:20"}, {"t": "u", "v": "0:30:23"}, {"t": "u", "v": "0:30:26"}, {"t": "u", "v": "0:30:34"}, {"t": "u", "v": "0:30:37"}, {"t": "u", "v": "0:30:47"}, {"t": "k", "v": "1204"}, {"t": "s", "v": "الكفاية ٣٤٦/٦"}]}, {"x": "قدوری کے متن میں حوالہ تینوں کی رضامندی سے درست: محیل، محتال اور محتال علیہ۔ (کتاب: «وتصح الحوالة برضا المحيل، والمحتال، والمحتال عليه»۔)", "s": [{"t": "u", "v": "0:30:49"}, {"t": "u", "v": "0:30:51"}, {"t": "u", "v": "0:30:54"}, {"t": "u", "v": "0:30:57"}, {"t": "u", "v": "0:31:00"}, {"t": "u", "v": "0:31:02"}, {"t": "u", "v": "0:32:35"}, {"t": "u", "v": "0:32:36"}, {"t": "k", "v": "1204"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"x": "محتال علیہ کی رضامندی اس لیے کہ وہ اپنے اوپر قرض لازم کر رہا ہے، اور اپنے لازم کیے بغیر کسی سے ایسا مطالبہ نہیں ہو سکتا۔ (کتاب: «وأما المحتال عليه؛ فلأنه يلزمه الدين، ولا لزوم بدون التزامه»؛ حاشیہ: چاہے وہ محیل کا مقروض ہو، کیونکہ لوگ تقاضے میں نرم اور سخت ہوتے ہیں۔)", "s": [{"t": "u", "v": "0:31:46"}, {"t": "u", "v": "0:31:49"}, {"t": "u", "v": "0:31:51"}, {"t": "u", "v": "0:31:55"}, {"t": "k", "v": "1204"}, {"t": "k", "v": "1204"}, {"t": "s", "v": "فتح القدير ٣٤٦/٦"}]}, {"x": "محیل کی رضامندی: استاد: ایک قول ضروری ہے، دوسرا قول ضروری نہیں کیونکہ اس کا نقصان نہیں، فائدہ ہے۔ کتاب: زیادات میں ہے کہ محیل کی رضامندی کے بغیر بھی حوالہ درست ہے؛ حاشیہ: قدوری نے اسے شرط کیا ہے۔ (کتاب: «وأما المحيل فالحوالة تصح بدون رضاه ذكره في الزيادات»؛ استاد کا «ظاہر روایت» والا جملہ دیکھیں NOTES۔)", "s": [{"t": "u", "v": "0:32:00"}, {"t": "u", "v": "0:32:03"}, {"t": "u", "v": "0:32:08"}, {"t": "u", "v": "0:32:11"}, {"t": "u", "v": "0:32:17"}, {"t": "u", "v": "0:32:20"}, {"t": "u", "v": "0:32:25"}, {"t": "k", "v": "1204"}, {"t": "s", "v": "العناية ٣٤٧/٦"}]}], "dalil": [{"x": "محتال (دائن) کی رضامندی: قرضہ اسی کا حق ہے جو منتقل ہو رہا ہے، اور لوگوں کے ذمے مختلف ہوتے ہیں۔ استاد: پہلا مقروض کچھ خدا سے ڈرتا تھا، ایک آدھ وعید سنا کر وصول ہو جاتا؛ اب ایسے آدمی کے حوالے کیا گیا جو جان لینے سے نہیں کتراتا، یا ایسے پہروں میں بیٹھتا ہے کہ رسائی ممکن نہیں۔ (کتاب: «أما المحتال؛ فلأن الدين حقه، وهو الذي ينتقل بها، والذمم متفاوتة، فلا بد من رضاه»۔)", "s": [{"t": "u", "v": "0:31:06"}, {"t": "u", "v": "0:31:10"}, {"t": "u", "v": "0:31:16"}, {"t": "u", "v": "0:31:20"}, {"t": "u", "v": "0:31:29"}, {"t": "u", "v": "0:31:33"}, {"t": "u", "v": "0:31:40"}, {"t": "k", "v": "1204"}]}, {"x": "محیل کی رضامندی کیوں ضروری نہیں: محتال علیہ کا قرض اپنے ذمے لینا اپنے حق میں تصرف ہے، محیل کو نقصان نہیں بلکہ فائدہ ہے، کیونکہ (اس کے حکم کے بغیر ہو تو) وہ اس سے رجوع نہیں کرے گا۔ (کتاب: «لأن التزام الدين من المحتال عليه تصرف في حق نفسه، وهو لا يتضرر به بل فيه نفعه؛ لأنه لا يرجع عليه إذا لم يكن بأمره»؛ حاشیہ: قدوری کی شرط کی توجیہ یہ کہ با مروت لوگ دوسروں کا اپنا قرض اٹھانا پسند نہیں کرتے۔)", "s": [{"t": "u", "v": "0:32:11"}, {"t": "u", "v": "0:32:17"}, {"t": "u", "v": "0:32:20"}, {"t": "k", "v": "1204"}, {"t": "s", "v": "فتح القدير ٣٤٧/٦"}, {"t": "s", "v": "العناية ٣٤٧/٦"}]}, {"x": "کتاب (استاد نے نہیں بتایا): جواز کی دلیل حدیث «من أحيل على مليء فليتبع» (جسے مالدار کے حوالے کیا جائے وہ اس کا پیچھا کرے)، اور یہ کہ یہ ایسی چیز کا التزام ہے جس کی ادائیگی پر قادر ہے، تو کفالت کی طرح درست۔ (حاشیہ: بخاری میں «مطل الغني ظلم، فإذا أتبع أحدكم على مليء فليتبع»۔)", "s": [{"t": "k", "v": "1204"}, {"t": "s", "v": "نصب الراية ٥٩/٤-٦٠"}]}], "ikhtilaf": [{"x": "محیل کی رضامندی: قدوری کے ہاں شرط، زیادات کی روایت میں شرط نہیں (اوپر مسئلہ اور دلیل)۔", "s": [{"t": "u", "v": "0:32:00"}, {"t": "k", "v": "1204"}, {"t": "k", "v": "1204"}, {"t": "s", "v": "العناية ٣٤٧/٦"}]}], "faida": [{"x": "حاشیہ: شرعاً حوالہ = قرض کو محیل کے ذمے سے محتال علیہ کے ذمے منتقل کرنا؛ دائن کو «محتال» کہنا کافی ہے، «محتال له» کہنا غیر ضروری (لغو) ہے؛ اسے «حويل» بھی کہتے ہیں۔", "s": [{"t": "s", "v": "الكفاية ٣٤٦-٣٤٥/٦"}]}, {"x": "حاشیہ: کفالہ اور حوالہ دونوں اصیل کے ذمے کے التزام کے عقد ہیں، مگر حوالہ میں اصیل کی براءت بھی ہے، تو یہ مرکب کی طرح ہے، اس لیے کفالہ کے بعد لایا گیا۔", "s": [{"t": "s", "v": "فتح القدير ٣٤٥/٦"}]}, {"x": "سوال جواب: حوالہ میں سب کی رضامندی ضروری ہے، تفصیل آگے آ رہی ہے۔ (قدوری کے مطابق؛ زیادات میں محیل کی رضامندی شرط نہیں۔)", "s": [{"t": "u", "v": "0:28:44"}, {"t": "u", "v": "0:28:45"}, {"t": "k", "v": "1204"}]}], "lughat": [{"ar": "الحوالة", "ur": "قرض کا ٹرانسفر (ایک جگہ سے دوسری جگہ منتقلی)", "s": [{"t": "u", "v": "0:25:40"}, {"t": "u", "v": "0:33:33"}]}, {"ar": "المحيل", "ur": "حوالہ کرنے والا، اصل مقروض", "s": [{"t": "u", "v": "0:29:02"}, {"t": "u", "v": "0:29:05"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "المحتال عليه", "ur": "جس کے ذمے قرض منتقل کیا گیا", "s": [{"t": "u", "v": "0:29:17"}, {"t": "u", "v": "0:29:18"}]}, {"ar": "المحتال / المحتال له", "ur": "اصل قرض خواہ، دائن", "s": [{"t": "u", "v": "0:29:39"}, {"t": "u", "v": "0:29:58"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}, {"ar": "جائزة بالديون", "ur": "صرف قرضوں (ذمے میں واجب چیزوں) میں جائز", "s": [{"t": "u", "v": "0:30:34"}, {"t": "u", "v": "0:30:37"}]}, {"ar": "الذمم متفاوتة", "ur": "لوگوں کے ذمے (ادائیگی میں) مختلف ہوتے ہیں", "s": [{"t": "u", "v": "0:31:10"}, {"t": "u", "v": "0:31:20"}, {"t": "s", "v": "فتح القدير ٣٤٦/٦"}]}, {"ar": "لا لزوم بدون التزامه", "ur": "اس کے اپنے اوپر لازم کیے بغیر لازم نہیں ہوتا", "s": [{"t": "u", "v": "0:31:51"}, {"t": "u", "v": "0:31:55"}]}]}, {"unit": "u0", "pages": [1204, 1205], "lesson": "2026-08-01-1448", "ts": "0:32:40", "label": null, "title": "حوالہ مکمل ہو جائے (قبول کے ساتھ) تو محیل قرض سے بری؛ امام زفر: کفالہ کی طرح بری نہیں ہوتا؛ پھر بھی محیل خود ادا کرے تو دائن کو قبول کرنا ہوگا، کیونکہ (توی کی صورت میں) قرض اس کی طرف لوٹ سکتا ہے", "start": "قال: وإذا تمت الحوالة برئ المحيل من الدين بالقبول", "start_note": "0:32:40 سے «حوالہ کا حکم» اردو میں، عربی 0:35:21–0:35:27۔ متن v5 329 ≈0.45 سے؛ کارڈ «قال: ولا يرجع المحتال على المحيل» (v5 330، ≈0.4) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 329–330", "tamheed": [{"x": "دوبارہ صورت: یاسر کے ذمے میرا ایک لاکھ تھا، میں اس سے مطالبہ کر سکتا تھا؛ اس نے قرضہ وقاص کی طرف حوالہ کر دیا تو یاسر قرضے سے بری، اب اس سے مطالبہ بالکل نہیں کر سکتا۔", "s": [{"t": "u", "v": "0:32:43"}, {"t": "u", "v": "0:32:45"}, {"t": "u", "v": "0:32:50"}, {"t": "u", "v": "0:32:52"}, {"t": "u", "v": "0:32:59"}, {"t": "u", "v": "0:33:04"}]}], "masala": [{"x": "حوالہ (تینوں کے قبول سے) مکمل ہو جائے تو محیل قرض سے بری؛ اب مطالبہ محتال علیہ سے ہوگا۔ (کتاب: «وإذا تمت الحوالة برئ المحيل من الدين بالقبول»؛ حاشیہ: قبول یعنی محیل، محتال اور محتال علیہ کا۔)", "s": [{"t": "u", "v": "0:35:21"}, {"t": "u", "v": "0:35:24"}, {"t": "u", "v": "0:35:27"}, {"t": "k", "v": "1204"}, {"t": "s", "v": "فتح القدير"}]}, {"x": "بری ہونے کے باوجود اگر یاسر خود (مثلاً ہفتے بعد) ایک لاکھ لے آئے تو میں انکار نہیں کر سکتا، قبول کرنے پر مجبور کیا جاؤں گا، اور لینے سے میرا قرضہ ختم۔ (کتاب: «وإنما يجبر على القبول إذا نقد المحيل؛ لأنه يحتمل عود المطالبة إليه بالتوى، فلم يكن متبرعاً»۔)", "s": [{"t": "u", "v": "0:34:47"}, {"t": "u", "v": "0:34:50"}, {"t": "u", "v": "0:34:52"}, {"t": "u", "v": "0:34:56"}, {"t": "u", "v": "0:35:01"}, {"t": "u", "v": "0:35:07"}, {"t": "k", "v": "1205"}, {"t": "s", "v": "بشریٰ ٨ جلدی، بین السطور"}]}], "dalil": [{"x": "امام زفر: جیسے کفالہ میں اصل مقروض بری نہیں ہوتا، حوالہ میں بھی نہیں؛ محتال علیہ سے مطالبہ کا حق ہے مگر محیل بری نہیں۔ (کتاب: «وقال زفر: لا يبرأ؛ اعتباراً بالكفالة؛ إذ كل واحد منهما عقد توثق»۔)", "s": [{"t": "u", "v": "0:33:07"}, {"t": "u", "v": "0:33:13"}, {"t": "u", "v": "0:33:18"}, {"t": "u", "v": "0:33:21"}, {"t": "k", "v": "1204"}]}, {"x": "باقی حضرات: حوالہ کا معنی ہی ٹرانسفر ہے، اور شرعی معنی میں لغوی معنی کا خیال رکھا جاتا ہے؛ قرضہ اصل مقروض سے منتقل ہو گیا تو وہ بری۔ (کتاب: «أن الحوالة: النقل لغة… والدين متى انتقل عن الذمة لا يبقى فيها، أما الكفالة فللضم، والأحكام الشرعية على وفاق المعاني اللغوية»۔)", "s": [{"t": "u", "v": "0:33:29"}, {"t": "u", "v": "0:33:33"}, {"t": "u", "v": "0:33:39"}, {"t": "u", "v": "0:33:42"}, {"t": "u", "v": "0:33:46"}, {"t": "k", "v": "1204"}, {"t": "k", "v": "1205"}]}, {"x": "مگر قرضہ فی نفسہ لوٹ کر آ سکتا ہے: مثلاً وقاص مر گیا اور ایک لاکھ کے مقابلے میں کل ترکہ دس ہزار، تو میں یاسر سے کہوں گا کہ جس کی طرف تم نے حوالہ کیا وہ مال چھوڑے بغیر مر گیا، اب میرا قرضہ دو۔ اسی امکان کی وجہ سے یاسر کی ادائیگی تبرع نہیں، دائن کو قبول کرنا ہوگا۔", "s": [{"t": "u", "v": "0:33:58"}, {"t": "u", "v": "0:34:04"}, {"t": "u", "v": "0:34:06"}, {"t": "u", "v": "0:34:08"}, {"t": "u", "v": "0:34:11"}, {"t": "u", "v": "0:34:12"}, {"t": "u", "v": "0:34:40"}, {"t": "u", "v": "0:34:45"}, {"t": "u", "v": "0:35:01"}, {"t": "k", "v": "1205"}, {"t": "s", "v": "النهاية"}]}, {"x": "کتاب (استاد نے نہیں بتایا): امام زفر کے «توثق» والے استدلال کا جواب: حوالہ میں بھی توثق ہے، دائن زیادہ مالدار اور اچھی طرح ادا کرنے والا اختیار کرتا ہے۔ (کتاب: «والتوثق باختيار الأملأ والأحسن في القضاء»۔)", "s": [{"t": "k", "v": "1205"}, {"t": "s", "v": "العناية ٣٤٩/٦"}]}], "ikhtilaf": [{"x": "امام زفر: محیل بری نہیں ہوتا (کفالہ پر قیاس)؛ باقی احناف: بری ہو جاتا ہے (حوالہ = نقل)۔ اوپر دلیل میں۔", "s": [{"t": "u", "v": "0:33:07"}, {"t": "u", "v": "0:33:29"}, {"t": "k", "v": "1204"}]}], "faida": [], "lughat": [{"ar": "برئ المحيل من الدين", "ur": "اصل مقروض قرضے سے بری ہو گیا", "s": [{"t": "u", "v": "0:35:24"}]}, {"ar": "بالقبول", "ur": "(تینوں کے) قبول کرنے سے", "s": [{"t": "u", "v": "0:35:27"}]}, {"ar": "عقد توثق", "ur": "(قرض کو) مضبوط کرنے، اطمینان کا عقد", "s": [{"t": "s", "v": "فتح القدير"}]}, {"ar": "فللضم", "ur": "(کفالہ) ملانے کے لیے ہے، ذمے سے ذمہ ملانا", "s": [{"t": "s", "v": "العناية"}]}, {"ar": "الأملأ", "ur": "زیادہ مالدار، ادائیگی پر زیادہ قادر", "s": [{"t": "s", "v": "العناية"}]}, {"ar": "يجبر على القبول", "ur": "(دائن کو) قبول کرنے پر مجبور کیا جائے گا", "s": [{"t": "u", "v": "0:35:07"}]}]}, {"unit": "u0", "pages": [1205], "lesson": "2026-08-01-1448", "ts": "0:35:33", "label": null, "title": "محتال محیل سے رجوع نہیں کرے گا مگر یہ کہ اس کا حق ہلاک (توی) ہو جائے (امام شافعی: پھر بھی نہیں)؛ توی امام ابو حنیفہ کے ہاں دو صورتیں: محتال علیہ حوالہ کا انکار کر کے قسم کھا لے اور گواہ نہ ہوں، یا مفلس ہو کر مرے؛ صاحبین: تیسری صورت، قاضی اس کی زندگی میں اسے مفلس قرار دے", "start": "قال: ولا يرجع المحتال على المحيل إلا أن يتوى حقه", "start_note": "0:35:33 پر عبارت کا آغاز، 0:35:36 سے تمہید، 0:36:55 پر عبارت کا ترجمہ، 0:40:15 پر «والتوى عند أبي حنيفة…» پڑھ کر ترجمہ (0:40:53 تک)۔ ٹرانسکرپٹ میں 0:39:54–0:39:56 کی سطریں 0:36:49–0:39:51 کی تکرار ہیں (دیکھیں NOTES)۔ متن v5 330 ≈0.4 سے؛ کارڈ «قال: وإذا طالب المحتال عليه المحيل» (v5 331، ≈0.7) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 330–331", "tamheed": [{"x": "کیا قرضہ ٹرانسفر ہونے کے بعد میں یاسر (محیل) سے مطالبہ کر سکتا ہوں؟ نہیں۔ البتہ امام صاحب کے ہاں دو صورتوں میں قرضہ اصل مقروض کی طرف لوٹ آتا ہے اور صاحبین کے ہاں تین صورتوں میں۔", "s": [{"t": "u", "v": "0:35:36"}, {"t": "u", "v": "0:35:40"}, {"t": "u", "v": "0:35:41"}, {"t": "u", "v": "0:35:50"}, {"t": "u", "v": "0:35:55"}]}, {"x": "مثال: ٹرانسفر کے بعد میں نے وقاص کو نوٹس بھیجا یا فون کیا کہ پیسے دو؛ اس نے کہا کون سا حوالہ؟ میرے پاس گواہ نہیں، اس نے قسم کھا لی تو قاضی میرے خلاف فیصلہ دے گا؛ اب میں یاسر سے کہوں گا کہ تم نے جس کی طرف ٹرانسفر کیا اس نے انکار کر کے قسم کھا لی۔", "s": [{"t": "u", "v": "0:37:12"}, {"t": "u", "v": "0:37:20"}, {"t": "u", "v": "0:37:26"}, {"t": "u", "v": "0:37:30"}, {"t": "u", "v": "0:37:37"}, {"t": "u", "v": "0:37:44"}, {"t": "u", "v": "0:37:49"}, {"t": "u", "v": "0:38:00"}, {"t": "u", "v": "0:38:07"}]}], "masala": [{"x": "محتال (دائن) محیل سے رجوع نہیں کرے گا، مگر یہ کہ اس کا حق ہلاک (ضائع) ہو جائے۔ (کتاب: «ولا يرجع المحتال على المحيل إلا أن يتوى حقه»۔)", "s": [{"t": "u", "v": "0:36:55"}, {"t": "u", "v": "0:36:56"}, {"t": "u", "v": "0:37:02"}, {"t": "u", "v": "0:37:03"}, {"t": "u", "v": "0:37:05"}, {"t": "u", "v": "0:37:06"}, {"t": "k", "v": "1205"}]}, {"x": "امام ابو حنیفہ کے ہاں توی دو میں سے ایک بات سے: (1) محتال علیہ حوالہ کا انکار کرے اور قسم کھا لے اور حوالہ پر گواہ نہ ہوں؛ (2) مفلس ہو کر مرے (استاد کی وضاحت: پیسے بالکل نہ چھوڑے یا بہت کم)۔ (کتاب: «والتوى عند أبي حنيفة بأحد الأمرين: وهو إما أن يجحد الحوالة ويحلف، ولا بينة له عليه، أو يموت مفلساً»۔)", "s": [{"t": "u", "v": "0:37:08"}, {"t": "u", "v": "0:37:12"}, {"t": "u", "v": "0:38:07"}, {"t": "u", "v": "0:38:10"}, {"t": "u", "v": "0:38:20"}, {"t": "u", "v": "0:40:15"}, {"t": "u", "v": "0:40:17"}, {"t": "u", "v": "0:40:18"}, {"t": "u", "v": "0:40:19"}, {"t": "u", "v": "0:40:22"}, {"t": "u", "v": "0:40:24"}, {"t": "u", "v": "0:40:27"}, {"t": "u", "v": "0:40:31"}, {"t": "u", "v": "0:40:33"}, {"t": "u", "v": "0:40:37"}, {"t": "u", "v": "0:40:38"}, {"t": "k", "v": "1205"}]}, {"x": "صاحبین: یہ دو اور تیسری صورت یہ کہ قاضی محتال علیہ کو اس کی زندگی میں مفلس قرار دے دے؛ امام صاحب کے ہاں زندگی میں مفلس قرار نہیں دیا جا سکتا، تو قاضی قرار دے بھی دے تو مطالبہ محتال علیہ ہی سے ہوگا۔ (کتاب: «وقالا: هذان الوجهان، ووجه ثالث، وهو أن يحكم الحاكم بإفلاسه حال حياته»۔)", "s": [{"t": "u", "v": "0:39:42"}, {"t": "u", "v": "0:39:49"}, {"t": "u", "v": "0:39:51"}, {"t": "u", "v": "0:40:01"}, {"t": "u", "v": "0:40:04"}, {"t": "u", "v": "0:40:10"}, {"t": "u", "v": "0:40:40"}, {"t": "u", "v": "0:40:41"}, {"t": "u", "v": "0:40:43"}, {"t": "u", "v": "0:40:47"}, {"t": "u", "v": "0:40:53"}, {"t": "k", "v": "1205"}]}], "dalil": [{"x": "امام شافعی: کسی صورت میں قرضہ محیل پر نہیں لوٹتا، محتال علیہ مر جائے، مفلس ہو یا انکار کرے؛ براءت مطلق حاصل ہو چکی، الا یہ کہ کوئی نیا سبب پایا جائے (مثلاً دوبارہ اسی کی طرف حوالہ)۔ (کتاب: «وقال الشافعي: لا يرجع وإن توي؛ لأن البراءة قد حصلت مطلقة، فلا يعود إلا بسبب جديد»۔)", "s": [{"t": "u", "v": "0:36:03"}, {"t": "u", "v": "0:36:09"}, {"t": "u", "v": "0:36:13"}, {"t": "u", "v": "0:36:19"}, {"t": "u", "v": "0:36:25"}, {"t": "u", "v": "0:36:30"}, {"t": "u", "v": "0:36:34"}, {"t": "u", "v": "0:36:42"}, {"t": "k", "v": "1205"}, {"t": "s", "v": "العناية ٣٥٠/٦"}]}, {"x": "احناف: محیل سے فی نفسہ دوبارہ مطالبہ ہو سکتا ہے۔ کتاب (دلیل استاد نے نہیں بتائی): براءت اس شرط سے مقید ہے کہ دائن کا حق سلامت رہے، کیونکہ مقصود یہی ہے؛ یا حق فوت ہونے سے حوالہ فسخ ہو جاتا ہے، جیسے مبیع میں سلامتی کا وصف۔ (کتاب: «ولنا: أنها مقيدة بسلامة حقه له؛ إذ هو المقصود، أو تنفسخ الحوالة لفواته؛ لأنه قابل للفسخ، فصار كوصف السلامة في المبيع»۔)", "s": [{"t": "u", "v": "0:36:49"}, {"t": "k", "v": "1205"}, {"t": "k", "v": "1205"}, {"t": "s", "v": "فتح القدير ٣٥٠/٦"}]}, {"x": "امام صاحب کی دو صورتیں اس لیے کہ دونوں میں حق تک پہنچنے سے عاجزی ثابت ہو جاتی ہے، اور یہی حقیقت میں توی ہے۔ (کتاب: «لأن العجز عن الوصول يتحقق بكل واحد منهما، وهو التوى في الحقيقة»۔)", "s": [{"t": "k", "v": "1205"}, {"t": "s", "v": "العناية ٣٥٢/٦"}]}, {"x": "اختلاف کی بنیاد: قاضی کا مفلس قرار دینا۔ استاد: پچاس لاکھ قرض اور دس لاکھ کی جائیداد؛ صاحبین کے ہاں قاضی اسے مفلس قرار دے کر خرید و فروخت پر پابندی لگا سکتا ہے، جائیداد بیچ کر (کچھ کپڑے اور ضروریات چھوڑ کر) قرض خواہوں میں بانٹ دے؛ امام صاحب کے ہاں زندگی میں یہ پابندی اس کی آزادی کے منافی ہے۔ کتاب کی دلیل امام صاحب کے لیے: مال صبح آتا شام جاتا ہے۔ (کتاب: «وهذا بناء على أن الإفلاس لا يتحقق بحكم القاضي عنده، خلافاً لهما؛ لأن المال غاد ورائح»۔)", "s": [{"t": "u", "v": "0:38:28"}, {"t": "u", "v": "0:38:30"}, {"t": "u", "v": "0:38:37"}, {"t": "u", "v": "0:38:40"}, {"t": "u", "v": "0:38:45"}, {"t": "u", "v": "0:38:57"}, {"t": "u", "v": "0:39:00"}, {"t": "u", "v": "0:39:08"}, {"t": "u", "v": "0:39:13"}, {"t": "u", "v": "0:39:20"}, {"t": "u", "v": "0:39:26"}, {"t": "u", "v": "0:39:31"}, {"t": "u", "v": "0:39:38"}, {"t": "k", "v": "1205"}, {"t": "s", "v": "العناية ٣٥٢/٦"}]}], "ikhtilaf": [{"x": "امام شافعی بمقابلہ احناف (رجوع ہی نہیں / توی پر رجوع)؛ امام ابو حنیفہ بمقابلہ صاحبین (دو یا تین صورتیں): اوپر۔", "s": [{"t": "u", "v": "0:36:03"}, {"t": "u", "v": "0:36:49"}, {"t": "u", "v": "0:40:40"}, {"t": "k", "v": "1205"}, {"t": "k", "v": "1205"}]}], "faida": [{"x": "حاشیہ: محتال علیہ مر گیا اور اختلاف ہوا: محتال کہے مفلس مرا، محیل کہے نہیں؛ ایک قول میں محتال کی بات (علم پر قسم کے ساتھ)، شرح الناصحی میں محیل کی بات (علم پر قسم کے ساتھ)۔", "s": [{"t": "s", "v": "الكفاية ٣٥١/٦-٣٥٢"}]}, {"x": "سوال جواب (استاد): جیسے مرنے والے کے اپنے قرضے اس کی جائیداد سے لیے جاتے ہیں، ویسے ہی حوالہ والا قرضہ بھی؛ جائیداد میں گنجائش نہ ہو تو قرضہ ہلاک، اور میں دوبارہ محیل سے مطالبہ کروں گا۔ قرض خواہ قاضی سے کہیں تو قاضی جائیداد بیچ کر قرض دے: پہلے نقد سے، پھر منقول (گاڑی وغیرہ) سے، آخر میں زمین سے۔", "s": [{"t": "u", "v": "0:41:19"}, {"t": "u", "v": "0:41:29"}, {"t": "u", "v": "0:41:37"}, {"t": "u", "v": "0:41:40"}, {"t": "u", "v": "0:41:43"}, {"t": "u", "v": "0:41:45"}, {"t": "u", "v": "0:41:53"}, {"t": "u", "v": "0:42:03"}, {"t": "u", "v": "0:42:12"}, {"t": "u", "v": "0:42:17"}, {"t": "u", "v": "0:42:19"}]}], "lughat": [{"ar": "إلا أن يتوى حقه", "ur": "مگر یہ کہ اس کا حق ضائع (ہلاک) ہو جائے", "s": [{"t": "u", "v": "0:37:06"}]}, {"ar": "التوى", "ur": "قرضے کا ہلاک ہونا، تلف", "s": [{"t": "u", "v": "0:40:17"}, {"t": "s", "v": "فتح القدير ٣٥٠/٦"}]}, {"ar": "يجحد الحوالة ويحلف", "ur": "حوالہ کا انکار کرے اور قسم کھا لے", "s": [{"t": "u", "v": "0:40:24"}, {"t": "u", "v": "0:40:27"}]}, {"ar": "ولا بينة له عليه", "ur": "اور حوالہ پر گواہ نہ ہوں", "s": [{"t": "u", "v": "0:40:33"}]}, {"ar": "يموت مفلساً", "ur": "افلاس کی حالت میں مر جائے", "s": [{"t": "u", "v": "0:40:38"}]}, {"ar": "يحكم الحاكم بإفلاسه", "ur": "قاضی اسے مفلس (دیوالیہ) قرار دے", "s": [{"t": "u", "v": "0:40:47"}, {"t": "u", "v": "0:38:40"}]}, {"ar": "المال غاد ورائح", "ur": "مال صبح آتا شام جاتا ہے (آتا جاتا رہتا ہے)", "s": [{"t": "s", "v": "العناية ٣٥٢/٦"}]}]}, {"unit": "u0", "pages": [1205, 1206], "lesson": "2026-08-01-1448", "ts": "0:42:22", "label": null, "title": "محتال علیہ نے ادا کر کے محیل سے مطالبہ کیا، محیل نے کہا میں نے تمہارے ذمے اپنے قرض کے بدلے حوالہ کیا تھا: گواہ کے بغیر محیل کی بات نہیں مانی جائے گی، مثل دین دینا ہوگا؛ محیل نے محتال سے وصول شدہ مال مانگا اور کہا میں نے تمہیں صرف وصول کرنے کو کہا تھا، محتال نے کہا اپنے قرض کے بدلے: محیل کی بات قسم کے ساتھ؛ حوالہ قرض کا اقرار نہیں", "start": "قال: وإذا طالب المحتال عليه المحيل بمثل مال الحوالة", "start_note": "0:42:22 سے اردو تمہید، 0:44:41 پر پہلی عبارت پڑھ کر ترجمہ؛ 0:45:36 پر دوسری عبارت پوری پڑھ کر تمہید، 0:47:38 پر ترجمہ (0:48:26 تک)؛ 0:48:31–0:48:56 طالب علم کا سوال۔ متن v5 331 ≈0.7 سے؛ کارڈ «قال: ومن أودع رجلاً ألف درهم» (v5 332، ≈0.65) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 331–332", "tamheed": [{"x": "یاسر کے ذمے میرے پچاس ہزار؛ اس نے کہا میری جگہ وقاص دے دے گا، اور وقاص نے دے دیے۔ حوالہ کے لیے لازم نہیں کہ یاسر کا وقاص کے ذمے قرضہ ہو: تھا تو اسی میں کٹ جائے گا، نہیں تھا تو وقاص ادائیگی کے بعد یاسر سے مطالبہ کرے گا۔", "s": [{"t": "u", "v": "0:42:24"}, {"t": "u", "v": "0:42:25"}, {"t": "u", "v": "0:42:40"}, {"t": "u", "v": "0:42:42"}, {"t": "u", "v": "0:42:45"}, {"t": "u", "v": "0:42:49"}, {"t": "u", "v": "0:42:55"}, {"t": "u", "v": "0:42:58"}, {"t": "u", "v": "0:43:00"}, {"t": "u", "v": "0:43:03"}]}, {"x": "پھر وقاص نے یاسر سے پچاس ہزار مانگے؛ یاسر نے کہا میرا تمہارے ذمے قرضہ تھا، اسی لیے حوالہ کیا اور تم نے قبول کیا؛ وقاص کہتا ہے میں نے اخلاقاً قبول کیا تھا کہ بعد میں آپ سے لے لوں گا۔", "s": [{"t": "u", "v": "0:43:17"}, {"t": "u", "v": "0:43:19"}, {"t": "u", "v": "0:43:23"}, {"t": "u", "v": "0:43:24"}, {"t": "u", "v": "0:43:28"}, {"t": "u", "v": "0:43:33"}, {"t": "u", "v": "0:43:35"}, {"t": "u", "v": "0:43:45"}, {"t": "u", "v": "0:43:52"}]}, {"x": "دوسری صورت: یاسر نے مجھ سے کہا حوالہ کے طور پر وقاص سے پچاس ہزار لے لو؛ میں نے لے لیے؛ یاسر نے کہا وہ مجھے بھیجو؛ میں نے کہا وہ تو میرا آپ کے ذمے قرضہ تھا، سیٹ آف ہو گیا؛ یاسر کہتا ہے میرا مطلب تھا اس سے میری جگہ وصول کر کے مجھے دے دو۔", "s": [{"t": "u", "v": "0:45:57"}, {"t": "u", "v": "0:45:58"}, {"t": "u", "v": "0:46:02"}, {"t": "u", "v": "0:46:04"}, {"t": "u", "v": "0:46:11"}, {"t": "u", "v": "0:46:14"}, {"t": "u", "v": "0:46:20"}, {"t": "u", "v": "0:46:23"}, {"t": "u", "v": "0:46:27"}, {"t": "u", "v": "0:46:30"}, {"t": "u", "v": "0:46:32"}, {"t": "u", "v": "0:46:39"}]}], "masala": [{"x": "محتال علیہ نے ادا شدہ رقم کا محیل سے مطالبہ کیا اور محیل نے کہا میں نے تمہارے ذمے اپنے قرض کے بدلے حوالہ کیا تھا، محتال علیہ منکر ہے: محیل کی بات دلیل (گواہ) کے بغیر نہیں مانی جائے گی؛ گواہ نہ ہوں تو محتال علیہ قسم کھائے گا اور محیل پر مثلِ دین (پچاس ہزار) لازم۔ (کتاب: «وإذا طالب المحتال عليه المحيل بمثل مال الحوالة، فقال المحيل: أحلت بدين لي عليك، لم يقبل قوله إلا بحجة، وكان عليه مثل الدين»۔)", "s": [{"t": "u", "v": "0:44:15"}, {"t": "u", "v": "0:44:17"}, {"t": "u", "v": "0:44:20"}, {"t": "u", "v": "0:44:41"}, {"t": "u", "v": "0:44:42"}, {"t": "u", "v": "0:44:45"}, {"t": "u", "v": "0:44:46"}, {"t": "u", "v": "0:44:48"}, {"t": "u", "v": "0:44:53"}, {"t": "u", "v": "0:44:54"}, {"t": "u", "v": "0:44:55"}, {"t": "u", "v": "0:44:56"}, {"t": "u", "v": "0:45:00"}, {"t": "u", "v": "0:45:02"}, {"t": "u", "v": "0:45:03"}, {"t": "u", "v": "0:45:05"}, {"t": "u", "v": "0:45:06"}, {"t": "u", "v": "0:45:23"}, {"t": "u", "v": "0:45:25"}, {"t": "u", "v": "0:45:28"}, {"t": "u", "v": "0:45:29"}, {"t": "u", "v": "0:45:35"}, {"t": "k", "v": "1205"}, {"t": "k", "v": "1206"}]}, {"x": "محیل نے محتال سے وصول شدہ مال مانگا اور کہا میں نے تمہیں صرف اپنے لیے وصول کرنے کو حوالہ کیا تھا، محتال کہتا ہے نہیں، آپ نے میرے قرض کے بدلے حوالہ کیا تھا: محیل کی بات قسم کے ساتھ معتبر۔ (کتاب: «فقال: إنما أحلتك لتقبضه لي، وقال المحتال: لا بل أحلتني بدين كان لي عليك، فالقول قول المحيل… مع يمينه»۔)", "s": [{"t": "u", "v": "0:45:36"}, {"t": "u", "v": "0:47:38"}, {"t": "u", "v": "0:47:40"}, {"t": "u", "v": "0:47:44"}, {"t": "u", "v": "0:47:45"}, {"t": "u", "v": "0:47:47"}, {"t": "u", "v": "0:47:52"}, {"t": "u", "v": "0:47:59"}, {"t": "u", "v": "0:48:00"}, {"t": "u", "v": "0:48:03"}, {"t": "u", "v": "0:48:04"}, {"t": "u", "v": "0:48:07"}, {"t": "u", "v": "0:48:08"}, {"t": "u", "v": "0:48:11"}, {"t": "u", "v": "0:48:13"}, {"t": "u", "v": "0:48:19"}, {"t": "u", "v": "0:48:21"}, {"t": "u", "v": "0:48:26"}, {"t": "k", "v": "1206"}]}], "dalil": [{"x": "پہلی صورت: رجوع کا سبب (محیل کے حکم سے اس کا قرض ادا کرنا) ثابت ہے؛ محیل اس پر قرض کا دعویٰ کر رہا ہے اور وہ منکر، اور بات منکر کی ہوتی ہے؛ حوالہ قبول کرنا بذاتِ خود قرض کا اقرار نہیں، کیونکہ حوالہ قرض کے بغیر بھی ہوتا ہے۔ (کتاب: «لأن سبب الرجوع قد تحقق وهو قضاء دينه بأمره، إلا أن المحيل يدعي عليه ديناً وهو ينكر، والقول للمنكر، ولا تكون الحوالة إقراراً منه بالدين؛ لأنها قد تكون بدونه»۔)", "s": [{"t": "u", "v": "0:43:57"}, {"t": "u", "v": "0:44:00"}, {"t": "u", "v": "0:44:05"}, {"t": "u", "v": "0:44:15"}, {"t": "u", "v": "0:44:17"}, {"t": "u", "v": "0:44:20"}, {"t": "k", "v": "1206"}]}, {"x": "دوسری صورت: محتال اس پر قرض کا دعویٰ کر رہا ہے اور وہ منکر؛ اور لفظ «حوالہ» وکالت کے معنی میں بھی استعمال ہوتا ہے، جیسے کوئی کہے میرا قرضہ اس سے وصول کرو، یعنی لے کر مجھے دے دو۔ (کتاب: «لأن المحتال يدعي عليه الدين، وهو ينكر، ولفظة الحوالة مستعملة في الوكالة، فيكون القول قوله مع يمينه»؛ حاشیہ: مجازاً، علاقہ نقل ہے (وکالت میں تصرف منتقل ہوتا ہے)؛ قسم اس لیے کہ اس میں ظاہر کی کچھ مخالفت ہے۔)", "s": [{"t": "u", "v": "0:46:44"}, {"t": "u", "v": "0:46:48"}, {"t": "u", "v": "0:46:52"}, {"t": "u", "v": "0:46:57"}, {"t": "u", "v": "0:47:00"}, {"t": "u", "v": "0:47:11"}, {"t": "u", "v": "0:47:19"}, {"t": "u", "v": "0:47:25"}, {"t": "u", "v": "0:48:26"}, {"t": "k", "v": "1206"}, {"t": "s", "v": "العناية ٣٥٣/٦"}]}], "ikhtilaf": [], "faida": [{"x": "سوال جواب: یہ سارے معاملات آپس میں جڑے ہوئے نہیں، ہر معاملہ الگ دیکھا جائے گا، الا یہ کہ کوئی معاملہ دوسرے کو لازم ہو۔", "s": [{"t": "u", "v": "0:48:33"}]}], "lughat": [{"ar": "بمثل مال الحوالة", "ur": "حوالہ والے مال کے برابر (جتنا ادا کیا)", "s": [{"t": "u", "v": "0:44:48"}]}, {"ar": "أحلتك بدين لي عليك", "ur": "میں نے تمہارے ذمے اپنے قرض کے بدلے حوالہ کیا تھا", "s": [{"t": "u", "v": "0:44:56"}]}, {"ar": "لم يقبل قوله إلا بحجة", "ur": "دلیل (گواہ) کے بغیر اس کی بات نہیں مانی جائے گی", "s": [{"t": "u", "v": "0:45:06"}, {"t": "u", "v": "0:45:25"}]}, {"ar": "وكان عليه مثل الدين", "ur": "اور اس پر اتنا ہی قرض (ادا کرنا) لازم", "s": [{"t": "u", "v": "0:45:29"}]}, {"ar": "لتقبضه لي", "ur": "تاکہ تم میرے لیے قبضہ (وصول) کر کے مجھے دو", "s": [{"t": "u", "v": "0:48:04"}]}, {"ar": "فالقول قول المحيل", "ur": "محیل کی بات (قسم کے ساتھ) معتبر", "s": [{"t": "u", "v": "0:48:21"}, {"t": "u", "v": "0:48:26"}]}, {"ar": "مستعملة في الوكالة", "ur": "وکالت کے معنی میں بھی استعمال ہوتا ہے", "s": [{"t": "u", "v": "0:46:52"}, {"t": "s", "v": "العناية ٣٥٣/٦"}]}]}, {"unit": "u0", "pages": [1206, 1207], "lesson": "2026-08-01-1448", "ts": "0:49:00", "label": null, "title": "ودیعت کے ہزار درہم کا اسی مودَع پر حوالہ جائز؛ ودیعت (بغیر تعدی) ہلاک ہو تو مودَع بری، حوالہ ختم؛ غصب سے مقید ہو تو ہلاکت سے حوالہ باطل نہیں؛ مقیدہ میں محیل محتال علیہ سے اپنا مال نہیں مانگ سکتا؛ مطلقہ میں مانگ سکتا ہے اور محتال علیہ (محیل کو دے کر بھی) محتال کا ذمہ دار", "start": "قال: ومن أودع رجلاً ألف درهم، وأحال بها عليه آخر فهو جائز", "start_note": "0:48:31 پر «ومن أودع» کہا، طالب علم کے سوال کے بعد 0:49:00 سے مقیدہ کی تین صورتیں اردو میں، 0:51:18 پر عبارت پڑھ کر ترجمہ؛ 0:52:36 پر «وحكم المقيدة…» پڑھ کر مقیدہ اور مطلقہ کا فرق (0:55:01 تک)۔ متن v5 332 ≈0.65 سے؛ کارڈ «قال: ويكره السفاتج» (v5 334 کی دوسری اور آخری سطر کے آخر، ≈0.9) سے پہلے ختم۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 332–334", "tamheed": [{"x": "حوالہ مقیدہ کی تین صورتیں: یاسر کے ذمے میرے پچاس ہزار؛ اس نے مجھے وقاص کے حوالے کیا اور تینوں راضی؛ وقاص اس لیے راضی کہ (1) یاسر کا وقاص کے ذمے قرضہ تھا، یا (2) یاسر نے اس کے پاس پچاس ہزار امانت رکھے تھے، یا (3) وقاص نے یاسر سے پچاس ہزار غصب کیے تھے اور اقرار کرتا ہے۔", "s": [{"t": "u", "v": "0:49:00"}, {"t": "u", "v": "0:49:06"}, {"t": "u", "v": "0:49:09"}, {"t": "u", "v": "0:49:13"}, {"t": "u", "v": "0:49:17"}, {"t": "u", "v": "0:49:18"}, {"t": "u", "v": "0:49:24"}, {"t": "u", "v": "0:49:26"}, {"t": "u", "v": "0:49:30"}, {"t": "u", "v": "0:49:37"}, {"t": "u", "v": "0:49:40"}, {"t": "u", "v": "0:49:41"}, {"t": "u", "v": "0:49:44"}]}, {"x": "یاسر نے وقاص سے کہا: جو تمہارے ذمے میرا قرضہ ہے، یا میری امانت، یا غصب کیے ہوئے پیسے، اس کے بدلے میرا قرضہ ادا کر دو؛ وقاص نے مان لیا۔ میں وقاص سے لے لوں تو ان دونوں کا معاملہ بھی سیٹل۔", "s": [{"t": "u", "v": "0:49:50"}, {"t": "u", "v": "0:49:54"}, {"t": "u", "v": "0:49:59"}, {"t": "u", "v": "0:50:00"}, {"t": "u", "v": "0:50:04"}, {"t": "u", "v": "0:50:08"}]}], "masala": [{"x": "کسی نے ایک آدمی کے پاس ہزار درہم امانت رکھے، پھر اپنے دائن کو انہی کے بدلے اس پر حوالہ کیا تو جائز۔ (کتاب: «ومن أودع رجلاً ألف درهم، وأحال بها عليه آخر فهو جائز؛ لأنه أقدر على القضاء»۔)", "s": [{"t": "u", "v": "0:51:18"}, {"t": "u", "v": "0:51:22"}, {"t": "u", "v": "0:51:31"}, {"t": "u", "v": "0:51:32"}, {"t": "u", "v": "0:51:37"}, {"t": "u", "v": "0:51:39"}, {"t": "u", "v": "0:51:40"}, {"t": "u", "v": "0:51:42"}, {"t": "k", "v": "1206"}]}, {"x": "امانت کی رقم مودَع کی غفلت کے بغیر (مثلاً چوری سے) ہلاک ہو گئی تو وہ ضامن نہیں، ودیعت ختم، اور حوالہ جو اسی پر مبنی تھا وہ بھی ختم؛ مودَع بری۔ (کتاب: «فإن هلكت برئ»۔)", "s": [{"t": "u", "v": "0:50:17"}, {"t": "u", "v": "0:50:23"}, {"t": "u", "v": "0:50:26"}, {"t": "u", "v": "0:50:33"}, {"t": "u", "v": "0:50:40"}, {"t": "u", "v": "0:50:45"}, {"t": "u", "v": "0:50:51"}, {"t": "u", "v": "0:50:59"}, {"t": "u", "v": "0:51:04"}, {"t": "u", "v": "0:51:45"}, {"t": "u", "v": "0:51:47"}, {"t": "u", "v": "0:51:49"}, {"t": "k", "v": "1206"}]}, {"x": "غصب سے مقید ہو (مثلاً موٹر سائیکل غصب کی تھی) اور وہ ہلاک ہو جائے تو حوالہ اپنی جگہ باقی، کیونکہ غاصب پر اس کا بدل واجب ہے؛ وہ بری نہیں ہوگا۔ (کتاب: «بخلاف ما إذا كانت مقيدة بالمغصوب؛ لأن الفوات إلى خلف كلا فوات»۔)", "s": [{"t": "u", "v": "0:52:00"}, {"t": "u", "v": "0:52:03"}, {"t": "u", "v": "0:52:08"}, {"t": "u", "v": "0:52:12"}, {"t": "u", "v": "0:52:25"}, {"t": "k", "v": "1206"}, {"t": "s", "v": "البناية ٢٠١/١١"}]}, {"x": "استاد: قرض سے مقید ہو تو بھی (مال ہلاک ہونے کا سوال نہیں) حوالہ باقی، کیونکہ اس کے ذمے قرضہ تھا۔ (کتاب صرف اتنا کہتی ہے: «وقد تكون الحوالة مقيدة بالدين»۔)", "s": [{"t": "u", "v": "0:51:04"}]}, {"x": "مقیدہ کا حکم: یاسر (محیل) اب وقاص سے اپنے قرض (یا امانت) کا مطالبہ نہیں کر سکتا؛ وقاص کہہ سکتا ہے کہ میں تمہیں نہیں، اسی کو دوں گا جس کے تم نے مجھ پر حوالہ کیا۔ (کتاب: «وحكم المقيدة في هذه الجملة أن لا يملك المحيل مطالبة المحتال عليه»۔)", "s": [{"t": "u", "v": "0:52:36"}, {"t": "u", "v": "0:52:45"}, {"t": "u", "v": "0:52:49"}, {"t": "u", "v": "0:52:54"}, {"t": "u", "v": "0:52:58"}, {"t": "u", "v": "0:53:01"}, {"t": "u", "v": "0:53:06"}, {"t": "u", "v": "0:53:10"}, {"t": "k", "v": "1206"}]}, {"x": "مطلقہ: اتفاقاً یاسر کا وقاص پر قرضہ تھا مگر حوالہ اس سے جوڑا نہیں گیا، صرف کہا تم یہ پیسے دے دو گے؟ تو یاسر وقاص سے اپنا قرضہ مانگ سکتا ہے؛ اور وقاص یاسر کو دے بھی دے تب بھی مجھے (محتال کو) دینے کا ذمہ دار۔ (کتاب: «بخلاف المطلقة… فلا تبطل الحوالة بأخذ ما عليه، أو ما عنده»۔)", "s": [{"t": "u", "v": "0:53:44"}, {"t": "u", "v": "0:53:50"}, {"t": "u", "v": "0:53:54"}, {"t": "u", "v": "0:54:08"}, {"t": "u", "v": "0:54:11"}, {"t": "u", "v": "0:54:19"}, {"t": "u", "v": "0:54:32"}, {"t": "u", "v": "0:54:42"}, {"t": "u", "v": "0:54:54"}, {"t": "k", "v": "1207"}]}], "dalil": [{"x": "ودیعت پر حوالہ اس لیے جائز کہ مودَع ادائیگی پر زیادہ قادر ہے (پیسے اس کے پاس موجود ہیں)؛ ہلاکت پر بری اس لیے کہ حوالہ اسی ودیعت سے مقید تھا، اس نے صرف اسی میں سے ادا کرنا قبول کیا تھا۔ (کتاب: «لأنه أقدر على القضاء… لتقييدها بها، فإنه ما التزم الأداء إلا منها»؛ حاشیہ: جیسے معین نصاب سے متعلق زکوٰۃ اس کے ہلاک ہونے سے ساقط۔)", "s": [{"t": "u", "v": "0:51:42"}, {"t": "u", "v": "0:51:49"}, {"t": "k", "v": "1206"}, {"t": "s", "v": "العناية ٣٥٣/٦"}, {"t": "s", "v": "العناية ٣٥٣/٦-٣٥٤"}]}, {"x": "غصب میں: غاصب کے پاس چیز ہلاک ہو یا چوری ہو جائے تو اس کا بدل (مثل یا قیمت) دینا ہوتا ہے؛ بدل کی طرف فوت ہونا گویا فوت نہ ہونا۔", "s": [{"t": "u", "v": "0:52:12"}, {"t": "u", "v": "0:52:25"}, {"t": "k", "v": "1206"}, {"t": "s", "v": "البناية ٢٠١/١١"}]}, {"x": "مقیدہ میں محیل مطالبہ کیوں نہیں کر سکتا: اس مال سے محتال کا حق متعلق ہو گیا (رہن کی طرح)؛ اگر محیل لے لے تو حوالہ باطل ہو جائے، کیونکہ حوالہ اسی پر مبنی تھا، اور حوالہ محتال کا حق ہے۔ (کتاب: «لأنه تعلق به حق المحتال على مثال الرهن… لو بقيت له مطالبة به، فيأخذه منه لبطلت الحوالة، وهي حق المحتال»۔)", "s": [{"t": "u", "v": "0:53:06"}, {"t": "u", "v": "0:53:10"}, {"t": "u", "v": "0:53:24"}, {"t": "u", "v": "0:53:32"}, {"t": "u", "v": "0:53:35"}, {"t": "u", "v": "0:53:37"}, {"t": "k", "v": "1206"}]}, {"x": "مطلقہ میں محتال کا حق اس قرض یا امانت سے متعلق نہیں، بلکہ محتال علیہ کے ذمے سے ہے۔ (کتاب: «لأنه لا تعلق لحقه به بل بذمته»؛ حاشیہ: اور ذمے میں وسعت ہے۔)", "s": [{"t": "u", "v": "0:54:11"}, {"t": "u", "v": "0:54:32"}, {"t": "u", "v": "0:54:42"}, {"t": "k", "v": "1207"}, {"t": "s", "v": "الكفاية ٣٥٥/٦"}]}], "ikhtilaf": [{"x": "کتاب (استاد نے نہیں بتایا): محیل مر جائے اور اس پر اور قرض بھی ہوں تو مقیدہ والا مال سب قرض خواہوں میں برابر بٹے گا، محتال کو ترجیح نہیں (رہن سے فرق: مرتہن کو قبضہ ملا ہوتا ہے)؛ امام زفر (اور قیاس): محتال مقدم۔ (کتاب: «وإن كان أسوة للغرماء بعد موت المحيل»۔)", "s": [{"t": "k", "v": "1206"}, {"t": "s", "v": "العناية ٣٥٤/٦"}, {"t": "s", "v": "البناية ٢٠٢/١١"}]}], "faida": [{"x": "حاشیہ: مقیدہ میں مودَع یا محتال علیہ نے وہ مال محیل کو دے دیا تو (محتال کے لیے) ضامن ہوگا، کیونکہ دوسرے کے حق سے مشغول چیز ضائع کی۔", "s": [{"t": "s", "v": "العناية ٣٥٤/٦"}]}, {"x": "حوالہ مطلقہ کی صورت (حاشیہ): مقروض دائن سے کہے میں نے تمہیں تمہارے ہزار کے بدلے اس آدمی پر حوالہ کیا، اور یہ نہ کہے کہ اس مال سے ادا کرے جو میرا اس پر ہے یا اس کے پاس ہے۔", "s": [{"t": "u", "v": "0:54:42"}, {"t": "s", "v": "الكفاية ٣٥٥/٦"}]}], "lughat": [{"ar": "أودع رجلاً ألف درهم", "ur": "کسی کے پاس ہزار درہم امانت رکھے", "s": [{"t": "u", "v": "0:51:18"}, {"t": "u", "v": "0:51:22"}]}, {"ar": "وأحال بها عليه آخر", "ur": "اور انہی کے بدلے کسی اور (اپنے دائن) کو اس پر حوالہ کیا", "s": [{"t": "u", "v": "0:51:32"}, {"t": "u", "v": "0:51:37"}]}, {"ar": "أقدر على القضاء", "ur": "ادائیگی پر زیادہ قادر", "s": [{"t": "u", "v": "0:51:42"}, {"t": "s", "v": "العناية ٣٥٣/٦"}]}, {"ar": "فإن هلكت برئ", "ur": "اگر (امانت) ہلاک ہو گئی تو (مودَع) بری", "s": [{"t": "u", "v": "0:51:47"}, {"t": "u", "v": "0:51:49"}]}, {"ar": "الفوات إلى خلف كلا فوات", "ur": "بدل چھوڑ کر فوت ہونا گویا فوت نہ ہونا", "s": [{"t": "u", "v": "0:52:12"}, {"t": "s", "v": "البناية ٢٠١/١١"}]}, {"ar": "المقيدة / المطلقة", "ur": "کسی خاص قرض یا امانت سے مشروط حوالہ / غیر مشروط حوالہ", "s": [{"t": "u", "v": "0:27:30"}, {"t": "u", "v": "0:27:32"}, {"t": "u", "v": "0:28:07"}, {"t": "u", "v": "0:49:00"}]}, {"ar": "على مثال الرهن", "ur": "رہن کی طرح (راہن قرض ادا کیے بغیر رہن واپس نہیں مانگ سکتا)", "s": [{"t": "s", "v": "البناية ٢٠٢/١١"}]}]}, {"unit": "u0", "pages": [1207], "lesson": "2026-08-01-1448", "ts": "0:55:04", "label": null, "title": "سفتجہ مکروہ: قرض دے کر دوسرے شہر میں واپسی لینا تاکہ راستے کا خطرہ ٹل جائے؛ یہ قرض سے حاصل کیا گیا نفع ہے اور قرض سے نفع کھینچنا منع ہے", "start": "قال: ويكره السفاتج", "start_note": "0:55:04 پر «ويكره السفتجة» پڑھ کر (متن «ويكره السفاتج»؛ OCR «ويوكره») حوالہ کی بحث ختم کی اور اردو میں سفتجہ سمجھایا، 0:57:01–0:57:05 پر «وهي قرض استفاد به المقرض سقوط خطر الطريق» پڑھ کر ترجمہ؛ 0:57:18–0:57:50 ہنڈی پر سوال جواب۔ متن v5 334 ≈0.9 (دو سطری متن کی آخری سطر کا آخر) سے v5 335 کے متن کے آخر تک (کتاب الحوالة ختم؛ v5 336 سے كتاب أدب القاضي)۔", "norec": "", "badges": null, "exam": null, "v7": "بشریٰ ج٥ ص 334–335", "tamheed": [{"x": "مجھے کراچی پیسے بھیجنے ہیں مگر راستے میں کچے کے ڈاکو ہیں، کوئی چھین لے گا۔ ایک آدمی نے ایک لاکھ قرض مانگا، میں نے کہا دیتا ہوں مگر واپسی مجھے کراچی میں کرنی ہے۔", "s": [{"t": "u", "v": "0:55:18"}, {"t": "u", "v": "0:55:24"}, {"t": "u", "v": "0:55:27"}, {"t": "u", "v": "0:55:35"}]}, {"x": "استاد: یہاں میرا اصل مقصد پیسوں کو محفوظ کرنا ہے: راستے میں اس سے چوری ہو جائے تب بھی کراچی میں مجھے دینے ہیں۔", "s": [{"t": "u", "v": "0:55:45"}, {"t": "u", "v": "0:56:02"}]}], "masala": [{"x": "سفتجہ مکروہ ہے: قرض کے ضمن میں قرض دینے والے نے راستے کا خطرہ اپنے سر سے ٹال دیا، یہ ضمنی فائدہ ہے، اس لیے فقہاء نے مکروہ کہا۔ (کتاب: «ويكره السفاتج، وهي قرض استفاد به المقرض سقوط خطر الطريق»۔)", "s": [{"t": "u", "v": "0:55:04"}, {"t": "u", "v": "0:55:09"}, {"t": "u", "v": "0:56:11"}, {"t": "u", "v": "0:56:25"}, {"t": "u", "v": "0:57:01"}, {"t": "u", "v": "0:57:02"}, {"t": "u", "v": "0:57:03"}, {"t": "u", "v": "0:57:05"}, {"t": "k", "v": "1207"}, {"t": "k", "v": "1207"}]}, {"x": "استاد کی رائے: قرض میں یہ شرط لگانا کہ واپسی فلاں جگہ ہوگی بذاتِ خود مسئلہ نہیں؛ کراہت تب ہے جب مقصد ہی پیسوں کو محفوظ کرنا ہو؛ ویسے ہی قرض دیا اور کہا تم بھی کراچی جا رہے ہو میں بھی، وہیں دے دینا، اور ذہن میں خطرہ نہیں (وہ جہاز میں جا رہا ہے) تو مکروہ نہیں۔", "s": [{"t": "u", "v": "0:55:45"}, {"t": "u", "v": "0:56:37"}, {"t": "u", "v": "0:56:57"}]}, {"x": "حاشیہ (استاد کی رائے سے مختلف معیار): فیصلہ کن چیز شرط ہے، نیت نہیں: سفتجہ قرض میں شرط ہو (مثلاً اس شرط پر قرض دیا کہ فلاں شہر میں لکھ دے گا) تو حرام اور قرض فاسد؛ شرط کے بغیر جائز، بشرطیکہ اس کا ظاہر عرف نہ ہو۔ «النہر»: مصنف کا مطلق «ويكره» بتاتا ہے کہ شرط نہ ہو تب بھی (نفع ہو تو) مکروہ۔", "s": [{"t": "s", "v": "فتح القدير ٣٥٦/٦"}, {"t": "s", "v": "الكفاية ٣٥٦/٦"}, {"t": "s", "v": "رد المحتار"}]}], "dalil": [{"x": "یہ ایک قسم کا نفع ہے جو قرض سے حاصل کیا گیا، اور رسول اللہ صلی اللہ علیہ وسلم نے نفع کھینچنے والے قرض سے منع فرمایا۔ استاد: «كل قرض جر نفعا فهو ربا»۔ (کتاب: «وهذا نوع نفع استفيد به، وقد نهى الرسول عليه السلام عن قرض جر نفعاً»؛ حاشیہ: حارث بن ابی اسامہ کی روایت، سند ضعیف مگر شواہد سے تقویت۔)", "s": [{"t": "u", "v": "0:56:11"}, {"t": "u", "v": "0:56:25"}, {"t": "k", "v": "1207"}, {"t": "s", "v": "نصب الراية ١٣٠/٤"}, {"t": "s", "v": "إعلاء السنن ٤٩٩/١٤"}]}], "ikhtilaf": [{"x": "حاشیہ: الفتاویٰ الصغریٰ وغیرہ: سفتجہ قرض میں شرط ہو تو حرام اور قرض فاسد، شرط نہ ہو تو جائز (بشرطیکہ اس کا ظاہر عرف نہ ہو)۔ «النہر»: مصنف کا مطلق کہنا بتاتا ہے کہ نفع ہو تو مکروہ، شرط ہو یا نہ ہو۔", "s": [{"t": "s", "v": "فتح القدير ٣٥٦/٦"}, {"t": "s", "v": "رد المحتار"}]}], "faida": [{"x": "حاشیہ: سفاتج «سفتہ» (محکم چیز) کا معرب؛ صورت: تاجر کو مال قرض کے طور پر دے (امانت کے طور پر نہیں) کہ وہ دوسرے شہر میں اس کے دوست کو دے۔ کتاب الحوالہ کے آخر میں اس لیے کہ اس میں متوقع خطرہ قرض لینے والے پر حوالہ کیا گیا (اور یہ بھی دیون کا معاملہ ہے)۔", "s": [{"t": "s", "v": "الكفاية ٣٥٦/٦"}, {"t": "s", "v": "العناية ٣٥٦/٦"}]}, {"x": "حاشیہ: ابن زبیر مکہ میں لوگوں سے درہم لے کر عراق میں مصعب بن زبیر کو لکھ دیتے تھے؛ ابن عباس اور علی رضی اللہ عنہم نے اس میں حرج نہیں سمجھا۔", "s": [{"t": "s", "v": "التنبيه على مشكلات الهداية ٤٦٥-٤٦٦"}]}, {"x": "سوال جواب (استاد): ہنڈی میں راستے کا خطرہ وغیرہ نہیں ہوتا، وہ اس سے مختلف ہے، اس مسئلے میں نہیں آتی؛ ہنڈی بذاتِ خود جائز، البتہ حکومت کے قانون کی خلاف ورزی کا گناہ ہوگا؛ اس میں لمبی تفصیل ہے۔", "s": [{"t": "u", "v": "0:57:28"}, {"t": "u", "v": "0:57:49"}]}], "lughat": [{"ar": "السفاتج / السفتجة", "ur": "وہ قرض جس کی واپسی دوسرے شہر میں ہو تاکہ راستے کا خطرہ ٹل جائے", "s": [{"t": "u", "v": "0:55:09"}, {"t": "u", "v": "0:55:18"}, {"t": "s", "v": "الكفاية ٣٥٦/٦"}]}, {"ar": "المقرض", "ur": "قرض دینے والا (کریڈیٹر)", "s": [{"t": "u", "v": "0:57:05"}]}, {"ar": "استفاد به", "ur": "اس کے ذریعے فائدہ حاصل کیا", "s": [{"t": "u", "v": "0:57:05"}]}, {"ar": "سقوط خطر الطريق", "ur": "راستے کے خطرے کا ٹل جانا", "s": [{"t": "u", "v": "0:57:05"}, {"t": "u", "v": "0:56:11"}]}, {"ar": "قرض جر نفعاً", "ur": "وہ قرض جو نفع کھینچے", "s": [{"t": "u", "v": "0:56:11"}]}]}], "gaps": [{"unit": "u0", "pages": "1204", "page_list": [1204], "v7": "بشریٰ ج٥ ص 328", "text": "حدیث «من أحيل على مليء فليتبع» اور «ولأنه التزام ما يقدر على تسليمه، فتصح كالكفالة» نہیں بتائے؛ کارڈ 5 دلیل۔"}, {"unit": "u0", "pages": "1204", "page_list": [1204], "v7": "بشریٰ ج٥ ص 329", "text": "«وأما المحيل فالحوالة تصح بدون رضاه ذكره في الزيادات» اور اس کی دلیل عبارت سے نہیں پڑھی (استاد نے دو قول بتائے)؛ کارڈ 5۔"}, {"unit": "u0", "pages": "1205", "page_list": [1205], "v7": "بشریٰ ج٥ ص 330", "text": "زفر کے جواب «والتوثق باختيار الأملأ والأحسن في القضاء» نہیں بتایا؛ کارڈ 6۔"}, {"unit": "u0", "pages": "1205", "page_list": [1205], "v7": "بشریٰ ج٥ ص 330–331", "text": "احناف کی دلیل «أنها مقيدة بسلامة حقه له… فصار كوصف السلامة في المبيع» نہیں بتائی؛ کارڈ 7۔"}, {"unit": "u0", "pages": "1205", "page_list": [1205], "v7": "بشریٰ ج٥ ص 331", "text": "امام صاحب کی دلیلیں «لأن العجز عن الوصول يتحقق بكل واحد منهما» اور «لأن المال غاد ورائح» نہیں پڑھیں؛ استاد نے آزادی والی دلیل دی؛ کارڈ 7۔"}, {"unit": "u0", "pages": "1206", "page_list": [1206], "v7": "بشریٰ ج٥ ص 333", "text": "«على مثال الرهن، وإن كان أسوة للغرماء بعد موت المحيل» نہیں بتایا؛ کارڈ 9 اختلاف۔"}], "kitabs": [{"title": "كتاب الصرف", "from": 1171, "to": 1180, "href": "sarf.html"}, {"title": "كتاب الكفالة", "from": 1181, "to": 1203, "href": "kafala.html"}, {"title": "كتاب الحوالة", "from": 1204, "to": 1207, "href": "hawala.html"}, {"title": "كتاب أدب القاضي", "from": 1208, "to": 1238, "href": "adab-qadi.html"}, {"title": "كتاب الشهادة", "from": 1239, "to": 1266, "href": "shahada.html"}, {"title": "كتاب الرجوع عن الشهادة", "from": 1267, "to": 1272, "href": "rujoo.html"}, {"title": "كتاب الوكالة", "from": 1273, "to": 1303, "href": "wakala.html"}], "sections": [["tamheed", "تمہید"], ["masala", "مسئلہ"], ["dalil", "دلیل"], ["ikhtilaf", "اختلاف"], ["faida", "فائدہ"]], "quick": ["tamheed", "masala"], "footer": ["صفحہ نمبر ساتھیوں والے نسخے (مسلسل صفحات، جلد ثالث ص 1019 سے) کے ہیں۔ باب اور فصل کے صفحے اس نسخے کی فہرست سے ہیں؛ کارڈوں کے صفحے بشریٰ کے آٹھ جلدی نسخے (جلد ٥) سے حساب لگا کر، اس لیے کہیں کہیں ایک صفحہ آگے پیچھے ہو سکتا ہے۔ اصل جگہ کارڈ کی پہلی عربی سطر سے پہچانیں؛ بشریٰ کا صفحہ ہر کارڈ پر ساتھ لکھا ہے۔", "«اس سال کی کلاس» = اس سال (1448) کی کلاس کی ریکارڈنگ۔ «پچھلے سال کی کلاس» = پچھلے سال کی ریکارڈنگ، صرف اس حصے کے لیے جس کی اس سال کی ریکارڈنگ نہیں ملی۔", "ٹرانسکرپٹ ریکارڈنگ سے Gemini نے بنایا اور اس کے وقت آواز سے ملا کر درست کیے گئے۔ کارڈ اسی ٹرانسکرپٹ، کتاب کے متن اور حاشیے سے بنے ہیں؛ ہر سطر کے آخر میں اس کا ماخذ ہے۔", "پیلی (AI) علامت والی سطریں خود جانچیں۔ امتحان میں مسئلہ، اختلاف اور دلیل سبز، نیلی یا سرمئی علامت والی سطروں سے لکھیں۔"]};
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const secs = (ts) => ts.split(":").map(Number).reduce((a, n) => a * 60 + n, 0);
+const B = DATA.book, LES = DATA.lessons, UNITS = DATA.units || [], CARDS = DATA.cards, GAPS = DATA.gaps || [];
+const PAGED = CARDS.some((c) => c.pages && c.pages.length);
+const ONE = B.unitOne || "کارڈ";
+const audio = $("audio");
+const OPUS_OK = (() => { try { return audio.canPlayType('audio/ogg; codecs="opus"') !== ""; } catch (e) { return false; } })();
+const ICON = {
+  play: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0v10l9-5z"/></svg>',
+  down: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M5 1h2v5h2.5L6 9.5 2.5 6H5zM1 10.5h10V12H1z"/></svg>',
+};
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+const KEY = DATA.store || "cards";
+const toLatin = (v) => String(v).replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).trim();
+const LRI = "\u2066", PDI = "\u2069";
+const range = (a, b) => (a === b ? `${a}` : `${LRI}${a}–${b}${PDI}`);
+const iso = (s) => String(s ?? "").replace(/(\d+)\s*[–-]\s*(\d+)/g, `${LRI}$1–$2${PDI}`);
+const sizeMB = (x) => `${LRI}${x >= 10 ? Math.round(x) : Math.round(x * 10) / 10} MB${PDI}`;
+const pagesLabel = (ps) => `ص ${range(ps[0], ps[ps.length - 1])}`;
+
+// ---------- header
+document.title = `${B.kitab} · ${B.book}`;
+if (DATA.home) { $("homeLink").href = DATA.home; $("homeLink").textContent = `→ ${DATA.homeLabel || B.book}`; $("homeLink").hidden = false; }
+$("kitab").textContent = B.kitab;
+const usedLessons = [...new Set(CARDS.map((c) => c.lesson).filter(Boolean))].sort();
+$("meta").innerHTML = (PAGED && B.from ? `صفحات <b class="ltr num">${range(B.from, B.to)}</b>، ` : "") +
+  `<b>${CARDS.length}</b> ${esc(B.unit || "کارڈ")}، <b>${usedLessons.length}</b> اسباق کی ریکارڈنگ سے`;
+
+// ---------- units
+const unitByKey = Object.fromEntries(UNITS.map((u) => [u.key, u]));
+const cardsOf = (k) => CARDS.filter((c) => c.unit === k);
+const pagesOf = (k) => [...new Set(cardsOf(k).flatMap((c) => c.pages || []))].sort((a, b) => a - b);
+const gapsOf = (k) => GAPS.filter((g) => g.unit === k);
+const parentOf = (u) => {
+  const i = UNITS.indexOf(u);
+  for (let j = i - 1; j >= 0; j--) if (UNITS[j].level < u.level) return UNITS[j];
+  return null;
+};
+
+$("toc").innerHTML = UNITS.map((u) => {
+  const n = cardsOf(u.key).length, ps = pagesOf(u.key);
+  const pr = PAGED && u.page ? `<span class="pp">${range(u.page, u.page_to || u.page)}</span>` : "";
+  const ex = cardsOf(u.key).reduce((a, c) => a + (c.exam || []).filter((x) => x.k === "t").length, 0);
+  const px = cardsOf(u.key).reduce((a, c) => a + (c.exam || []).filter((x) => x.k === "p").length, 0);
+  const sub = n
+    ? `<span class="n">${n} ${esc(ONE)}</span>` + (ex ? `<span class="exn" title="استاد نے اہم کہا">★ ${ex}</span>` : "") + (px ? `<span class="pxn" title="وفاق کے پرچوں کے سوال">وفاق ${px}</span>` : "") + (PAGED ? ps.map((p) => `<a class="pchip" href="#${u.key}-${p}" aria-label="صفحہ ${p}">${p}</a>`).join("") : "")
+    : `<span class="none">${gapsOf(u.key).length ? "ریکارڈنگ نہیں ملی" : "ابھی کارڈ نہیں"}</span>`;
+  return `<li class="lv${u.level}" id="toc-${u.key}"><a class="row" href="#${u.key}"><span class="tt" lang="ar">${esc(u.title)}</span><span class="dots"></span>${pr}</a>
+    <div class="sub">${sub}</div></li>`;
+}).join("");
+if (!PAGED) document.querySelectorAll("form.jump").forEach((f) => { f.hidden = true; });
+
+// ---------- cards (rendered once; views show and hide them)
+function chip(s, lesson) {
+  if (s.t === "u") return `<button type="button" class="chip u" data-ts="${s.v}" data-l="${s.l || lesson || ""}" title="یہاں سے سنیں">استاد ${s.v}</button>`;
+  if (s.t === "k") return `<span class="chip k"${s.v7 ? ` title="بشریٰ ج${s.v7 >= 1000 ? "٨" : "٧"} ص ${s.v7 >= 1000 ? s.v7 - 1000 : s.v7}"` : ""}>کتاب ص ${iso(esc(s.v))}</span>`;
+  if (s.t === "s") return `<span class="chip s">شرح: ${esc(s.v)}</span>`;
+  return `<span class="chip a">AI · تصدیق طلب</span>`;
+}
+const chips = (arr, l) => `<span class="srcs">${arr.map((s) => chip(s, l)).join("")}</span>`;
+const QUICK = DATA.quick || ["tamheed", "masala"];
+$("cards").innerHTML = CARDS.map((c, i) => {
+  const l = c.lesson;
+  const sec = ([key, label]) => {
+    const items = c[key] || [];
+    if (!items.length) return "";
+    return `<div class="sec ${key}"><h4>${label}</h4><ul>${items.map((it) => `<li>${esc(it.x)} ${chips(it.s, l)}</li>`).join("")}</ul></div>`;
+  };
+  const quick = DATA.sections.filter(([k]) => QUICK.includes(k)).map(sec).join("");
+  const examSecs = DATA.sections.filter(([k]) => !QUICK.includes(k) && (c[k] || []).length);
+  const n = examSecs.reduce((a, [k]) => a + c[k].length, 0);
+  const exam = n ? `<details class="more"><summary>${examSecs.map(([, lb]) => lb).join("، ")} <span class="hint">${n} نکات، امتحان کی تیاری کے لیے</span></summary><div class="inner">${examSecs.map(sec).join("")}</div></details>` : "";
+  const words = (c.lughat || []).length ? `<div class="sec lughat"><h4>مشکل الفاظ</h4><div class="words">${c.lughat.map((w) =>
+    `<div class="word"><span class="ar" lang="ar">${esc(w.ar)}</span><span class="ur">${esc(w.ur)}</span>${chips(w.s, l)}</div>`).join("")}</div></div>` : "";
+  const head = l && c.ts
+    ? `<span class="les">${esc(LES[l].label)}</span><button type="button" class="play" data-ts="${c.ts}" data-l="${l}" aria-label="${esc(LES[l].label)}، ${c.ts} سے سنیں">${ICON.play}${c.ts}</button>`
+    : `<span class="norec-chip">ریکارڈنگ نہیں</span>`;
+  const pq = (c.exam || []).filter((x) => x.k === "p").sort((a, b) => a.year - b.year);
+  const pyears = [...new Set(pq.map((x) => x.year))];
+  const badges = (c.badges || []).map((b) => `<span class="badge">${esc(b)}</span>`).join("")
+    + (c.exam || []).filter((x) => x.k === "t").map((x) =>
+      `<button type="button" class="badge exam" data-ts="${x.ts}" data-l="${x.l}" title="استاد (${x.ts}): «${esc(x.said)}»" aria-label="استاد نے ${esc(x.kind)} کہا، ${x.ts} سے سنیں">★ استاد: ${esc(x.kind)}</button>`).join("")
+    + (pq.length ? `<button type="button" class="badge paper${pyears.length >= 3 ? " hot" : ""}" aria-expanded="false" aria-controls="pq${i + 1}" aria-label="وفاق کے پرچوں میں ${pyears.length} بار آیا، سوال دیکھیں">وفاق ${pyears.length > 2 ? `${pyears.length} بار` : pyears.map((y) => iso(String(y))).join("، ")}</button>` : "");
+  const paperList = pq.length ? `<div class="paperq" id="pq${i + 1}" hidden><ul>${pq.map((x) =>
+    `<li><span class="py">${iso(String(x.year))}ھ · س ${esc(x.n)}</span><span class="pt" lang="ar">«${esc(x.q)}»</span></li>`).join("")}</ul><p class="psrc">الجواب للموقوف علیہ</p></div>` : "";
+  const pg = PAGED && c.pages && c.pages.length ? `<span class="pg">${pagesLabel(c.pages)}</span>` : (c.group ? `<span class="pg">${esc(c.group)}</span>` : "");
+  return `<article class="card" id="c${i + 1}" data-unit="${esc(c.unit || "")}" data-pages="${(c.pages || []).join("|")}" hidden>
+    <div class="card-head">${pg}${c.v7 ? `<span class="v7">${iso(esc(c.v7))}</span>` : ""}<span class="cnum">${esc(ONE)} ${i + 1}</span>${badges}${head}</div>
+    ${paperList}
+    ${c.label ? `<p class="label" lang="ar">(${esc(c.label)})</p>` : ""}
+    <h3 class="title">${esc(c.title)}</h3>
+    <p class="start" lang="ar">«${esc(c.start)}»</p>
+    ${c.ref ? `<p class="ref">${esc(c.ref)}</p>` : ""}
+    ${c.start_note ? `<p class="start-note">${esc(c.start_note)}</p>` : ""}
+    <button type="button" class="ctoggle" aria-expanded="true" aria-controls="cb${i + 1}">تفصیل بند کریں</button>
+    <div class="cbody" id="cb${i + 1}">
+    ${c.norec ? `<p class="norec"><b>توجہ:</b> ${esc(c.norec)}</p>` : ""}
+    ${quick}${words}${exam}
+    </div>
+  </article>`;
+}).join("");
+const ARTS = [...document.querySelectorAll("article.card")];
+const usedT = new Set();
+CARDS.forEach((c) => {
+  DATA.sections.forEach(([k]) => (c[k] || []).forEach((it) => it.s.forEach((x) => usedT.add(x.t))));
+  (c.lughat || []).forEach((w) => w.s.forEach((x) => usedT.add(x.t)));
+});
+document.querySelectorAll(".legend .lg").forEach((el) => { el.hidden = !usedT.has(el.dataset.t); });
+$("foot").innerHTML = (DATA.footer || []).map((p) => `<p>${esc(p)}</p>`).join("");
+
+// ---------- views
+function showToc(msg) {
+  $("tocView").hidden = false; $("unitView").hidden = true; document.body.classList.remove("unit");
+  $("tocMsg").hidden = !msg; if (msg) $("tocMsg").innerHTML = msg;
+  document.title = `${B.kitab} · ${B.book}`;
+  const last = store.get(`${KEY}-unit`, "");
+  const row = last && $(`toc-${last}`);
+  if (row && !msg) row.scrollIntoView({ block: "center" }); else window.scrollTo(0, 0);
+}
+function showUnit(key, page, msg) {
+  const u = unitByKey[key];
+  $("tocView").hidden = true; $("unitView").hidden = false; document.body.classList.add("unit");
+  const par = u.level > 1 ? parentOf(u) : null;
+  $("ubarTitle").textContent = u.title;
+  $("uParent").textContent = par ? par.title : "";
+  $("uParent").hidden = !par;
+  $("uTitle").textContent = u.title;
+  const ps = pagesOf(key), n = cardsOf(key).length;
+  $("uMeta").innerHTML = (PAGED && u.page ? `ص <span class="ltr num">${range(u.page, u.page_to || u.page)}</span>، ` : "") + (n ? `${n} ${esc(ONE)}` : "ابھی کارڈ نہیں");
+  $("pbar").innerHTML = (ps.length > 1 || page ? [`<a href="#${key}" aria-current="${!page}">سب</a>`, ...ps.map((p) =>
+    `<a href="#${key}-${p}" aria-current="${page === p}">${p}</a>`)].join("") : "");
+  $("pbar").hidden = !$("pbar").innerHTML;
+  const allView = !page && !$("pbar").hidden;   // the «سب» chip is selected: cards start folded
+  document.body.classList.toggle("allview", allView);
+  $("toggleAll").hidden = !allView;
+  let shown = 0;
+  ARTS.forEach((a) => {
+    const on = a.dataset.unit === key && (!page || a.dataset.pages.split("|").includes(String(page)));
+    a.hidden = !on; if (on) shown++;
+    setFold(a, allView);
+  });
+  syncToggleAll();
+  if (page && !shown && !msg) msg = `صفحہ ${page} کا کوئی ${esc(ONE)} ابھی نہیں بنا۔`;
+  $("uMsg").hidden = !msg; if (msg) $("uMsg").innerHTML = msg;
+  const gs = gapsOf(key).filter((g) => !page || (g.page_list || []).includes(page));
+  $("gaps").hidden = !gs.length;
+  $("gapsTitle").textContent = n ? "اس حصے کی وہ عبارت جو استاد نے نہیں سمجھائی" : "اس حصے کی ریکارڈنگ نہیں ملی";
+  $("gapsLead").textContent = n ? "یہ باتیں کارڈوں میں متن اور حاشیے سے لکھی گئی ہیں؛ ریکارڈنگ میں ان کی وضاحت نہیں۔"
+    : "کسی ساتھی کے پاس اس حصے کی ریکارڈنگ ہو تو بھیج دیں، اس کے کارڈ بھی بن جائیں گے۔";
+  $("gapList").innerHTML = gs.map((g) => `<li><span class="gp">${PAGED && g.pages ? "ص " + iso(esc(g.pages)) : ""}</span><span class="gt">${esc(g.text)}</span>${g.v7 ? `<span class="gv">${iso(esc(g.v7))}</span>` : ""}</li>`).join("");
+  const i = UNITS.indexOf(u), prev = UNITS[i - 1], next = UNITS[i + 1];
+  $("unav").innerHTML = (prev ? `<a class="prev" href="#${prev.key}"><span class="k">پچھلا حصہ</span><span class="t" lang="ar">${esc(prev.title)}</span></a>` : "") +
+    (next ? `<a class="next" href="#${next.key}"><span class="k">اگلا حصہ</span><span class="t" lang="ar">${esc(next.title)}</span></a>` : "");
+  document.title = `${u.title} · ${B.kitab}`;
+  store.set(`${KEY}-unit`, key);
+  window.scrollTo(0, 0);
+}
+function findPage(p) {
+  const withCards = UNITS.find((u) => pagesOf(u.key).includes(p));
+  if (withCards) return { unit: withCards.key, page: p };
+  const inRange = [...UNITS].reverse().find((u) => u.page && u.page <= p && p <= (u.page_to || u.page));
+  if (inRange) return { unit: inRange.key, page: p };
+  return null;
+}
+function outsideMsg(p) {
+  const k = (DATA.kitabs || []).find((x) => x.from <= p && p <= x.to);
+  if (!k) return `صفحہ ${p} اس کتاب میں نہیں۔`;
+  if (k.href) return `صفحہ ${p} <a href="${k.href}#p${p}">${esc(k.title)}</a> میں ہے۔`;
+  return `صفحہ ${p} «${esc(k.title)}» میں ہے؛ اس کے کارڈ ابھی نہیں بنے۔`;
+}
+function route() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  let m;
+  if ((m = h.match(/^p(\d+)$/))) {
+    const p = +m[1], f = findPage(p);
+    if (f) { history.replaceState(null, "", `#${f.unit}-${p}`); return showUnit(f.unit, p); }
+    return showToc(outsideMsg(p));
+  }
+  if ((m = h.match(/^(u\d+)(?:-(\d+))?$/)) && unitByKey[m[1]]) return showUnit(m[1], m[2] ? +m[2] : null);
+  if (!h && UNITS.length === 1) return showUnit(UNITS[0].key, null);   // nothing to choose from
+  showToc();
+}
+window.addEventListener("hashchange", route);
+document.addEventListener("submit", (e) => {
+  const f = e.target.closest("form[data-jump]");
+  if (!f) return;
+  e.preventDefault();
+  const v = toLatin(f.querySelector("input").value || "");
+  if (!/^\d+$/.test(v)) return;
+  const p = +v, hit = findPage(p);
+  if (hit) location.hash = `${hit.unit}-${p}`;
+  else showToc(outsideMsg(p));
+});
+// folding: «سب تفصیل» opens or folds every card shown; each card's دلیل/اختلاف (details.more) stays as the reader left it
+function setFold(a, fold) {
+  a.classList.toggle("folded", fold);
+  const t = a.querySelector(".ctoggle");
+  t.setAttribute("aria-expanded", String(!fold));
+  t.textContent = fold ? "تمہید اور تفصیل" : "تفصیل بند کریں";
+}
+function syncToggleAll() {
+  const anyFolded = ARTS.some((a) => !a.hidden && a.classList.contains("folded"));
+  $("toggleAll").setAttribute("aria-pressed", String(!anyFolded));
+  $("toggleAll").textContent = anyFolded ? "سب تفصیل کھولیں" : "سب تفصیل بند کریں";
+}
+$("toggleAll").addEventListener("click", () => {
+  const anyFolded = ARTS.some((a) => !a.hidden && a.classList.contains("folded"));
+  ARTS.forEach((a) => { if (!a.hidden) setFold(a, !anyFolded); });
+  syncToggleAll();
+});
+$("cards").addEventListener("click", (e) => {
+  const pb = e.target.closest("button.badge.paper");
+  if (pb) {
+    const box = $(pb.getAttribute("aria-controls"));
+    const open = pb.getAttribute("aria-expanded") !== "true";
+    pb.setAttribute("aria-expanded", String(open));
+    if (box) box.hidden = !open;
+    return;
+  }
+  const t = e.target.closest(".ctoggle");
+  if (!t) return;
+  const a = t.closest("article.card");
+  const wasOpen = !a.classList.contains("folded");
+  setFold(a, wasOpen);
+  if (wasOpen && a.getBoundingClientRect().top < 0) a.scrollIntoView({ block: "start" });   // folding a long card: keep it in view
+  syncToggleAll();
+});
+route();
+
+// ---------- recordings: light (Opus) copies on this site
+const hasWeb = (l) => !!(LES[l] && LES[l].web && LES[l].web.length);
+const webOk = (l) => hasWeb(l) && (OPUS_OK || !/\.ogg$/i.test(LES[l].web[0].src));
+const NO_OPUS = "یہ براؤزر یہاں کی ہلکی فائلیں (Opus) نہیں چلاتا۔ آئی فون پر iOS 18.4 یا نیا ورژن چاہیے؛ اینڈرائیڈ پر Chrome میں کھولیں۔";
+let current = null, sheetMode = null;
+const blobUrls = {}, triedBlob = {};
+let curPart = null, lastOffset = 0, pendingSeek = null;
+function webPart(l, sec) {
+  let p = LES[l].web[0];
+  for (const x of LES[l].web) if (x.start <= sec + 0.5) p = x;
+  return p;
+}
+function recRow(l) {
+  const L = LES[l], btns = [];
+  if (webOk(l)) btns.push(`<button type="button" class="btn" data-ts="0:00:00" data-l="${l}">${ICON.play}شروع سے سنیں</button>`);
+  if (hasWeb(l)) {   // one button per lesson, whatever the number of parts
+    const mb = L.web.reduce((a, p) => a + (p.mb || 0), 0);
+    btns.push(`<button type="button" class="btn ghost" data-dl="${l}">${ICON.down}ڈاؤن لوڈ${L.web.length > 1 ? ` (${L.web.length} حصے)` : ""}${mb ? ` ${sizeMB(mb)}` : ""}</button>`);
+  }
+  const mins = L.minutes ? `${Math.round(L.minutes)} منٹ` : "";
+  const state = webOk(l) ? `<span class="state on">یہیں چلتی ہے</span>` : (hasWeb(l) ? "" : `<span class="state off">ابھی نہیں لگی</span>`);
+  return `<div class="rec" id="rec-${l}"><div class="rec-top"><b>${esc(L.label)}</b><span class="sub">${mins}</span>${state}</div>
+    ${btns.length ? `<div class="btns">${btns.join("")}</div>` : ""}</div>`;
+}
+function sheetAll() {
+  sheetMode = "all";
+  const anyWeb = usedLessons.some(hasWeb);
+  const hint = anyWeb && !OPUS_OK ? NO_OPUS : "کسی سبز وقت پر ٹیپ کریں تو استاد کی آواز اسی صفحے پر وہیں سے چلتی ہے۔";
+  const missing = usedLessons.filter((l) => !hasWeb(l)).length;
+  const all = filesOf(usedLessons.filter(hasWeb));
+  const mb = all.reduce((a, f) => a + (f.mb || 0), 0);
+  const dlAll = all.length > 1 ? `<div class="dlall"><div class="btns"><button type="button" class="btn" data-dl="*">${ICON.down}سب ڈاؤن لوڈ کریں</button>
+      <span class="sub">${usedLessons.filter(hasWeb).length} اسباق، ${all.length} فائلیں، کل ${sizeMB(mb)}</span></div>
+      <span class="dlstat" id="dlstat" hidden></span></div>` : "";
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">ریکارڈنگز</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${hint}${missing ? ` ${missing} اسباق کی ریکارڈنگ ابھی اس صفحے پر نہیں لگی۔` : ""}</p>
+    ${dlAll}
+    <div>${usedLessons.map(recRow).join("")}</div>`;
+  if (dlBusy) markBusy();
+  $("backdrop").hidden = false;
+}
+function sheetOne(l, ts) {
+  sheetMode = "one";
+  const L = LES[l];
+  const why = hasWeb(l) && !OPUS_OK ? NO_OPUS : "اس سبق کی ریکارڈنگ ابھی اس صفحے پر نہیں لگی۔";
+  $("sheet").innerHTML = `
+    <div class="sheet-head"><h3 id="sheetTitle">یہ حصہ ${esc(L.label)} کی ریکارڈنگ میں <span class="ltr">${ts}</span> پر ہے</h3><button type="button" class="x" data-close aria-label="بند کریں">✕</button></div>
+    <p>${why}</p>
+    <button type="button" class="linkbtn" data-allrecs style="margin-inline-start:0">سب ریکارڈنگز</button>`;
+  $("backdrop").hidden = false;
+  $("sheet").querySelector("[data-close]").focus();
+}
+function closeSheet() { $("backdrop").hidden = true; sheetMode = null; }
+
+// downloads: every part of a lesson, or every lesson of this kitab, one after another.
+// Phones ask once to allow several downloads from this site.
+function filesOf(ls) {
+  return ls.flatMap((l) => LES[l].web.map((p, i, all) => {
+    const ext = (p.src.match(/\.\w+$/) || [".ogg"])[0];
+    return { src: p.src, mb: p.mb, name: `${l} ${B.book}${all.length > 1 ? ` - حصہ ${i + 1}` : ""}${ext}` };
+  }));
+}
+let dlBusy = false;
+function markBusy() { $("sheet").querySelectorAll("[data-dl]").forEach((b) => { b.disabled = dlBusy; }); }
+function dlStatus(html) { const s = $("dlstat"); if (s) { s.hidden = !html; s.innerHTML = html || ""; } }
+async function runDownloads(files) {
+  if (dlBusy || !files.length) return;
+  dlBusy = true; markBusy();
+  const allow = files.length > 1 ? " براؤزر «کئی فائلیں ڈاؤن لوڈ کریں؟» پوچھے تو Allow دبائیں۔" : "";
+  for (let i = 0; i < files.length; i++) {
+    dlStatus(`فائل <span class="ltr num">${i + 1} / ${files.length}</span> ڈاؤن لوڈ کے لیے بھیجی جا رہی ہے…${allow}`);
+    const a = document.createElement("a");
+    a.href = files[i].src; a.download = files[i].name; a.hidden = true;
+    document.body.appendChild(a); a.click(); a.remove();
+    await new Promise((r) => setTimeout(r, 1200));
+  }
+  dlBusy = false; markBusy();
+  dlStatus(files.length > 1
+    ? `${files.length} فائلیں بھیج دی گئیں؛ فون کے Downloads میں دیکھیں۔ اگر کم آئیں تو براؤزر کی سیٹنگ میں اس سائٹ کو <span class="ltr">Automatic downloads</span> کی اجازت دے کر دوبارہ دبائیں۔`
+    : "");
+}
+$("recBtn").addEventListener("click", sheetAll);
+$("backdrop").addEventListener("click", (e) => {
+  if (e.target === $("backdrop") || e.target.closest("[data-close]")) closeSheet();
+  else if (e.target.closest("[data-allrecs]")) sheetAll();
+  else if (e.target.closest("[data-dl]")) {
+    const k = e.target.closest("[data-dl]").dataset.dl;
+    runDownloads(filesOf(k === "*" ? usedLessons.filter(hasWeb) : [k]));
+  }
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("backdrop").hidden) closeSheet(); });
+
+function playAt(l, ts) {
+  if (!l || !LES[l]) return;
+  const sec = secs(ts);
+  if (!webOk(l)) { sheetOne(l, ts); return; }
+  const p = webPart(l, sec), src = blobUrls[p.src] || p.src, offset = sec - p.start;
+  curPart = p;
+  closeSheet();
+  current = l; lastOffset = Math.max(0, offset);
+  $("player").hidden = false;
+  if (audio.dataset.src !== src) { audio.dataset.src = src; audio.src = src; pendingSeek = lastOffset; }
+  else if (audio.readyState >= 1) {
+    if (!blobUrls[curPart.src] && !canSeekTo(lastOffset)) { pendingSeek = lastOffset; useBlob(); return; }
+    try { audio.currentTime = lastOffset; } catch (e) {}
+  } else pendingSeek = lastOffset;
+  audio.play().catch(() => {});
+  $("now").innerHTML = `${esc(LES[l].label)} · <span class="ltr">${ts}</span>`;
+}
+function canSeekTo(o) { const r = audio.seekable; return o < 1 || (r && r.length && r.end(r.length - 1) >= o - 1); }
+audio.addEventListener("loadedmetadata", () => {
+  const on = document.querySelector("#speeds button[aria-pressed='true']");
+  if (on) audio.playbackRate = +on.dataset.rate;
+  if (pendingSeek === null) return;
+  const o = pendingSeek;
+  if (curPart && !blobUrls[curPart.src] && !canSeekTo(o)) { useBlob(); return; }
+  pendingSeek = null;
+  try { audio.currentTime = o; } catch (e) {}
+  audio.play().catch(() => {});
+});
+audio.addEventListener("error", () => useBlob());
+async function useBlob() {   // the server can't jump to the time (or the stream failed): fetch the light copy whole
+  const p = curPart;
+  if (!p || blobUrls[p.src] || triedBlob[p.src]) return;
+  triedBlob[p.src] = true;
+  const label = $("now").innerHTML;
+  $("now").textContent = "آواز لوڈ ہو رہی ہے…";
+  try {
+    const r = await fetch(p.src);
+    if (!r.ok) throw new Error(r.status);
+    blobUrls[p.src] = URL.createObjectURL(await r.blob());
+    if (curPart !== p) return;
+    audio.dataset.src = blobUrls[p.src]; audio.src = blobUrls[p.src]; pendingSeek = lastOffset;
+    audio.play().catch(() => {});
+    $("now").innerHTML = label;
+  } catch (e) { $("now").textContent = "یہ آواز نہیں چل سکی؛ انٹرنیٹ دیکھ کر دوبارہ ٹیپ کریں۔"; }
+}
+$("pclose").addEventListener("click", () => { audio.pause(); $("player").hidden = true; });
+
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-ts]");
+  if (!b) return;
+  playAt(b.dataset.l, b.dataset.ts);
+  const card = b.closest("article.card");
+  if (card) { card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash"); }
+});
+$("speeds").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-rate]");
+  if (!b) return;
+  audio.playbackRate = +b.dataset.rate;
+  document.querySelectorAll("#speeds button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+});
+// files people picked on earlier versions of this page: free the space on their phone
+try { if (window.indexedDB) indexedDB.deleteDatabase(`${KEY}-audio`); } catch (e) {}
+try { localStorage.removeItem(`${KEY}-remember`); } catch (e) {}
+</script>
+
+</body>
+</html>
