@@ -1479,9 +1479,12 @@
    "source": "this-year",
    "minutes": 57.9,
    "repair": "fixed, text missing 80% (gap 0:29:58-0:40:01)",
-   "state": "redo",
+   "state": "ready",
    "note": "v5 318 باب كفالة الرجلين → ~332 (الحوالة); re-queued 8 Nov for the 10-min text gap | 10 Nov: the \"gap\" is only badly written timestamps in part 4 (text is there); the Daily heals it without Gemini (retx_core.heal) and re-repairs it on its next run",
-   "claim": null
+   "claim": {
+    "run": "2026-11-17T19:51:36.409472Z",
+    "by": "scheduled run 17-18 Nov (session_018ayvLnjUbpE7dhQFGDsm... )"
+   }
   },
   {
    "id": "h3-2026-09-12-1448",
