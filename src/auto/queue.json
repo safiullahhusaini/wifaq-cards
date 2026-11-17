@@ -1480,10 +1480,11 @@
    "minutes": 57.9,
    "repair": "fixed 77% (no gap, 17 Nov Daily)",
    "state": "done",
-   "note": "v5 318 باب كفالة الرجلين → 335 (ويكره السفاتج / قرض جر نفعاً); original NOT yet trashed (waiting for audio.yml to land + Opus copy confirmed in wifaq-data: 2 parts present)",
+   "note": "v5 318 باب كفالة الرجلين → 335 (ويكره السفاتج / قرض جر نفعاً) ; original trashed 18 Nov",
    "claim": null,
    "cards": 10,
-   "qa": "focused: 1 wrong ruling fixed (saftaja: teacher's view vs footnote), 0 wrong attributions; ~12 scope/tag/fraction fixes; v5 318-335"
+   "qa": "focused: 1 wrong ruling fixed (saftaja: teacher's view vs footnote), 0 wrong attributions; ~12 scope/tag/fraction fixes; v5 318-335",
+   "trashed": "2026-11-18"
   },
   {
    "id": "h3-2026-09-12-1448",
@@ -1494,10 +1495,11 @@
    "minutes": 34.4,
    "repair": "fixed 89%",
    "state": "done",
-   "note": "v5 405 (ولا بد في ذلك كله من العدالة) → 418 ≈0.74; original recording NOT trashed (classifier denied 9 Nov); Drive id 1h7PxW-wyIjjMrCh-iFkfPe_Vse4w9-jl",
+   "note": "v5 405 (ولا بد في ذلك كله من العدالة) → 418 ≈0.74 ; original trashed 18 Nov",
    "claim": null,
    "cards": 7,
-   "qa": "focused: 9 fixes (1 content: «سچے» in tazkiya examples; U tag on wrong view; صک line; «أشهد أنه باع»), 0 wrong imam attributions"
+   "qa": "focused: 9 fixes (1 content: «سچے» in tazkiya examples; U tag on wrong view; صک line; «أشهد أنه باع»), 0 wrong imam attributions",
+   "trashed": "2026-11-18"
   },
   {
    "id": "h3-2026-09-13-1448",
@@ -1523,10 +1525,11 @@
    "minutes": 51.4,
    "repair": "fixed 90%",
    "state": "done",
-   "note": "v5 433.79-445 (end of باب من تقبل; باب الاختلاف في الشهادة); original NOT trashed (classifier denied 10 Nov, Drive id 1o7Sqy9ma5xAN8IDUMrutAFeJlCrQuaiY; Opus copy confirmed)",
+   "note": "v5 433.79-445 (end of باب من تقبل ; original trashed 18 Nov",
    "claim": null,
    "cards": 12,
-   "qa": "focused: 0 wrong rulings; 3 attribution scopes (Tahawi/Zufar, nikah راجح, اعتاق as teacher) + 4 content fixes (witnesses vs spouses, rahn reason, amount condition, teacher-only point) + 2 tag fixes"
+   "qa": "focused: 0 wrong rulings; 3 attribution scopes (Tahawi/Zufar, nikah راجح, اعتاق as teacher) + 4 content fixes (witnesses vs spouses, rahn reason, amount condition, teacher-only point) + 2 tag fixes",
+   "trashed": "2026-11-18"
   },
   {
    "id": "h3-2026-09-20-1448",
@@ -1537,10 +1540,11 @@
    "minutes": 40.5,
    "repair": "fixed 91%",
    "state": "done",
-   "note": "v5 446-459.3 (الشهادة على الإرث, الشهادة على الشهادة, شاهد الزور); original NOT trashed (classifier denied 10 Nov, Drive id 1ioJrJiD1PqhtFulL2OoMl2a7Fya4lDZR; Opus copy confirmed)",
+   "note": "v5 446-459.3 (الشهادة على الإرث, الشهادة على الشهادة, شاهد الزور) ; original trashed 18 Nov",
    "claim": null,
    "cards": 9,
-   "qa": "focused: 3 rulings fixed (تشہیر too broad, عباسیہ slip, «no benefit» against matn); 2 attributions (طرفین→شیخین, Abu Yusuf riwayah); 3 tag fixes; fractions aligned"
+   "qa": "focused: 3 rulings fixed (تشہیر too broad, عباسیہ slip, «no benefit» against matn); 2 attributions (طرفین→شیخین, Abu Yusuf riwayah); 3 tag fixes; fractions aligned",
+   "trashed": "2026-11-18"
   },
   {
    "id": "h3-2026-09-26-1448",
@@ -1570,7 +1574,8 @@
    "claim": null,
    "cards": 8,
    "qa": "0 wrong rulings left; 1 teacher slip stated as fact (hadith version), 3 tag fixes, 7 nits fixed",
-   "trash_note": "classifier denied 11 Nov; Drive id 1bmLx1QlxXC0gynNYPeUs87xPkz6UveWY"
+   "trash_note": "classifier denied 11 Nov; Drive id 1bmLx1QlxXC0gynNYPeUs87xPkz6UveWY",
+   "trashed": "2026-11-18"
   },
   {
    "id": "h3-2026-10-04-1448",
@@ -1585,7 +1590,8 @@
    "claim": null,
    "cards": 7,
    "qa": "0 wrong attributions; 1 ruling grouping made precise, 6 tag fixes, 4 nits; p.491 OCR attribution resolved (Abu Hanifa)",
-   "trash_note": "classifier denied 11 Nov; Drive id 1CQYVWLdC3xilW2CHyOX9VnKeA0WOkWnh"
+   "trash_note": "classifier denied 11 Nov; Drive id 1CQYVWLdC3xilW2CHyOX9VnKeA0WOkWnh",
+   "trashed": "2026-11-18"
   },
   {
    "id": "h3-2026-10-11-1448",
